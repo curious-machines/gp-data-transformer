@@ -64,9 +64,7 @@ The user could work with the following structure directly, but most likely it wi
         },
         {
           "names": [ "centerX", "centerY" ],
-          "types": [
-            { "type": "Number" }
-          ]
+          "types": [ { "type": "Number" } ]
         }
       ]
     },
@@ -82,15 +80,11 @@ The user could work with the following structure directly, but most likely it wi
         },
         {
           "names": [ "radiusX", "rx" ],
-          "types": [
-            { "type": "Number" }
-          ]
+          "types": [ { "type": "Number" } ]
         },
         {
           "names": [ "radiusY", "ry" ],
-          "types": [
-            { "type": "Number" }
-          ]
+          "types": [ { "type": "Number" } ]
         }
       ]
     }
