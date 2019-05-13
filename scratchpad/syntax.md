@@ -57,7 +57,7 @@ The user could work with the following structure directly, but most likely it wi
       "name": "center",
       "descriptions": [
         {
-          "names": [ "center"],
+          "names": [ "center" ],
           "types": [
             { "type": "Point2D" },
             { "type": "Array", "elementType": "Number", "length": 2 }
