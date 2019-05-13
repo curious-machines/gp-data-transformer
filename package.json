@@ -1,0 +1,65 @@
+{
+  "name": "kld-runtime-validator",
+  "version": "0.0.1",
+  "description": "Perform property validation on JS objects at runtime",
+  "author": "Kevin Lindsey",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/thelonious/kld-runtime-validator/issues"
+  },
+  "homepage": "https://github.com/thelonious/kld-runtime-validator#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thelonious/kld-runtime-validator.git"
+  },
+  "main": "dist/index-umd.js",
+  "module": "index.js",
+  "browserslist": [
+    "cover 100%"
+  ],
+  "scripts": {
+    "eslint": "eslint .",
+    "rollup": "rollup -c",
+    "test": "npm run eslint && npm run rollup && mocha --require @babel/register",
+    "start": "static -p 8055",
+    "build-docs": "rm -rf docs/jsdoc/*;jsdoc --pedantic -c docs/jsdoc-config.js .",
+    "open-docs": "opn http://localhost:8055/docs/jsdoc/ && npm start"
+  },
+  "keywords": [
+    "validation",
+    "objects",
+    "runtime"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
+    "@mysticatea/eslint-plugin": "^10.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-ash-nazg": "^4.0.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-compat": "^3.1.1",
+    "eslint-plugin-eslint-comments": "^3.1.1",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsdoc": "^4.8.3",
+    "eslint-plugin-markdown": "^1.0.0",
+    "eslint-plugin-no-use-extend-native": "^0.4.0",
+    "eslint-plugin-node": "^9.0.1",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-unicorn": "^8.0.2",
+    "esm": "^3.2.22",
+    "jsdoc": "^3.6.1",
+    "mocha": "^6.1.4",
+    "node-static": "^0.7.11",
+    "opn-cli": "^4.1.0",
+    "rollup": "^1.11.3",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "typescript": "^3.4.5"
+  },
+  "engines": {
+    "node": ">= 10.15.3"
+  }
+}
