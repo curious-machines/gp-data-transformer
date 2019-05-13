@@ -7,7 +7,8 @@ describe("Parser", () => {
         const result = parser.parse(`type Ellipse {
     center {
         center: Point2D, [Number;2]
-        centerX, centerY: Number
+        centerX, cx: Number
+        centerY, cy: Number
     }
     radii {
         radii: Vector2D, [Number;2]
