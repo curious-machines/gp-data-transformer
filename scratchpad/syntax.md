@@ -50,51 +50,51 @@ The user could work with the following structure directly, but most likely it wi
 
 ```json
 {
-"typeName": "Ellipse",
-    "properties": [
-      {
-        "name": "center",
-        "descriptions": [
-          {
-            "names": [ "center" ],
-            "types": [
-              { "type": "Point2D" },
-              { "type": "Array", "elementType": "Number", "length": 2 }
-            ]
-          },
-          {
-            "names": [ "centerX", "centerY" ],
-            "types": [
-              { "type": "Number" }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "radii",
-        "descriptions": [
-          {
-            "names": [ "radii" ],
-            "types": [
-              { "type": "Vector2D" },
-              { "type": "Array", "elementType": "Number", "length": 2 }
-            ]
-          },
-          {
-            "names": [ "radiusX", "rx" ],
-            "types": [
-              { "type": "Number" }
-            ]
-          },
-          {
-            "names": [ "radiusY", "ry" ],
-            "types": [
-              { "type": "Number" }
-            ]
-          }
-        ]
-      }
-    ]
+  "typeName": "Ellipse",
+  "properties": [
+    {
+      "name": "center",
+      "descriptions": [
+        {
+          "names": [ "center" ],
+          "types": [
+            { "type": "Point2D" },
+            { "type": "Array", "elementType": "Number", "length": 2 }
+          ]
+        },
+        {
+          "names": [ "centerX", "centerY" ],
+          "types": [
+            { "type": "Number" }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "radii",
+      "descriptions": [
+        {
+          "names": [ "radii" ],
+          "types": [
+            { "type": "Vector2D" },
+            { "type": "Array", "elementType": "Number", "length": 2 }
+          ]
+        },
+        {
+          "names": [ "radiusX", "rx" ],
+          "types": [
+            { "type": "Number" }
+          ]
+        },
+        {
+          "names": [ "radiusY", "ry" ],
+          "types": [
+            { "type": "Number" }
+          ]
+        }
+      ]
+    }
+  ]
 }
 ```
 
