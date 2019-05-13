@@ -28,6 +28,8 @@ The radii:
 
 ## Text Descriptor
 
+Users of this module will be able to express validations with a syntax like the following:
+
 ```
 type Ellipse {
     center {
@@ -43,6 +45,8 @@ type Ellipse {
 ```
 
 ## JSON AST
+
+The user could work with the following structure directly, but most likely it will be easier to have the text description above parsed and converted into a structure like so:
 
 ```json
 {
