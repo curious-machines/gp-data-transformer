@@ -1,0 +1,11 @@
+type Ellipse {
+    center {
+        center: Point2D, [Number;2]
+        centerX, centerY: Number
+    }
+    radii {
+        radii: Vector2D, [Number;2]
+        radiusX, rx: Number
+        radiusY, ry: Number
+    }
+}

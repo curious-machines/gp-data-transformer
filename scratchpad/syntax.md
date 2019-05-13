@@ -50,32 +50,50 @@ The user could work with the following structure directly, but most likely it wi
 
 ```json
 {
-    "typeName": "Ellipse",
+"typeName": "Ellipse",
     "properties": [
-        {
-            "name": "center",
-            "descriptions": [
-                [
-                    { "names": [ "center" ], "types": [ "Point2D", "[Number;2]" ] }
-                ],
-                [
-                    { "names": [ "centerX", "cx" ], "types": [ "Number" ] }
-                    { "names": [ "centerY", "cy" ], "types": [ "Number" ] }
-                ]
+      {
+        "name": "center",
+        "descriptions": [
+          {
+            "names": [ "center" ],
+            "types": [
+              { "type": "Point2D" },
+              { "type": "Array", "elementType": "Number", "length": 2 }
             ]
-        },
-        {
-            "name": "radii",
-            "descriptions": [
-                [
-                    { "names": [ "radii" ], "types": [ "Vector2D", "[Number;2]" ] }
-                ],
-                [
-                    { "names": [ "radiusX", "rx" ], "types": [ "Number" ] }
-                    { "names": [ "radiusY", "ry" ], "types": [ "Number" ] }
-                ]
+          },
+          {
+            "names": [ "centerX", "centerY" ],
+            "types": [
+              { "type": "Number" }
             ]
-        }
+          }
+        ]
+      },
+      {
+        "name": "radii",
+        "descriptions": [
+          {
+            "names": [ "radii" ],
+            "types": [
+              { "type": "Vector2D" },
+              { "type": "Array", "elementType": "Number", "length": 2 }
+            ]
+          },
+          {
+            "names": [ "radiusX", "rx" ],
+            "types": [
+              { "type": "Number" }
+            ]
+          },
+          {
+            "names": [ "radiusY", "ry" ],
+            "types": [
+              { "type": "Number" }
+            ]
+          }
+        ]
+      }
     ]
 }
 ```
