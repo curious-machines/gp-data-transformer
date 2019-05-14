@@ -7,13 +7,17 @@ describe("Parser", () => {
         const result = parser.parse(`type Ellipse {
     center {
         center: Point2D, [Number;2]
-        centerX, cx: Number
-        centerY, cy: Number
+        group {
+            centerX, cx: Number
+            centerY, cy: Number
+        }
     }
     radii {
         radii: Vector2D, [Number;2]
-        radiusX, rx: Number
-        radiusY, ry: Number
+        group {
+            radiusX, rx: Number
+            radiusY, ry: Number
+        }
     }
 }`);
 

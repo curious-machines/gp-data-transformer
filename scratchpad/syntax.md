@@ -34,13 +34,17 @@ Users of this module will be able to express validations with a syntax like the 
 type Ellipse {
     center {
         center: Point2D, [Number;2]
-        centerX, cx: Number
-        centerY, cy: Number
+        group {
+            centerX, cx: Number
+            centerY, cy: Number
+        }
     }
     radii {
         radii: Vector2D, [Number;2]
-        radiusX, rx: Number
-        radiusY, ry: Number
+        group {
+            radiusX, rx: Number
+            radiusY, ry: Number
+        }
     }
 }
 ```
@@ -56,41 +60,50 @@ The user could work with the following structure directly, but most likely it wi
     {
       "name": "center",
       "descriptions": [
-        {
-          "names": [ "center" ],
-          "types": [
-            { "type": "Point2D" },
-            { "type": "Array", "elementType": "Number", "length": 2 }
-          ]
-        },
-        {
-          "names": [ "centerX", "cx" ],
-          "types": [ { "type": "Number"} ]
-        },
-        {
-          "names": [ "centerY", "cy" ],
-          "types": [ { "type": "Number" } ]
-        }
+        [
+          { "names": [ "center" ],
+            "types": [
+              { "type": "Point2D" },
+              { "type": "Array", "elementType": "Number", "length": 2 }
+            ]
+          }
+        ],
+        [
+          {
+            "names": [ "centerX", "cx" ],
+            "types": [ { "type": "Number" } ]
+          },
+          {
+            "names": [ "centerY", "cy" ],
+            "types": [ { "type": "Number" } ]
+          }
+        ]
       ]
     },
     {
       "name": "radii",
       "descriptions": [
-        {
-          "names": [ "radii" ],
-          "types": [
-            { "type": "Vector2D" },
-            { "type": "Array", "elementType": "Number", "length": 2 }
-          ]
-        },
-        {
-          "names": [ "radiusX", "rx" ],
-          "types": [ { "type": "Number" } ]
-        },
-        {
-          "names": [ "radiusY", "ry" ],
-          "types": [ { "type": "Number" } ]
-        }
+        [
+          {
+            "names": [ "radii" ],
+            "types": [
+              { "type": "Vector2D" },
+              { "type": "Array", "elementType": "Number", "length": 2 }
+            ]
+          }
+        ],
+        [
+          {
+            "names": [ "radiusX", "rx" ],
+            "types": [ { "type": "Number" }
+            ]
+          },
+          {
+            "names": [ "radiusY", "ry" ],
+            "types": [ { "type": "Number" }
+            ]
+          }
+        ]
       ]
     }
   ]
