@@ -85,7 +85,7 @@ type Ellipse = {
 
 The snippets above represent the full internal representation of types in the validator. This can get a bit wordy and tedious to type, so a number of syntactic sugars have been added.
 
-If a `group` has only a single item, you can replace it with its body. For example, the first group in `center` matches a `center` property. Since the two following groups have more than one item, we must surround them in a group block.
+If a `group` has only a single item, you can replace it with its body. For example, the first group in `center` matches a `center` property. Since the two following groups have more than one item, we leave them surrounded by group blocks.
 
 ```
 type Ellipse = {
@@ -114,12 +114,12 @@ type Ellipse = {
     center {
         center: { x, y }
         group {
-            cx { }
-            cy { }
+            cx: { }
+            cy: { }
         }
         group {
-            centerX { }
-            centerY { }
+            centerX: { }
+            centerY: { }
         }
     }
     rx
@@ -183,7 +183,7 @@ type Ellipse = {
 }
 ```
 
-Just for thoroughness, here's a complete un-sugared version of Ellipse using types where we can. Notice that even `rx` and `ry` were using sugar in all of our previous typed examples.
+Just for thoroughness, here's a complete un-sugared version of Ellipse using types where possible. Notice that even `rx` and `ry` were using sugar in all of our previous typed examples.
 
 ```
 type Ellipse = {
@@ -294,7 +294,7 @@ type MyType = [number, string]
 
 ## Repetition
 
-Reptitions allow you to specify a continuous range of integers. The following defines the range from 0 to 5, inclusive (fully closed interval)
+Repetitions allow you to specify a continuous range of integers. The following defines the range from 0 to 5, inclusive (fully closed interval)
 
 ```
 0..5
@@ -394,7 +394,7 @@ Full version
 
 ```
 type Ellipse = {
-    center: Point(x, y) {
+    center <= Point(x, y) {
         group {
             match center {
                 { x: number, y: number }
@@ -426,7 +426,7 @@ Shortcut version
 
 ```
 type Ellipse = {
-    center: Point(x, y) {
+    center <= Point(x, y) {
         center: { x: number, y: number }
         group {
             cx: number as x
