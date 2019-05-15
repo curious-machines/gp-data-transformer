@@ -5,11 +5,11 @@ import ValidatorLexeme from "../lib/ValidatorLexeme.js";
 
 describe("Validator Lexer", () => {
     describe("Lexemes", () => {
-        it("Type", () => {
-            const validator = new ValidatorLexer("type");
+        it("Type Match", () => {
+            const validator = new ValidatorLexer("type-match");
             const lexeme = validator.getNextLexeme();
 
-            assert.strictEqual(lexeme.type, ValidatorLexeme.TYPE);
+            assert.strictEqual(lexeme.type, ValidatorLexeme.TYPE_MATCH);
         });
         it("Identifier", () => {
             const validator = new ValidatorLexer("Ellipse");
@@ -24,6 +24,20 @@ describe("Validator Lexer", () => {
 
             assert.strictEqual(lexeme.type, ValidatorLexeme.NUMBER);
             assert.strictEqual(lexeme.text, "10");
+        });
+        it("Left Paren", () => {
+            const validator = new ValidatorLexer("(");
+            const lexeme = validator.getNextLexeme();
+
+            assert.strictEqual(lexeme.type, ValidatorLexeme.LPAREN);
+            assert.strictEqual(lexeme.text, "(");
+        });
+        it("Right Paren", () => {
+            const validator = new ValidatorLexer(")");
+            const lexeme = validator.getNextLexeme();
+
+            assert.strictEqual(lexeme.type, ValidatorLexeme.RPAREN);
+            assert.strictEqual(lexeme.text, ")");
         });
         it("Left Curly Brace", () => {
             const validator = new ValidatorLexer("{");
@@ -67,28 +81,49 @@ describe("Validator Lexer", () => {
             assert.strictEqual(lexeme.type, ValidatorLexeme.COLON);
             assert.strictEqual(lexeme.text, ":");
         });
-        it("SEMICOLON", () => {
+        it("Semicolon", () => {
             const validator = new ValidatorLexer(";");
             const lexeme = validator.getNextLexeme();
 
             assert.strictEqual(lexeme.type, ValidatorLexeme.SEMICOLON);
             assert.strictEqual(lexeme.text, ";");
         });
+        it("Equal", () => {
+            const validator = new ValidatorLexer("=");
+            const lexeme = validator.getNextLexeme();
+
+            assert.strictEqual(lexeme.type, ValidatorLexeme.EQUAL);
+            assert.strictEqual(lexeme.text, "=");
+        });
     });
     it("Lex Sample", () => {
-        const validator = new ValidatorLexer(`type Ellipse {
-    center {
-        center: Point2D, [Number;2]
+        const validator = new ValidatorLexer(`Ellipse = {
+    center: Point2D(x, y) {
+        type-match center {
+            Point2D
+            [x:number, y:number]
+        }
         group {
-            centerX, cx: Number
-            centerY, cy: Number
+            type-match centerX, cx {
+                x:number
+            }
+            type-match centerY, cy {
+                y:number
+            }
         }
     }
-    radii {
-        radii: Vector2D, [Number;2]
+    radii: Vector2D(rx, ry) {
+        type-match radii {
+            Vector2D
+            [rx:number, ry:number]
+        }
         group {
-            radiusX, rx: Number
-            radiusY, ry: Number
+            type-match radiusX, rx {
+                rx:number
+            }
+            type-match radiusY, ry {
+                rx:number
+            }
         }
     }
 }`);
