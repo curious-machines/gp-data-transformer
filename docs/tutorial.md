@@ -5,12 +5,19 @@
 - Mixing definitions
 - Shortcuts
 - Primitive types
-    - Specific primitive types
-- Array types
-    - Repetition
-- Naming
-    - Properties of Objects
-    - Elements of Arrays
+    - Booleans
+    - Numbers
+    - Strings
+    - Enumerations
+    - BigInt
+  - Type Patterns
+    - Object Patterns
+    - Array Patterns
+        - Repetition
+    - Naming
+        - Properties of Objects
+        - Elements of Arrays
+    - Regular Expressions
 - Transformation
 
 ---
@@ -217,82 +224,104 @@ type Ellipse = {
 
 # Primitive types
 
+## Booleans
+
 `boolean` matches `true` and `false` only.
 
 ```
-type MyType = {
-    active: boolean
-}
+type MyType = boolean
 ```
+
+You may match `true` or `false` directly. These can serve as named aliases for those values.
+
+```
+type Yes = true
+type No = false
+```
+
+## Numbers
 
 `number` matches any valid JS number
 
 ```
-type MyType = {
-    version: number
-}
+type MyType = number
 ```
+
+You may match a specific number. This could be useful for matching named version numbers, for example.
+
+```
+type VERSION = 2
+```
+
+## Strings
 
 `string` matches any JS string
 
 ```
-type MyType = {
-    name: string
-}
+type MyType = string
 ```
 
-- RegExp?
-- Date?
-- BigInt?
-
-
-## Specific primitive types
+You may match a specific string.
 
 ```
-type MyType = {
-    active: true
-}
+type Name = "root"
 ```
 
-```
-type MyType = {
-    version: 1
-}
-```
+## Enumerations
+
+An enumeration can be used to define a list of string values. When the enumeration type is used as a type pattern, the value of the property being tested must exist within the enumeration in order for it to match. Note that only string values can be matched.
 
 ```
-type MyType = {
-    name: "myType"
-}
+type TagNames = enumeration { one two three "multiple words" "type" }
 ```
 
-# Array types
+Note that you can used double-quotes to add values with spaces to the enumeration. Double-quotes may also be used when you need to include a reserved word in the list.
 
-Empty(?) array
+## BigInt
+
+TODO
+
+# Type Patterns
+
+Type patterns are used to match the structure and/or values of a property within a `match` block. Patterns can be used to extract specific values from a structure, which in turn can be used to construct a new value for a canonical property.
+
+## Object Patterns
+
+TODO
+
+## Array Patterns
+
+Empty array
 
 ```
-type MyType = []
+[]
+```
+
+Array of any size with any content
+
+```
+array
 ```
 
 Array of a single number
 
 ```
-type MyType = [number]
+[number]
 ```
 
 Array of two numbers
 
 ```
-type MyType = [number, number]
+[number, number]
 ```
 
 Array of mixed types
 
 ```
-type MyType = [number, string]
+[number, string]
 ```
 
-## Repetition
+### Repetition
 
 Repetitions allow you to specify a continuous range of integers. The following defines the range from 0 to 5, inclusive (fully closed interval)
 
@@ -318,31 +347,31 @@ Exactly 5
 5
 ```
 
-## Ranges in Arrays
+### Ranges in Arrays
 
 An array of 5 numbers
 
 ```
-type MyType = [number;5]
+[number;5]
 ```
 
 An array of number and string pairs repeated 5 times
 
 ```
-type MyType = [(number, string);5]
+[(number, string);5]
 ```
 
 An array with 4 numbers followed by 3 strings
 
 ```
-type MyType = [number; 4, string; 3]
+[number; 4, string; 3]
 ```
 
-# Naming
+## Naming
 
 In order to transform data, you will need to extract parts to be used to construct new types. The following section shows examples of naming.
 
-## Properties of Objects
+### Properties of Objects
 
 Extract an 'x' number property and a 'y' number property from an object. Save those values in a local dictionary using the same names.
 
@@ -362,7 +391,7 @@ If you need to store the value with a different name, you can use the 'as' keywo
 { x: number as cx, y: number as cy }
 ```
 
-## Elements of Arrays
+### Elements of Arrays
 
 Extract the first element as 'x'. Note that this defines the array has having a single number element.
 
@@ -388,9 +417,15 @@ Five numbers stored in an array named 'x' and four strings stored in an array na
 [ x: number;5, y: string;4 ]
 ```
 
+## Regular Expressions
+
+TODO: These will allow a user to match a string against a regular expression. It seems most useful to allow the user to grab group values from the match and apply names to those results.
+
 # Transformation
 
-Full version
+NOTE: This is the current target I'm working towards
+
+## Full version
 
 ```
 type Ellipse = {
@@ -422,7 +457,7 @@ type Ellipse = {
 }
 ```
 
-Shortcut version
+## Shortcut version
 
 ```
 type Ellipse = {
