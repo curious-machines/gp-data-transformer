@@ -73,7 +73,12 @@ const testValidations = [
     'type Points = { cx { points: [number, number] } }',
     'type Points = { cx <= x { } }',
     'type Points = { cx <= Point() { } }',
-    'type Points = { cx <= Point(x, y) { } }'
+    'type Points = { cx <= Point(x, y) { } }',
+
+    // enumeration as type
+    'type Days = enumeration { }',
+    'type Days = enumeration { one two three }',
+    'type Days = enumeration { "array" "boolean" "multiple words" }'
 ];
 
 const results = testValidations.map(source => {
