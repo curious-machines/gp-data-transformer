@@ -1,6 +1,5 @@
 #!/usr/bin/env node -r esm
 
-import fs from "fs";
 import util from "util";
 import Parser from "../lib/Parser.js";
 
@@ -11,11 +10,17 @@ function testParser(source) {
 
         console.log(source);
         console.log(prettyPrint);
+        // console.log(JSON.stringify(result, null, 2));
         console.log();
+
+        return true;
     }
     catch(e) {
         console.log(source);
         console.log(e);
+        console.log();
+
+        return false;
     }
 }
 
@@ -49,20 +54,20 @@ const testValidations = [
     'type Ellipse = { cx: number }',
 
     // array descriptions
-    'type Points = [ number ]',
-    'type Points = [ number, string ]',
-    'type Points = [ number;5..10 ]',
-    'type Points = [ number;5.. ]',
-    'type Points = [ number;..10 ]',
-    'type Points = [ number;5 ]',
-    'type Points = [ (number, string) ]',
-    'type Points = [ (number, string);5 ]',
-    'type Points = [ (number;5, string;3) ]',
-    'type Points = [ (number;5, string;3);10 ]',
-    'type Points = [ x: number ]',
-    'type Points = [ x: number, y: number ]',
-    'type Points = [ x: number;5 ]',
-    'type Points = [ pairs: (x: number; 5, y: string; 3); 10 ]',
+    'type Points = { points: [ number ] }',
+    'type Points = { points: [ number, string ] }',
+    'type Points = { points: [ number;5..10 ] }',
+    'type Points = { points: [ number;5.. ] }',
+    'type Points = { points: [ number;..10 ] }',
+    'type Points = { points: [ number;5 ] }',
+    'type Points = { points: [ (number, string) ] }',
+    'type Points = { points: [ (number, string);5 ] }',
+    'type Points = { points: [ (number;5, string;3) ] }',
+    'type Points = { points: [ (number;5, string;3);10 ] }',
+    'type Points = { points: [ x: number ] }',
+    'type Points = { points: [ x: number, y: number ] }',
+    'type Points = { points: [ x: number;5 ] }',
+    'type Points = { points: [ pairs: (x: number; 5, y: string; 3); 10 ] }',
 
     // array as type
     'type Points = { cx { points: [number, number] } }',
@@ -71,6 +76,15 @@ const testValidations = [
     'type Points = { cx <= Point(x, y) { } }'
 ];
 
-for (const source of testValidations) {
-    testParser(source);
+const results = testValidations.map(source => {
+    return { source, result: testParser(source) };
+});
+const failures = results.filter(result => result.result === false);
+
+if (failures.length == 0) {
+    console.log("All good");
+}
+else {
+    console.log("The following failed");
+    failures.forEach(failure => console.log(failure.source));
 }
