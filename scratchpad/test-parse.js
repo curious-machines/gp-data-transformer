@@ -66,9 +66,9 @@ const testValidations = [
 
     // array as type
     'type Points = { cx { points: [number, number] } }',
-    'type Points = { cx : x { } }',
-    'type Points = { cx : Point() { } }',
-    'type Points = { cx : Point(x, y) { } }'
+    'type Points = { cx <= x { } }',
+    'type Points = { cx <= Point() { } }',
+    'type Points = { cx <= Point(x, y) { } }'
 ];
 
 for (const source of testValidations) {
