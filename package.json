@@ -20,7 +20,8 @@
   "scripts": {
     "eslint": "eslint .",
     "rollup": "rollup -c",
-    "test": "npm run eslint && npm run rollup && mocha --require @babel/register",
+    "build-parser": "./scratchpad/make_parser.js",
+    "test": "npm run eslint && npm run build-parser && npm run rollup && mocha --require @babel/register",
     "start": "static -p 8055",
     "build-docs": "rm -rf docs/jsdoc/*;jsdoc --pedantic -c docs/jsdoc-config.js .",
     "open-docs": "opn http://localhost:8055/docs/jsdoc/ && npm start"
