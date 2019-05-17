@@ -114,7 +114,7 @@ samples.forEach(sample => {
 Each one of these formats is described in the `norm` file and each is transformed to match the top-level definition of the Ellipse type. Each one these results in the following:
 
 ```JSON
-{ center: { x: 10, y: 20 }, radii: { u: 30, v: 40 } }
+{ "center": { "x": 10, "y": 20 }, "radii": { "u": 30, "v": 40 } }
 ```
 
 You may notice that the `norm` file references `Point2D` and `Vector2D`. Since these types are not defined in the `norm` file, these are considered external types which will need to be handler by user code. We register `typeCreators` in our example, using matching names. Those functions are passed the name of the type (in case you want to use the same handle for multiple types) and an array of arguments. The value returned will become the property's value upon successful validation and transformation. Note that if you would like to register a handler for all external types, you can use `*` as the type name.
