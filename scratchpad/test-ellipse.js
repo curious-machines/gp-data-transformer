@@ -1,33 +1,53 @@
 #!/usr/bin/env node -r esm
 
 import fs from "fs";
-import ValidatorParser from "../lib/ValidatorParser.js";
-import Validator from "../lib/Validator.js";
+import path from "path";
+import util from "util";
+import Normalizer from "../lib/Normalizer.js";
 
-function testValidation(structure) {
-    const result = validator.validate(structure, "Ellipse");
-    const status = result ? "  valid" : "invalid";
+function prettify(obj) {
+    const options = { depth: Infinity, colors: true };
 
-    console.log(`${status}: ${JSON.stringify(structure)}`);
+    return util.inspect(obj, options);
 }
 
-const source = fs.readFileSync("./test.validator", "utf-8");
-const parser = new ValidatorParser();
-const validatorTable = parser.parse(source);
-const validator = new Validator(validatorTable);
+function testValidation(structure) {
+    const result = normalizer.normalize(structure, "Ellipse");
+    const status = result !== undefined ? "  valid" : "invalid";
 
-// success
+    console.log(`${status}: ${prettify(structure)}`);
+    if (result !== undefined) {
+        console.log(prettify(result));
+    }
+    console.log();
+}
+
+const filePath = path.join(__dirname, "ellipse.norm");
+const source = fs.readFileSync(filePath, "utf-8");
+const normalizer = new Normalizer();
+
+normalizer.addValidationsFromSource(source);
+normalizer.typeCreators.Point2D = (type, args) => { return {x: args[0], y: args[1]} };
+normalizer.typeCreators.Vector2D = (type, args) => { return {u: args[0], v: args[1]} };
+
+// console.log(prettify(normalizer.types));
+
+// should succeed
 testValidation({cx: 10, cy: 20, rx: 30, ry: 40});
 testValidation({centerX: 10, centerY: 20, radiusX: 30, radiusY: 40});
 testValidation({cx: 10, cy: 20, radiusX: 30, radiusY: 40});
 testValidation({centerX: 10, centerY: 20, rx: 30, ry: 40});
+
+// should succeed, but failing
+testValidation({center: {x: 10, y: 20}, rx: 30, ry: 40});
+testValidation({center: {x: 10, y: 20}, radii: {x: 30, y: 40}});
 testValidation({center: [10, 20], rx: 30, ry: 40});
 testValidation({center: [10, 20], radii: [30, 40]});
 
-// not sure
-testValidation({cx: 10, cy: 20, centerX: [10, 20], rx: 30, ry: 40});
+// succeeding, but not sure if should fail because cx,cy/center
+testValidation({cx: 10, cy: 20, center: [10, 20], rx: 30, ry: 40});
 
-// failure
+// should fail
 testValidation({});
 testValidation({cx: 10});
 testValidation({cx: 10, cy: 20});

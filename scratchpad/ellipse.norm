@@ -1,0 +1,28 @@
+type Ellipse = {
+    center <= Point2D(x, y) {
+        center: { x:number, y:number }
+        center: [ number as x, number as y ]
+        group {
+            match cx {
+                number as x
+            }
+            cy: number as y
+        }
+        group {
+            centerX: number as x
+            centerY: number as y
+        }
+    }
+    radii <= Vector2D(u, v) {
+        radii: { x:number as u, y:number as v }
+        radii: [ number as u, number as v ]
+        group {
+            rx: number as u
+            ry: number as v
+        }
+        group {
+            radiusX: number as u
+            radiusY: number as v
+        }
+    }
+}
