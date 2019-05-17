@@ -1,13 +1,17 @@
 #!/usr/bin/env node -r esm
 
+import fs from "fs";
+import path from "path";
 import grammar from "../lib/GrammarTable";
 
-function printGrammar() {
+function collectGrammar() {
+    const lines = [];
+
     for (const rule in grammar.bnf) {
         const alternations = grammar.bnf[rule];
         let first = true;
 
-        console.log(rule);
+        lines.push(rule);
 
         for (const alternate of alternations) {
             const production = Array.isArray(alternate)
@@ -15,19 +19,23 @@ function printGrammar() {
                 : alternate;
 
             if (first) {
-                console.log(`  : ${production}`);
+                lines.push(`  : ${production}`);
                 first = false;
             }
             else {
-                console.log(`  | ${production}`);
+                lines.push(`  | ${production}`);
             }
         }
 
-        console.log("  ;");
-        console.log();
+        lines.push("  ;");
+        lines.push();
     }
+
+    return lines;
 }
 
-console.log("```bnf");
-printGrammar();
-console.log("```");
+const lines = collectGrammar();
+lines.unshift("```bnf");
+lines.push("```");
+
+fs.writeFileSync(path.join(__dirname, "../docs/grammar.md"), lines.join("\n"));
