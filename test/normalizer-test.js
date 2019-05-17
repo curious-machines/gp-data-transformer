@@ -303,6 +303,21 @@ describe("Normalizer", () => {
 
             assertNormalizations(typeName, source, tests);
         });
+        describe("Number Value Pattern", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { points: 10 }`;
+            const tests = [
+                {structure: {points: true}, expected: FAILURE_VALUE},
+                {structure: {points: false}, expected: FAILURE_VALUE},
+                {structure: {points: 10}, expected: {points: 10}},
+                {structure: {points: 11}, expected: FAILURE_VALUE},
+                {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: []}, expected: FAILURE_VALUE},
+                {structure: {points: {}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
         describe("Object Type Pattern", () => {
             const typeName = "MyType";
             const source = `type ${typeName} = { points: object }`;
