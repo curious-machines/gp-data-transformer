@@ -37,7 +37,21 @@ function Point(type, args) {
 
 describe("Normalizer", () => {
     describe("Type Definitions", () => {
-        describe("Array Types", () => {
+        describe("Any Type", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = any`;
+            const tests = [
+                {structure: true, expected: true},
+                {structure: false, expected: false},
+                {structure: 10, expected: 10},
+                {structure: "", expected: ""},
+                {structure: [1, 2, 3], expected: [1, 2, 3]},
+                {structure: {a: 1, b: 2, c: 3}, expected: {a: 1, b: 2, c: 3}}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Array Type", () => {
             const typeName = "MyType";
             const source = `type ${typeName} = array`;
             const tests = [
@@ -319,7 +333,7 @@ describe("Normalizer", () => {
         });
     });
     describe("Result Expressions", () => {
-        describe("Get Value Expression", () => {
+        describe("Get String Value Expression", () => {
             const typeName = "MyType";
             const source = `type ${typeName} = { name <= s { nom: string as s } }`;
             const tests = [
@@ -329,6 +343,19 @@ describe("Normalizer", () => {
                 {structure: {nom: "Jon"}, expected: {name: "Jon"}},
                 {structure: {nom: []}, expected: FAILURE_VALUE},
                 {structure: {nom: {}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Get Any Value Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { name <= s { nom: any as s } }`;
+            const tests = [
+                {structure: {nom: true}, expected: {name: true}},
+                {structure: {nom: 10}, expected: {name: 10}},
+                {structure: {nom: "Jon"}, expected: {name: "Jon"}},
+                {structure: {nom: []}, expected: {name: []}},
+                {structure: {nom: {}}, expected: {name: {}}}
             ];
 
             assertNormalizations(typeName, source, tests);
