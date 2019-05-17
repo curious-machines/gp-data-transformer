@@ -1,9 +1,9 @@
 /**
- * @module kld-runtime-validator
+ * @module kld-data-normalizer
  */
 
 /**
  * @namespace Normalizer
  * @implements {module:Normalizer~Normalizer}
  */
-export {default as Validator} from "./lib/Normalizer.js";
+export {default as Normalizer} from "./lib/Normalizer.js";
