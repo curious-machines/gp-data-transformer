@@ -16,13 +16,13 @@ function testValidation(structure) {
     const status = result !== undefined ? "  valid" : "invalid";
 
     if (result !== undefined) {
-        console.log(`${status}: ${prettify(structure)} = ${prettify(result)}`);
+        console.log(`${status}: ${prettify(structure)} => ${prettify(result)}`);
     }
     else {
         console.log(`${status}: ${prettify(structure)}`);
     }
 
-    console.log();
+    // console.log();
 }
 
 const filePath = path.join(__dirname, "ellipse.norm");
