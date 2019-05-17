@@ -53,6 +53,7 @@
     "eslint-plugin-standard": "^4.0.0",
     "eslint-plugin-unicorn": "^8.0.2",
     "esm": "^3.2.22",
+    "jison": "^0.4.18"
     "jsdoc": "^3.6.1",
     "mocha": "^6.1.4",
     "node-static": "^0.7.11",
@@ -65,8 +66,5 @@
   },
   "engines": {
     "node": ">= 10.15.3"
-  },
-  "dependencies": {
-    "jison": "^0.4.18"
   }
 }
