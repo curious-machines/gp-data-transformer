@@ -1,15 +1,34 @@
 ```bnf
+program
+  : typeDeclarations
+  ;
+
+typeDeclarations
+  : typeDeclarations typeDeclaration
+  | typeDeclaration
+  ;
+
 typeDeclaration
-  : TYPE IDENTIFIER = typeDescription
+  : TYPE stringOrIdentifier = typeDescription
   ;
 
 typeDescription
-  : booleanDescription
-  | numberDescription
-  | stringDescription
-  | objectDescription
+  : anyDescription
   | arrayDescription
-  | userType
+  | booleanDescription
+  | enumerationDescription
+  | numberDescription
+  | objectDescription
+  | stringDescription
+  ;
+
+anyDescription
+  : ANY_TYPE
+  ;
+
+arrayDescription
+  : ARRAY_TYPE
+  | [ ]
   ;
 
 booleanDescription
@@ -18,9 +37,20 @@ booleanDescription
   | FALSE
   ;
 
+enumerationDescription
+  : ENUMERATION { }
+  | ENUMERATION { identifiers }
+  ;
+
 numberDescription
   : NUMBER_TYPE
-  | number
+  | float
+  ;
+
+objectDescription
+  : OBJECT_TYPE
+  | { }
+  | { canonicalProperties }
   ;
 
 stringDescription
@@ -28,26 +58,26 @@ stringDescription
   | string
   ;
 
-objectDescription
-  : { }
-  | { canonicalProperties }
-  ;
-
-arrayDescription
-  : [ ]
-  | [ elements ]
-  ;
-
-userType
-  : IDENTIFIER
+identifiers
+  : identifiers stringOrIdentifier
+  | stringOrIdentifier
   ;
 
 string
   : STRING
   ;
 
-number
+integer
   : NUMBER
+  ;
+
+float
+  : NUMBER
+  ;
+
+stringOrIdentifier
+  : IDENTIFIER
+  | STRING
   ;
 
 canonicalProperties
@@ -56,12 +86,15 @@ canonicalProperties
   ;
 
 canonicalProperty
-  : IDENTIFIER
-  | IDENTIFIER { }
-  | IDENTIFIER { groups }
-  | IDENTIFIER { IDENTIFIER : typePattern }
-  | IDENTIFIER : typePattern
-  | IDENTIFIER <= expression { }
+  : stringOrIdentifier
+  | stringOrIdentifier groupBlock
+  | stringOrIdentifier : typePattern
+  | stringOrIdentifier <= expression groupBlock
+  ;
+
+groupBlock
+  : { }
+  | { groups }
   ;
 
 groups
@@ -70,47 +103,61 @@ groups
   ;
 
 group
-  : GROUP { }
-  | GROUP { matches }
+  : GROUP { patternMatches }
+  | stringOrIdentifier : namedTypePattern
   ;
 
-matches
-  : matches match
-  | match
+patternMatches
+  : patternMatches patternMatch
+  | patternMatch
   ;
 
-match
-  : MATCH IDENTIFIER { }
-  | MATCH IDENTIFIER { typePatterns }
-  | IDENTIFIER : typePattern
-  ;
-
-typePatterns
-  : typePatterns typePattern
-  | typePattern
-  ;
-
-typePattern
-  : BOOLEAN_TYPE
-  | TRUE
-  | FALSE
-  | NUMBER_TYPE
-  | NUMBER
-  | STRING_TYPE
-  | string
-  | IDENTIFIER
-  | arrayDescription
+patternMatch
+  : MATCH stringOrIdentifier { }
+  | MATCH stringOrIdentifier { typePatterns }
+  | stringOrIdentifier : namedTypePattern
   ;
 
 expression
-  : IDENTIFIER
-  | IDENTIFIER ( )
-  | IDENTIFIER ( parameterList )
+  : stringOrIdentifier
+  | stringOrIdentifier ( )
+  | stringOrIdentifier ( parameterList )
   ;
 
 parameterList
   : parameterList , IDENTIFIER
   | IDENTIFIER
+  ;
+
+typePatterns
+  : typePatterns namedTypePattern
+  | namedTypePattern
+  ;
+
+namedTypePattern
+  : typePattern
+  | typePattern AS IDENTIFIER
+  ;
+
+typePattern
+  : ANY_TYPE
+  | ARRAY_TYPE
+  | arrayPattern
+  | BOOLEAN_TYPE
+  | TRUE
+  | FALSE
+  | NUMBER_TYPE
+  | float
+  | OBJECT_TYPE
+  | objectPattern
+  | STRING_TYPE
+  | string
+  | IDENTIFIER
+  ;
+
+arrayPattern
+  : [ ]
+  | [ elements ]
   ;
 
 elements
@@ -120,7 +167,7 @@ elements
 
 namedElement
   : element
-  | IDENTIFIER : element
+  | element AS IDENTIFIER
   ;
 
 element
@@ -131,9 +178,29 @@ element
   ;
 
 range
-  : number .. number
-  | .. number
-  | number ..
-  | number
+  : integer .. integer
+  | .. integer
+  | integer ..
+  | integer
   ;
+
+objectPattern
+  : { }
+  | { properties }
+  ;
+
+properties
+  : properties , namedProperty
+  | namedProperty
+  ;
+
+namedProperty
+  : property
+  | property AS IDENTIFIER
+  ;
+
+property
+  : IDENTIFIER : typePattern
+  ;
+
 ```
