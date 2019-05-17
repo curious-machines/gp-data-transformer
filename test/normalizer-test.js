@@ -356,7 +356,7 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: FAILURE_VALUE},
                 {structure: {points: 10}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
-                {structure: {points: []}, expected: {points: []},},
+                {structure: {points: []}, expected: {points: []}},
                 {structure: {points: [true]}, expected: FAILURE_VALUE},
                 {structure: {points: [10]}, expected: FAILURE_VALUE},
                 {structure: {points: [10, 20]}, expected: FAILURE_VALUE},
