@@ -396,25 +396,25 @@ If you need to store the value with a different name, you can use the 'as' keywo
 Extract the first element as 'x'. Note that this defines the array has having a single number element.
 
 ```
-[ x: number ]
+[ number as 'x' ]
 ```
 
 Five or more numbers into an array named 'x'
 
 ```
-[ x: number; 5.. ]
+[ number as x; 5.. ]
 ```
 
 Five or more pairs of numbers and strings into an array named 'x'. Note that this array will be flat; not an array of pairs.
 
 ```
-[ x: (number, string);5.. ]
+[ (number, string) as x; 5.. ]
 ```
 
 Five numbers stored in an array named 'x' and four strings stored in an array named y.
 
 ```
-[ x: number;5, y: string;4 ]
+[ number as x; 5, string as y; 4 ]
 ```
 
 ## Regular Expressions
@@ -437,18 +437,18 @@ type Ellipse = {
         }
         group {
             match cx {
-                x: number
+                number as x
             }
             match cy {
-                y: number
+                number as y
             }
         }
         group {
             match centerX {
-                x: number
+                number as x
             }
             match centerY {
-                y: number
+                number as y
             }
         }
     }
