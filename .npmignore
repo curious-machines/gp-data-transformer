@@ -2,3 +2,4 @@ examples
 docs/jsdoc
 test
 rollup.config.js
+lib/Parser.js
