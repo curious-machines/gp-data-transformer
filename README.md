@@ -1,2 +1,3 @@
-# kld-runtime-validator
-Perform property validation on JS objects at runtime
+# kld-data-normalizer
+
+Perform queries, validation, and transformations on acyclic data, for example but not limited to, JSON.

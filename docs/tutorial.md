@@ -1,24 +1,26 @@
 # Tutorial
 
 - [Simple Validation](#simple-validation)
-- Introduce another type
-- Mixing definitions
-- Shortcuts
-- Primitive types
-    - Booleans
-    - Numbers
-    - Strings
-    - Enumerations
-    - BigInt
-  - Type Patterns
-    - Object Patterns
-    - Array Patterns
-        - Repetition
-    - Naming
-        - Properties of Objects
-        - Elements of Arrays
-    - Regular Expressions
-- Transformation
+- [Introduce another type](#introduce-another-type)
+- [Mixing definitions](#mixing-definitions)
+- [Shortcuts](#shortcuts)
+- [Primitive types](#primitive-types)
+    - [Booleans](#booleans)
+    - [Numbers](#numbers)
+    - [Strings](#strings)
+    - [Null](#null)
+    - [Undefined](#undefined)
+    - [Enumerations](#enumerations)
+    - [BigInt](#bigint)
+- [Type Patterns](#type-patterns)
+- [Object Patterns](#object-patterns)
+- [Array Patterns](#array-patterns)
+    - [Repetition](#repetition)
+- [Naming](#naming)
+    - [Properties of Objects](#properties-of-objects)
+    - [Elements of Arrays](#elements-of-arrays)
+- [Regular Expressions](#regular-expressions)
+- [Transformation](#transformation)
 
 ---
 
@@ -267,6 +269,18 @@ You may match a specific string.
 type Name = "root"
 ```
 
+## Null
+
+```
+type MyType = null
+```
+
+## Undefined
+
+```
+type MyType = undefined
+```
+
 ## Enumerations
 
 An enumeration can be used to define a list of string values. When the enumeration type is used as a type pattern, the value of the property being tested must exist within the enumeration in order for it to match. Note that only string values can be matched.
@@ -402,19 +416,19 @@ Extract the first element as 'x'. Note that this defines the array has having a 
 Five or more numbers into an array named 'x'
 
 ```
-[ number as x; 5.. ]
+[ number;5.. as xs ]
 ```
 
 Five or more pairs of numbers and strings into an array named 'x'. Note that this array will be flat; not an array of pairs.
 
 ```
-[ (number, string) as x; 5.. ]
+[ (number, string);5.. as x ]
 ```
 
 Five numbers stored in an array named 'x' and four strings stored in an array named y.
 
 ```
-[ number as x; 5, string as y; 4 ]
+[ number;5 as x, string;4 as y ]
 ```
 
 ## Regular Expressions

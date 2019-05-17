@@ -1,16 +1,16 @@
 {
-  "name": "kld-runtime-validator",
+  "name": "kld-data-normalizer",
   "version": "0.0.1",
   "description": "Perform property validation on JS objects at runtime",
   "author": "Kevin Lindsey",
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/thelonious/kld-runtime-validator/issues"
+    "url": "https://github.com/thelonious/kld-data-normalizer/issues"
   },
-  "homepage": "https://github.com/thelonious/kld-runtime-validator#readme",
+  "homepage": "https://github.com/thelonious/kld-data-normalizer#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thelonious/kld-runtime-validator.git"
+    "url": "git+https://github.com/thelonious/kld-data-normalizer.git"
   },
   "main": "dist/index-umd.js",
   "module": "index.js",
@@ -26,9 +26,13 @@
     "open-docs": "opn http://localhost:8055/docs/jsdoc/ && npm start"
   },
   "keywords": [
+    "query",
+    "validate",
     "validation",
-    "objects",
-    "runtime"
+    "transform",
+    "transformation",
+    "JSON",
+    "data"
   ],
   "devDependencies": {
     "@babel/core": "^7.4.4",
