@@ -7,7 +7,7 @@
 
 ---
 
-This is a module used to perform queries, validation, and transformations on acyclic data, for example but not limited to, JSON data. It can be used with custom types and supports hooks to type check and create those custom types if the library itself doesn't suffice.
+This is a module used to perform queries, validation, and transformations on acyclic data, for example, but not limited to, JSON data. It can be used with custom types and supports hooks to type check and to create those custom types if the library itself does not suffice.
 
 Please note that this is a very early version of the module. This is mostly a personal experiment that I'll be using in another project. I would not recommend using it in production, although I will be. It is likely the API and the DSL will change; however, I would expect things mostly to grow as opposed to being radically changed, at this point. If you have issues, please report them. If you have suggestions, please pass those along as well.
 
