@@ -3,4 +3,5 @@ dist
 docs/jsdoc
 scratchpad
 test
+lib/GrammarTable.js
 lib/NormalizerParser.js

@@ -3,3 +3,4 @@ docs/jsdoc
 test
 rollup.config.js
 lib/Parser.js
+lib/GrammarTable.js
