@@ -3,7 +3,7 @@
  */
 
 /**
- * @namespace Validator
- * @implements {module:Validator~Validator}
+ * @namespace Normalizer
+ * @implements {module:Normalizer~Normalizer}
  */
-export {default as Validator} from "./lib/Validator.js";
+export {default as Validator} from "./lib/Normalizer.js";
