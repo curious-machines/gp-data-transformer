@@ -14,6 +14,7 @@ function assertNormalizations(typeName, source, tests, debug = false) {
     const normalizer = new Normalizer();
 
     normalizer.addValidationsFromSource(source);
+    normalizer.typeCreators.Point = Point;
 
     if (debug) {
         console.log(prettify(normalizer.types));
@@ -28,6 +29,10 @@ function assertNormalizations(typeName, source, tests, debug = false) {
             assert.deepStrictEqual(result, expected);
         });
     }
+}
+
+function Point(type, args) {
+    return {x: args[0], y: args[1]};
 }
 
 describe("Normalizer", () => {
@@ -308,6 +313,44 @@ describe("Normalizer", () => {
                 {structure: {points: ""}, expected: {points: ""}},
                 {structure: {points: []}, expected: FAILURE_VALUE},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+    });
+    describe("Result Expressions", () => {
+        describe("Get Value Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { name <= s { nom: string as s } }`;
+            const tests = [
+                {structure: {nom: true}, expected: FAILURE_VALUE},
+                {structure: {nom: false}, expected: FAILURE_VALUE},
+                {structure: {nom: 10}, expected: FAILURE_VALUE},
+                {structure: {nom: "Jon"}, expected: {name: "Jon"}},
+                {structure: {nom: []}, expected: FAILURE_VALUE},
+                {structure: {nom: {}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Invocation Expression", () => {
+            const typeName = "MyType";
+            const source = `
+                type ${typeName} = {
+                    center <= Point(x,y) {
+                        group {
+                            cx: number as x
+                            cy: number as y
+                        }
+                    }
+                }`;
+            const tests = [
+                {structure: {cx: true, cy: true}, expected: FAILURE_VALUE},
+                {structure: {cx: false, cy: false}, expected: FAILURE_VALUE},
+                {structure: {cx: 10, cy: 20}, expected: {center: {x: 10, y: 20}}},
+                {structure: {cx: "One", cy: "Two"}, FAILURE_VALUE},
+                {structure: {cx: [], cy: []}, expected: FAILURE_VALUE},
+                {structure: {cx: {}, cy: {}}, expected: FAILURE_VALUE}
             ];
 
             assertNormalizations(typeName, source, tests);
