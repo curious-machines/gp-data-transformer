@@ -348,6 +348,24 @@ describe("Normalizer", () => {
         });
     });
     describe("Array Patterns", () => {
+        describe("No Elements", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { points: [ ] }`;
+            const tests = [
+                {structure: {points: true}, expected: FAILURE_VALUE},
+                {structure: {points: false}, expected: FAILURE_VALUE},
+                {structure: {points: 10}, expected: FAILURE_VALUE},
+                {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: []}, expected: {points: []},},
+                {structure: {points: [true]}, expected: FAILURE_VALUE},
+                {structure: {points: [10]}, expected: FAILURE_VALUE},
+                {structure: {points: [10, 20]}, expected: FAILURE_VALUE},
+                {structure: {points: [""]}, expected: FAILURE_VALUE},
+                {structure: {points: [[]]}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
         describe("Single Element", () => {
             const typeName = "MyType";
             const source = `type ${typeName} = { points: [ number ] }`;
