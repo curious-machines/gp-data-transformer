@@ -3,3 +3,4 @@ dist
 docs/jsdoc
 scratchpad
 test
+lib/NormalizerParser.js
