@@ -1698,102 +1698,98 @@ var parser = function () {
             break;
 
           case 8:
-            return 'FROM';
-            break;
-
-          case 9:
             return 46;
             break;
 
-          case 10:
+          case 9:
             return 50;
             break;
 
-          case 11:
+          case 10:
             return 28;
             break;
 
-          case 12:
+          case 11:
             return 30;
             break;
 
-          case 13:
+          case 12:
             return 32;
             break;
 
-          case 14:
+          case 13:
             return 22;
             break;
 
-          case 15:
+          case 14:
             return 6;
             break;
 
-          case 16:
+          case 15:
             return 52;
             break;
 
-          case 17:
+          case 16:
             return 53;
             break;
 
-          case 18:
+          case 17:
             return 25;
             break;
 
-          case 19:
+          case 18:
             return 26;
             break;
 
-          case 20:
+          case 19:
             return 19;
             break;
 
-          case 21:
+          case 20:
             return 20;
             break;
 
-          case 22:
+          case 21:
             return 55;
             break;
 
-          case 23:
+          case 22:
             return 40;
             break;
 
-          case 24:
+          case 23:
             return 62;
             break;
 
-          case 25:
+          case 24:
             return 8;
             break;
 
-          case 26:
+          case 25:
             return 42;
             break;
 
-          case 27:
+          case 26:
             return 64;
             break;
 
-          case 28:
+          case 27:
             return 37;
             break;
 
-          case 29:
+          case 28:
             return 36;
             break;
 
-          case 30:
+          case 29:
             return 34;
             break;
         }
       },
-      rules: [/^(?:\s+)/, /^(?:\/\/.*)/, /^(?:any)/, /^(?:array)/, /^(?:as)/, /^(?:boolean)/, /^(?:enumeration)/, /^(?:false)/, /^(?:from)/, /^(?:group)/, /^(?:match)/, /^(?:number)/, /^(?:object)/, /^(?:string)/, /^(?:true)/, /^(?:type)/, /^(?:\()/, /^(?:\))/, /^(?:{)/, /^(?:})/, /^(?:\[)/, /^(?:\])/, /^(?:,)/, /^(?::)/, /^(?:;)/, /^(?:=)/, /^(?:<=)/, /^(?:\.\.)/, /^(?:[a-zA-Z_-][a-zA-Z0-9_-]*)/, /^(?:[-+]?(0|[1-9]\d*)(\.\d+)?)/, /^(?:"[^"\r\n]*")/],
+      rules: [/^(?:\s+)/, /^(?:\/\/.*)/, /^(?:any)/, /^(?:array)/, /^(?:as)/, /^(?:boolean)/, /^(?:enumeration)/, /^(?:false)/, /^(?:group)/, /^(?:match)/, /^(?:number)/, /^(?:object)/, /^(?:string)/, /^(?:true)/, /^(?:type)/, /^(?:\()/, /^(?:\))/, /^(?:{)/, /^(?:})/, /^(?:\[)/, /^(?:\])/, /^(?:,)/, /^(?::)/, /^(?:;)/, /^(?:=)/, /^(?:<=)/, /^(?:\.\.)/, /^(?:[a-zA-Z_-][a-zA-Z0-9_-]*)/, /^(?:[-+]?(0|[1-9]\d*)(\.\d+)?)/, /^(?:"[^"\r\n]*")/],
       conditions: {
         "INITIAL": {
-          "rules": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
+          "rules": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
           "inclusive": true
         }
       }
@@ -1811,25 +1807,7 @@ var parser = function () {
   parser.Parser = Parser;
   return new Parser();
 }();
-// exports.parser = parser;
-// exports.Parser = parser.Parser;
-// exports.parse = function () { return parser.parse.apply(parser, arguments); };
-// exports.main = function commonjsMain (args) {
-//     if (!args[1]) {
-//         console.log('Usage: '+args[0]+' FILE');
-//         process.exit(1);
-//     }
-//     var source = require('fs').readFileSync(require('path').normalize(args[1]), "utf8");
-//     return exports.parser.parse(source);
-// };
-// if (typeof module !== 'undefined' && require.main === module) {
-//   exports.main(process.argv.slice(1));
-// }
-// }
 
-/* eslint-disable-next-line compat/compat */
-
-console.log(Object.keys(parser));
 var FAILURE_VALUE = undefined;
 /**
  * Normalizer
