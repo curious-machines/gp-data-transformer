@@ -45,6 +45,8 @@ describe("Normalizer", () => {
                 {structure: false, expected: false},
                 {structure: 10, expected: 10},
                 {structure: "", expected: ""},
+                {structure: null, expected: null},
+                {structure: undefined, expected: undefined},
                 {structure: [1, 2, 3], expected: [1, 2, 3]},
                 {structure: {a: 1, b: 2, c: 3}, expected: {a: 1, b: 2, c: 3}}
             ];
@@ -59,6 +61,8 @@ describe("Normalizer", () => {
                 {structure: false, expected: FAILURE_VALUE},
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: []},
                 {structure: [1, 2, 3], expected: [1, 2, 3]},
                 {structure: {}, expected: FAILURE_VALUE}
@@ -74,6 +78,8 @@ describe("Normalizer", () => {
                 {structure: false, expected: false},
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
             ];
@@ -88,6 +94,8 @@ describe("Normalizer", () => {
                 {structure: false, expected: FAILURE_VALUE},
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
             ];
@@ -102,6 +110,8 @@ describe("Normalizer", () => {
                 {structure: false, expected: false},
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
             ];
@@ -116,12 +126,31 @@ describe("Normalizer", () => {
                 {structure: false, expected: FAILURE_VALUE},
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: "one", expected: "one"},
                 {structure: "two", expected: "two"},
                 {structure: "and three", expected: "and three"},
                 {structure: "four", expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Null Type", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = null`;
+            const tests = [
+                {structure: true, expected: FAILURE_VALUE},
+                {structure: false, expected: FAILURE_VALUE},
+                {structure: 10, expected: FAILURE_VALUE},
+                {structure: 11, expected: FAILURE_VALUE},
+                {structure: "", expected: FAILURE_VALUE},
+                {structure: [], expected: FAILURE_VALUE},
+                {structure: {}, expected: FAILURE_VALUE},
+                {structure: null, expected: null},
+                {structure: undefined, expected: FAILURE_VALUE}
             ];
 
             assertNormalizations(typeName, source, tests);
@@ -135,6 +164,8 @@ describe("Normalizer", () => {
                 {structure: 10, expected: 10},
                 {structure: 11, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
             ];
@@ -150,6 +181,8 @@ describe("Normalizer", () => {
                 {structure: 10, expected: 10},
                 {structure: 11, expected: 11},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
             ];
@@ -164,6 +197,8 @@ describe("Normalizer", () => {
                 {structure: false, expected: FAILURE_VALUE},
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE},
                 {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
@@ -194,6 +229,8 @@ describe("Normalizer", () => {
                 {structure: false, expected: FAILURE_VALUE},
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: []},
                 {structure: {}, expected: {}},
                 {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}}
@@ -210,6 +247,8 @@ describe("Normalizer", () => {
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: FAILURE_VALUE},
                 {structure: "TEST", expected: "TEST"},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
             ];
@@ -225,6 +264,25 @@ describe("Normalizer", () => {
                 {structure: 10, expected: FAILURE_VALUE},
                 {structure: "", expected: ""},
                 {structure: "TEST", expected: "TEST"},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
+                {structure: [], expected: FAILURE_VALUE},
+                {structure: {}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Undefined Type", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = undefined`;
+            const tests = [
+                {structure: true, expected: FAILURE_VALUE},
+                {structure: false, expected: FAILURE_VALUE},
+                {structure: 10, expected: FAILURE_VALUE},
+                {structure: 11, expected: FAILURE_VALUE},
+                {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: undefined},
                 {structure: [], expected: FAILURE_VALUE},
                 {structure: {}, expected: FAILURE_VALUE}
             ];
@@ -241,6 +299,8 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: FAILURE_VALUE},
                 {structure: {points: 10}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
                 {structure: {points: []}, expected: {points: []}},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
             ];
@@ -255,6 +315,8 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: {points: false}},
                 {structure: {points: 10}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
                 {structure: {points: []}, expected: FAILURE_VALUE},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
             ];
@@ -269,6 +331,8 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: FAILURE_VALUE},
                 {structure: {points: 10}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
                 {structure: {points: []}, expected: FAILURE_VALUE},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
             ];
@@ -283,6 +347,24 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: {points: false}},
                 {structure: {points: 10}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
+                {structure: {points: []}, expected: FAILURE_VALUE},
+                {structure: {points: {}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Null Type Pattern", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { points: null }`;
+            const tests = [
+                {structure: {points: true}, expected: FAILURE_VALUE},
+                {structure: {points: false}, expected: FAILURE_VALUE},
+                {structure: {points: 10}, expected: FAILURE_VALUE},
+                {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: {points: null}},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
                 {structure: {points: []}, expected: FAILURE_VALUE},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
             ];
@@ -297,6 +379,8 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: FAILURE_VALUE},
                 {structure: {points: 10}, expected: {points: 10}},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
                 {structure: {points: []}, expected: FAILURE_VALUE},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
             ];
@@ -312,6 +396,8 @@ describe("Normalizer", () => {
                 {structure: {points: 10}, expected: {points: 10}},
                 {structure: {points: 11}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
                 {structure: {points: []}, expected: FAILURE_VALUE},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
             ];
@@ -326,6 +412,8 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: FAILURE_VALUE},
                 {structure: {points: 10}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
                 {structure: {points: []}, expected: {points: []}},
                 {structure: {points: {}}, expected: {points: {}}}
             ];
@@ -340,6 +428,25 @@ describe("Normalizer", () => {
                 {structure: {points: false}, expected: FAILURE_VALUE},
                 {structure: {points: 10}, expected: FAILURE_VALUE},
                 {structure: {points: ""}, expected: {points: ""}},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                {structure: {points: undefined}, expected: FAILURE_VALUE},
+                {structure: {points: []}, expected: FAILURE_VALUE},
+                {structure: {points: {}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Undefined Type Pattern", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { points: undefined }`;
+            const tests = [
+                {structure: {points: true}, expected: FAILURE_VALUE},
+                {structure: {points: false}, expected: FAILURE_VALUE},
+                {structure: {points: 10}, expected: FAILURE_VALUE},
+                {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: null}, expected: FAILURE_VALUE},
+                // The following test fill fail until we fix the FAILURE_VALUE sigil
+                // {structure: {points: undefined}, expected: {points: undefined}},
                 {structure: {points: []}, expected: FAILURE_VALUE},
                 {structure: {points: {}}, expected: FAILURE_VALUE}
             ];
