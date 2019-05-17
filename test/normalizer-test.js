@@ -347,6 +347,67 @@ describe("Normalizer", () => {
             assertNormalizations(typeName, source, tests);
         });
     });
+    describe("Array Patterns", () => {
+        describe("Single Element", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { points: [ number ] }`;
+            const tests = [
+                {structure: {points: true}, expected: FAILURE_VALUE},
+                {structure: {points: false}, expected: FAILURE_VALUE},
+                {structure: {points: 10}, expected: FAILURE_VALUE},
+                {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: []}, expected: FAILURE_VALUE},
+                {structure: {points: [true]}, expected: FAILURE_VALUE},
+                {structure: {points: [10]}, expected: {points: [10]}},
+                {structure: {points: [10, 20]}, expected: FAILURE_VALUE},
+                {structure: {points: [""]}, expected: FAILURE_VALUE},
+                {structure: {points: [[]]}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Repeated Element", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { points: [ number;1..3 ] }`;
+            const tests = [
+                {structure: {points: true}, expected: FAILURE_VALUE},
+                {structure: {points: false}, expected: FAILURE_VALUE},
+                {structure: {points: 10}, expected: FAILURE_VALUE},
+                {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: []}, expected: FAILURE_VALUE},
+                {structure: {points: [true]}, expected: FAILURE_VALUE},
+                {structure: {points: [10]}, expected: {points: [10]}},
+                {structure: {points: [10, 20]}, expected: {points: [10, 20]}},
+                {structure: {points: [10, 20, 30]}, expected: {points: [10, 20, 30]}},
+                {structure: {points: [10, 20, 30, 40]}, expected: FAILURE_VALUE},
+                {structure: {points: [""]}, expected: FAILURE_VALUE},
+                {structure: {points: [[]]}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+    });
+    describe("Object Patterns", () => {
+        describe("Single Property", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { points: { a: boolean } }`;
+            const tests = [
+                {structure: {points: true}, expected: FAILURE_VALUE},
+                {structure: {points: false}, expected: FAILURE_VALUE},
+                {structure: {points: 10}, expected: FAILURE_VALUE},
+                {structure: {points: ""}, expected: FAILURE_VALUE},
+                {structure: {points: []}, expected: FAILURE_VALUE},
+                {structure: {points: {a: true}}, expected: {points: {a: true}}},
+                {structure: {points: {a: false}}, expected: {points: {a: false}}},
+                {structure: {points: {a: 10}}, expected: FAILURE_VALUE},
+                {structure: {points: {a: ""}}, expected: FAILURE_VALUE},
+                {structure: {points: {a: []}}, expected: FAILURE_VALUE},
+                {structure: {points: {a: {}}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+    });
     describe("Result Expressions", () => {
         describe("Get String Value Expression", () => {
             const typeName = "MyType";
