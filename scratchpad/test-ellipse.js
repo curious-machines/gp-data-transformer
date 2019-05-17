@@ -29,7 +29,7 @@ const filePath = path.join(__dirname, "ellipse.norm");
 const source = fs.readFileSync(filePath, "utf-8");
 const normalizer = new Normalizer();
 
-normalizer.addValidationsFromSource(source);
+normalizer.addDefinitionsFromSource(source);
 normalizer.typeCreators.Point2D = (type, args) => { return {x: args[0], y: args[1]} };
 normalizer.typeCreators.Vector2D = (type, args) => { return {u: args[0], v: args[1]} };
 

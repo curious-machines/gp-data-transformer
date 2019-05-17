@@ -13,7 +13,7 @@ function prettify(obj) {
 function assertNormalizations(typeName, source, tests, debug = false) {
     const normalizer = new Normalizer();
 
-    normalizer.addValidationsFromSource(source);
+    normalizer.addDefinitionsFromSource(source);
     normalizer.typeCreators.Point = Point;
 
     if (debug) {
