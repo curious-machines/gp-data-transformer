@@ -15,10 +15,13 @@ function testValidation(structure) {
     const result = normalizer.normalize(structure, "Ellipse");
     const status = result !== undefined ? "  valid" : "invalid";
 
-    console.log(`${status}: ${prettify(structure)}`);
     if (result !== undefined) {
-        console.log(prettify(result));
+        console.log(`${status}: ${prettify(structure)} = ${prettify(result)}`);
     }
+    else {
+        console.log(`${status}: ${prettify(structure)}`);
+    }
+
     console.log();
 }
 
