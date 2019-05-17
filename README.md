@@ -123,6 +123,8 @@ Note that if a validation/transformation fails, `undefined` will be returned. Fu
 
 You may notice that the `norm` file references `Point2D` and `Vector2D`. Since these types are not defined in the `norm` file, these are considered external types which will need to be handler by user code. We register `typeCreators` in our example, using matching names. Those functions are passed the name of the type (in case you want to use the same handle for multiple types) and an array of arguments. The value returned will become the property's value upon successful validation and transformation. Note that if you would like to register a handler for all external types, you can use `*` as the type name.
 
+Note that this is only a taste of what is possible. The tutorial is a work in progress, but it should give you some ideas of other constructs you can use within the language.
+
 # Links and Related Projects
 
 - WIP: [Tutorial](https://github.com/thelonious/kld-data-normalizer/blob/master/docs/tutorial.md)
