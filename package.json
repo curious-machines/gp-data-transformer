@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Perform property validation on JS objects at runtime",
   "author": "Kevin Lindsey",
+  "contributors": [],
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/thelonious/kld-data-normalizer/issues"
@@ -36,6 +37,7 @@
     "JSON",
     "data"
   ],
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.4.4",
     "@babel/preset-env": "^7.4.4",
