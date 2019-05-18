@@ -24,8 +24,8 @@
   "scripts": {
     "eslint": "eslint .",
     "rollup": "rollup -c",
-    "build-grammar": "./scratchpad/make_grammar_docs.js",
-    "build-parser": "./scratchpad/make_parser.js",
+    "build-grammar": "node -r esm ./scratchpad/make_grammar_docs.js",
+    "build-parser": "node -r esm ./scratchpad/make_parser.js",
     "test": "npm run eslint && npm run build-parser && npm run rollup && mocha --require @babel/register",
     "start": "static -p 8055",
     "build-docs": "rm -rf docs/jsdoc/* && npm run build-grammar && jsdoc --pedantic -c docs/jsdoc-config.js .",
