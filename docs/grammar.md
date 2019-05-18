@@ -59,6 +59,10 @@ identifiers
   : identifiers stringOrIdentifier
   | stringOrIdentifier
   ;
+boolean
+  : TRUE
+  | FALSE
+  ;
 string
   : STRING
   ;
@@ -80,6 +84,7 @@ canonicalProperty
   : stringOrIdentifier
   | stringOrIdentifier groupBlock
   | stringOrIdentifier : typePattern
+  | stringOrIdentifier <= expression
   | stringOrIdentifier <= expression groupBlock
   ;
 groupBlock
@@ -104,9 +109,38 @@ patternMatch
   | stringOrIdentifier : namedTypePattern
   ;
 expression
-  : stringOrIdentifier
-  | stringOrIdentifier ( )
-  | stringOrIdentifier ( parameterList )
+  : IDENTIFIER
+  | IDENTIFIER ( )
+  | IDENTIFIER ( parameterList )
+  | arrayExpression
+  | boolean
+  | NULL_TYPE
+  | float
+  | string
+  | objectExpression
+  | UNDEFINED_TYPE
+  ;
+arrayExpression
+  : [ ]
+  | [ expressionElements ]
+  ;
+expressionElements
+  : expressionElements , expressionElement
+  | expressionElement
+  ;
+expressionElement
+  : expression
+  ;
+objectExpression
+  : { }
+  | { expressionProperties }
+  ;
+expressionProperties
+  : expressionProperties , expressionProperty
+  | expressionProperty
+  ;
+expressionProperty
+  : IDENTIFIER : expression
   ;
 parameterList
   : parameterList , IDENTIFIER
@@ -139,21 +173,21 @@ typePattern
   ;
 arrayPattern
   : [ ]
-  | [ elements ]
+  | [ patternElements ]
   ;
-elements
-  : elements , namedElement
-  | namedElement
+patternElements
+  : patternElements , namedPatternElement
+  | namedPatternElement
   ;
-namedElement
-  : element
-  | element AS IDENTIFIER
+namedPatternElement
+  : patternElement
+  | patternElement AS IDENTIFIER
   ;
-element
+patternElement
   : typePattern
   | typePattern ; range
-  | ( elements )
-  | ( elements ) ; range
+  | ( patternElements )
+  | ( patternElements ) ; range
   ;
 range
   : integer .. integer
@@ -163,17 +197,17 @@ range
   ;
 objectPattern
   : { }
-  | { properties }
+  | { patternProperties }
   ;
-properties
-  : properties , namedProperty
-  | namedProperty
+patternProperties
+  : patternProperties , namedPatternProperty
+  | namedPatternProperty
+  ;
+namedPatternProperty
+  : namedProperty
+  | namedProperty AS IDENTIFIER
   ;
 namedProperty
-  : property
-  | property AS IDENTIFIER
-  ;
-property
   : IDENTIFIER : typePattern
   ;
 ```
