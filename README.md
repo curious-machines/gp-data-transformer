@@ -3,6 +3,7 @@
 - [Installation](#installation)
 - [Importing](#importing)
 - [Usage](#usage)
+- [Command Line](#command-line)
 - [Links and Related Projects](#links-and-related-projects)
 
 ---
@@ -124,6 +125,22 @@ Note that if a validation/transformation fails, `undefined` will be returned. Fu
 You may notice that the `norm` file references `Point2D` and `Vector2D`. Since these types are not defined in the `norm` file, these are considered external types which will need to be handler by user code. We register `typeCreators` in our example, using matching names. Those functions are passed the name of the type (in case you want to use the same handle for multiple types) and an array of arguments. The value returned will become the property's value upon successful validation and transformation. Note that if you would like to register a handler for all external types, you can use `*` as the type name.
 
 Note that this is only a taste of what is possible. The tutorial is a work in progress, but it should give you some ideas of other constructs you can use within the language.
+
+# Command Line
+
+You can normalize data from the command-line as well:
+
+```bash
+normalize -n my-normalization-file.norm -t MyType my-data-file.json
+```
+
+If your normalization file needs to load type creators onto the normalizer, you can use the following:
+
+```bash
+normalize -n my-normalization-file.norm -r my-normalization-module.js -t MyType my-data-file.json
+```
+
+All exported names in the module will be added ad type creators, using their exported names.
 
 # Links and Related Projects
 
