@@ -127,4 +127,4 @@ Note that this is only a taste of what is possible. The tutorial is a work in pr
 
 # Links and Related Projects
 
-- WIP: [Tutorial](https://github.com/thelonious/kld-data-normalizer/blob/master/docs/tutorial.md)
+- WIP: [Guide](https://github.com/thelonious/kld-data-normalizer/blob/master/docs/guide.md)
