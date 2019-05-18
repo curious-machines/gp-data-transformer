@@ -103,4 +103,32 @@ describe("Parser", () => {
 
         assertTests(tests);
     });
+    describe("Array Expressions", () => {
+        const tests = [
+            'type MyType = { cx <= [] }',
+            'type MyType = { cx <= [ 1 ] }',
+            'type MyType = { cx <= [ 1, [] ] }',
+            'type MyType = { cx <= [ 1, true ] }',
+            'type MyType = { cx <= [ 1, null ] }',
+            'type MyType = { cx <= [ 1, undefined ] }',
+            'type MyType = { cx <= [ 1, 2 ] }',
+            'type MyType = { cx <= [ 1, "" ] }'
+        ];
+
+        assertTests(tests);
+    });
+    describe("Object Expressions", () => {
+        const tests = [
+            'type MyType = { cx <= {} }',
+            'type MyType = { cx <= { a: 1 } }',
+            'type MyType = { cx <= { a: 1, b: [] } }',
+            'type MyType = { cx <= { a: 1, b: true } }',
+            'type MyType = { cx <= { a: 1, b: null } }',
+            'type MyType = { cx <= { a: 1, b: undefined } }',
+            'type MyType = { cx <= { a: 1, b: 2 } }',
+            'type MyType = { cx <= { a: 1, b: "" } }'
+        ];
+
+        assertTests(tests);
+    });
 });

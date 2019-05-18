@@ -22,8 +22,13 @@ function assertNormalizations(typeName, source, tests, debug = false) {
 
     for (const test of tests) {
         const {structure, expected} = test;
+        let expectedText = prettify(expected);
 
-        it(`input: ${prettify(structure)}, expected: ${prettify(expected)}`, () => {
+        if (expectedText[0] === "{" && expectedText.length > 32) {
+            expectedText = "{ ... }";
+        }
+
+        it(`input: ${prettify(structure)}, expected: ${expectedText}`, () => {
             const result = normalizer.normalize(structure, typeName);
 
             if (debug) {
@@ -587,6 +592,22 @@ describe("Normalizer", () => {
 
             assertNormalizations(typeName, source, tests);
         });
+        describe("Array Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { data <= [ true, null, undefined, 10, "", [], {} ] }`;
+            const tests = [
+                {structure: true, expected: {data: [ true, null, undefined, 10, "", [], {} ]}},
+                {structure: false, expected: {data: [ true, null, undefined, 10, "", [], {} ]}},
+                {structure: null, expected: {data: [ true, null, undefined, 10, "", [], {} ]}},
+                {structure: undefined, expected: {data: [ true, null, undefined, 10, "", [], {} ]}},
+                {structure: 10, expected: {data: [ true, null, undefined, 10, "", [], {} ]}},
+                {structure: "", expected: {data: [ true, null, undefined, 10, "", [], {} ]}},
+                {structure: [], expected: {data: [ true, null, undefined, 10, "", [], {} ]}},
+                {structure: {}, expected: {data: [ true, null, undefined, 10, "", [], {} ]}}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
         describe("Boolean Expression", () => {
             const typeName = "MyType";
             const source = `type ${typeName} = { text <= true }`;
@@ -631,6 +652,23 @@ describe("Normalizer", () => {
                 {structure: "", expected: {value: 15}},
                 {structure: [], expected: {value: 15}},
                 {structure: {}, expected: {value: 15}}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Object Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { data <= { a: true, b: null, c: undefined, d: 10, e: "", f: [], g: {} } }`;
+            const expected = { data: { a: true, b: null, c: undefined, d: 10, e: "", f: [], g: {} } };
+            const tests = [
+                {structure: true, expected},
+                {structure: false, expected},
+                {structure: null, expected},
+                {structure: undefined, expected},
+                {structure: 10, expected},
+                {structure: "", expected},
+                {structure: [], expected},
+                {structure: {}, expected}
             ];
 
             assertNormalizations(typeName, source, tests);
