@@ -142,7 +142,7 @@ var parser = function () {
       $V4 = [8, 27, 28, 39, 42, 45, 47],
       $V5 = [1, 36],
       $V6 = [1, 35],
-      $V7 = [1, 6, 19, 20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42, 51, 55, 58, 60, 61, 67],
+      $V7 = [1, 6, 19, 20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42, 51, 55, 58, 63, 67, 73],
       $V8 = [28, 39, 42],
       $V9 = [1, 51],
       $Va = [1, 55],
@@ -158,23 +158,32 @@ var parser = function () {
       $Vk = [1, 66],
       $Vl = [1, 68],
       $Vm = [1, 69],
-      $Vn = [1, 84],
-      $Vo = [19, 20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42, 51, 55, 58, 60, 61, 67],
-      $Vp = [1, 91],
-      $Vq = [1, 96],
-      $Vr = [27, 28, 39, 42],
-      $Vs = [28, 39, 42, 51],
-      $Vt = [1, 104],
-      $Vu = [22, 58, 60],
-      $Vv = [22, 58, 60, 61],
-      $Vw = [28, 60],
-      $Vx = [1, 117],
-      $Vy = [1, 126],
-      $Vz = [1, 125],
-      $VA = [58, 60],
-      $VB = [28, 39, 42, 55],
-      $VC = [19, 20, 21, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42, 51, 55],
-      $VD = [19, 20, 21, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42];
+      $Vn = [1, 81],
+      $Vo = [1, 82],
+      $Vp = [1, 83],
+      $Vq = [1, 84],
+      $Vr = [1, 76],
+      $Vs = [1, 80],
+      $Vt = [1, 73],
+      $Vu = [1, 88],
+      $Vv = [19, 20, 21, 22, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42, 51, 55, 58, 63, 67, 73],
+      $Vw = [1, 95],
+      $Vx = [1, 100],
+      $Vy = [22, 27, 28, 39, 42, 63],
+      $Vz = [1, 110],
+      $VA = [28, 39, 42, 51],
+      $VB = [1, 116],
+      $VC = [22, 58, 63],
+      $VD = [22, 58, 63, 67],
+      $VE = [28, 63],
+      $VF = [22, 63],
+      $VG = [1, 134],
+      $VH = [1, 143],
+      $VI = [1, 142],
+      $VJ = [58, 63],
+      $VK = [28, 39, 42, 55],
+      $VL = [19, 20, 21, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42, 51, 55],
+      $VM = [19, 20, 21, 23, 24, 25, 27, 28, 30, 31, 33, 35, 37, 39, 41, 42];
 
   var parser = {
     trace: function trace() {},
@@ -238,19 +247,25 @@ var parser = function () {
       "(": 57,
       ")": 58,
       "parameterList": 59,
-      ",": 60,
-      "AS": 61,
-      "arrayPattern": 62,
-      "objectPattern": 63,
-      "elements": 64,
-      "namedElement": 65,
-      "element": 66,
-      ";": 67,
-      "range": 68,
-      "..": 69,
-      "properties": 70,
-      "namedProperty": 71,
-      "property": 72,
+      "arrayExpression": 60,
+      "objectExpression": 61,
+      "expressionElements": 62,
+      ",": 63,
+      "expressionElement": 64,
+      "expressionProperties": 65,
+      "expressionProperty": 66,
+      "AS": 67,
+      "arrayPattern": 68,
+      "objectPattern": 69,
+      "patternElements": 70,
+      "namedPatternElement": 71,
+      "patternElement": 72,
+      ";": 73,
+      "range": 74,
+      "..": 75,
+      "patternProperties": 76,
+      "namedPatternProperty": 77,
+      "namedProperty": 78,
       "$accept": 0,
       "$end": 1
     },
@@ -282,12 +297,12 @@ var parser = function () {
       55: "MATCH",
       57: "(",
       58: ")",
-      60: ",",
-      61: "AS",
-      67: ";",
-      69: ".."
+      63: ",",
+      67: "AS",
+      73: ";",
+      75: ".."
     },
-    productions_: [0, [3, 1], [4, 2], [4, 1], [5, 4], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [10, 1], [11, 1], [11, 2], [12, 1], [12, 1], [12, 1], [13, 3], [13, 4], [14, 1], [15, 1], [15, 1], [16, 1], [16, 2], [16, 3], [17, 1], [17, 1], [18, 1], [29, 2], [29, 1], [38, 1], [38, 1], [36, 1], [40, 1], [32, 1], [7, 1], [7, 1], [34, 2], [34, 1], [43, 1], [43, 2], [43, 3], [43, 3], [43, 4], [44, 2], [44, 3], [49, 2], [49, 1], [50, 4], [50, 3], [52, 2], [52, 1], [54, 4], [54, 5], [54, 3], [48, 1], [48, 3], [48, 4], [48, 1], [48, 1], [48, 1], [48, 1], [48, 1], [59, 3], [59, 1], [56, 2], [56, 1], [53, 1], [53, 3], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [62, 2], [62, 3], [64, 3], [64, 1], [65, 1], [65, 3], [66, 1], [66, 3], [66, 3], [66, 5], [68, 3], [68, 2], [68, 2], [68, 1], [63, 2], [63, 3], [70, 3], [70, 1], [71, 1], [71, 3], [72, 3]],
+    productions_: [0, [3, 1], [4, 2], [4, 1], [5, 4], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [9, 1], [10, 1], [11, 1], [11, 2], [12, 1], [12, 1], [12, 1], [13, 3], [13, 4], [14, 1], [15, 1], [15, 1], [16, 1], [16, 2], [16, 3], [17, 1], [17, 1], [18, 1], [29, 2], [29, 1], [38, 1], [38, 1], [36, 1], [40, 1], [32, 1], [7, 1], [7, 1], [34, 2], [34, 1], [43, 1], [43, 2], [43, 3], [43, 3], [43, 4], [44, 2], [44, 3], [49, 2], [49, 1], [50, 4], [50, 3], [52, 2], [52, 1], [54, 4], [54, 5], [54, 3], [48, 1], [48, 3], [48, 4], [48, 1], [48, 1], [48, 1], [48, 1], [48, 1], [48, 1], [48, 1], [60, 2], [60, 3], [62, 3], [62, 1], [64, 1], [61, 2], [61, 3], [65, 3], [65, 1], [66, 3], [59, 3], [59, 1], [56, 2], [56, 1], [53, 1], [53, 3], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [46, 1], [68, 2], [68, 3], [70, 3], [70, 1], [71, 1], [71, 3], [72, 1], [72, 3], [72, 3], [72, 5], [74, 3], [74, 2], [74, 2], [74, 1], [69, 2], [69, 3], [76, 3], [76, 1], [77, 1], [77, 3], [78, 3]],
     performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate
     /* action[1] */
     , $$
@@ -308,7 +323,7 @@ var parser = function () {
         case 40:
         case 49:
         case 53:
-        case 68:
+        case 80:
           $$[$0 - 1].push($$[$0]);
           this.$ = $$[$0 - 1];
           break;
@@ -318,10 +333,12 @@ var parser = function () {
         case 41:
         case 50:
         case 54:
-        case 67:
-        case 69:
-        case 90:
-        case 104:
+        case 71:
+        case 76:
+        case 79:
+        case 81:
+        case 102:
+        case 116:
           this.$ = [$$[$0]];
           break;
 
@@ -474,6 +491,7 @@ var parser = function () {
           break;
 
         case 38:
+        case 72:
           this.$ = $$[$0];
           break;
 
@@ -612,6 +630,14 @@ var parser = function () {
           break;
 
         case 61:
+        case 66:
+          this.$ = {
+            type: 'expression',
+            expression: $$[$0]
+          };
+          break;
+
+        case 62:
           this.$ = {
             type: 'expression',
             expression: {
@@ -621,7 +647,7 @@ var parser = function () {
           };
           break;
 
-        case 62:
+        case 63:
           this.$ = {
             type: 'expression',
             expression: {
@@ -631,21 +657,11 @@ var parser = function () {
           };
           break;
 
-        case 63:
-          this.$ = {
-            type: 'expression',
-            expression: {
-              type: 'number',
-              value: $$[$0]
-            }
-          };
-          break;
-
         case 64:
           this.$ = {
             type: 'expression',
             expression: {
-              type: 'string',
+              type: 'number',
               value: $$[$0]
             }
           };
@@ -656,32 +672,77 @@ var parser = function () {
             type: 'expression',
             expression: {
               type: 'string',
+              value: $$[$0]
+            }
+          };
+          break;
+
+        case 67:
+          this.$ = {
+            type: 'expression',
+            expression: {
+              type: 'string',
               value: undefined
             }
           };
           break;
 
-        case 66:
-        case 89:
-        case 103:
+        case 68:
+          this.$ = {
+            type: 'array',
+            value: []
+          };
+          break;
+
+        case 69:
+          this.$ = {
+            type: 'array',
+            value: $$[$0 - 1]
+          };
+          break;
+
+        case 70:
+        case 75:
+        case 78:
+        case 101:
+        case 115:
           $$[$0 - 2].push($$[$0]);
           this.$ = $$[$0 - 2];
           break;
 
-        case 70:
-        case 91:
+        case 73:
+          this.$ = {
+            type: 'object',
+            value: []
+          };
+          break;
+
+        case 74:
+          this.$ = {
+            type: 'object',
+            value: $$[$0 - 1]
+          };
+          break;
+
+        case 77:
+          $$[$0].name = $$[$0 - 2];
+          this.$ = $$[$0];
+          break;
+
+        case 82:
+        case 103:
           $$[$0].assignTo = null;
           this.$ = $$[$0];
           break;
 
-        case 71:
-        case 92:
-        case 106:
+        case 83:
+        case 104:
+        case 118:
           $$[$0 - 2].assignTo = $$[$0];
           this.$ = $$[$0 - 2];
           break;
 
-        case 72:
+        case 84:
           this.$ = {
             type: 'pattern',
             patternType: 'any',
@@ -689,7 +750,7 @@ var parser = function () {
           };
           break;
 
-        case 73:
+        case 85:
           this.$ = {
             type: 'pattern',
             patternType: 'array',
@@ -697,12 +758,12 @@ var parser = function () {
           };
           break;
 
-        case 74:
-        case 82:
+        case 86:
+        case 94:
           this.$ = $$[$0];
           break;
 
-        case 75:
+        case 87:
           this.$ = {
             type: 'pattern',
             patternType: 'boolean',
@@ -710,7 +771,7 @@ var parser = function () {
           };
           break;
 
-        case 76:
+        case 88:
           this.$ = {
             type: 'pattern',
             patternType: 'boolean',
@@ -718,7 +779,7 @@ var parser = function () {
           };
           break;
 
-        case 77:
+        case 89:
           this.$ = {
             type: 'pattern',
             patternType: 'boolean',
@@ -726,7 +787,7 @@ var parser = function () {
           };
           break;
 
-        case 78:
+        case 90:
           this.$ = {
             type: 'pattern',
             patternType: 'null',
@@ -734,7 +795,7 @@ var parser = function () {
           };
           break;
 
-        case 79:
+        case 91:
           this.$ = {
             type: 'pattern',
             patternType: 'number',
@@ -742,7 +803,7 @@ var parser = function () {
           };
           break;
 
-        case 80:
+        case 92:
           this.$ = {
             type: 'pattern',
             patternType: 'number',
@@ -750,8 +811,8 @@ var parser = function () {
           };
           break;
 
-        case 81:
-        case 101:
+        case 93:
+        case 113:
           this.$ = {
             type: 'pattern',
             patternType: 'object',
@@ -759,7 +820,7 @@ var parser = function () {
           };
           break;
 
-        case 83:
+        case 95:
           this.$ = {
             type: 'pattern',
             patternType: 'string',
@@ -767,7 +828,7 @@ var parser = function () {
           };
           break;
 
-        case 84:
+        case 96:
           this.$ = {
             type: 'pattern',
             patternType: 'string',
@@ -775,7 +836,7 @@ var parser = function () {
           };
           break;
 
-        case 85:
+        case 97:
           this.$ = {
             type: 'pattern',
             patternType: 'undefined',
@@ -783,14 +844,14 @@ var parser = function () {
           };
           break;
 
-        case 86:
+        case 98:
           this.$ = {
             type: 'pattern',
             value: $$[$0]
           };
           break;
 
-        case 87:
+        case 99:
           this.$ = {
             type: 'pattern',
             patternType: 'array-pattern',
@@ -798,7 +859,7 @@ var parser = function () {
           };
           break;
 
-        case 88:
+        case 100:
           this.$ = {
             type: 'pattern',
             patternType: 'array-pattern',
@@ -806,7 +867,7 @@ var parser = function () {
           };
           break;
 
-        case 93:
+        case 105:
           this.$ = {
             type: 'element',
             pattern: $$[$0],
@@ -818,7 +879,7 @@ var parser = function () {
           };
           break;
 
-        case 94:
+        case 106:
           this.$ = {
             type: 'element',
             pattern: $$[$0 - 2],
@@ -826,7 +887,7 @@ var parser = function () {
           };
           break;
 
-        case 95:
+        case 107:
           this.$ = {
             type: 'element-group',
             elements: $$[$0 - 1],
@@ -838,7 +899,7 @@ var parser = function () {
           };
           break;
 
-        case 96:
+        case 108:
           this.$ = {
             type: 'element-group',
             elements: $$[$0 - 3],
@@ -846,7 +907,7 @@ var parser = function () {
           };
           break;
 
-        case 97:
+        case 109:
           this.$ = {
             type: 'range',
             start: $$[$0 - 2],
@@ -854,7 +915,7 @@ var parser = function () {
           };
           break;
 
-        case 98:
+        case 110:
           this.$ = {
             type: 'range',
             start: 0,
@@ -862,7 +923,7 @@ var parser = function () {
           };
           break;
 
-        case 99:
+        case 111:
           this.$ = {
             type: 'range',
             start: $$[$0 - 1],
@@ -870,7 +931,7 @@ var parser = function () {
           };
           break;
 
-        case 100:
+        case 112:
           this.$ = {
             type: 'range',
             start: $$[$0],
@@ -878,7 +939,7 @@ var parser = function () {
           };
           break;
 
-        case 102:
+        case 114:
           this.$ = {
             type: 'pattern',
             patternType: 'object-pattern',
@@ -886,12 +947,12 @@ var parser = function () {
           };
           break;
 
-        case 105:
+        case 117:
           $$[$0].assignTo = $$[$0].name;
           this.$ = $$[$0];
           break;
 
-        case 107:
+        case 119:
           this.$ = {
             type: 'property',
             name: $$[$0 - 2],
@@ -997,33 +1058,37 @@ var parser = function () {
       41: $V6,
       42: $Vm,
       46: 54,
-      62: 57,
-      63: 65
+      68: 57,
+      69: 65
     }, {
-      24: [1, 79],
-      25: [1, 80],
-      30: [1, 75],
-      32: 76,
-      36: 77,
-      37: [1, 78],
-      38: 74,
+      21: $Vn,
+      24: $Vo,
+      25: $Vp,
+      27: $Vq,
+      30: $Vr,
+      32: 77,
+      36: 78,
+      37: $Vs,
+      38: 75,
       39: $V5,
       41: $V6,
-      42: [1, 73],
-      48: 72
+      42: $Vt,
+      48: 72,
+      60: 74,
+      61: 79
     }, {
-      7: 85,
-      28: [1, 81],
+      7: 89,
+      28: [1, 85],
       39: $V2,
       42: $V3,
-      49: 82,
-      50: 83,
-      51: $Vn
-    }, o($V1, [2, 21]), o($V8, [2, 31]), o($V8, [2, 44]), o($Vo, [2, 72]), o($Vo, [2, 73]), o($Vo, [2, 74]), o($Vo, [2, 75]), o($Vo, [2, 76]), o($Vo, [2, 77]), o($Vo, [2, 78]), o($Vo, [2, 79]), o($Vo, [2, 80]), o($Vo, [2, 81]), o($Vo, [2, 82]), o($Vo, [2, 83]), o($Vo, [2, 84]), o($Vo, [2, 85]), o($Vo, [2, 86]), {
+      49: 86,
+      50: 87,
+      51: $Vu
+    }, o($V1, [2, 21]), o($V8, [2, 31]), o($V8, [2, 44]), o($Vv, [2, 84]), o($Vv, [2, 85]), o($Vv, [2, 86]), o($Vv, [2, 87]), o($Vv, [2, 88]), o($Vv, [2, 89]), o($Vv, [2, 90]), o($Vv, [2, 91]), o($Vv, [2, 92]), o($Vv, [2, 93]), o($Vv, [2, 94]), o($Vv, [2, 95]), o($Vv, [2, 96]), o($Vv, [2, 97]), o($Vv, [2, 98]), {
       19: $Va,
       20: $Vb,
       21: $Vc,
-      22: [1, 86],
+      22: [1, 90],
       23: $Vd,
       24: $Ve,
       25: $Vf,
@@ -1038,42 +1103,66 @@ var parser = function () {
       39: $V5,
       41: $V6,
       42: $Vm,
-      46: 90,
-      57: $Vp,
-      62: 57,
-      63: 65,
-      64: 87,
-      65: 88,
-      66: 89
+      46: 94,
+      57: $Vw,
+      68: 57,
+      69: 65,
+      70: 91,
+      71: 92,
+      72: 93
     }, {
-      28: [1, 92],
-      42: $Vq,
-      70: 93,
-      71: 94,
-      72: 95
+      28: [1, 96],
+      42: $Vx,
+      76: 97,
+      77: 98,
+      78: 99
     }, o($V8, [2, 45], {
-      44: 97,
+      44: 101,
       27: $V9
-    }), o($Vr, [2, 58], {
-      57: [1, 98]
-    }), o($Vr, [2, 61]), o($Vr, [2, 62]), o($Vr, [2, 63]), o($Vr, [2, 64]), o($Vr, [2, 65]), o($Vr, [2, 33]), o($Vr, [2, 34]), o($V8, [2, 47]), {
-      7: 85,
-      28: [1, 99],
-      39: $V2,
-      42: $V3,
-      50: 100,
-      51: $Vn
-    }, o($Vs, [2, 50]), {
-      27: [1, 101]
-    }, {
-      45: [1, 102]
-    }, o($Vo, [2, 87]), {
+    }), o($Vy, [2, 58], {
+      57: [1, 102]
+    }), o($Vy, [2, 61]), o($Vy, [2, 62]), o($Vy, [2, 63]), o($Vy, [2, 64]), o($Vy, [2, 65]), o($Vy, [2, 66]), o($Vy, [2, 67]), {
+      21: $Vn,
       22: [1, 103],
-      60: $Vt
-    }, o($Vu, [2, 90]), o($Vu, [2, 91], {
-      61: [1, 105]
-    }), o($Vv, [2, 93], {
-      67: [1, 106]
+      24: $Vo,
+      25: $Vp,
+      27: $Vq,
+      30: $Vr,
+      32: 77,
+      36: 78,
+      37: $Vs,
+      38: 75,
+      39: $V5,
+      41: $V6,
+      42: $Vt,
+      48: 106,
+      60: 74,
+      61: 79,
+      62: 104,
+      64: 105
+    }, o($Vy, [2, 33]), o($Vy, [2, 34]), {
+      28: [1, 107],
+      42: $Vz,
+      65: 108,
+      66: 109
+    }, o($V8, [2, 47]), {
+      7: 89,
+      28: [1, 111],
+      39: $V2,
+      42: $V3,
+      50: 112,
+      51: $Vu
+    }, o($VA, [2, 50]), {
+      27: [1, 113]
+    }, {
+      45: [1, 114]
+    }, o($Vv, [2, 99]), {
+      22: [1, 115],
+      63: $VB
+    }, o($VC, [2, 102]), o($VC, [2, 103], {
+      67: [1, 117]
+    }), o($VD, [2, 105], {
+      73: [1, 118]
     }), {
       19: $Va,
       20: $Vb,
@@ -1092,143 +1181,187 @@ var parser = function () {
       39: $V5,
       41: $V6,
       42: $Vm,
-      46: 90,
-      57: $Vp,
-      62: 57,
-      63: 65,
-      64: 107,
-      65: 88,
-      66: 89
-    }, o($Vo, [2, 101]), {
-      28: [1, 108],
-      60: [1, 109]
-    }, o($Vw, [2, 104]), o($Vw, [2, 105], {
-      61: [1, 110]
+      46: 94,
+      57: $Vw,
+      68: 57,
+      69: 65,
+      70: 119,
+      71: 92,
+      72: 93
+    }, o($Vv, [2, 113]), {
+      28: [1, 120],
+      63: [1, 121]
+    }, o($VE, [2, 116]), o($VE, [2, 117], {
+      67: [1, 122]
     }), {
-      45: [1, 111]
+      45: [1, 123]
     }, o($V8, [2, 46]), {
-      42: [1, 114],
-      58: [1, 112],
-      59: 113
-    }, o($V8, [2, 48]), o($Vs, [2, 49]), {
-      7: 118,
-      39: $V2,
-      42: $V3,
-      52: 115,
-      54: 116,
-      55: $Vx
-    }, {
-      19: $Va,
-      20: $Vb,
-      21: $Vc,
-      23: $Vd,
-      24: $Ve,
-      25: $Vf,
-      27: $Vg,
-      30: $Vh,
-      31: $Vi,
-      32: 63,
-      33: $Vj,
-      35: $Vk,
-      36: 67,
-      37: $Vl,
-      39: $V5,
-      41: $V6,
-      42: $Vm,
-      46: 120,
-      53: 119,
-      62: 57,
-      63: 65
-    }, o($Vo, [2, 88]), {
-      19: $Va,
-      20: $Vb,
-      21: $Vc,
-      23: $Vd,
-      24: $Ve,
-      25: $Vf,
-      27: $Vg,
-      30: $Vh,
-      31: $Vi,
-      32: 63,
-      33: $Vj,
-      35: $Vk,
-      36: 67,
-      37: $Vl,
-      39: $V5,
-      41: $V6,
-      42: $Vm,
-      46: 90,
-      57: $Vp,
-      62: 57,
-      63: 65,
-      65: 121,
-      66: 89
-    }, {
-      42: [1, 122]
-    }, {
-      40: 124,
-      41: $Vy,
-      68: 123,
-      69: $Vz
-    }, {
-      58: [1, 127],
-      60: $Vt
-    }, o($Vo, [2, 102]), {
-      42: $Vq,
-      71: 128,
-      72: 95
-    }, {
-      42: [1, 129]
-    }, {
-      19: $Va,
-      20: $Vb,
-      21: $Vc,
-      23: $Vd,
-      24: $Ve,
-      25: $Vf,
-      27: $Vg,
-      30: $Vh,
-      31: $Vi,
-      32: 63,
-      33: $Vj,
-      35: $Vk,
-      36: 67,
-      37: $Vl,
-      39: $V5,
-      41: $V6,
-      42: $Vm,
-      46: 130,
-      62: 57,
-      63: 65
-    }, o($Vr, [2, 59]), {
-      58: [1, 131],
-      60: [1, 132]
-    }, o($VA, [2, 67]), {
-      7: 118,
-      28: [1, 133],
-      39: $V2,
-      42: $V3,
-      54: 134,
-      55: $Vx
-    }, o($VB, [2, 54]), {
+      42: [1, 126],
+      58: [1, 124],
+      59: 125
+    }, o($Vy, [2, 68]), {
+      22: [1, 127],
+      63: [1, 128]
+    }, o($VF, [2, 71]), o($VF, [2, 72]), o($Vy, [2, 73]), {
+      28: [1, 129],
+      63: [1, 130]
+    }, o($VE, [2, 76]), {
+      45: [1, 131]
+    }, o($V8, [2, 48]), o($VA, [2, 49]), {
       7: 135,
+      39: $V2,
+      42: $V3,
+      52: 132,
+      54: 133,
+      55: $VG
+    }, {
+      19: $Va,
+      20: $Vb,
+      21: $Vc,
+      23: $Vd,
+      24: $Ve,
+      25: $Vf,
+      27: $Vg,
+      30: $Vh,
+      31: $Vi,
+      32: 63,
+      33: $Vj,
+      35: $Vk,
+      36: 67,
+      37: $Vl,
+      39: $V5,
+      41: $V6,
+      42: $Vm,
+      46: 137,
+      53: 136,
+      68: 57,
+      69: 65
+    }, o($Vv, [2, 100]), {
+      19: $Va,
+      20: $Vb,
+      21: $Vc,
+      23: $Vd,
+      24: $Ve,
+      25: $Vf,
+      27: $Vg,
+      30: $Vh,
+      31: $Vi,
+      32: 63,
+      33: $Vj,
+      35: $Vk,
+      36: 67,
+      37: $Vl,
+      39: $V5,
+      41: $V6,
+      42: $Vm,
+      46: 94,
+      57: $Vw,
+      68: 57,
+      69: 65,
+      71: 138,
+      72: 93
+    }, {
+      42: [1, 139]
+    }, {
+      40: 141,
+      41: $VH,
+      74: 140,
+      75: $VI
+    }, {
+      58: [1, 144],
+      63: $VB
+    }, o($Vv, [2, 114]), {
+      42: $Vx,
+      77: 145,
+      78: 99
+    }, {
+      42: [1, 146]
+    }, {
+      19: $Va,
+      20: $Vb,
+      21: $Vc,
+      23: $Vd,
+      24: $Ve,
+      25: $Vf,
+      27: $Vg,
+      30: $Vh,
+      31: $Vi,
+      32: 63,
+      33: $Vj,
+      35: $Vk,
+      36: 67,
+      37: $Vl,
+      39: $V5,
+      41: $V6,
+      42: $Vm,
+      46: 147,
+      68: 57,
+      69: 65
+    }, o($Vy, [2, 59]), {
+      58: [1, 148],
+      63: [1, 149]
+    }, o($VJ, [2, 79]), o($Vy, [2, 69]), {
+      21: $Vn,
+      24: $Vo,
+      25: $Vp,
+      27: $Vq,
+      30: $Vr,
+      32: 77,
+      36: 78,
+      37: $Vs,
+      38: 75,
+      39: $V5,
+      41: $V6,
+      42: $Vt,
+      48: 106,
+      60: 74,
+      61: 79,
+      64: 150
+    }, o($Vy, [2, 74]), {
+      42: $Vz,
+      66: 151
+    }, {
+      21: $Vn,
+      24: $Vo,
+      25: $Vp,
+      27: $Vq,
+      30: $Vr,
+      32: 77,
+      36: 78,
+      37: $Vs,
+      38: 75,
+      39: $V5,
+      41: $V6,
+      42: $Vt,
+      48: 152,
+      60: 74,
+      61: 79
+    }, {
+      7: 135,
+      28: [1, 153],
+      39: $V2,
+      42: $V3,
+      54: 154,
+      55: $VG
+    }, o($VK, [2, 54]), {
+      7: 155,
       39: $V2,
       42: $V3
     }, {
-      45: [1, 136]
-    }, o($Vs, [2, 52]), o($VC, [2, 70], {
-      61: [1, 137]
-    }), o($Vu, [2, 89]), o($Vu, [2, 92]), o($Vv, [2, 94]), o($Vv, [2, 100], {
-      69: [1, 138]
+      45: [1, 156]
+    }, o($VA, [2, 52]), o($VL, [2, 82], {
+      67: [1, 157]
+    }), o($VC, [2, 101]), o($VC, [2, 104]), o($VD, [2, 106]), o($VD, [2, 112], {
+      75: [1, 158]
     }), {
-      40: 139,
-      41: $Vy
-    }, o([22, 58, 60, 61, 69], [2, 36]), o($Vv, [2, 95], {
-      67: [1, 140]
-    }), o($Vw, [2, 103]), o($Vw, [2, 106]), o([28, 60, 61], [2, 107]), o($Vr, [2, 60]), {
-      42: [1, 141]
-    }, o($Vs, [2, 51]), o($VB, [2, 53]), {
-      27: [1, 142]
+      40: 159,
+      41: $VH
+    }, o([22, 58, 63, 67, 75], [2, 36]), o($VD, [2, 107], {
+      73: [1, 160]
+    }), o($VE, [2, 115]), o($VE, [2, 118]), o([28, 63, 67], [2, 119]), o($Vy, [2, 60]), {
+      42: [1, 161]
+    }, o($VF, [2, 70]), o($VE, [2, 75]), o($VE, [2, 77]), o($VA, [2, 51]), o($VK, [2, 53]), {
+      27: [1, 162]
     }, {
       19: $Va,
       20: $Vb,
@@ -1247,21 +1380,21 @@ var parser = function () {
       39: $V5,
       41: $V6,
       42: $Vm,
-      46: 120,
-      53: 143,
-      62: 57,
-      63: 65
+      46: 137,
+      53: 163,
+      68: 57,
+      69: 65
     }, {
-      42: [1, 144]
-    }, o($Vv, [2, 99], {
-      40: 145,
-      41: $Vy
-    }), o($Vv, [2, 98]), {
-      40: 124,
-      41: $Vy,
-      68: 146,
-      69: $Vz
-    }, o($VA, [2, 66]), {
+      42: [1, 164]
+    }, o($VD, [2, 111], {
+      40: 165,
+      41: $VH
+    }), o($VD, [2, 110]), {
+      40: 141,
+      41: $VH,
+      74: 166,
+      75: $VI
+    }, o($VJ, [2, 78]), {
       19: $Va,
       20: $Vb,
       21: $Vc,
@@ -1269,7 +1402,7 @@ var parser = function () {
       24: $Ve,
       25: $Vf,
       27: $Vg,
-      28: [1, 147],
+      28: [1, 167],
       30: $Vh,
       31: $Vi,
       32: 63,
@@ -1280,12 +1413,12 @@ var parser = function () {
       39: $V5,
       41: $V6,
       42: $Vm,
-      46: 120,
-      53: 149,
-      56: 148,
-      62: 57,
-      63: 65
-    }, o($VB, [2, 57]), o($VC, [2, 71]), o($Vv, [2, 97]), o($Vv, [2, 96]), o($VB, [2, 55]), {
+      46: 137,
+      53: 169,
+      56: 168,
+      68: 57,
+      69: 65
+    }, o($VK, [2, 57]), o($VL, [2, 83]), o($VD, [2, 109]), o($VD, [2, 108]), o($VK, [2, 55]), {
       19: $Va,
       20: $Vb,
       21: $Vc,
@@ -1293,7 +1426,7 @@ var parser = function () {
       24: $Ve,
       25: $Vf,
       27: $Vg,
-      28: [1, 150],
+      28: [1, 170],
       30: $Vh,
       31: $Vi,
       32: 63,
@@ -1304,11 +1437,11 @@ var parser = function () {
       39: $V5,
       41: $V6,
       42: $Vm,
-      46: 120,
-      53: 151,
-      62: 57,
-      63: 65
-    }, o($VD, [2, 69]), o($VB, [2, 56]), o($VD, [2, 68])],
+      46: 137,
+      53: 171,
+      68: 57,
+      69: 65
+    }, o($VM, [2, 81]), o($VK, [2, 56]), o($VM, [2, 80])],
     defaultActions: {},
     parseError: function parseError(str, hash) {
       if (hash.recoverable) {
@@ -1830,7 +1963,7 @@ var parser = function () {
             break;
 
           case 4:
-            return 61;
+            return 67;
             break;
 
           case 5:
@@ -1906,7 +2039,7 @@ var parser = function () {
             break;
 
           case 23:
-            return 60;
+            return 63;
             break;
 
           case 24:
@@ -1914,7 +2047,7 @@ var parser = function () {
             break;
 
           case 25:
-            return 67;
+            return 73;
             break;
 
           case 26:
@@ -1926,7 +2059,7 @@ var parser = function () {
             break;
 
           case 28:
-            return 69;
+            return 75;
             break;
 
           case 29:
@@ -1993,24 +2126,8 @@ function () {
   function Normalizer() {
     _classCallCheck(this, Normalizer);
 
-    this.types = {};
-    this.typeCheckers = {
-      array: function array(value, type) {
-        return Array.isArray(value);
-      },
-      "boolean": function boolean(value, type) {
-        return typeof value === "boolean";
-      },
-      number: function number(value, type) {
-        return typeof value === "number";
-      },
-      object: function object(value, type) {
-        return isObject(value);
-      },
-      string: function string(value, type) {
-        return typeof value === "string";
-      }
-    };
+    this.types = {}; // this.typeCheckers = {};
+
     this.typeCreators = {};
     this.messages = [];
     this.verbose = false;
@@ -2667,6 +2784,8 @@ function () {
   }, {
     key: "createResult",
     value: function createResult(expression, symbolTable) {
+      var _this2 = this;
+
       switch (expression.type) {
         case "get-value":
           return symbolTable[expression.name];
@@ -2679,12 +2798,47 @@ function () {
             return this.createType(expression.name, args);
           }
 
+        case "array":
+          return expression.value.map(function (elementExpression) {
+            return _this2.createResult(elementExpression.expression, symbolTable);
+          });
+
         case "boolean":
         case "null":
         case "number":
         case "string":
         case "undefined":
           return expression.value;
+
+        case "object":
+          {
+            var result = {};
+            var _iteratorNormalCompletion7 = true;
+            var _didIteratorError7 = false;
+            var _iteratorError7 = undefined;
+
+            try {
+              for (var _iterator7 = expression.value[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+                var propertyExpression = _step7.value;
+                result[propertyExpression.name] = this.createResult(propertyExpression.expression, symbolTable);
+              }
+            } catch (err) {
+              _didIteratorError7 = true;
+              _iteratorError7 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+                  _iterator7["return"]();
+                }
+              } finally {
+                if (_didIteratorError7) {
+                  throw _iteratorError7;
+                }
+              }
+            }
+
+            return result;
+          }
         // TODO: array and object construction. Allow these inside invocations as well
 
         default:
