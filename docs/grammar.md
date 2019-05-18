@@ -141,6 +141,7 @@ expressionProperties
   ;
 expressionProperty
   : IDENTIFIER : expression
+  | IDENTIFIER
   ;
 parameterList
   : parameterList , IDENTIFIER
