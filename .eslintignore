@@ -1,7 +1,8 @@
-node_modules
+bin
 dist
 docs/jsdoc
-scratchpad
-test
 lib/GrammarTable.js
 lib/NormalizerParser.js
+node_modules
+scratchpad
+test
