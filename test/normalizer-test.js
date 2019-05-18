@@ -26,6 +26,10 @@ function assertNormalizations(typeName, source, tests, debug = false) {
         it(`input: ${prettify(structure)}, expected: ${prettify(expected)}`, () => {
             const result = normalizer.normalize(structure, typeName);
 
+            if (debug) {
+                console.log(prettify(normalizer.messages));
+            }
+
             assert.deepStrictEqual(result, expected);
         });
     }
@@ -579,6 +583,38 @@ describe("Normalizer", () => {
                 {structure: {cx: "One", cy: "Two"}, FAILURE_VALUE},
                 {structure: {cx: [], cy: []}, expected: FAILURE_VALUE},
                 {structure: {cx: {}, cy: {}}, expected: FAILURE_VALUE}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("String Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { text <= "hello" }`;
+            const tests = [
+                {structure: true, expected: {text: "hello"}},
+                {structure: false, expected: {text: "hello"}},
+                {structure: null, expected: {text: "hello"}},
+                {structure: undefined, expected: {text: "hello"}},
+                {structure: 10, expected: {text: "hello"}},
+                {structure: "", expected: {text: "hello"}},
+                {structure: [], expected: {text: "hello"}},
+                {structure: {}, expected: {text: "hello"}}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Number Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { value <= 15 }`;
+            const tests = [
+                {structure: true, expected: {value: 15}},
+                {structure: false, expected: {value: 15}},
+                {structure: null, expected: {value: 15}},
+                {structure: undefined, expected: {value: 15}},
+                {structure: 10, expected: {value: 15}},
+                {structure: "", expected: {value: 15}},
+                {structure: [], expected: {value: 15}},
+                {structure: {}, expected: {value: 15}}
             ];
 
             assertNormalizations(typeName, source, tests);
