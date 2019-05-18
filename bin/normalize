@@ -6,10 +6,15 @@ import path from "path";
 import Normalizer from "../lib/Normalizer.js";
 import {argv} from "yargs";
 
-let verbose = false;
+let verbose = "v" in argv;
 
 function usage() {
-    console.log("normalizer -n <norm-file> -t type <input-file>+")
+    console.log("normalizer [-r <type-creator-module>] [-v] -n <norm-file> -t type <input-file>+");
+    console.log("  r       - load anode module. All exports will be added as type creators");
+    console.log("  v       - turn on verbose mode");
+    console.log("  n       - the .norm file to use for normalization");
+    console.log("  t       - the type to use for normalization");
+    console.log("  <files> - The JSON files to process");
 }
 
 function prettify(object) {
@@ -53,6 +58,7 @@ function main(module) {
                     console.log(util.inspect(result, {depth: Infinity, colors: true}));
                 }
                 else {
+                    console.error();
                     console.error("The following failed validation");
                     console.error(prettify(structure));
 
@@ -69,14 +75,8 @@ function main(module) {
     }
 }
 
-if ("v" in argv) {
-    verbose = true;
-}
 if ("r" in argv) {
-    import(argv.r)
-        .then(module => {
-            main(module);
-        });
+    import(argv.r).then(main)
 }
 else {
     main(null);

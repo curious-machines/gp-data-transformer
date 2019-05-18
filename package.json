@@ -18,6 +18,9 @@
   "browserslist": [
     "cover 100%"
   ],
+  "bin": {
+    "normalize": "./bin/normalize"
+  },
   "scripts": {
     "eslint": "eslint .",
     "rollup": "rollup -c",
