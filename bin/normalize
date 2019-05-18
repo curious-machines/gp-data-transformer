@@ -59,7 +59,7 @@ function main(module) {
                 }
                 else {
                     console.error();
-                    console.error("The following failed validation");
+                    console.error("The following failed normalization");
                     console.error(prettify(structure));
 
                     for (const message of normalizer.messages) {
