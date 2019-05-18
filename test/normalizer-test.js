@@ -587,18 +587,34 @@ describe("Normalizer", () => {
 
             assertNormalizations(typeName, source, tests);
         });
-        describe("String Expression", () => {
+        describe("Boolean Expression", () => {
             const typeName = "MyType";
-            const source = `type ${typeName} = { text <= "hello" }`;
+            const source = `type ${typeName} = { text <= true }`;
             const tests = [
-                {structure: true, expected: {text: "hello"}},
-                {structure: false, expected: {text: "hello"}},
-                {structure: null, expected: {text: "hello"}},
-                {structure: undefined, expected: {text: "hello"}},
-                {structure: 10, expected: {text: "hello"}},
-                {structure: "", expected: {text: "hello"}},
-                {structure: [], expected: {text: "hello"}},
-                {structure: {}, expected: {text: "hello"}}
+                {structure: true, expected: {text: true}},
+                {structure: false, expected: {text: true}},
+                {structure: null, expected: {text: true}},
+                {structure: undefined, expected: {text: true}},
+                {structure: 10, expected: {text: true}},
+                {structure: "", expected: {text: true}},
+                {structure: [], expected: {text: true}},
+                {structure: {}, expected: {text: true}}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("Null Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { value <= null }`;
+            const tests = [
+                {structure: true, expected: {value: null}},
+                {structure: false, expected: {value: null}},
+                {structure: null, expected: {value: null}},
+                {structure: undefined, expected: {value: null}},
+                {structure: 10, expected: {value: null}},
+                {structure: "", expected: {value: null}},
+                {structure: [], expected: {value: null}},
+                {structure: {}, expected: {value: null}}
             ];
 
             assertNormalizations(typeName, source, tests);
@@ -615,6 +631,22 @@ describe("Normalizer", () => {
                 {structure: "", expected: {value: 15}},
                 {structure: [], expected: {value: 15}},
                 {structure: {}, expected: {value: 15}}
+            ];
+
+            assertNormalizations(typeName, source, tests);
+        });
+        describe("String Expression", () => {
+            const typeName = "MyType";
+            const source = `type ${typeName} = { text <= "hello" }`;
+            const tests = [
+                {structure: true, expected: {text: "hello"}},
+                {structure: false, expected: {text: "hello"}},
+                {structure: null, expected: {text: "hello"}},
+                {structure: undefined, expected: {text: "hello"}},
+                {structure: 10, expected: {text: "hello"}},
+                {structure: "", expected: {text: "hello"}},
+                {structure: [], expected: {text: "hello"}},
+                {structure: {}, expected: {text: "hello"}}
             ];
 
             assertNormalizations(typeName, source, tests);
