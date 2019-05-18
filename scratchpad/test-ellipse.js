@@ -30,8 +30,8 @@ const source = fs.readFileSync(filePath, "utf-8");
 const normalizer = new Normalizer();
 
 normalizer.addDefinitionsFromSource(source);
-normalizer.typeCreators.Point2D = (type, args) => { return {x: args[0], y: args[1]} };
-normalizer.typeCreators.Vector2D = (type, args) => { return {u: args[0], v: args[1]} };
+normalizer.typeCreators.Point2D = (x, y) => { return {x, y} };
+normalizer.typeCreators.Vector2D = (u, v) => { return {u, v} };
 
 // console.log(prettify(normalizer.types));
 

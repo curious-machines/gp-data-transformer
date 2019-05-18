@@ -31,8 +31,8 @@ function assertNormalizations(typeName, source, tests, debug = false) {
     }
 }
 
-function Point(type, args) {
-    return {x: args[0], y: args[1]};
+function Point(x, y) {
+    return {x, y};
 }
 
 describe("Normalizer", () => {
