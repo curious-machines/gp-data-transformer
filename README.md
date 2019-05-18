@@ -24,7 +24,7 @@ The following sections indicate how you can import the code for use in various e
 ## Node
 
 ```javascript
-import Normalizer = require("kld-data-normalizer");
+import {Normalizer} = require("kld-data-normalizer");
 ```
 
 ## Browsers
@@ -39,13 +39,13 @@ import Normalizer = require("kld-data-normalizer");
 ## Modern Browsers (ESM)
 
 ```javascript
-import Normalizer from './node_modules/kld-data-normalizer/dist/index-esm.js';
+import {Normalizer} from './node_modules/kld-data-normalizer/dist/index-esm.js';
 ```
 
 ## Bundlers
 
 ```javascript
-import Normalizer from "kld-data-normalizer";
+import {Normalizer} from "kld-data-normalizer";
 ```
 
 # Usage
