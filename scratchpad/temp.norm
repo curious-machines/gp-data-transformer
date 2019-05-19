@@ -3,7 +3,7 @@
 // input: false
 // output : [ false ]
 
-[ $ ] <= boolean
+[ b ] <= boolean as b
 
 ---
 
