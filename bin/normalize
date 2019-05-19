@@ -4,11 +4,19 @@ import Normalizer from "../lib/Normalizer.js";
 import {argv} from "yargs";
 
 function usage() {
-    console.log("normalizer [-r <type-creator-module>] [-v] -e <expression> <json>+");
-    console.log("  r      - load anode module. All exports will be added as type creators");
-    console.log("  v      - turn on verbose mode");
-    console.log("  e      - the expression to use for normalization");
-    console.log("  <json> - The JSON files to process");
+    console.log(`
+normalizer [-r <type-creator-module>] [-v] <norm-source> <data-source>
+    <norm-source> = (-e <expression> | -n <norm-file>)
+    <data-source> = (-j <json-file> | <json-string>)
+
+  r      - load anode module. All exports will be added as type creators
+  v      - turn on verbose mode
+  n      - the .norm file to execute. n runs before e
+  e      - the expression to execute. e runs after n
+  j      - the JSON file to test
+  <json> - the raw JSON strings to process
+
+`);
 }
 
 function prettify(object) {
@@ -24,38 +32,57 @@ function say(message) {
 }
 
 function main(module) {
-    if ("e" in argv && argv._.length > 0) {
-        say(`loading ${argv.n}`);
+    // creator interpreter
+    const normalizer = new Normalizer();
 
-        const source = argv.e;
-        const normalizer = new Normalizer();
-
-        if (module !== null) {
-            for (const name in module) {
-                normalizer.typeCreators[name] = module[name];
-            }
-        }
-
-        const dataSource = argv._[0];
-        const structure = JSON.parse(dataSource);
-        const result = normalizer.run(source, structure);
-
-        if (result !== undefined) {
-            console.log(`result: ${prettify(result)}`);
-        }
-        else {
-            console.error();
-            console.error("The following failed normalization");
-            console.error(prettify(structure));
-
-            for (const message of normalizer.messages) {
-                console.error(`  ${message.level}: ${message.message}`);
-            }
+    // load type creators from module
+    if (module !== null) {
+        for (const name in module) {
+            normalizer.typeCreators[name] = module[name];
         }
     }
-    else {
+
+    // get data
+    if ("j" in argv === false && argv._.length === 0) {
+        console.error("Must specify data with -j or a raw JSON string");
+        usage();
+        process.exit();
+    }
+
+    const dataSource = ("j" in argv) ? argv.j : argv._[0];
+    const structure = JSON.parse(dataSource);
+
+    // execute norm file and/or user-entered source
+    if ("n" in argv === false && "e" in argv === false) {
+        console.error("Must have -e or -n option");
         usage();
         process.exit(1);
+    }
+
+    let result;
+
+    if ("n" in argv) {
+        const source = fs.readFileSync(path.resolve(argv.n), "utf-8");
+
+        result = normalizer.run(source, structure);
+    }
+
+    if ("e" in argv) {
+        result = normalizer.run(argv.e, structure);
+    }
+
+    // process result
+    if (result !== undefined) {
+        console.log(`result: ${prettify(result)}`);
+    }
+    else {
+        console.error();
+        console.error("The following error(s) occurred");
+        console.error(`data = ${prettify(structure)}`);
+
+        for (const message of normalizer.messages) {
+            console.error(`  ${message.level}: ${message.message}`);
+        }
     }
 }
 
