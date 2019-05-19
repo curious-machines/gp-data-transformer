@@ -1,0 +1,173 @@
+// input: true
+// output: [ true ]
+// input: false
+// output : [ false ]
+
+[ $ ] <= boolean
+
+---
+
+// input: true
+// output: [ false ]
+// input : false
+// output: [ true ]
+
+[ not $ ] <= boolean
+
+---
+
+// input: true
+// output: [ true, false ]
+// input: false
+// output: [ false, true ]
+
+[ $, not $ ] <= boolean
+
+---
+
+// input: [10, 20, 30]
+// output: true
+// input: [20, 40, 60]
+// output: true
+// input: ["10", "20", "30"]
+// output: n/a
+
+true <= [ number; 3 ]
+
+---
+
+// input: [10, 20, 30]
+// output: { a: 10, b: 20, c: 30 }
+// input: [20, 40, 60]
+// output: { a: 20, b: 40, c: 60 }
+
+{ a, b, c } <= [ number as a, number as b, number as c ]
+
+---
+
+// input: { a: 10, b: 20, c: 30 }
+// output: [10, 20, 30]
+// input: { a: 20, b: 40, c: 60 }
+// output: [20, 40, 60]
+
+[ a, b, c] <= { a: number, b: number, c: number }
+
+---
+
+// input: { x: 10, y: 20 }
+// output: { x: 10, y: 20 }
+// input: { x: 20, y: 40 }
+// output: { x: 20, y: 40 }
+// input: { x: "10", y: "20" }
+// output: n/a
+
+{ x, y } <= { x: number, y: number }
+
+---
+
+// input: [ 10, 20 ]
+// output: { x: 10, y: 20 }
+// input: [ 20, 40 ]
+// output: { x: 20, y: 40 }
+// input: [ "10","20" ]
+// output: n/a
+
+{ x, y } <= [ number as x, number as y ]
+
+---
+
+// input: { cx: 10, cy; 20 }
+// output: { x: 10, y: 20 }
+// input: { cx: 20, cy; 40 }
+// output: { x: 20, y: 40 }
+// input: { cx: "10", cy; "20" }
+// output: n/a
+
+{ x: cx, y: cy } <= { cx: number, cy: number }
+
+---
+
+// input: { centerX: 10, centerY; 20 }
+// output: { x: 10, y: 20 }
+// input: { centerX: 20, centerY; 40 }
+// output: { x: 20, y: 40 }
+// input: { centerX: "10", centerY; "20" }
+// output: n/a
+
+{ x: centerX, y: centerY } <= { centerX: number, centerY: number }
+
+---
+
+// input: { center: { x: 10, y: 20 } }
+// output: { center: { x: 10, y: 20 } }
+
+{ center: { x, y } } <= { center: { x: number, y: number } }
+
+---
+
+// input: { center: [10, 20] }
+// output: { center: [10, 20] }
+
+{ center: { x, y } } <= { center: [ number as x, number as y ] }
+
+---
+
+// input: { points: [10, 20, 30, 40] }
+// output: { points: [{10, 20}, {30, 40}] }
+
+{ points: p } <= { points: [ Point2D(x, y) <= (number as x, number as y); 0.. ] as p }
+
+---
+
+Ellipse = {
+    // collect some values so we don't have to repeat queries
+    { rx, ry } as rs <=
+        { radii: { x: number as rx, y: number as ry } },
+        { radii: [ number as rx, number as ry ] },
+        { rx: number, ry: number },
+        { radiusX: number as rx, radiusY: number as rx }
+
+    // build properties
+    center:
+        Point2D(x, y) <=
+            { center: { x: number, y: number } },
+            { center: [ number as x, number as y ] },
+            { cx: number as x, cy: number as y },
+            { centerX: number as x, centerY: number as y }
+    radiusX:
+        rx <= rs.rx
+    radiusY:
+        ry <= rs.ry
+}
+
+Rectangle = {
+    // build properties, but notice we store topLeft's result so we can use it in bottomRight
+    topLeft:
+        Point2D(x, y) as tl <=
+            { topLeft: { x: number, y: number } },
+            { topLeft: [ number as x, number as y ] },
+            { x: number, y: number },
+            { top: number as x, left: number as y }
+    bottomRight:
+        Point2D(x, y) <=
+            { bottomRight: { x: number, y: number } },
+            { bottomRight: [ number as x, number as y ] },
+            { x: tl.x + w, y: tl.y + h } <=
+                { width: { w: number, h: number } },
+                { width: number as w, height: number as h },
+                { size: { x: number as w, y: number as h } },
+                { size: [ number as w, number as h ] }
+}
+
+Polyline = {
+    points:
+        p <= {
+            // array matching acts like array comprehensions. We get a chance to transform matched elements into new
+            // types, which we do here with `Point2D(x, y)`. If the match is successful, we'll end up with an array of
+            // Point2Ds
+            points: [
+                Point2D(x, y) <=
+                    (number as x, number as y); 0.. // could use regex-like repeats: *, +, ?, {n,m}
+            ] as p
+        }
+}
