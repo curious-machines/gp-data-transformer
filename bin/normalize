@@ -41,7 +41,7 @@ function main(module) {
         const result = normalizer.run(source, structure);
 
         if (result !== undefined) {
-            console.log(prettify(result));
+            console.log(`result: ${prettify(result)}`);
         }
         else {
             console.error();
