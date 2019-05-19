@@ -2856,7 +2856,6 @@
 
               return result;
             }
-          // TODO: array and object construction. Allow these inside invocations as well
 
           default:
             throw new TypeError("unsupported expression type: '".concat(expression.type, "'"));
