@@ -19,7 +19,7 @@
     "cover 100%"
   ],
   "bin": {
-    "normalize": "./bin/normalize"
+    "dq": "./bin/dq.sh"
   },
   "scripts": {
     "eslint": "eslint .",

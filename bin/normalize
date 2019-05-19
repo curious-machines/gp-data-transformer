@@ -1,20 +1,14 @@
-#!/usr/bin/env node -r esm
-
 import util from "util";
-import fs from "fs";
 import path from "path";
 import Normalizer from "../lib/Normalizer.js";
 import {argv} from "yargs";
 
-let verbose = "v" in argv;
-
 function usage() {
-    console.log("normalizer [-r <type-creator-module>] [-v] -n <norm-file> -t type <input-file>+");
-    console.log("  r       - load anode module. All exports will be added as type creators");
-    console.log("  v       - turn on verbose mode");
-    console.log("  n       - the .norm file to use for normalization");
-    console.log("  t       - the type to use for normalization");
-    console.log("  <files> - The JSON files to process");
+    console.log("normalizer [-r <type-creator-module>] [-v] -e <expression> <json>+");
+    console.log("  r      - load anode module. All exports will be added as type creators");
+    console.log("  v      - turn on verbose mode");
+    console.log("  e      - the expression to use for normalization");
+    console.log("  <json> - The JSON files to process");
 }
 
 function prettify(object) {
@@ -30,13 +24,11 @@ function say(message) {
 }
 
 function main(module) {
-    if ("n" in argv && "t" in argv && argv._.length > 0) {
+    if ("e" in argv && argv._.length > 0) {
         say(`loading ${argv.n}`);
 
-        const source = fs.readFileSync(path.resolve(argv.n), "utf-8");
+        const source = argv.e;
         const normalizer = new Normalizer();
-
-        normalizer.addDefinitionsFromSource(source);
 
         if (module !== null) {
             for (const name in module) {
@@ -44,28 +36,20 @@ function main(module) {
             }
         }
 
-        for (const file of argv._) {
-            say(`processing ${file}`);
+        const dataSource = argv._[0];
+        const structure = JSON.parse(dataSource);
+        const result = normalizer.run(source, structure);
 
-            const dataSource = fs.readFileSync(path.resolve(file), "utf-8");
-            const data = JSON.parse(dataSource);
-            const structures = Array.isArray(data) ? data : [data];
+        if (result !== undefined) {
+            console.log(prettify(result));
+        }
+        else {
+            console.error();
+            console.error("The following failed normalization");
+            console.error(prettify(structure));
 
-            for (const structure of structures) {
-                const result = normalizer.normalize(structure, argv.t);
-
-                if (result !== undefined) {
-                    console.log(util.inspect(result, {depth: Infinity, colors: true}));
-                }
-                else {
-                    console.error();
-                    console.error("The following failed normalization");
-                    console.error(prettify(structure));
-
-                    for (const message of normalizer.messages) {
-                        console.error(`  ${message.level}: ${message.message}`);
-                    }
-                }
+            for (const message of normalizer.messages) {
+                console.error(`  ${message.level}: ${message.message}`);
             }
         }
     }
@@ -74,6 +58,9 @@ function main(module) {
         process.exit(1);
     }
 }
+
+
+const verbose = "v" in argv;
 
 if ("r" in argv) {
     import(path.resolve(argv.r)).then(main)
