@@ -2108,8 +2108,6 @@ var parser = function () {
   return new Parser();
 }();
 
-// import util from "util";
-
 var FAILURE_VALUE = undefined;
 /**
  * Determine if object is something that can have properties
@@ -2137,7 +2135,9 @@ function () {
   function Normalizer() {
     _classCallCheck(this, Normalizer);
 
-    this.types = {}; // this.typeCheckers = {};
+    this.patterns = {};
+    this.transforms = {};
+    this.generators = {}; // this.typeCheckers = {};
 
     this.typeCreators = {};
     this.messages = [];
@@ -2231,364 +2231,136 @@ function () {
       });
     }
     /**
-     * Query, validate, and/or transform the specified structure according to the specified type description name. If
-     * the specified type does not exist in the current type table, then this method will return undefined.
+     * Compile and execute the source against the specfied structure
      *
-     * @param {*} structure
-     * @param {string} asType
-     * @returns {*}
-     */
-
-  }, {
-    key: "normalize",
-    value: function normalize(structure, asType) {
-      // clear all messages
-      this.messages = [];
-
-      if (asType in this.types === false) {
-        this.addError("Unrecognized type: '".concat(asType, "'"));
-        return FAILURE_VALUE;
-      }
-
-      var typeDescriptor = this.types[asType];
-      var typeDeclaration = typeDescriptor.declaration;
-
-      switch (typeDeclaration.type) {
-        case "any":
-          return structure;
-
-        case "array":
-          if (Array.isArray(structure)) {
-            return structure;
-          }
-
-          this.addError("structure is not an array");
-          return FAILURE_VALUE;
-
-        case "boolean":
-          if (typeof structure === "boolean") {
-            return structure;
-          }
-
-          this.addError("structure is not a boolean value");
-          return FAILURE_VALUE;
-
-        case "boolean-instance":
-          if (typeof structure === "boolean") {
-            if (structure === typeDeclaration.value) {
-              return structure;
-            }
-
-            this.addError("structure is not the boolean value ".concat(typeDeclaration.value));
-          } else {
-            this.addError("structure is not the boolean value");
-          }
-
-          return FAILURE_VALUE;
-
-        case "enumeration":
-          if (typeof structure === "string") {
-            if (typeDeclaration.value.includes(structure)) {
-              return structure;
-            }
-
-            this.addError("structure value not in enumeration");
-          } else {
-            this.addError("structure is not a string value, which is needed for enumerations");
-          }
-
-          return FAILURE_VALUE;
-
-        case "null":
-          if (structure === null) {
-            return structure;
-          }
-
-          this.addError("structure is not null");
-          return FAILURE_VALUE;
-
-        case "number":
-          if (typeof structure === "number") {
-            return structure;
-          }
-
-          this.addError("structure is not a number");
-          return FAILURE_VALUE;
-
-        case "number-instance":
-          if (typeof structure === "number") {
-            if (structure === typeDeclaration.value) {
-              return structure;
-            }
-
-            this.addError("structure is not equal to number value ".concat(typeDeclaration.value));
-          } else {
-            this.addError("structure is not a number value");
-          }
-
-          return FAILURE_VALUE;
-
-        case "object":
-          if (isObject(structure)) {
-            return structure;
-          }
-
-          this.addError("structure is not an object");
-          return FAILURE_VALUE;
-
-        case "object-instance":
-          {
-            var result = {};
-            var _iteratorNormalCompletion = true;
-            var _didIteratorError = false;
-            var _iteratorError = undefined;
-
-            try {
-              for (var _iterator = typeDeclaration.value[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-                var canonicalProperty = _step.value;
-                var symbolTable = this.normalizeCanonicalProperty(canonicalProperty, structure);
-
-                if (symbolTable === FAILURE_VALUE) {
-                  return FAILURE_VALUE;
-                }
-
-                if (canonicalProperty.returnValue !== null) {
-                  result[canonicalProperty.name] = this.createResult(canonicalProperty.returnValue.expression, symbolTable);
-                } else {
-                  result[canonicalProperty.name] = symbolTable[canonicalProperty.name];
-                }
-              }
-            } catch (err) {
-              _didIteratorError = true;
-              _iteratorError = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-                  _iterator["return"]();
-                }
-              } finally {
-                if (_didIteratorError) {
-                  throw _iteratorError;
-                }
-              }
-            }
-
-            return result;
-          }
-
-        case "string":
-          if (typeof structure === "string") {
-            return structure;
-          }
-
-          this.addError("structure is not a string");
-          return FAILURE_VALUE;
-
-        case "string-instance":
-          if (typeof structure === "string") {
-            if (structure === typeDeclaration.value) {
-              return structure;
-            }
-
-            this.addError("structure is not equal to string value ".concat(typeDeclaration.value));
-          } else {
-            this.addError("structure is not a string value");
-          }
-
-          return FAILURE_VALUE;
-
-        case "undefined":
-          if (structure === undefined) {
-            return structure;
-          }
-
-          this.addError("structure is not the undefined value");
-          return FAILURE_VALUE;
-
-        default:
-          this.addError("Unrecognized type declaration: ".concat(typeDeclaration.type));
-          return FAILURE_VALUE;
-      }
-    }
-    /*
-     * Acquire the value of a top-level canonical property from the given structure
-     *
-     * @param {object} canonicalProperty
+     * @param {string} source
      * @param {*} structure
      * @returns {*}
      */
 
   }, {
-    key: "normalizeCanonicalProperty",
-    value: function normalizeCanonicalProperty(canonicalProperty, structure) {
-      var propertyName = canonicalProperty.name,
-          groups = canonicalProperty.groups; // when we have no groups, we only need to check that the canonical property name exists
+    key: "run",
+    value: function run(source, structure) {
+      var statements = parser.parse(source); // console.log(util.inspect(statements, {depth: Infinity, color: true}));
 
-      if (groups.length === 0) {
-        if (canonicalProperty.returnValue !== null) {
-          // It doesn't matter what we return here, because the result of processing returnValue will replace it
-          return 0;
-        } else if (isObject(structure) === false) {
-          this.addError("structure is not an object");
-          return FAILURE_VALUE;
-        } else if (propertyName in structure) {
-          var symbolTable = {};
-          symbolTable[propertyName] = structure[propertyName];
-          return symbolTable;
-        }
-
-        this.addError("Could not find property in object: '".concat(propertyName, "'"));
-        return FAILURE_VALUE;
-      } // otherwise, we try find the first group that succeeds
-
-
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+      var result;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
 
       try {
-        for (var _iterator2 = groups[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var group = _step2.value;
-          var value = this.normalizeGroup(group, structure);
+        for (var _iterator = statements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var statement = _step.value;
 
-          if (value !== FAILURE_VALUE) {
-            return value;
+          switch (statement.type) {
+            case "transform-sequence":
+              result = this.runTransforms(statement.transforms, structure);
+
+              if (result === FAILURE_VALUE) {
+                break;
+              }
+
+              break;
+
+            case "generator-assignment":
+              this.generators[statement.name] = statement.value;
+              break;
+
+            case "pattern-assignment":
+              this.patterns[statement.name] = statement.value;
+              break;
+
+            case "transform-assignment":
+              this.transforms[statement.name] = statement.value;
+              break;
+
+            default:
+              this.addError("unknown statement type: ".concat(statement.type));
+              return FAILURE_VALUE;
           }
         }
       } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
+        _didIteratorError = true;
+        _iteratorError = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-            _iterator2["return"]();
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
           }
         } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
+          if (_didIteratorError) {
+            throw _iteratorError;
           }
         }
       }
 
-      this.addError("No matching groups in canonical property: '".concat(propertyName, "'"));
-      return FAILURE_VALUE;
+      return result;
     }
-    /*
-     * Acquire the values of all matches in the group from the specified structure
-     *
-     * @param {object} group
-     * @param {*} structure
-     * @returns {*}
-     */
-
   }, {
-    key: "normalizeGroup",
-    value: function normalizeGroup(group, structure) {
-      var matches = group.matches;
-      var symbolTable = {}; // Something went wrong. Groups have to have one more matches
+    key: "runTransforms",
+    value: function runTransforms(transforms, structure) {
+      var currentObject = structure; // process transforms in reverse order, passing in the results of one to the next
+      // all transforms must succeed
 
-      if (matches.length === 0) {
-        var groupText = JSON.stringify(group);
-        throw new TypeError("Groups are required to have at least one match, but this one had none:\n".concat(groupText));
-      } // all matchers in this group have to succeed
+      for (var i = transforms.length - 1; i >= 0; i--) {
+        var transform = transforms[i];
 
-
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = matches[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var match = _step3.value;
-          var value = this.normalizeMatch(match, structure);
-
-          if (value === FAILURE_VALUE) {
+        if (transform.type === "transform-reference") {
+          if (transform.name in this.transforms) {
+            transform = this.transforms[transform.name];
+          } else {
+            this.addError("undefined transform reference: '".concat(transform.name, "'"));
             return FAILURE_VALUE;
           }
-          /* eslint-disable-next-line guard-for-in */
-
-
-          for (var key in value) {
-            if (key in symbolTable) {
-              console.error("Overwriting '".concat(key, "' in symbol table"));
-            }
-
-            symbolTable[key] = value[key];
-          }
         }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-            _iterator3["return"]();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
 
-      return symbolTable;
-    }
-    /*
-     * Acquire the value from the specified structure using a list of type pattern matches
-     *
-     * @param {object} match
-     * @param {*} structure
-     * @returns {*}
-     */
-
-  }, {
-    key: "normalizeMatch",
-    value: function normalizeMatch(match, structure) {
-      var name = match.name,
-          patterns = match.patterns;
-      var symbolTable = {};
-
-      if (name in structure) {
-        // try to find a pattern that succeeds
-        var _iteratorNormalCompletion4 = true;
-        var _didIteratorError4 = false;
-        var _iteratorError4 = undefined;
+        var result = FAILURE_VALUE;
+        var _iteratorNormalCompletion2 = true;
+        var _didIteratorError2 = false;
+        var _iteratorError2 = undefined;
 
         try {
-          for (var _iterator4 = patterns[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-            var pattern = _step4.value;
-            // console.log(util.inspect(pattern, { depth: Infinity }));
-            var value = this.normalizePattern(pattern, structure[name], symbolTable);
+          for (var _iterator2 = transform.patterns[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+            var pattern = _step2.value;
+            var symbolTable = {};
+            result = this.normalizePattern(pattern, currentObject, symbolTable); // console.log(`currentObject = ${util.inspect(currentObject)}`);
+            // console.log(`transform = ${util.inspect(transform, {depth: Infinity})}`);
+            // console.log(`result = ${util.inspect(result)}`);
+            // console.log(`symbolTable = ${util.inspect(symbolTable)}`);
 
-            if (value === FAILURE_VALUE) {
-              continue;
+            if (result !== FAILURE_VALUE) {
+              // pattern matched, so we can stop
+              if (transform.returnValue !== null) {
+                currentObject = this.generateResult(transform.returnValue.expression, symbolTable);
+              } else {
+                currentObject = result;
+              }
+
+              break;
             }
-
-            if ("assignTo" in pattern && pattern.assignTo !== null) {
-              symbolTable[pattern.assignTo] = value;
-            } else {
-              symbolTable[name] = value;
-            }
-
-            return symbolTable;
           }
         } catch (err) {
-          _didIteratorError4 = true;
-          _iteratorError4 = err;
+          _didIteratorError2 = true;
+          _iteratorError2 = err;
         } finally {
           try {
-            if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-              _iterator4["return"]();
+            if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+              _iterator2["return"]();
             }
           } finally {
-            if (_didIteratorError4) {
-              throw _iteratorError4;
+            if (_didIteratorError2) {
+              throw _iteratorError2;
             }
           }
         }
+
+        if (result === FAILURE_VALUE) {
+          this.addError("Unable to match any type patterns");
+          return FAILURE_VALUE;
+        }
       }
 
-      return FAILURE_VALUE;
+      return currentObject;
     }
     /*
      * Acquire the value of a type pattern from the specified structure. Any named entities will be populated in the
@@ -2603,12 +2375,28 @@ function () {
   }, {
     key: "normalizePattern",
     value: function normalizePattern(pattern, structure, symbolTable) {
+      var assign = function assign(name, value) {
+        if (name !== null && name !== undefined) {
+          if (name in symbolTable) {
+            console.log("warning: overwriting ".concat(name, " in symbol table"));
+          }
+
+          symbolTable[name] = value;
+        }
+      };
+
       switch (pattern.patternType) {
         case "any":
+          assign(pattern.assignTo, structure);
           return structure;
 
         case "array":
-          return Array.isArray(structure) ? structure : FAILURE_VALUE;
+          if (Array.isArray(structure)) {
+            assign(pattern.assignTo, structure);
+            return structure;
+          }
+
+          return FAILURE_VALUE;
 
         case "array-pattern":
           {
@@ -2618,18 +2406,17 @@ function () {
 
             var result = [];
             var index = 0;
-            var _iteratorNormalCompletion5 = true;
-            var _didIteratorError5 = false;
-            var _iteratorError5 = undefined;
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
 
             try {
-              for (var _iterator5 = pattern.value[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-                var element = _step5.value;
+              for (var _iterator3 = pattern.value[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var element = _step3.value;
                 var elementPattern = element.pattern,
                     _element$range = element.range,
                     start = _element$range.start,
-                    stop = _element$range.stop,
-                    assignTo = element.assignTo;
+                    stop = _element$range.stop;
                 var i = void 0;
 
                 for (i = 0; i < stop; i++) {
@@ -2646,41 +2433,40 @@ function () {
                   } // save result
 
 
+                  assign(element.assignTo, value);
                   result.push(value);
-
-                  if (assignTo !== null) {
-                    if (assignTo in symbolTable) {
-                      console.log("warning: overwriting ".concat(assignTo, " in symbol table"));
-                    }
-
-                    symbolTable[assignTo] = value;
-                  }
                 } // advance global index by processed amount
 
 
                 index += i;
               }
             } catch (err) {
-              _didIteratorError5 = true;
-              _iteratorError5 = err;
+              _didIteratorError3 = true;
+              _iteratorError3 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-                  _iterator5["return"]();
+                if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+                  _iterator3["return"]();
                 }
               } finally {
-                if (_didIteratorError5) {
-                  throw _iteratorError5;
+                if (_didIteratorError3) {
+                  throw _iteratorError3;
                 }
               }
             }
 
-            return index === structure.length ? result : FAILURE_VALUE;
+            if (index === structure.length) {
+              assign(pattern.assignTo, structure);
+              return result;
+            }
+
+            return FAILURE_VALUE;
           }
 
         case "boolean":
           if (typeof structure === "boolean") {
             if (pattern.value === null || pattern.value === structure) {
+              assign(pattern.assignTo, structure);
               return structure;
             }
           }
@@ -2688,11 +2474,17 @@ function () {
           return FAILURE_VALUE;
 
         case "null":
-          return structure === null ? structure : FAILURE_VALUE;
+          if (structure === null) {
+            assign(pattern.assignTo, structure);
+            return structure;
+          }
+
+          return FAILURE_VALUE;
 
         case "number":
           if (typeof structure === "number") {
             if (pattern.value === null || pattern.value === structure) {
+              assign(pattern.assignTo, structure);
               return structure;
             }
           }
@@ -2701,6 +2493,7 @@ function () {
 
         case "object":
           if (isObject(structure)) {
+            assign(pattern.assignTo, structure);
             return structure;
           }
 
@@ -2713,13 +2506,13 @@ function () {
             }
 
             var _result = {};
-            var _iteratorNormalCompletion6 = true;
-            var _didIteratorError6 = false;
-            var _iteratorError6 = undefined;
+            var _iteratorNormalCompletion4 = true;
+            var _didIteratorError4 = false;
+            var _iteratorError4 = undefined;
 
             try {
-              for (var _iterator6 = pattern.value[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                var property = _step6.value;
+              for (var _iterator4 = pattern.value[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+                var property = _step4.value;
                 var name = property.name,
                     propertyPattern = property.pattern,
                     assignTo = property.assignTo;
@@ -2731,38 +2524,50 @@ function () {
                     return FAILURE_VALUE;
                   }
 
+                  assign(property.assignTo, _value);
                   _result[assignTo] = _value;
-
-                  if (assignTo in symbolTable) {
-                    console.log("warning: overwriting ".concat(assignTo, " in symbol table"));
-                  }
-
-                  symbolTable[assignTo] = _value;
                 } else {
                   return FAILURE_VALUE;
                 }
               }
             } catch (err) {
-              _didIteratorError6 = true;
-              _iteratorError6 = err;
+              _didIteratorError4 = true;
+              _iteratorError4 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
-                  _iterator6["return"]();
+                if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+                  _iterator4["return"]();
                 }
               } finally {
-                if (_didIteratorError6) {
-                  throw _iteratorError6;
+                if (_didIteratorError4) {
+                  throw _iteratorError4;
                 }
               }
             }
 
+            assign(pattern.assignTo, structure);
             return _result;
           }
+
+        case "reference":
+          if (pattern.value in this.patterns) {
+            var referencedPattern = this.patterns[pattern.value];
+
+            var _result2 = this.normalizePattern(referencedPattern, structure, symbolTable);
+
+            if (_result2 !== FAILURE_VALUE) {
+              assign(pattern.assignTo, _result2);
+            }
+
+            return _result2;
+          }
+
+          return FAILURE_VALUE;
 
         case "string":
           if (typeof structure === "string") {
             if (pattern.value === null || pattern.value === structure) {
+              assign(pattern.assignTo, structure);
               return structure;
             }
           }
@@ -2773,7 +2578,12 @@ function () {
           // NOTE: Our current failure value is undefined, so this will be treated as an error. I can change
           // FAILURE_VALUE to be a sigil. I'll just have to be careful to return undefined at the top-most level.
           // I'm leaving this for now as this is probably not going to be used much
-          return structure === undefined ? structure : FAILURE_VALUE;
+          if (structure === undefined) {
+            assign(pattern.assignTo, structure);
+            return structure;
+          }
+
+          return FAILURE_VALUE;
 
         default:
           throw new TypeError("unrecognized pattern type: '".concat(pattern.type, "'"));
@@ -2788,8 +2598,8 @@ function () {
      */
 
   }, {
-    key: "createResult",
-    value: function createResult(expression, symbolTable) {
+    key: "generateResult",
+    value: function generateResult(expression, symbolTable) {
       var _this2 = this;
 
       switch (expression.type) {
@@ -2806,7 +2616,7 @@ function () {
 
         case "array":
           return expression.value.map(function (elementExpression) {
-            return _this2.createResult(elementExpression.expression, symbolTable);
+            return _this2.generateResult(elementExpression.expression, symbolTable);
           });
 
         case "boolean":
@@ -2819,26 +2629,26 @@ function () {
         case "object":
           {
             var result = {};
-            var _iteratorNormalCompletion7 = true;
-            var _didIteratorError7 = false;
-            var _iteratorError7 = undefined;
+            var _iteratorNormalCompletion5 = true;
+            var _didIteratorError5 = false;
+            var _iteratorError5 = undefined;
 
             try {
-              for (var _iterator7 = expression.value[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                var propertyExpression = _step7.value;
-                result[propertyExpression.name] = this.createResult(propertyExpression.expression, symbolTable);
+              for (var _iterator5 = expression.value[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                var propertyExpression = _step5.value;
+                result[propertyExpression.name] = this.generateResult(propertyExpression.expression, symbolTable);
               }
             } catch (err) {
-              _didIteratorError7 = true;
-              _iteratorError7 = err;
+              _didIteratorError5 = true;
+              _iteratorError5 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-                  _iterator7["return"]();
+                if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+                  _iterator5["return"]();
                 }
               } finally {
-                if (_didIteratorError7) {
-                  throw _iteratorError7;
+                if (_didIteratorError5) {
+                  throw _iteratorError5;
                 }
               }
             }
