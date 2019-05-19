@@ -2346,16 +2346,16 @@ function () {
             try {
               for (var _iterator = typeDeclaration.value[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
                 var canonicalProperty = _step.value;
-                var value = this.normalizeCanonicalProperty(canonicalProperty, structure);
+                var symbolTable = this.normalizeCanonicalProperty(canonicalProperty, structure);
 
-                if (value === FAILURE_VALUE) {
+                if (symbolTable === FAILURE_VALUE) {
                   return FAILURE_VALUE;
                 }
 
                 if (canonicalProperty.returnValue !== null) {
-                  result[canonicalProperty.name] = this.createResult(canonicalProperty.returnValue.expression, value);
+                  result[canonicalProperty.name] = this.createResult(canonicalProperty.returnValue.expression, symbolTable);
                 } else {
-                  result[canonicalProperty.name] = value[canonicalProperty.name];
+                  result[canonicalProperty.name] = symbolTable[canonicalProperty.name];
                 }
               }
             } catch (err) {
@@ -2439,9 +2439,8 @@ function () {
 
         this.addError("Could not find property in object: '".concat(propertyName, "'"));
         return FAILURE_VALUE;
-      }
+      } // otherwise, we try find the first group that succeeds
 
-      var result = FAILURE_VALUE; // try to find a group that succeeds
 
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
@@ -2453,8 +2452,7 @@ function () {
           var value = this.normalizeGroup(group, structure);
 
           if (value !== FAILURE_VALUE) {
-            result = value;
-            break;
+            return value;
           }
         }
       } catch (err) {
@@ -2472,11 +2470,8 @@ function () {
         }
       }
 
-      if (result === FAILURE_VALUE) {
-        this.addError("No matching groups in canonical property: '".concat(propertyName, "'"));
-      }
-
-      return result;
+      this.addError("No matching groups in canonical property: '".concat(propertyName, "'"));
+      return FAILURE_VALUE;
     }
     /*
      * Acquire the values of all matches in the group from the specified structure
