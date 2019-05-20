@@ -44,37 +44,60 @@ function main(module) {
         }
     }
 
-    // get data
-    if ("j" in argv === false && argv._.length === 0) {
-        say("Must specify data with -j or a raw JSON string");
-        usage();
-        process.exit(1);
+    if (process.stdin.isTTY) {
+        // get data
+        if ("j" in argv === false && argv._.length === 0) {
+            console.error("Must specify data with -j or a raw JSON string");
+            usage();
+            process.exit(1);
+        }
+
+        const dataSource = ("j" in argv)
+            ? fs.readFileSync(path.resolve(argv.j))
+            : argv._[0];
+
+        transform(normalizer, JSON.parse(dataSource));
     }
+    else {
+        let dataSource = "";
 
-    const dataSource = ("j" in argv)
-        ? fs.readFileSync(path.resolve(argv.j))
-        : argv._[0];
-    let structures = JSON.parse(dataSource);
+        process.stdin.on("data", chunk => {
+            dataSource += chunk;
+        });
 
-    if (Array.isArray(structures) === false) {
+        process.stdin.on("end", () => {
+            transform(normalizer, JSON.parse(dataSource));
+        });
+    }
+}
+
+function transform(normalizer, structures) {
+    // make sure data is an array
+    if ("a" in argv) {
+        // if we said it was an array, but it isn't, then treat the data as if -a hadn't been specified
+        if (Array.isArray(structures) === false) {
+            structures = [structures];
+        }
+    }
+    else {
         structures = [structures];
     }
 
     // execute norm file and/or user-entered source
-    if ("n" in argv === false && "e" in argv === false) {
-        say("Must have -e or -n option");
+    if ("e" in argv === false) {
+        console.error("Must have -e option");
         usage();
         process.exit(1);
     }
 
-    let source;
-    let success = true;
-
+    // load in any definitions
     if ("n" in argv) {
-        source = fs.readFileSync(path.resolve(argv.n), "utf-8");
+        const source = fs.readFileSync(path.resolve(argv.n), "utf-8");
 
-        normalizer.run(source, null);
+        normalizer.addDefinitionsFromSource(source);
     }
+
+    let success = true;
 
     for (const structure of structures) {
         const result = normalizer.run(argv.e, structure);
