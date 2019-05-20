@@ -6,12 +6,12 @@ import {argv} from "yargs";
 
 function usage() {
     console.log(`
-normalizer [-r <type-creator-module>] [-v] <norm-source> <data-source>
+normalizer [-r <type-creator-module>] [-q] <norm-source> <data-source>
     <norm-source> = (-e <expression> | -n <norm-file>)
     <data-source> = (-j <json-file> | <json-string>)
 
   r      - load anode module. All exports will be added as type creators
-  v      - turn on verbose mode
+  q      - turn on quiet mode
   n      - the .norm file to execute. n runs before e
   e      - the expression to execute. e runs after n
   j      - the JSON file to test
@@ -27,8 +27,8 @@ function prettify(object) {
     return util.inspect(object, options);
 }
 
-function say(message) {
-    if (verbose) {
+function say(message="") {
+    if (quiet === false) {
         console.log(message);
     }
 }
@@ -46,9 +46,9 @@ function main(module) {
 
     // get data
     if ("j" in argv === false && argv._.length === 0) {
-        console.error("Must specify data with -j or a raw JSON string");
+        say("Must specify data with -j or a raw JSON string");
         usage();
-        process.exit();
+        process.exit(1);
     }
 
     const dataSource = ("j" in argv)
@@ -62,12 +62,13 @@ function main(module) {
 
     // execute norm file and/or user-entered source
     if ("n" in argv === false && "e" in argv === false) {
-        console.error("Must have -e or -n option");
+        say("Must have -e or -n option");
         usage();
         process.exit(1);
     }
 
     let source;
+    let success = true;
 
     if ("n" in argv) {
         source = fs.readFileSync(path.resolve(argv.n), "utf-8");
@@ -78,26 +79,30 @@ function main(module) {
     for (const structure of structures) {
         const result = normalizer.run(argv.e, structure);
 
-        console.log(`  data: ${prettify(structure)}`);
-
         // process result
         if (result !== undefined) {
-            console.log(`result: ${prettify(result)}`);
+            // always display result
+            console.log(prettify(result));
         }
         else {
-            console.error("The following error(s) occurred");
+            success = false;
+
+            say(`Data: ${prettify(structure)}`);
+            say("Messages:");
 
             for (const message of normalizer.messages) {
-                console.error(`  ${message.level}: ${message.message}`);
+                say(`  ${message.level}: ${message.message}`);
             }
         }
 
-        console.log();
+        say();
     }
+
+    process.exit(success ? 0 : 1);
 }
 
 
-const verbose = "v" in argv;
+const quiet = "q" in argv;
 
 if ("r" in argv) {
     import(path.resolve(argv.r)).then(main)
