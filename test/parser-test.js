@@ -128,8 +128,8 @@ describe("Parser", () => {
         describe("Enumeration Types", () => {
             const tests = [
                 'type MyType = { }',
-                'type MyType = enum { one two three }',
-                'type MyType = enum { "array" "boolean" "multiple words" }'
+                'type MyType = enum { one, two, three }',
+                'type MyType = enum { "array", "boolean", "multiple words" }'
             ];
 
             assertTests(tests);
