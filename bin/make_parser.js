@@ -30,7 +30,7 @@ const replace = "export default parser;\n";
 const result = source.replace(search, replace);
 
 if (result !== source) {
-    fs.writeFileSync(path.join(__dirname, "../lib/NormalizerParser.js"), result);
+    fs.writeFileSync(path.join(__dirname, "../lib/GeneratedParser.js"), result);
 }
 else {
     console.error("Unable to fix export");
