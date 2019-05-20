@@ -186,7 +186,7 @@ stringOrIdentifier
   | STRING
   ;
 identifiers
-  : identifiers stringOrIdentifier
+  : identifiers , stringOrIdentifier
   | stringOrIdentifier
   ;
 ```

@@ -1,19 +1,19 @@
 type Ellipse = {
     center:
         Point2D(x, y) <=
-                { center: { x: number, y: number } }
+                { center: { x: number as x, y: number as x } }
             |   { center: [ number as x, number as y ] }
             |   { cx: number as x, cy: number as y }
             |   { centerX: number as x, centerY: number as y },
     radiusX:
         x <=
-                { radii: { x: number } }
+                { radii: { x: number as x } }
             |   { radii: [ number as x, number ] }
             |   { rx: number as x }
             |   { radiusX: number as x },
     radiusY:
         y <=
-                { radii: { y: number } }
+                { radii: { y: number as y } }
             |   { radii: [ number, number as y ] }
             |   { ry: number as y }
             |   { radiusY: number as y }
