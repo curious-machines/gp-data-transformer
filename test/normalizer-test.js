@@ -210,38 +210,27 @@ describe("Normalizer", () => {
 
             assertNormalizations(expression, source, tests);
         });
-        // describe("Object Property Existence", () => {
-        //     const typeName = "MyType";
-        //     const source = `type ${typeName} = { cx, cy }`;
-        //     const tests = [
-        //         {structure: true, expected: FAILURE_VALUE},
-        //         {structure: false, expected: FAILURE_VALUE},
-        //         {structure: 10, expected: FAILURE_VALUE},
-        //         {structure: "", expected: FAILURE_VALUE},
-        //         {structure: null, expected: FAILURE_VALUE},
-        //         {structure: undefined, expected: FAILURE_VALUE},
-        //         {structure: [], expected: FAILURE_VALUE},
-        //         {structure: {}, expected: FAILURE_VALUE},
-        //         {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
-        //         {structure: {cx: 10}, expected: FAILURE_VALUE},
-        //         {structure: {cy: 10}, expected: FAILURE_VALUE},
-        //         {structure: {cx: 10, cy: 10, radius: 5}, expected: {cx: 10, cy: 10}}
-        //     ];
-        //
-        //     assertNormalizations(typeName, source, tests);
-        // });
-        // describe("Object Property Type", () => {
-        //     const typeName = "MyType";
-        //     const source = `type ${typeName} = { cx: number, cy: number }`;
-        //     const tests = [
-        //         {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
-        //         {structure: {cx: 10, cy: "20"}, expected: FAILURE_VALUE},
-        //         {structure: {cx: "10", cy: 20}, expected: FAILURE_VALUE},
-        //         {structure: {cx: "10", cy: "20"}, expected: FAILURE_VALUE}
-        //     ];
-        //
-        //     assertNormalizations(typeName, source, tests);
-        // });
+        describe("Object Property Existence", () => {
+            const typeName = "MyType";
+            const expression = `type ${typeName}`;
+            const source = `type ${typeName} = { cx, cy }`;
+            const tests = [
+                {structure: true, expected: FAILURE_VALUE},
+                {structure: false, expected: FAILURE_VALUE},
+                {structure: 10, expected: FAILURE_VALUE},
+                {structure: "", expected: FAILURE_VALUE},
+                {structure: null, expected: FAILURE_VALUE},
+                {structure: undefined, expected: FAILURE_VALUE},
+                {structure: [], expected: FAILURE_VALUE},
+                {structure: {}, expected: FAILURE_VALUE},
+                {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
+                {structure: {cx: 10}, expected: FAILURE_VALUE},
+                {structure: {cy: 10}, expected: FAILURE_VALUE},
+                {structure: {cx: 10, cy: 10, radius: 5}, expected: {cx: 10, cy: 10}}
+            ];
+
+            assertNormalizations(expression, source, tests);
+        });
         describe("Object Type", () => {
             const typeName = "MyType";
             const expression = `type ${typeName}`;
@@ -315,6 +304,20 @@ describe("Normalizer", () => {
             assertNormalizations(expression, source, tests);
         });
     });
+
+    // describe("Object Property Type", () => {
+    //     const typeName = "MyType";
+    //     const expression = `type ${typeName}`;
+    //     const source = `type ${typeName} = { cx: number, cy: number }`;
+    //     const tests = [
+    //         {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
+    //         {structure: {cx: 10, cy: "20"}, expected: FAILURE_VALUE},
+    //         {structure: {cx: "10", cy: 20}, expected: FAILURE_VALUE},
+    //         {structure: {cx: "10", cy: "20"}, expected: FAILURE_VALUE}
+    //     ];
+    //
+    //     assertNormalizations(expression, source, tests);
+    // });
     // describe("Type Patterns", () => {
     //     describe("Array Type Pattern", () => {
     //         const typeName = "MyType";
