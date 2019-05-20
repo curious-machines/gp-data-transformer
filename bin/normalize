@@ -6,17 +6,16 @@ import {argv} from "yargs";
 
 function usage() {
     console.log(`
-normalizer [-r <type-creator-module>] [-q] <norm-source> <data-source>
-    <norm-source> = (-e <expression> | -n <norm-file>)
-    <data-source> = (-j <json-file> | <json-string>)
+normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] -e <expression> <source-data>
+    
+    <source-data> = (-j <json-file> | <json-text> | stdin)
 
-  r      - load anode module. All exports will be added as type creators
-  q      - turn on quiet mode
-  n      - the .norm file to execute. n runs before e
-  e      - the expression to execute. e runs after n
-  j      - the JSON file to test
-  a      - data is an array of objects to test
-  <json> - the raw JSON strings to process
+    a - data is an array. Each element will be tested separately
+    e - the expression to execute on each test
+    j - the JSON file to test
+    n - the .norm file from which to load definitions
+    q - turn on quiet mode
+    r - load a node module. All exports will be exposed as functions to the script
 
 `);
 }
@@ -47,7 +46,7 @@ function main(module) {
     if (process.stdin.isTTY) {
         // get data
         if ("j" in argv === false && argv._.length === 0) {
-            console.error("Must specify data with -j or a raw JSON string");
+            console.error("Must specify data with -j, JSON text, or from STDIN");
             usage();
             process.exit(1);
         }
