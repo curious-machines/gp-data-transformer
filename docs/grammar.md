@@ -1,114 +1,68 @@
 ```bnf
 program
-  : typeDeclarations
+  : statements
   ;
-typeDeclarations
-  : typeDeclarations typeDeclaration
-  | typeDeclaration
+statements
+  : statements statement
+  | statement
   ;
-typeDeclaration
-  : TYPE stringOrIdentifier = typeDescription
+statement
+  : transform
+  | GENERATOR IDENTIFIER = generator
+  | PATTERN IDENTIFIER = namedTypePattern
+  | TRANSFORM IDENTIFIER = transform
+  | TYPE IDENTIFIER = typeDefinition
   ;
-typeDescription
-  : anyDescription
-  | arrayDescription
-  | booleanDescription
-  | enumerationDescription
-  | nullDescription
-  | numberDescription
-  | objectDescription
-  | stringDescription
-  | undefinedDescription
+transform
+  : generator <= _
+  | generator <= typePatterns
+  | _ <= typePatterns
+  | GENERATOR IDENTIFIER
+  | TRANSFORM IDENTIFIER
+  | TYPE IDENTIFIER
   ;
-anyDescription
+typeDefinition
   : ANY_TYPE
-  ;
-arrayDescription
-  : ARRAY_TYPE
-  | [ ]
-  ;
-booleanDescription
-  : BOOLEAN_TYPE
+  | ARRAY_TYPE
+  | arrayTypeDefinition
+  | BOOLEAN_TYPE
   | TRUE
   | FALSE
-  ;
-enumerationDescription
-  : ENUMERATION { }
   | ENUMERATION { identifiers }
-  ;
-nullDescription
-  : NULL_TYPE
-  ;
-numberDescription
-  : NUMBER_TYPE
+  | NULL_TYPE
+  | NUMBER_TYPE
   | float
-  ;
-objectDescription
-  : OBJECT_TYPE
-  | { }
-  | { canonicalProperties }
-  ;
-stringDescription
-  : STRING_TYPE
+  | OBJECT_TYPE
+  | objectTypeDefinition
+  | STRING_TYPE
   | string
+  | UNDEFINED_TYPE
   ;
-undefinedDescription
-  : UNDEFINED_TYPE
+arrayTypeDefinition
+  : [ ]
+  | [ transformElements ]
   ;
-identifiers
-  : identifiers stringOrIdentifier
-  | stringOrIdentifier
+transformElements
+  : transformElements , transform
+  | transform
   ;
-boolean
-  : TRUE
-  | FALSE
-  ;
-string
-  : STRING
-  ;
-integer
-  : NUMBER
-  ;
-float
-  : NUMBER
-  ;
-stringOrIdentifier
-  : IDENTIFIER
-  | STRING
-  ;
-canonicalProperties
-  : canonicalProperties canonicalProperty
-  | canonicalProperty
-  ;
-canonicalProperty
-  : stringOrIdentifier
-  | stringOrIdentifier groupBlock
-  | stringOrIdentifier : typePattern
-  | stringOrIdentifier <= expression
-  | stringOrIdentifier <= expression groupBlock
-  ;
-groupBlock
+objectTypeDefinition
   : { }
-  | { groups }
+  | { transformProperties }
   ;
-groups
-  : groups group
-  | group
+transformProperties
+  : transformProperties , transformProperty
+  | transformProperty
   ;
-group
-  : GROUP { patternMatches }
-  | stringOrIdentifier : namedTypePattern
+transformProperty
+  : IDENTIFIER : transform
+  | IDENTIFIER
   ;
-patternMatches
-  : patternMatches patternMatch
-  | patternMatch
+namedGenerator
+  : generator
+  | generator AS IDENTIFIER
   ;
-patternMatch
-  : MATCH stringOrIdentifier { }
-  | MATCH stringOrIdentifier { typePatterns }
-  | stringOrIdentifier : namedTypePattern
-  ;
-expression
+generator
   : IDENTIFIER
   | IDENTIFIER ( )
   | IDENTIFIER ( parameterList )
@@ -129,7 +83,7 @@ expressionElements
   | expressionElement
   ;
 expressionElement
-  : expression
+  : generator
   ;
 objectExpression
   : { }
@@ -140,7 +94,7 @@ expressionProperties
   | expressionProperty
   ;
 expressionProperty
-  : IDENTIFIER : expression
+  : IDENTIFIER : generator
   | IDENTIFIER
   ;
 parameterList
@@ -148,7 +102,7 @@ parameterList
   | IDENTIFIER
   ;
 typePatterns
-  : typePatterns namedTypePattern
+  : typePatterns | namedTypePattern
   | namedTypePattern
   ;
 namedTypePattern
@@ -158,7 +112,6 @@ namedTypePattern
 typePattern
   : ANY_TYPE
   | ARRAY_TYPE
-  | arrayPattern
   | BOOLEAN_TYPE
   | TRUE
   | FALSE
@@ -166,10 +119,13 @@ typePattern
   | NUMBER_TYPE
   | float
   | OBJECT_TYPE
-  | objectPattern
   | STRING_TYPE
   | string
   | UNDEFINED_TYPE
+  | arrayPattern
+  | objectPattern
+  | PATTERN IDENTIFIER
+  | ENUMERATION IDENTIFIER
   | IDENTIFIER
   ;
 arrayPattern
@@ -210,5 +166,27 @@ namedPatternProperty
   ;
 namedProperty
   : IDENTIFIER : typePattern
+  | IDENTIFIER
+  ;
+boolean
+  : TRUE
+  | FALSE
+  ;
+string
+  : STRING
+  ;
+integer
+  : NUMBER
+  ;
+float
+  : NUMBER
+  ;
+stringOrIdentifier
+  : IDENTIFIER
+  | STRING
+  ;
+identifiers
+  : identifiers stringOrIdentifier
+  | stringOrIdentifier
   ;
 ```

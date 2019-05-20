@@ -34,12 +34,12 @@ function say(message="") {
 
 function main(module) {
     // creator interpreter
-    const normalizer = new Transformer();
+    const transformer = new Transformer();
 
     // load type creators from module
     if (module !== null) {
         for (const name in module) {
-            normalizer.typeCreators[name] = module[name];
+            transformer.typeCreators[name] = module[name];
         }
     }
 
@@ -55,7 +55,7 @@ function main(module) {
             ? fs.readFileSync(path.resolve(argv.j))
             : argv._[0];
 
-        transform(normalizer, JSON.parse(dataSource));
+        transform(transformer, JSON.parse(dataSource));
     }
     else {
         let dataSource = "";
@@ -70,18 +70,18 @@ function main(module) {
                 argv.a = true;
 
                 transform(
-                    normalizer,
+                    transformer,
                     dataSource.split(/\r\n?|\n/).map(line => JSON.parse(line))
                 );
             }
             else {
-                transform(normalizer, JSON.parse(dataSource));
+                transform(transformer, JSON.parse(dataSource));
             }
         });
     }
 }
 
-function transform(normalizer, structures) {
+function transform(transformer, structures) {
     // make sure data is an array
     if ("a" in argv) {
         // if we said it was an array, but it isn't, then treat the data as if -a hadn't been specified
@@ -104,13 +104,13 @@ function transform(normalizer, structures) {
     if ("n" in argv) {
         const source = fs.readFileSync(path.resolve(argv.n), "utf-8");
 
-        normalizer.addDefinitionsFromSource(source);
+        transformer.addDefinitionsFromSource(source);
     }
 
     let success = true;
 
     for (const structure of structures) {
-        const result = normalizer.run(argv.e, structure);
+        const result = transformer.run(argv.e, structure);
 
         // process result
         if (result !== undefined) {
@@ -123,7 +123,7 @@ function transform(normalizer, structures) {
             say(`Data: ${prettify(structure)}`);
             say("Messages:");
 
-            for (const message of normalizer.messages) {
+            for (const message of transformer.messages) {
                 say(`  ${message.level}: ${message.message}`);
             }
         }

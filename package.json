@@ -1,17 +1,17 @@
 {
-  "name": "kld-data-normalizer",
+  "name": "kld-data-transformer",
   "version": "0.0.1",
-  "description": "Perform property validation on JS objects at runtime",
+  "description": "Pattern match and transform acyclic JS data structures",
   "author": "Kevin Lindsey",
   "contributors": [],
   "license": "BSD-3-Clause",
   "bugs": {
-    "url": "https://github.com/thelonious/kld-data-normalizer/issues"
+    "url": "https://github.com/thelonious/kld-data-transformer/issues"
   },
-  "homepage": "https://github.com/thelonious/kld-data-normalizer#readme",
+  "homepage": "https://github.com/thelonious/kld-data-transformer#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thelonious/kld-data-normalizer.git"
+    "url": "git+https://github.com/thelonious/kld-data-transformer.git"
   },
   "main": "dist/index-umd.js",
   "module": "index.js",
@@ -19,7 +19,8 @@
     "cover 100%"
   ],
   "bin": {
-    "dq": "./bin/dq.sh"
+    "dt": "./bin/dt.sh",
+    "transform": "./bin/transform"
   },
   "scripts": {
     "eslint": "eslint .",

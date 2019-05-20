@@ -1,6 +1,6 @@
 import assert from "assert";
 import util from "util";
-import Normalizer from "../lib/Normalizer.js";
+import Transformer from "../lib/Transformer.js";
 
 const FAILURE_VALUE = undefined;
 
@@ -11,7 +11,7 @@ function prettify(obj) {
 }
 
 function assertNormalizations(expression, source, tests, debug = false) {
-    const normalizer = new Normalizer();
+    const normalizer = new Transformer();
 
     normalizer.addDefinitionsFromSource(source);
     normalizer.typeCreators.Point = Point;
@@ -47,7 +47,7 @@ function Point(x, y) {
     return {x, y};
 }
 
-describe("Normalizer", () => {
+describe("Transformer", () => {
     describe("Type Definitions", () => {
         describe("Any Type", () => {
             const typeName = "MyType";

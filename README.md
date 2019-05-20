@@ -1,4 +1,4 @@
-# kld-data-normalizer
+# kld-data-transformer
 
 - [Installation](#installation)
 - [Importing](#importing)
@@ -16,7 +16,7 @@ Note that I'm using Jison as the DSL's parser. It does not give friendly errors 
 
 # Installation
 
-```npm install kld-data-normalizer```
+```npm install kld-data-transformer```
 
 # Importing
 
@@ -25,28 +25,28 @@ The following sections indicate how you can import the code for use in various e
 ## Node
 
 ```javascript
-import {Normalizer} = require("kld-data-normalizer");
+import {Transformer} = require("kld-data-transformer");
 ```
 
 ## Browsers
 
 ```html
-<script src="./node_modules/kld-data-normalizer/dist/index-umd.js"></script>
+<script src="./node_modules/kld-data-transformer/dist/index-umd.js"></script>
 <script>
-  var Normalizer = KldDataNormalizer.Normalizer;
+  var Transformer = KldDataTransformer.Transformer;
 </script>
 ```
 
 ## Modern Browsers (ESM)
 
 ```javascript
-import {Normalizer} from './node_modules/kld-data-normalizer/dist/index-esm.js';
+import {Transformer} from './node_modules/kld-data-transformer/dist/index-esm.js';
 ```
 
 ## Bundlers
 
 ```javascript
-import {Normalizer} from "kld-data-normalizer";
+import {Transformer} from "kld-data-transformer";
 ```
 
 # Usage
@@ -55,46 +55,32 @@ Define a normalization file. We'll save it as `ellipse.norm`. This DSL in this f
 
 ```javascript
 type Ellipse = {
-    center <= Point2D(x, y) {
-        center: { x: number, y: number }
-        center: [ number as x, number as y ]
-        group {
-            cx: number as x
-            cy: number as y
-        }
-        group {
-            centerX: number as x
-            centerY: number as y
-        }
-    }
-    radii <= Vector2D(u, v) {
-        radii: { x: number as u, y: number as v }
-        radii: [ number as u, number as v ]
-        group {
-            rx: number as u
-            ry: number as v
-        }
-        group {
-            radiusX: number as u
-            radiusY: number as v
-        }
-    }
+    center:
+        Point2D(x, y) <=
+                { center: { x: number, y: number } }
+            |   { center: [ number as x, number as y ] }
+            |   { cx: number as x, cy: number as y }
+            |   { centerX: number as x, centerY: number as y },
+    radii:
+        Vector2D(rx, ry) <=
+                { radii: { x: number as rx, y: number as ry } }
+            |   { radii: [ number as rx, number as ry ] }
+            |   { rx: number, ry: number }
+            |   { radiusX: number as rx, radiusY: number as ry }
 }
 ```
 
-Now build a script to normalize your data
+Now build a script to transform your data
 
 ```javascript
 import fs from "fs";
 import util from "util";
-import Normalizer from "kld-data-normalizer";
+import Transformer from "kld-data-normalizer";
 
-const source = fs.readFileSync("./ellipse.norm", "utf-8");
-const normalizer = new Normalizer();
-
-normalizer.addDefinitionsFromSource(source);
-normalizer.typeCreators.Point2D = (x, y) => { return {x, y} };
-normalizer.typeCreators.Vector2D = (u, v) => { return {u, v} };
+const transformer = new Transformer();
+transformer.addDefinitionsFromSource(fs.readFileSync("./ellipse.norm", "utf-8"));
+transformer.typeCreators.Point2D = (x, y) => { return {x, y} };
+transformer.typeCreators.Vector2D = (u, v) => { return {u, v} };
 
 const samples = [
     {cx: 10, cy: 20, rx: 30, ry: 40},
@@ -108,7 +94,7 @@ const samples = [
 ];
 
 samples.forEach(sample => {
-    const result = normalizer.normalize(sample);
+    const result = transformer.transform(sample);
 
     console.log(`${util.inspect(sample)} => ${util.inspect(result)}`);
 })
@@ -128,16 +114,16 @@ Note that this is only a taste of what is possible. The tutorial is a work in pr
 
 # Command Line
 
-You can normalize data from the command-line as well:
+You can transform data from the command-line as well:
 
 ```bash
-normalize -n my-normalization-file.norm -t MyType my-data-file.json
+transform -n my-normalization-file.norm -j my-data-file.json -e 'type MyType'
 ```
 
 If your normalization file needs to load type creators onto the normalizer, you can use the following:
 
 ```bash
-normalize -n my-normalization-file.norm -r my-normalization-module.js -t MyType my-data-file.json
+transform -n my-normalization-file.norm -r my-normalization-module.js -j my-data-file.json -e 'type MyType'
 ```
 
 All exported names in the module will be added ad type creators, using their exported names.

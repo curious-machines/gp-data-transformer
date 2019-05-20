@@ -1,5 +1,7 @@
 /**
- * @module kld-data-normalizer
+ * @module kld-data-transformer
  */
 
-export {default as Normalizer} from "./lib/Normalizer.js";
+export {default as Transformer} from "./lib/Transformer.js";
+
+export {default as Parser} from "./lib/GeneratedParser.js";
