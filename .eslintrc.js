@@ -16,7 +16,9 @@ module.exports = {
         "polyfills": [
             "console",
             "Array.isArray",
-            "JSON"
+            "JSON",
+            "Object.assign",
+            "Object.create"
         ]
     },
     "overrides": [
