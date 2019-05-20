@@ -1,4 +1,5 @@
 import util from "util";
+import fs from "fs";
 import path from "path";
 import Normalizer from "../lib/Normalizer.js";
 import {argv} from "yargs";
@@ -14,6 +15,7 @@ normalizer [-r <type-creator-module>] [-v] <norm-source> <data-source>
   n      - the .norm file to execute. n runs before e
   e      - the expression to execute. e runs after n
   j      - the JSON file to test
+  a      - data is an array of objects to test
   <json> - the raw JSON strings to process
 
 `);
@@ -49,8 +51,14 @@ function main(module) {
         process.exit();
     }
 
-    const dataSource = ("j" in argv) ? argv.j : argv._[0];
-    const structure = JSON.parse(dataSource);
+    const dataSource = ("j" in argv)
+        ? fs.readFileSync(path.resolve(argv.j))
+        : argv._[0];
+    let structures = JSON.parse(dataSource);
+
+    if (Array.isArray(structures) === false) {
+        structures = [structures];
+    }
 
     // execute norm file and/or user-entered source
     if ("n" in argv === false && "e" in argv === false) {
@@ -59,30 +67,32 @@ function main(module) {
         process.exit(1);
     }
 
-    let result;
+    let source;
 
     if ("n" in argv) {
-        const source = fs.readFileSync(path.resolve(argv.n), "utf-8");
+        source = fs.readFileSync(path.resolve(argv.n), "utf-8");
 
-        result = normalizer.run(source, structure);
+        normalizer.run(source, null);
     }
 
-    if ("e" in argv) {
-        result = normalizer.run(argv.e, structure);
-    }
+    for (const structure of structures) {
+        const result = normalizer.run(argv.e, structure);
 
-    // process result
-    if (result !== undefined) {
-        console.log(`result: ${prettify(result)}`);
-    }
-    else {
-        console.error();
-        console.error("The following error(s) occurred");
-        console.error(`data = ${prettify(structure)}`);
+        console.log(`  data: ${prettify(structure)}`);
 
-        for (const message of normalizer.messages) {
-            console.error(`  ${message.level}: ${message.message}`);
+        // process result
+        if (result !== undefined) {
+            console.log(`result: ${prettify(result)}`);
         }
+        else {
+            console.error("The following error(s) occurred");
+
+            for (const message of normalizer.messages) {
+                console.error(`  ${message.level}: ${message.message}`);
+            }
+        }
+
+        console.log();
     }
 }
 
