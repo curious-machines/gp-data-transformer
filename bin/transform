@@ -6,16 +6,17 @@ import {argv} from "yargs";
 
 function usage() {
     console.log(`
-normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] -e <expression> <source-data>
+normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] [-e <expression> | -s <<source-data>
     
     <source-data> = (-j <json-file> | <json-text> | stdin)
 
     a - data is an array. Each element will be tested separately
     e - the expression to execute on each test
     j - the JSON file to test
-    n - the .norm file from which to load definitions
+    d - a script file from which to load definitions
     q - turn on quiet mode
     r - load a node module. All exports will be exposed as functions to the script
+    s - a script file to execute on each test
 
 `);
 }
@@ -93,24 +94,33 @@ function transform(transformer, structures) {
         structures = [structures];
     }
 
+    // load in any definitions
+    if ("d" in argv) {
+        const source = fs.readFileSync(path.resolve(argv.d), "utf-8");
+
+        transformer.addDefinitionsFromSource(source);
+    }
+
+    let source = "";
+
     // execute norm file and/or user-entered source
-    if ("e" in argv === false) {
-        console.error("Must have -e option");
+    if ("e" in argv === false && "s" in argv === false) {
+        console.error("Must define script to run using the -e or the -s option");
         usage();
         process.exit(1);
     }
 
-    // load in any definitions
-    if ("n" in argv) {
-        const source = fs.readFileSync(path.resolve(argv.n), "utf-8");
-
-        transformer.addDefinitionsFromSource(source);
+    if ("s" in argv) {
+        source += fs.readFileSync(path.resolve(argv.s), "utf-8");
+    }
+    if ("e" in argv) {
+        source += `\n${argv.e}`;
     }
 
     let success = true;
 
     for (const structure of structures) {
-        const result = transformer.run(argv.e, structure);
+        const result = transformer.execute(source, structure);
 
         // process result
         if (result !== undefined) {

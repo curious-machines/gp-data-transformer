@@ -41,6 +41,7 @@ typeDefinition
 arrayTypeDefinition
   : [ ]
   | [ transformElements ]
+  | [ assignments ; transformElements ]
   ;
 transformElements
   : transformElements , transform
@@ -49,6 +50,7 @@ transformElements
 objectTypeDefinition
   : { }
   | { transformProperties }
+  | { assignments ; transformProperties }
   ;
 transformProperties
   : transformProperties , transformProperty
@@ -57,6 +59,13 @@ transformProperties
 transformProperty
   : IDENTIFIER : transform
   | IDENTIFIER
+  ;
+assignments
+  : assignments , assignment
+  | assignment
+  ;
+assignment
+  : IDENTIFIER = transform
   ;
 namedGenerator
   : generator

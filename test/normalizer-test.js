@@ -29,7 +29,7 @@ function assertNormalizations(expression, source, tests, debug = false) {
         }
 
         it(`input: ${prettify(structure)}, expected: ${expectedText}`, () => {
-            const result = normalizer.run(expression, structure);
+            const result = normalizer.execute(expression, structure);
 
             if (debug) {
                 console.log(prettify(normalizer.messages));
