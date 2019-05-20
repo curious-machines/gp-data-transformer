@@ -717,6 +717,7 @@
             break;
 
           case 56:
+          case 104:
           case 113:
             this.$ = $$[$0];
             break;
@@ -971,11 +972,6 @@
               patternType: 'object-pattern',
               value: $$[$0 - 1]
             };
-            break;
-
-          case 104:
-            $$[$0].assignTo = $$[$0].name;
-            this.$ = $$[$0];
             break;
 
           case 106:
