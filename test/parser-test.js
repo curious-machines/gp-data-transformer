@@ -1,4 +1,3 @@
-import assert from "assert";
 import util from "util";
 import Parser from "../lib/Parser.js";
 

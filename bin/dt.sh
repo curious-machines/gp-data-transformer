@@ -2,4 +2,4 @@
 
 DIR=$(dirname $0)
 
-node -r esm "$DIR/normalize" "$@"
+node -r esm "$DIR/transform" "$@"

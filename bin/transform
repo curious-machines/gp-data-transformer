@@ -1,7 +1,7 @@
 import util from "util";
 import fs from "fs";
 import path from "path";
-import Normalizer from "../lib/Normalizer.js";
+import Transformer from "../lib/Transformer.js";
 import {argv} from "yargs";
 
 function usage() {
@@ -34,7 +34,7 @@ function say(message="") {
 
 function main(module) {
     // creator interpreter
-    const normalizer = new Normalizer();
+    const normalizer = new Transformer();
 
     // load type creators from module
     if (module !== null) {
