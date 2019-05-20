@@ -65,7 +65,18 @@ function main(module) {
         });
 
         process.stdin.on("end", () => {
-            transform(normalizer, JSON.parse(dataSource));
+            // NOTE: experimental option
+            if ("m" in argv) {
+                argv.a = true;
+
+                transform(
+                    normalizer,
+                    dataSource.split(/\r\n?|\n/).map(line => JSON.parse(line))
+                );
+            }
+            else {
+                transform(normalizer, JSON.parse(dataSource));
+            }
         });
     }
 }
