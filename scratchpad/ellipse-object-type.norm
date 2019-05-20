@@ -1,0 +1,14 @@
+type Ellipse = {
+    center:
+        Point2D(x, y) <=
+                { center: { x: number, y: number } }
+            |   { center: [ number as x, number as y ] }
+            |   { cx: number as x, cy: number as y }
+            |   { centerX: number as x, centerY: number as y },
+    radii:
+        Vector2D(rx, ry) <=
+                { radii: { x: number as rx, y: number as ry } }
+            |   { radii: [ number as rx, number as ry ] }
+            |   { rx: number, ry: number }
+            |   { radiusX: number as rx, radiusY: number as ry }
+}
