@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.KldDataNormalizer = {}));
+  (global = global || self, factory(global.KldDataTransformer = {}));
 }(this, function (exports) { 'use strict';
 
   function _typeof(obj) {
@@ -2274,20 +2274,20 @@
     return obj !== null && _typeof(obj) === "object";
   }
   /**
-   * Normalizer
+   * Transformer
    */
 
 
-  var Normalizer =
+  var Transformer =
   /*#__PURE__*/
   function () {
     /**
-     * Create a new empty Normalizer. Normalizers can be used to validate and transform data. However, when a new
-     * Normalizer has been created, it needs to be populated with one or more type descriptions. The easiest way to do
+     * Create a new empty Transformer. Normalizers can be used to validate and transform data. However, when a new
+     * Transformer has been created, it needs to be populated with one or more type descriptions. The easiest way to do
      * this is with the static method fromSource.
      */
-    function Normalizer() {
-      _classCallCheck(this, Normalizer);
+    function Transformer() {
+      _classCallCheck(this, Transformer);
 
       this.types = {};
       this.transforms = {};
@@ -2299,19 +2299,19 @@
       this.verbose = false;
     }
     /**
-     * Create a new instance of a Normalizer with its type table initially populated from the specified normalizer
+     * Create a new instance of a Transformer with its type table initially populated from the specified normalizer
      * source code.
      *
      * @param {string} source
-     * @returns {Normalizer}
+     * @returns {Transformer}
      */
 
 
-    _createClass(Normalizer, [{
+    _createClass(Transformer, [{
       key: "addDefinitionsFromSource",
 
       /**
-       * Add all type definitions from the specified normalization source code to this Normalizer instance. This will
+       * Add all type definitions from the specified normalization source code to this Transformer instance. This will
        * amend the current types with those specified in the code. Note that any type that has been redefined in the
        * source code will replace any pre-existing version of that type.
        *
@@ -2322,7 +2322,7 @@
         this.addDefinitionsFromTable(table);
       }
       /**
-       * Add all type definitions from the specified serialization table to this Normalizer instance. This will amend the
+       * Add all type definitions from the specified serialization table to this Transformer instance. This will amend the
        * current types with those specified in the table. Note that any type that has been redefined in the table will
        * replace any pre-existing version of that type.
        *
@@ -3038,35 +3038,36 @@
     }], [{
       key: "fromSource",
       value: function fromSource(source) {
-        var result = new Normalizer();
+        var result = new Transformer();
         result.addDefinitionsFromSource(source);
         return result;
       }
       /**
-       * Create a new instance of a Normalizer with its type table initially populated from the specified serialization
+       * Create a new instance of a Transformer with its type table initially populated from the specified serialization
        * table. This table can be used to cache a parse normalized file and is the output of Parser.parse()
        *
        * @param {Array} table
-       * @returns {Normalizer}
+       * @returns {Transformer}
        */
 
     }, {
       key: "fromTable",
       value: function fromTable(table) {
-        var result = new Normalizer();
+        var result = new Transformer();
         result.addDefinitionsFromTable(table);
         return result;
       }
     }]);
 
-    return Normalizer;
+    return Transformer;
   }();
 
   /**
-   * @module kld-data-normalizer
+   * @module kld-data-transformer
    */
 
-  exports.Normalizer = Normalizer;
+  exports.Parser = parser;
+  exports.Transformer = Transformer;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
