@@ -125,13 +125,15 @@ describe("Parser", () => {
             assertTests(tests);
         });
     });
-    // describe("Enumeration Descriptions", () => {
-    //     const tests = [
-    //         'MyType = enumeration { }',
-    //         'MyType = enumeration { one two three }',
-    //         'MyType = enumeration { "array" "boolean" "multiple words" }'
-    //     ];
-    //
-    //     assertTests(tests);
-    // });
+    describe("Types", () => {
+        describe("Enumeration Types", () => {
+            const tests = [
+                'type MyType = { }',
+                'type MyType = enum { one two three }',
+                'type MyType = enum { "array" "boolean" "multiple words" }'
+            ];
+
+            assertTests(tests);
+        });
+    });
 });

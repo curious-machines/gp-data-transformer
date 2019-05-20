@@ -138,7 +138,7 @@ describe("Normalizer", () => {
         describe("Enumeration Values", () => {
             const typeName = "MyType";
             const expression = `type ${typeName}`;
-            const source = `type ${typeName} = enumeration { one two "and three" }`;
+            const source = `type ${typeName} = enum { one two "and three" }`;
             const tests = [
                 {structure: true, expected: FAILURE_VALUE},
                 {structure: false, expected: FAILURE_VALUE},
