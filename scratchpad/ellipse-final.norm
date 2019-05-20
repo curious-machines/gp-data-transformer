@@ -4,11 +4,17 @@ type Ellipse = {
                 { center: { x: number, y: number } }
             |   { center: [ number as x, number as y ] }
             |   { cx: number as x, cy: number as y }
-            |   { centerX: number as x, centerY: number as y }
-    radii:
-        Vector2D(u, v) <=
-                { radii: { x: number as u, y: number as v } }
-            |   { radii: [ number as u, number as v ] }
-            |   { rx: number as u, ry: number as v }
-            |   { radiusX: number as u, radiusY: number as v }
+            |   { centerX: number as x, centerY: number as y },
+    radiusX:
+        x <=
+                { radii: { x: number } }
+            |   { radii: [ number as x, number ] }
+            |   { rx: number as x }
+            |   { radiusX: number as x },
+    radiusY:
+        y <=
+                { radii: { y: number } }
+            |   { radii: [ number, number as y ] }
+            |   { ry: number as y }
+            |   { radiusY: number as y }
 }
