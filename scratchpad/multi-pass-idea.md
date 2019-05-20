@@ -11,6 +11,7 @@ Maybe allow for multiple passes over the data. The second to last pass would gua
 
 # Attempts
 
+```
 { x: 10, y: 20, w: 30, h: 40 } =>
   { p1x: x, p1y: y, p2x: x + w, p2y: y + h } =>
   { topLeft: Point2D(p1x, p1y), bottomRight: Point2D(p2x, p2y) }
@@ -18,9 +19,11 @@ Maybe allow for multiple passes over the data. The second to last pass would gua
 { topLeft: Point2D(10, 20), bottomRight: Point2D(40, 60) } =>
   { p1x: topLeft.x, p1y: topLeft.y, p2x: bottomRight.x, p2y: bottomRight.y } =>
   { topLeft: Point2D(p1x, p1y), bottomRight: Point2D(p2x, p2y) }
+```
 
 ## 2nd to last structure
 
+```
 type Rectangle2 = {
     p1x {
         x: number
@@ -45,18 +48,22 @@ type Rectangle2 = {
         [ _: number, y: number ]
     }
 }
+```
 
 ## Last structure
 
 We know the incoming object is of type Rectangle2, so we can access those properties directly
 
+```
 type RectangleFinal = {
     topLeft <= Point2D(p1x, p1y)
     bottomRight <= Point2D(p2x, p2y)
 }
+```
 
 # Reference
 
+```
 type Rectangle = {
     topLeft <= Point2D(x, y) {
         topLeft: { x: number, y: number }
@@ -75,4 +82,4 @@ type Rectangle = {
         }
     }
 }
-
+```
