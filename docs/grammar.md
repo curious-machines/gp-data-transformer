@@ -84,6 +84,10 @@ generator
   | objectExpression
   | UNDEFINED_TYPE
   | IDENTIFIER . IDENTIFIER
+  | generator + generator
+  | generator - generator
+  | generator * generator
+  | generator / generator
   ;
 arrayExpression
   : [ ]
