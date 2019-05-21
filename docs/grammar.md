@@ -14,8 +14,8 @@ statement
   | TYPE IDENTIFIER = typeDefinition
   ;
 transform
-  : generator <= _
-  | generator
+  : generator
+  | generator <= _
   | generator <= typePatterns
   | _ <= typePatterns
   | GENERATOR IDENTIFIER
