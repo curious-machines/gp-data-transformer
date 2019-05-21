@@ -15,6 +15,7 @@ statement
   ;
 transform
   : generator <= _
+  | generator
   | generator <= typePatterns
   | _ <= typePatterns
   | GENERATOR IDENTIFIER
