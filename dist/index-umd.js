@@ -413,7 +413,11 @@
           case 10:
             this.$ = {
               type: 'transform',
-              patterns: null,
+              patterns: [{
+                type: 'pattern',
+                patternType: 'any',
+                value: null
+              }],
               returnValue: $$[$0]
             };
             break;
