@@ -27,23 +27,26 @@
 // - or a number named `radiusY`
 // - or a number named `ry`
 
-type Ellipse = {
-    // collect some values so we don't have to repeat queries
-    radii =
-        // the generator could also be _, but I like being explicit
-        { rx, ry } <=
-                { radii: { x: number as rx, y: number as ry } }
-            |   { radii: [ number as rx, number as ry ] }
-            |   { rx: number as rx, ry: number as ry }
-            |   { radiusX: number as rx, radiusY: number as ry };
-
-    center:
-        Point2D(x, y) <=
+transform Center =
+    Point2D(x, y) <=
                 { center: { x: number as x, y: number as y } }
             |   { center: [ number as x, number as y ] }
             |   { cx: number as x, cy: number as y }
-            |   { centerX: number as x, centerY: number as y },
+            |   { centerX: number as x, centerY: number as y }
 
+transform Radii =
+    // the generator could also be _, but I like being explicit
+    { rx, ry } <=
+            { radii: { x: number as rx, y: number as ry } }
+        |   { radii: [ number as rx, number as ry ] }
+        |   { rx: number as rx, ry: number as ry }
+        |   { radiusX: number as rx, radiusY: number as ry }
+
+type Ellipse = {
+    // collect some values so we don't have to repeat queries
+    radii = transform Radii;
+
+    center: transform Center,
     radiusX: radii.rx,
     radiusY: radii.ry
 }
