@@ -40,9 +40,9 @@ type Rectangle = {
         Point2D(topLeft.x, topLeft.y),
 
     bottomRight:
-//        Point2D(x, y) <=
-//                { bottomRight: { x: number as x, y: number as y } }
-//            |   { bottomRight: [ number as x, number as y ] };
+        Point2D(x, y) <=
+                { bottomRight: { x: number as x, y: number as y } }
+            |   { bottomRight: [ number as x, number as y ] };
         Point2D(topLeft.x + w, topLeft.y + h) <=
                 { w: number as w, h: number as h }
             |   { width: number as w, height: number as h }

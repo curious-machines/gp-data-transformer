@@ -58,7 +58,7 @@ transformProperties
   | transformProperty
   ;
 transformProperty
-  : IDENTIFIER : transform
+  : IDENTIFIER : transforms
   | IDENTIFIER
   ;
 assignments
@@ -67,6 +67,10 @@ assignments
   ;
 assignment
   : IDENTIFIER = transform
+  ;
+transforms
+  : transforms ; transform
+  | transform
   ;
 namedGenerator
   : generator
