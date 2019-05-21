@@ -1,6 +1,0 @@
-transform Ellipse =
-    Point2D(x, y) <=
-            { center: { x: number, y: number } }
-        |   { center: [ number as x, number as y ] }
-        |   { cx: number as x, cy: number as y }
-        |   { centerX: number as x, centerY: number as y }

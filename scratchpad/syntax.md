@@ -17,7 +17,7 @@ The center point:
 - is a Point2D named `center`
 - or a 2-element array of numbers named `center`
 - or an x coordinate that is a number named `centerX` or `cx`
-    - and a y corrdinate that is a number named `centerY` or `cy`
+    - and a y coordinate that is a number named `centerY` or `cy`
 
 The radii:
 

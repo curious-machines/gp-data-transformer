@@ -1,0 +1,49 @@
+// # Ellipse
+//
+// An ellipse has:
+//
+// - a center point
+// - a x radius
+// - a y radius
+//
+// The center point is defined by:
+//
+// - an object named 'center' with `x` and `y` number properties
+// - or a 2-element array of numbers named `center`
+// - or an x coordinate that is a number named `centerX` or `cx`
+//     - and a y coordinate that is a number named `centerY` or `cy`
+//
+// The x radius is defined by:
+//
+// - the `x` property of an object named `radii` with `x` and `y` number properties
+// - or the first element of a 2-element array of numbers named `radii`
+// - or a number named `radiusX`
+// - or a number named `rx`
+//
+// The y radius is defined by:
+//
+// - the `y` property of an object named `radii` with `x` and `y` number properties
+// - or the second element of a 2-element array of numbers named `radii`
+// - or a number named `radiusY`
+// - or a number named `ry`
+
+type Ellipse = {
+    // collect some values so we don't have to repeat queries
+    radii =
+        // the generator could also be _, but I like being explicit
+        { rx, ry } <=
+                { radii: { x: number as rx, y: number as ry } }
+            |   { radii: [ number as rx, number as ry ] }
+            |   { rx: number as rx, ry: number as ry }
+            |   { radiusX: number as rx, radiusY: number as ry };
+
+    center:
+        Point2D(x, y) <=
+                { center: { x: number as x, y: number as y } }
+            |   { center: [ number as x, number as y ] }
+            |   { cx: number as x, cy: number as y }
+            |   { centerX: number as x, centerY: number as y },
+
+    radiusX: radii.rx,
+    radiusY: radii.ry
+}
