@@ -3244,16 +3244,6 @@
     }, {
       key: "executePattern",
       value: function executePattern(pattern, structure, symbolTable) {
-        var assign = function assign(name, value) {
-          if (name !== null && name !== undefined) {
-            if (name in symbolTable) {
-              console.log("warning: overwriting ".concat(name, " in symbol table"));
-            }
-
-            symbolTable[name] = value;
-          }
-        };
-
         switch (pattern.patternType) {
           case "any":
             assign(pattern.assignTo, structure);
@@ -3261,53 +3251,81 @@
 
           case "array":
             if (Array.isArray(structure)) {
-              assign(pattern.assignTo, structure);
+              assign(symbolTable, pattern.assignTo, structure);
               return structure;
             }
 
             return FAILURE_VALUE;
 
           case "array-pattern":
+            return this.executeArrayPattern(pattern, structure, symbolTable);
+
+          case "boolean":
+            if (typeof structure === "boolean") {
+              if (pattern.value === null || pattern.value === structure) {
+                assign(symbolTable, pattern.assignTo, structure);
+                return structure;
+              }
+            }
+
+            return FAILURE_VALUE;
+
+          case "null":
+            if (structure === null) {
+              assign(symbolTable, pattern.assignTo, structure);
+              return structure;
+            }
+
+            return FAILURE_VALUE;
+
+          case "number":
+            if (typeof structure === "number") {
+              if (pattern.value === null || pattern.value === structure) {
+                assign(symbolTable, pattern.assignTo, structure);
+                return structure;
+              }
+            }
+
+            return FAILURE_VALUE;
+
+          case "object":
+            if (isObject(structure)) {
+              assign(symbolTable, pattern.assignTo, structure);
+              return structure;
+            }
+
+            return FAILURE_VALUE;
+
+          case "object-pattern":
             {
-              if (Array.isArray(structure) === false) {
+              if (isObject(structure) === false) {
                 return FAILURE_VALUE;
               }
 
-              var result = [];
-              var index = 0;
+              var result = {};
               var _iteratorNormalCompletion6 = true;
               var _didIteratorError6 = false;
               var _iteratorError6 = undefined;
 
               try {
                 for (var _iterator6 = pattern.value[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                  var element = _step6.value;
-                  var elementPattern = element.pattern,
-                      _element$range = element.range,
-                      start = _element$range.start,
-                      stop = _element$range.stop;
-                  var i = void 0;
+                  var property = _step6.value;
+                  var name = property.name,
+                      propertyPattern = property.pattern,
+                      assignTo = property.assignTo;
 
-                  for (i = 0; i < stop; i++) {
-                    var actualIndex = index + i; // treat out-of-bounds like a failure
-
-                    var value = actualIndex < structure.length ? this.executePattern(elementPattern, structure[index + i], symbolTable) : FAILURE_VALUE; // if we processed enough, continue, else failure
+                  if (name in structure) {
+                    var value = this.executePattern(propertyPattern, structure[name], symbolTable);
 
                     if (value === FAILURE_VALUE) {
-                      if (i >= start) {
-                        break;
-                      }
-
                       return FAILURE_VALUE;
-                    } // save result
+                    }
 
-
-                    assign(element.assignTo, value);
-                    result.push(value);
-                  } // advance global index by processed amount
-
-
-                  index += i;
+                    assign(symbolTable, property.assignTo, value);
+                    result[assignTo] = value;
+                  } else {
+                    return FAILURE_VALUE;
+                  }
                 }
               } catch (err) {
                 _didIteratorError6 = true;
@@ -3324,111 +3342,21 @@
                 }
               }
 
-              if (index === structure.length) {
-                assign(pattern.assignTo, structure);
-                return result;
-              }
-
-              return FAILURE_VALUE;
-            }
-
-          case "boolean":
-            if (typeof structure === "boolean") {
-              if (pattern.value === null || pattern.value === structure) {
-                assign(pattern.assignTo, structure);
-                return structure;
-              }
-            }
-
-            return FAILURE_VALUE;
-
-          case "null":
-            if (structure === null) {
-              assign(pattern.assignTo, structure);
-              return structure;
-            }
-
-            return FAILURE_VALUE;
-
-          case "number":
-            if (typeof structure === "number") {
-              if (pattern.value === null || pattern.value === structure) {
-                assign(pattern.assignTo, structure);
-                return structure;
-              }
-            }
-
-            return FAILURE_VALUE;
-
-          case "object":
-            if (isObject(structure)) {
-              assign(pattern.assignTo, structure);
-              return structure;
-            }
-
-            return FAILURE_VALUE;
-
-          case "object-pattern":
-            {
-              if (isObject(structure) === false) {
-                return FAILURE_VALUE;
-              }
-
-              var _result = {};
-              var _iteratorNormalCompletion7 = true;
-              var _didIteratorError7 = false;
-              var _iteratorError7 = undefined;
-
-              try {
-                for (var _iterator7 = pattern.value[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-                  var property = _step7.value;
-                  var name = property.name,
-                      propertyPattern = property.pattern,
-                      assignTo = property.assignTo;
-
-                  if (name in structure) {
-                    var _value = this.executePattern(propertyPattern, structure[name], symbolTable);
-
-                    if (_value === FAILURE_VALUE) {
-                      return FAILURE_VALUE;
-                    }
-
-                    assign(property.assignTo, _value);
-                    _result[assignTo] = _value;
-                  } else {
-                    return FAILURE_VALUE;
-                  }
-                }
-              } catch (err) {
-                _didIteratorError7 = true;
-                _iteratorError7 = err;
-              } finally {
-                try {
-                  if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-                    _iterator7["return"]();
-                  }
-                } finally {
-                  if (_didIteratorError7) {
-                    throw _iteratorError7;
-                  }
-                }
-              }
-
-              assign(pattern.assignTo, structure);
-              return _result;
+              assign(symbolTable, pattern.assignTo, structure);
+              return result;
             }
 
           case "reference":
             if (pattern.value in this.patterns) {
               var referencedPattern = this.patterns[pattern.value];
 
-              var _result2 = this.executePattern(referencedPattern, structure, symbolTable);
+              var _result = this.executePattern(referencedPattern, structure, symbolTable);
 
-              if (_result2 !== FAILURE_VALUE) {
-                assign(pattern.assignTo, _result2);
+              if (_result !== FAILURE_VALUE) {
+                assign(symbolTable, pattern.assignTo, _result);
               }
 
-              return _result2;
+              return _result;
             }
 
             return FAILURE_VALUE;
@@ -3436,7 +3364,7 @@
           case "string":
             if (typeof structure === "string") {
               if (pattern.value === null || pattern.value === structure) {
-                assign(pattern.assignTo, structure);
+                assign(symbolTable, pattern.assignTo, structure);
                 return structure;
               }
             }
@@ -3448,7 +3376,7 @@
             // FAILURE_VALUE to be a sigil. I'll just have to be careful to return undefined at the top-most level.
             // I'm leaving this for now as this is probably not going to be used much
             if (structure === undefined) {
-              assign(pattern.assignTo, structure);
+              assign(symbolTable, pattern.assignTo, structure);
               return structure;
             }
 
@@ -3457,6 +3385,208 @@
           default:
             throw new TypeError("unrecognized pattern type: '".concat(pattern.type, "'"));
         }
+      }
+      /*
+       * Execute an array pattern
+       *
+       * @param {Object} pattern
+       * @param {*} structure
+       * @param {Object} symbolTable
+       * @returns {*}
+       */
+
+    }, {
+      key: "executeArrayPattern",
+      value: function executeArrayPattern(pattern, structure, symbolTable) {
+        if (Array.isArray(structure) === false) {
+          return FAILURE_VALUE;
+        }
+
+        var result = [];
+        var index = 0;
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
+
+        try {
+          for (var _iterator7 = pattern.value[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            var element = _step7.value;
+            var results = this.executeArrayPatternElement(element, index, structure, symbolTable);
+
+            if (results === FAILURE_VALUE) {
+              return FAILURE_VALUE;
+            }
+
+            result = result.concat(results);
+            index += results.length;
+          }
+        } catch (err) {
+          _didIteratorError7 = true;
+          _iteratorError7 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+              _iterator7["return"]();
+            }
+          } finally {
+            if (_didIteratorError7) {
+              throw _iteratorError7;
+            }
+          }
+        }
+
+        if (index === structure.length) {
+          assign(symbolTable, pattern.assignTo, structure);
+          return result;
+        }
+
+        return FAILURE_VALUE;
+      }
+      /*
+       * Execute an element from an array pattern
+       *
+       * @param {Object} element
+       * @param {number} index
+       * @param {*} structure
+       * @param {Object} symbolTable
+       * @returns {Array|undefined}
+       */
+
+    }, {
+      key: "executeArrayPatternElement",
+      value: function executeArrayPatternElement(element, index, structure, symbolTable) {
+        var result = [];
+
+        switch (element.type) {
+          case "element":
+            {
+              var results = this.executeArrayElementPattern(element, index, structure, symbolTable);
+
+              if (results === FAILURE_VALUE) {
+                return FAILURE_VALUE;
+              }
+
+              result = result.concat(results);
+              index += results.length;
+              break;
+            }
+
+          case "element-group":
+            {
+              var _results = this.executeArrayElementGroupPattern(element, index, structure, symbolTable);
+
+              if (_results === FAILURE_VALUE) {
+                return FAILURE_VALUE;
+              }
+
+              result = result.concat(_results);
+              index += _results.length;
+              break;
+            }
+
+          default:
+            this.addError("Unrecognized array pattern element type: '".concat(element.type, "'"));
+            return FAILURE_VALUE;
+        }
+
+        return result;
+      }
+      /*
+       * Execute array element pattern
+       *
+       * @param {Object} element
+       * @param {number} index
+       * @param {*} structure
+       * @param {Object} symbolTable
+       * @returns {Array|undefined}
+       */
+
+    }, {
+      key: "executeArrayElementPattern",
+      value: function executeArrayElementPattern(element, index, structure, symbolTable) {
+        var pattern = element.pattern,
+            _element$range = element.range,
+            start = _element$range.start,
+            stop = _element$range.stop;
+        var result = [];
+
+        for (var i = 0; i < stop; i++) {
+          var actualIndex = index + i; // treat out-of-bounds like a failure
+
+          var value = actualIndex < structure.length ? this.executePattern(pattern, structure[actualIndex], symbolTable) : FAILURE_VALUE; // if we processed enough, continue, else failure
+
+          if (value === FAILURE_VALUE) {
+            if (i >= start) {
+              break;
+            }
+
+            return FAILURE_VALUE;
+          } // save result
+
+
+          assign(symbolTable, element.assignTo, value);
+          result.push(value);
+        }
+
+        return result;
+      }
+      /*
+       * Execute array element group pattern
+       *
+       * @param {Object} element
+       * @param {number} index
+       * @param {*} structure
+       * @param {Object} symbolTable
+       * @returns {Array|undefined}
+       */
+
+    }, {
+      key: "executeArrayElementGroupPattern",
+      value: function executeArrayElementGroupPattern(group, index, structure, symbolTable) {
+        var elements = group.elements,
+            _group$range = group.range,
+            start = _group$range.start,
+            stop = _group$range.stop;
+        var result = [];
+        var _iteratorNormalCompletion8 = true;
+        var _didIteratorError8 = false;
+        var _iteratorError8 = undefined;
+
+        try {
+          for (var _iterator8 = elements[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+            var element = _step8.value;
+
+            for (var i = 0; i < stop; i++) {
+              var results = this.executeArrayPatternElement(element, index, structure, symbolTable);
+
+              if (results === FAILURE_VALUE) {
+                if (i >= start) {
+                  return result;
+                }
+
+                return FAILURE_VALUE;
+              }
+
+              result = result.concat(results);
+              index += results.length;
+            }
+          }
+        } catch (err) {
+          _didIteratorError8 = true;
+          _iteratorError8 = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
+              _iterator8["return"]();
+            }
+          } finally {
+            if (_didIteratorError8) {
+              throw _iteratorError8;
+            }
+          }
+        }
+
+        return result;
       }
       /*
        * Execute a method and return its value
@@ -3546,26 +3676,26 @@
           case "object":
             {
               var result = {};
-              var _iteratorNormalCompletion8 = true;
-              var _didIteratorError8 = false;
-              var _iteratorError8 = undefined;
+              var _iteratorNormalCompletion9 = true;
+              var _didIteratorError9 = false;
+              var _iteratorError9 = undefined;
 
               try {
-                for (var _iterator8 = expression.value[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-                  var propertyExpression = _step8.value;
+                for (var _iterator9 = expression.value[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                  var propertyExpression = _step9.value;
                   result[propertyExpression.name] = this.executeGenerator(propertyExpression.expression, symbolTable);
                 }
               } catch (err) {
-                _didIteratorError8 = true;
-                _iteratorError8 = err;
+                _didIteratorError9 = true;
+                _iteratorError9 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
-                    _iterator8["return"]();
+                  if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
+                    _iterator9["return"]();
                   }
                 } finally {
-                  if (_didIteratorError8) {
-                    throw _iteratorError8;
+                  if (_didIteratorError9) {
+                    throw _iteratorError9;
                   }
                 }
               }
@@ -3625,6 +3755,16 @@
 
     return Transformer;
   }();
+
+  function assign(symbolTable, name, value) {
+    if (name !== null && name !== undefined) {
+      if (name in symbolTable) {
+        console.log("warning: overwriting ".concat(name, " in symbol table"));
+      }
+
+      symbolTable[name] = value;
+    }
+  }
 
   /**
    * @module kld-data-transformer
