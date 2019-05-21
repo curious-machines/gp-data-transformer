@@ -1,0 +1,6 @@
+type Polyline = {
+    points:
+        // generator needs to be a list comprehension
+        [ Point2D(x, y) ] <=
+            { points: [ (number as x, number as y); 0..] }
+}
