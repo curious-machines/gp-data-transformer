@@ -113,8 +113,8 @@ expressionProperty
   | IDENTIFIER
   ;
 parameterList
-  : parameterList , IDENTIFIER
-  | IDENTIFIER
+  : parameterList , generator
+  | generator
   ;
 typePatterns
   : typePatterns | namedTypePattern
