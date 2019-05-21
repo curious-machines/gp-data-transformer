@@ -82,6 +82,7 @@ generator
   | string
   | objectExpression
   | UNDEFINED_TYPE
+  | IDENTIFIER . IDENTIFIER
   ;
 arrayExpression
   : [ ]

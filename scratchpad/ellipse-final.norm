@@ -1,20 +1,20 @@
 type Ellipse = {
+    // collect some values so we don't have to repeat queries
+    radii =
+        { rx, ry } <=
+                { radii: { x: number as rx, y: number as ry } }
+            |   { radii: [ number as rx, number as ry ] }
+            |   { rx: number as rx, ry: number as ry }
+            |   { radiusX: number as rx, radiusY: number as ry };
+
     center:
         Point2D(x, y) <=
-                { center: { x: number as x, y: number as x } }
+                { center: { x: number as x, y: number as y } }
             |   { center: [ number as x, number as y ] }
             |   { cx: number as x, cy: number as y }
             |   { centerX: number as x, centerY: number as y },
     radiusX:
-        x <=
-                { radii: { x: number as x } }
-            |   { radii: [ number as x, number ] }
-            |   { rx: number as x }
-            |   { radiusX: number as x },
+        radii.rx <= any,
     radiusY:
-        y <=
-                { radii: { y: number as y } }
-            |   { radii: [ number, number as y ] }
-            |   { ry: number as y }
-            |   { radiusY: number as y }
+        radii.ry <= any
 }
