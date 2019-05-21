@@ -3246,7 +3246,7 @@
       value: function executePattern(pattern, structure, symbolTable) {
         switch (pattern.patternType) {
           case "any":
-            assign(pattern.assignTo, structure);
+            assign(symbolTable, pattern.assignTo, structure);
             return structure;
 
           case "array":
@@ -3321,7 +3321,7 @@
                       return FAILURE_VALUE;
                     }
 
-                    assign(symbolTable, property.assignTo, value);
+                    assign(symbolTable, property.assignTo, structure[name]);
                     result[assignTo] = value;
                   } else {
                     return FAILURE_VALUE;
@@ -3759,6 +3759,7 @@
   function assign(symbolTable, name, value) {
     if (name !== null && name !== undefined) {
       if (name in symbolTable) {
+        /* eslint-disable-next-line no-console */
         console.log("warning: overwriting ".concat(name, " in symbol table"));
       }
 
