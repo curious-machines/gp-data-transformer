@@ -1,13 +1,14 @@
 Rectangle = {
     topLeft =
-        _ <=
+        // could also be _
+        { x, y } <=
                 { topLeft: { x: number as x, y: number as y } }
             |   { topLeft: [ number as x, number as y ] }
             |   { x: number as x, y: number as y }
             |   { top: number as x, left: number as y }
 
     topLeft:
-        Point2D(topLeft.x, topLeft.y) <= _
+        Point2D(topLeft.x, topLeft.y)
 
     bottomRight:
         Point2D(x, y) <=
