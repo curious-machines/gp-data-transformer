@@ -1,6 +1,7 @@
 type Ellipse = {
     // collect some values so we don't have to repeat queries
     radii =
+        // the generator could also be _, but I like being explicit
         { rx, ry } <=
                 { radii: { x: number as rx, y: number as ry } }
             |   { radii: [ number as rx, number as ry ] }
