@@ -28,7 +28,7 @@ function collectGrammar() {
         }
 
         lines.push("  ;");
-        lines.push();
+        lines.push("");
     }
 
     return lines;
