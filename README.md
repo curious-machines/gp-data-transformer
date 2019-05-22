@@ -8,9 +8,7 @@
 
 ---
 
-This is a module used to perform queries, validation, and transformations on acyclic data, for example, but not limited to, JSON data. It can be used with custom types and supports hooks to type check and to create those custom types if the library itself does not suffice.
-
-Please note that this is a very early version of the module. This is mostly a personal experiment that I'll be using in another project. I would not recommend using it in production, although I will be. It is likely the API and the DSL will change; however, I would expect things mostly to grow as opposed to being radically changed, at this point. If you have issues, please report them. If you have suggestions, please pass those along as well.
+kld-data-transformer defines a DSL (Domain Specific Language) used to transform acyclic Javascript data into other formats. Incoming data can be pattern matched, capturing key elements in the data, and then transformed into new structures, using the captured data or more. This is currently being used in [kld-intersections](https://github.com/thelonious/kld-intersections) to allow users to describe geometric shapes in a wide variety of formats.
 
 Note that I'm using Jison as the DSL's parser. It does not give friendly errors and I apologize for that. Future versions of this library are likely to use another parsing infrastructure.
 
@@ -25,7 +23,7 @@ The following sections indicate how you can import the code for use in various e
 ## Node
 
 ```javascript
-import {Transformer} = require("kld-data-transformer");
+const {Transformer} = require("kld-data-transformer");
 ```
 
 ## Browsers
@@ -51,7 +49,7 @@ import {Transformer} from "kld-data-transformer";
 
 # Usage
 
-Define a normalization file. We'll save it as `ellipse.norm`. This DSL in this file describes the shape of your data and how to transform it into the format you prefer. Of course, you don't have to transform your data. These files can be used for querying and validation as well.
+We begin by defining a transformation file, which we'll save the text below as `ellipse.dt`:
 
 ```javascript
 type Ellipse = {
@@ -70,7 +68,9 @@ type Ellipse = {
 }
 ```
 
-Now build a script to transform your data
+This script begins by describing the final shape of data we wish to have. In this case, our final data will be an object with two properties: center and radii. Center will be the result of calling a user-defined function named Point2D passing in two values: x and y. Likewise, radii will be a Vector2D using values rx and ry. The x and y values for center are captured from one of four pattern matches; the first of which succeeds determines the captured values for x and y.
+
+Now to use this script, we write a little Javascript:
 
 ```javascript
 import fs from "fs";
@@ -100,34 +100,37 @@ samples.forEach(sample => {
 })
 ```
 
-Each one of these structures is described in the `norm` file. They will be transformed to match the top-level definition of the Ellipse type. All results look like the following:
+The above code creates a new transform, adds user-defined functions for Point2D and Vector2D. this attempts to transform a series of objects, printing out the result of the transformation. Since the purpose of the this example is to normalize our incoming data, all results looks like this:
 
 ```JSON
 { "center": { "x": 10, "y": 20 }, "radii": { "u": 30, "v": 40 } }
 ```
 
-Note that if a validation/transformation fails, `undefined` will be returned. Future versions of the library will give better diagnostic information so you can determine where the failure has occurred.
-
-You may notice that the `norm` file references `Point2D` and `Vector2D`. Since these types are not defined in the `norm` file, these are considered external types which will need to be handler by user code. We register `typeCreators` in our example, using matching names. Those functions are passed the name of the type (in case you want to use the same handle for multiple types) and an array of arguments. The value returned will become the property's value upon successful validation and transformation. Note that if you would like to register a handler for all external types, you can use `*` as the type name.
-
-Note that this is only a taste of what is possible. The tutorial is a work in progress, but it should give you some ideas of other constructs you can use within the language.
+For a more in-depth description of the data-transform format, be sure to have a look at a ![the Guide](docs/guide.md).
 
 # Command Line
 
 You can transform data from the command-line as well:
 
 ```bash
-transform -n my-normalization-file.norm -j my-data-file.json -e 'type MyType'
+transform -d my-definitions-script.dt -j my-data-file.json -e 'type MyType'
 ```
 
-If your normalization file needs to load type creators onto the normalizer, you can use the following:
+If your normalization file needs to load type creators into the normalizer, you can use the following:
 
 ```bash
-transform -n my-normalization-file.norm -r my-normalization-module.js -j my-data-file.json -e 'type MyType'
+transform -d my-definitions-script.dt -r my-normalization-module.js -j my-data-file.json -e 'type MyType'
 ```
 
-All exported names in the module will be added ad type creators, using their exported names.
+If your data is an array of objects to test, you can add the `-a` option to test each element separately:
+
+```bash
+transform -d my-definitions-script.dt -r my-normalization-module.js -j my-data-file.json -a -e 'type MyType'
+```
+
+All exported names in the module will be added as type creators, using their exported names.
 
 # Links and Related Projects
 
 - WIP: [Guide](https://github.com/thelonious/kld-data-normalizer/blob/master/docs/guide.md)
+- [kld-intersections](https://github.com/thelonious/kld-intersections)
