@@ -2,10 +2,12 @@
 program
   : statements
   ;
+
 statements
   : statements statement
   | statement
   ;
+
 statement
   : transform
   | GENERATOR IDENTIFIER = generator
@@ -13,6 +15,7 @@ statement
   | TRANSFORM IDENTIFIER = transform
   | TYPE IDENTIFIER = typeDefinition
   ;
+
 transform
   : generator
   | generator <= _
@@ -22,6 +25,7 @@ transform
   | TRANSFORM IDENTIFIER
   | TYPE IDENTIFIER
   ;
+
 typeDefinition
   : ANY_TYPE
   | ARRAY_TYPE
@@ -39,43 +43,53 @@ typeDefinition
   | string
   | UNDEFINED_TYPE
   ;
+
 arrayTypeDefinition
   : [ ]
   | [ transformElements ]
   | [ assignments ; transformElements ]
   ;
+
 transformElements
   : transformElements , transform
   | transform
   ;
+
 objectTypeDefinition
   : { }
   | { transformProperties }
   | { assignments ; transformProperties }
   ;
+
 transformProperties
   : transformProperties , transformProperty
   | transformProperty
   ;
+
 transformProperty
   : IDENTIFIER : transforms
   | IDENTIFIER
   ;
+
 assignments
   : assignments , assignment
   | assignment
   ;
+
 assignment
   : IDENTIFIER = transform
   ;
+
 transforms
   : transforms ; transform
   | transform
   ;
+
 namedGenerator
   : generator
   | generator AS IDENTIFIER
   ;
+
 generator
   : IDENTIFIER
   | IDENTIFIER ( )
@@ -93,41 +107,51 @@ generator
   | generator * generator
   | generator / generator
   ;
+
 arrayExpression
   : [ ]
   | [ expressionElements ]
   ;
+
 expressionElements
   : expressionElements , expressionElement
   | expressionElement
   ;
+
 expressionElement
   : generator
   ;
+
 objectExpression
   : { }
   | { expressionProperties }
   ;
+
 expressionProperties
   : expressionProperties , expressionProperty
   | expressionProperty
   ;
+
 expressionProperty
   : IDENTIFIER : generator
   | IDENTIFIER
   ;
+
 parameterList
   : parameterList , generator
   | generator
   ;
+
 typePatterns
   : typePatterns | namedTypePattern
   | namedTypePattern
   ;
+
 namedTypePattern
   : typePattern
   | typePattern AS IDENTIFIER
   ;
+
 typePattern
   : ANY_TYPE
   | ARRAY_TYPE
@@ -147,65 +171,81 @@ typePattern
   | ENUMERATION IDENTIFIER
   | IDENTIFIER
   ;
+
 arrayPattern
   : [ ]
   | [ patternElements ]
   ;
+
 patternElements
   : patternElements , namedPatternElement
   | namedPatternElement
   ;
+
 namedPatternElement
   : patternElement
   | patternElement AS IDENTIFIER
   ;
+
 patternElement
   : typePattern
   | typePattern ; range
   | ( patternElements )
   | ( patternElements ) ; range
   ;
+
 range
   : integer .. integer
   | .. integer
   | integer ..
   | integer
   ;
+
 objectPattern
   : { }
   | { patternProperties }
   ;
+
 patternProperties
   : patternProperties , namedPatternProperty
   | namedPatternProperty
   ;
+
 namedPatternProperty
   : namedProperty
   | namedProperty AS IDENTIFIER
   ;
+
 namedProperty
   : IDENTIFIER : typePattern
   | IDENTIFIER
   ;
+
 boolean
   : TRUE
   | FALSE
   ;
+
 string
   : STRING
   ;
+
 integer
   : NUMBER
   ;
+
 float
   : NUMBER
   ;
+
 stringOrIdentifier
   : IDENTIFIER
   | STRING
   ;
+
 identifiers
   : identifiers , stringOrIdentifier
   | stringOrIdentifier
   ;
+
 ```
