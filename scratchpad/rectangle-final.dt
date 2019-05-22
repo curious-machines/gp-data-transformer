@@ -47,5 +47,12 @@ type Rectangle = {
                 { w: number as w, h: number as h }
             |   { width: number as w, height: number as h }
             |   { size: { x: number as w, y: number as h } }
-            |   { size: [ number as w, number as h ] }
+            |   { size: [ number as w, number as h ] },
+
+    rx:
+        rx <= { rx: number as rx };
+        0 <= any,
+    ry:
+        ry <= { ry: number as ry };
+        0 <= any
 }
