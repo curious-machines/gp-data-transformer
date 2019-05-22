@@ -2635,7 +2635,7 @@
     return new Parser();
   }();
 
-  var FAILURE_VALUE = undefined;
+  var FAILURE_VALUE = {};
   /**
    * Determine if object is something that can have properties
    *
@@ -2788,6 +2788,17 @@
     }, {
       key: "execute",
       value: function execute(source, structure) {
+        var result = this._execute(source, structure);
+
+        return result !== FAILURE_VALUE ? result : undefined;
+      }
+      /*
+       *
+       */
+
+    }, {
+      key: "_execute",
+      value: function _execute(source, structure) {
         var statements = parser.parse(source);
         var result;
         var _iteratorNormalCompletion = true;
@@ -2938,16 +2949,16 @@
           try {
             for (var _iterator3 = transform.patterns[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
               var pattern = _step3.value;
-              symbolTable = Object.create(symbolTable);
-              result = this.executePattern(pattern, currentObject, symbolTable);
+              var patternSymbolTable = Object.create(symbolTable);
+              result = this.executePattern(pattern, currentObject, patternSymbolTable);
 
               if (result !== FAILURE_VALUE) {
                 // pattern matched, so we can stop
                 if (transform.returnValue !== null) {
-                  currentObject = this.executeGenerator(transform.returnValue.expression, symbolTable);
+                  currentObject = this.executeGenerator(transform.returnValue.expression, patternSymbolTable);
                 } else {
-                  // if we're not messaging the result, then return all captured values (the symbol table)s
-                  currentObject = symbolTable;
+                  // if we're not massaging the result, then return all captured values (the symbol table)s
+                  currentObject = patternSymbolTable;
                 }
 
                 break;
@@ -3228,7 +3239,7 @@
           return FAILURE_VALUE;
         }
 
-        symbolTable[assignment.name] = value;
+        assign(symbolTable, assignment.name, value);
         return value;
       }
       /*
