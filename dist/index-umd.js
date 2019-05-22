@@ -162,14 +162,14 @@
         $Vi = [1, 33],
         $Vj = [1, 34],
         $Vk = [1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 51, 57, 58, 59, 60, 78, 79],
-        $Vl = [2, 50],
+        $Vl = [2, 51],
         $Vm = [1, 36],
         $Vn = [1, 37],
         $Vo = [1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 57, 58, 59, 60, 65, 78, 79],
         $Vp = [1, 45],
-        $Vq = [2, 13],
-        $Vr = [2, 14],
-        $Vs = [2, 15],
+        $Vq = [2, 14],
+        $Vr = [2, 15],
+        $Vs = [2, 16],
         $Vt = [1, 70],
         $Vu = [1, 68],
         $Vv = [1, 54],
@@ -187,32 +187,32 @@
         $VH = [1, 71],
         $VI = [38, 42],
         $VJ = [28, 42],
-        $VK = [1, 90],
-        $VL = [1, 91],
-        $VM = [1, 92],
-        $VN = [1, 111],
+        $VK = [1, 91],
+        $VL = [1, 92],
+        $VM = [1, 93],
+        $VN = [1, 112],
         $VO = [1, 7, 8, 11, 13, 14, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 65, 78, 79],
         $VP = [1, 7, 8, 11, 13, 14, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 65, 78, 79],
-        $VQ = [1, 120],
-        $VR = [1, 125],
+        $VQ = [1, 121],
+        $VR = [1, 126],
         $VS = [1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 51, 57, 58, 78, 79],
         $VT = [42, 51],
-        $VU = [1, 149],
+        $VU = [1, 150],
         $VV = [38, 42, 51],
         $VW = [38, 42, 49, 51],
         $VX = [28, 42, 49],
-        $VY = [1, 160],
-        $VZ = [1, 161],
-        $V_ = [1, 163],
-        $V$ = [1, 165],
+        $VY = [1, 161],
+        $VZ = [1, 162],
+        $V_ = [1, 164],
+        $V$ = [1, 166],
         $V01 = [41, 42],
-        $V11 = [1, 166],
-        $V21 = [1, 168],
-        $V31 = [2, 42],
-        $V41 = [1, 170],
-        $V51 = [1, 175],
-        $V61 = [1, 176],
-        $V71 = [1, 189],
+        $V11 = [1, 167],
+        $V21 = [1, 169],
+        $V31 = [2, 43],
+        $V41 = [1, 171],
+        $V51 = [1, 176],
+        $V61 = [1, 177],
+        $V71 = [1, 190],
         $V81 = [28, 41, 42];
 
     var parser = {
@@ -342,7 +342,7 @@
         78: "STRING",
         79: "NUMBER"
       },
-      productions_: [0, [3, 1], [4, 2], [4, 1], [5, 1], [5, 4], [5, 4], [5, 4], [5, 4], [6, 1], [6, 3], [6, 3], [6, 3], [6, 2], [6, 2], [6, 2], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 4], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [21, 2], [21, 3], [21, 5], [39, 3], [39, 1], [33, 2], [33, 3], [33, 5], [43, 3], [43, 1], [44, 3], [44, 1], [40, 3], [40, 1], [47, 3], [46, 3], [46, 1], [48, 1], [48, 3], [10, 1], [10, 3], [10, 4], [10, 1], [10, 1], [10, 1], [10, 1], [10, 1], [10, 1], [10, 1], [10, 3], [10, 3], [10, 3], [10, 3], [10, 3], [53, 2], [53, 3], [61, 3], [61, 1], [62, 1], [55, 2], [55, 3], [63, 3], [63, 1], [64, 3], [64, 1], [52, 3], [52, 1], [18, 3], [18, 1], [12, 1], [12, 3], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 2], [66, 2], [66, 1], [67, 2], [67, 3], [69, 3], [69, 1], [70, 1], [70, 3], [71, 1], [71, 3], [71, 3], [71, 5], [72, 3], [72, 2], [72, 2], [72, 1], [68, 2], [68, 3], [75, 3], [75, 1], [76, 1], [76, 3], [77, 3], [77, 1], [54, 1], [54, 1], [35, 1], [73, 1], [31, 1], [80, 1], [80, 1], [27, 3], [27, 1]],
+      productions_: [0, [3, 1], [4, 2], [4, 1], [5, 1], [5, 4], [5, 4], [5, 4], [5, 4], [6, 1], [6, 3], [6, 3], [6, 3], [6, 3], [6, 2], [6, 2], [6, 2], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 4], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [21, 2], [21, 3], [21, 5], [39, 3], [39, 1], [33, 2], [33, 3], [33, 5], [43, 3], [43, 1], [44, 3], [44, 1], [40, 3], [40, 1], [47, 3], [46, 3], [46, 1], [48, 1], [48, 3], [10, 1], [10, 3], [10, 4], [10, 1], [10, 1], [10, 1], [10, 1], [10, 1], [10, 1], [10, 1], [10, 3], [10, 3], [10, 3], [10, 3], [10, 3], [53, 2], [53, 3], [61, 3], [61, 1], [62, 1], [55, 2], [55, 3], [63, 3], [63, 1], [64, 3], [64, 1], [52, 3], [52, 1], [18, 3], [18, 1], [12, 1], [12, 3], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 1], [66, 2], [66, 2], [66, 1], [67, 2], [67, 3], [69, 3], [69, 1], [70, 1], [70, 3], [71, 1], [71, 3], [71, 3], [71, 5], [72, 3], [72, 2], [72, 2], [72, 1], [68, 2], [68, 3], [75, 3], [75, 1], [76, 1], [76, 3], [77, 3], [77, 1], [54, 1], [54, 1], [35, 1], [73, 1], [31, 1], [80, 1], [80, 1], [27, 3], [27, 1]],
       performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate
       /* action[1] */
       , $$
@@ -364,25 +364,25 @@
             break;
 
           case 3:
-          case 35:
-          case 40:
-          case 44:
-          case 47:
-          case 68:
-          case 73:
-          case 77:
-          case 79:
-          case 102:
-          case 116:
-          case 129:
+          case 36:
+          case 41:
+          case 45:
+          case 48:
+          case 69:
+          case 74:
+          case 78:
+          case 80:
+          case 103:
+          case 117:
+          case 130:
             this.$ = [$$[$0]];
             break;
 
           case 4:
-          case 18:
-          case 27:
-          case 94:
+          case 19:
+          case 28:
           case 95:
+          case 96:
             this.$ = $$[$0];
             break;
 
@@ -456,26 +456,34 @@
 
           case 13:
             this.$ = {
-              type: 'generator-reference',
-              name: $$[$0]
+              type: 'transform',
+              patterns: null,
+              returnValue: null
             };
             break;
 
           case 14:
             this.$ = {
-              type: 'transform-reference',
+              type: 'generator-reference',
               name: $$[$0]
             };
             break;
 
           case 15:
             this.$ = {
-              type: 'type-reference',
+              type: 'transform-reference',
               name: $$[$0]
             };
             break;
 
           case 16:
+            this.$ = {
+              type: 'type-reference',
+              name: $$[$0]
+            };
+            break;
+
+          case 17:
             this.$ = {
               type: 'type-definition',
               definition: 'any',
@@ -483,18 +491,10 @@
             };
             break;
 
-          case 17:
+          case 18:
             this.$ = {
               type: 'type-definition',
               definition: 'array',
-              value: null
-            };
-            break;
-
-          case 19:
-            this.$ = {
-              type: 'type-definition',
-              definition: 'boolean',
               value: null
             };
             break;
@@ -503,7 +503,7 @@
             this.$ = {
               type: 'type-definition',
               definition: 'boolean',
-              value: true
+              value: null
             };
             break;
 
@@ -511,11 +511,19 @@
             this.$ = {
               type: 'type-definition',
               definition: 'boolean',
-              value: false
+              value: true
             };
             break;
 
           case 22:
+            this.$ = {
+              type: 'type-definition',
+              definition: 'boolean',
+              value: false
+            };
+            break;
+
+          case 23:
             this.$ = {
               type: 'type-definition',
               definition: 'enumeration',
@@ -523,18 +531,10 @@
             };
             break;
 
-          case 23:
-            this.$ = {
-              type: 'type-definition',
-              definition: 'null',
-              value: null
-            };
-            break;
-
           case 24:
             this.$ = {
               type: 'type-definition',
-              definition: 'number',
+              definition: 'null',
               value: null
             };
             break;
@@ -543,22 +543,22 @@
             this.$ = {
               type: 'type-definition',
               definition: 'number',
-              value: $$[$0]
+              value: null
             };
             break;
 
           case 26:
             this.$ = {
               type: 'type-definition',
-              definition: 'object',
-              value: null
+              definition: 'number',
+              value: $$[$0]
             };
             break;
 
-          case 28:
+          case 27:
             this.$ = {
               type: 'type-definition',
-              definition: 'string',
+              definition: 'object',
               value: null
             };
             break;
@@ -567,11 +567,19 @@
             this.$ = {
               type: 'type-definition',
               definition: 'string',
-              value: $$[$0]
+              value: null
             };
             break;
 
           case 30:
+            this.$ = {
+              type: 'type-definition',
+              definition: 'string',
+              value: $$[$0]
+            };
+            break;
+
+          case 31:
             this.$ = {
               type: 'type-definition',
               definition: 'undefined',
@@ -579,19 +587,11 @@
             };
             break;
 
-          case 31:
-            this.$ = {
-              type: 'type-definition',
-              definition: 'array',
-              value: []
-            };
-            break;
-
           case 32:
             this.$ = {
               type: 'type-definition',
               definition: 'array',
-              value: $$[$0 - 1]
+              value: []
             };
             break;
 
@@ -599,26 +599,34 @@
             this.$ = {
               type: 'type-definition',
               definition: 'array',
-              value: $$[$0 - 3].concat($$[$0 - 1])
+              value: $$[$0 - 1]
             };
             break;
 
           case 34:
-          case 39:
-          case 43:
-          case 46:
-          case 67:
-          case 72:
-          case 76:
-          case 78:
-          case 101:
-          case 115:
-          case 128:
+            this.$ = {
+              type: 'type-definition',
+              definition: 'array',
+              value: $$[$0 - 3].concat($$[$0 - 1])
+            };
+            break;
+
+          case 35:
+          case 40:
+          case 44:
+          case 47:
+          case 68:
+          case 73:
+          case 77:
+          case 79:
+          case 102:
+          case 116:
+          case 129:
             $$[$0 - 2].push($$[$0]);
             this.$ = $$[$0 - 2];
             break;
 
-          case 36:
+          case 37:
             this.$ = {
               type: 'type-definition',
               definition: 'object',
@@ -626,7 +634,7 @@
             };
             break;
 
-          case 37:
+          case 38:
             this.$ = {
               type: 'type-definition',
               definition: 'object',
@@ -634,7 +642,7 @@
             };
             break;
 
-          case 38:
+          case 39:
             this.$ = {
               type: 'type-definition',
               definition: 'object',
@@ -642,7 +650,7 @@
             };
             break;
 
-          case 41:
+          case 42:
             this.$ = {
               type: 'type-property',
               name: $$[$0 - 2],
@@ -650,7 +658,7 @@
             };
             break;
 
-          case 42:
+          case 43:
             this.$ = {
               type: 'type-property',
               name: $$[$0],
@@ -658,7 +666,7 @@
             };
             break;
 
-          case 45:
+          case 46:
             this.$ = {
               type: 'assignment',
               name: $$[$0 - 2],
@@ -666,22 +674,22 @@
             };
             break;
 
-          case 48:
-          case 80:
-          case 103:
+          case 49:
+          case 81:
+          case 104:
             $$[$0].assignTo = null;
             this.$ = $$[$0];
             break;
 
-          case 49:
-          case 81:
-          case 104:
-          case 118:
+          case 50:
+          case 82:
+          case 105:
+          case 119:
             $$[$0 - 2].assignTo = $$[$0];
             this.$ = $$[$0 - 2];
             break;
 
-          case 50:
+          case 51:
             this.$ = {
               type: 'generator',
               expression: {
@@ -691,7 +699,7 @@
             };
             break;
 
-          case 51:
+          case 52:
             this.$ = {
               type: 'generator',
               expression: {
@@ -702,7 +710,7 @@
             };
             break;
 
-          case 52:
+          case 53:
             this.$ = {
               type: 'generator',
               expression: {
@@ -713,15 +721,15 @@
             };
             break;
 
-          case 53:
-          case 58:
+          case 54:
+          case 59:
             this.$ = {
               type: 'generator',
               expression: $$[$0]
             };
             break;
 
-          case 54:
+          case 55:
             this.$ = {
               type: 'generator',
               expression: {
@@ -731,7 +739,7 @@
             };
             break;
 
-          case 55:
+          case 56:
             this.$ = {
               type: 'generator',
               expression: {
@@ -741,7 +749,7 @@
             };
             break;
 
-          case 56:
+          case 57:
             this.$ = {
               type: 'generator',
               expression: {
@@ -751,7 +759,7 @@
             };
             break;
 
-          case 57:
+          case 58:
             this.$ = {
               type: 'generator',
               expression: {
@@ -761,7 +769,7 @@
             };
             break;
 
-          case 59:
+          case 60:
             this.$ = {
               type: 'generator',
               expression: {
@@ -771,7 +779,7 @@
             };
             break;
 
-          case 60:
+          case 61:
             this.$ = {
               type: 'generator',
               expression: {
@@ -785,7 +793,7 @@
             };
             break;
 
-          case 61:
+          case 62:
             this.$ = {
               type: 'generator',
               expression: {
@@ -796,7 +804,7 @@
             };
             break;
 
-          case 62:
+          case 63:
             this.$ = {
               type: 'generator',
               expression: {
@@ -807,7 +815,7 @@
             };
             break;
 
-          case 63:
+          case 64:
             this.$ = {
               type: 'generator',
               expression: {
@@ -818,7 +826,7 @@
             };
             break;
 
-          case 64:
+          case 65:
             this.$ = {
               type: 'generator',
               expression: {
@@ -829,46 +837,46 @@
             };
             break;
 
-          case 65:
+          case 66:
             this.$ = {
               type: 'array',
               value: []
             };
             break;
 
-          case 66:
+          case 67:
             this.$ = {
               type: 'array',
               value: $$[$0 - 1]
             };
             break;
 
-          case 69:
-          case 117:
-          case 126:
-            this.$ = $$[$0];
-            break;
-
           case 70:
-            this.$ = {
-              type: 'object',
-              value: []
-            };
+          case 118:
+          case 127:
+            this.$ = $$[$0];
             break;
 
           case 71:
             this.$ = {
               type: 'object',
+              value: []
+            };
+            break;
+
+          case 72:
+            this.$ = {
+              type: 'object',
               value: $$[$0 - 1]
             };
             break;
 
-          case 74:
+          case 75:
             $$[$0].name = $$[$0 - 2];
             this.$ = $$[$0];
             break;
 
-          case 75:
+          case 76:
             this.$ = {
               type: 'generator',
               name: $$[$0],
@@ -879,7 +887,7 @@
             };
             break;
 
-          case 82:
+          case 83:
             this.$ = {
               type: 'pattern',
               patternType: 'any',
@@ -887,18 +895,10 @@
             };
             break;
 
-          case 83:
-            this.$ = {
-              type: 'pattern',
-              patternType: 'array',
-              value: null
-            };
-            break;
-
           case 84:
             this.$ = {
               type: 'pattern',
-              patternType: 'boolean',
+              patternType: 'array',
               value: null
             };
             break;
@@ -907,7 +907,7 @@
             this.$ = {
               type: 'pattern',
               patternType: 'boolean',
-              value: true
+              value: null
             };
             break;
 
@@ -915,22 +915,22 @@
             this.$ = {
               type: 'pattern',
               patternType: 'boolean',
-              value: false
+              value: true
             };
             break;
 
           case 87:
             this.$ = {
               type: 'pattern',
-              patternType: 'null',
-              value: null
+              patternType: 'boolean',
+              value: false
             };
             break;
 
           case 88:
             this.$ = {
               type: 'pattern',
-              patternType: 'number',
+              patternType: 'null',
               value: null
             };
             break;
@@ -939,22 +939,22 @@
             this.$ = {
               type: 'pattern',
               patternType: 'number',
-              value: $$[$0]
+              value: null
             };
             break;
 
           case 90:
             this.$ = {
               type: 'pattern',
-              patternType: 'object',
-              value: null
+              patternType: 'number',
+              value: $$[$0]
             };
             break;
 
           case 91:
             this.$ = {
               type: 'pattern',
-              patternType: 'string',
+              patternType: 'object',
               value: null
             };
             break;
@@ -963,11 +963,19 @@
             this.$ = {
               type: 'pattern',
               patternType: 'string',
-              value: $$[$0]
+              value: null
             };
             break;
 
           case 93:
+            this.$ = {
+              type: 'pattern',
+              patternType: 'string',
+              value: $$[$0]
+            };
+            break;
+
+          case 94:
             this.$ = {
               type: 'pattern',
               patternType: 'undefined',
@@ -975,21 +983,21 @@
             };
             break;
 
-          case 96:
+          case 97:
             this.$ = {
               type: 'pattern-reference',
               name: $$[$0]
             };
             break;
 
-          case 97:
+          case 98:
             this.$ = {
               type: 'enumeration-reference',
               name: $$[$0]
             };
             break;
 
-          case 98:
+          case 99:
             this.$ = {
               type: 'pattern',
               patternType: 'reference',
@@ -997,7 +1005,7 @@
             };
             break;
 
-          case 99:
+          case 100:
             this.$ = {
               type: 'pattern',
               patternType: 'array-pattern',
@@ -1005,7 +1013,7 @@
             };
             break;
 
-          case 100:
+          case 101:
             this.$ = {
               type: 'pattern',
               patternType: 'array-pattern',
@@ -1013,7 +1021,7 @@
             };
             break;
 
-          case 105:
+          case 106:
             this.$ = {
               type: 'element',
               pattern: $$[$0],
@@ -1025,7 +1033,7 @@
             };
             break;
 
-          case 106:
+          case 107:
             this.$ = {
               type: 'element',
               pattern: $$[$0 - 2],
@@ -1033,7 +1041,7 @@
             };
             break;
 
-          case 107:
+          case 108:
             this.$ = {
               type: 'element-group',
               elements: $$[$0 - 1],
@@ -1045,7 +1053,7 @@
             };
             break;
 
-          case 108:
+          case 109:
             this.$ = {
               type: 'element-group',
               elements: $$[$0 - 3],
@@ -1053,7 +1061,7 @@
             };
             break;
 
-          case 109:
+          case 110:
             this.$ = {
               type: 'range',
               start: $$[$0 - 2],
@@ -1061,7 +1069,7 @@
             };
             break;
 
-          case 110:
+          case 111:
             this.$ = {
               type: 'range',
               start: 0,
@@ -1069,7 +1077,7 @@
             };
             break;
 
-          case 111:
+          case 112:
             this.$ = {
               type: 'range',
               start: $$[$0 - 1],
@@ -1077,7 +1085,7 @@
             };
             break;
 
-          case 112:
+          case 113:
             this.$ = {
               type: 'range',
               start: $$[$0],
@@ -1085,7 +1093,7 @@
             };
             break;
 
-          case 113:
+          case 114:
             this.$ = {
               type: 'pattern',
               patternType: 'object',
@@ -1093,7 +1101,7 @@
             };
             break;
 
-          case 114:
+          case 115:
             this.$ = {
               type: 'pattern',
               patternType: 'object-pattern',
@@ -1101,7 +1109,7 @@
             };
             break;
 
-          case 119:
+          case 120:
             this.$ = {
               type: 'property',
               name: $$[$0 - 2],
@@ -1109,7 +1117,7 @@
             };
             break;
 
-          case 120:
+          case 121:
             this.$ = {
               type: 'property',
               name: $$[$0],
@@ -1121,24 +1129,24 @@
             };
             break;
 
-          case 121:
+          case 122:
             this.$ = true;
             break;
 
-          case 122:
+          case 123:
             this.$ = false;
             break;
 
-          case 123:
-          case 127:
+          case 124:
+          case 128:
             this.$ = $$[$0].substring(1, $$[$0].length - 1);
             break;
 
-          case 124:
+          case 125:
             this.$ = parseInt($$[$0]);
             break;
 
-          case 125:
+          case 126:
             this.$ = parseFloat($$[$0]);
             break;
         }
@@ -1213,7 +1221,7 @@
       }, o($Vk, $Vl, {
         50: $Vm,
         56: $Vn
-      }), o($Vk, [2, 53]), o($Vk, [2, 54]), o($Vk, [2, 55]), o($Vk, [2, 56]), o($Vk, [2, 57]), o($Vk, [2, 58]), o($Vk, [2, 59]), {
+      }), o($Vk, [2, 54]), o($Vk, [2, 55]), o($Vk, [2, 56]), o($Vk, [2, 57]), o($Vk, [2, 58]), o($Vk, [2, 59]), o($Vk, [2, 60]), {
         8: $V1,
         10: 41,
         23: $V6,
@@ -1232,7 +1240,7 @@
         62: 40,
         78: $Vc,
         79: $Vd
-      }, o($Vk, [2, 121]), o($Vk, [2, 122]), o($Vo, [2, 125]), o($Vo, [2, 123]), {
+      }, o($Vk, [2, 122]), o($Vk, [2, 123]), o($Vo, [2, 126]), o($Vo, [2, 124]), {
         8: $Vp,
         28: [1, 42],
         63: 43,
@@ -1339,6 +1347,7 @@
         8: $Vt,
         11: $Vu,
         12: 52,
+        17: [1, 78],
         18: 77,
         19: $Vv,
         20: $Vw,
@@ -1362,7 +1371,7 @@
         79: $Vd
       }, {
         8: $V1,
-        10: 80,
+        10: 81,
         23: $V6,
         24: $V7,
         26: $V8,
@@ -1371,31 +1380,31 @@
         35: 16,
         36: $Va,
         37: $Vb,
-        51: [1, 78],
-        52: 79,
+        51: [1, 79],
+        52: 80,
         53: 12,
         54: 13,
         55: 17,
         78: $Vc,
         79: $Vd
       }, {
-        8: [1, 81]
-      }, o($Vk, [2, 65]), {
-        38: [1, 82],
-        42: [1, 83]
-      }, o($VI, [2, 68]), o($VI, [2, 69], {
+        8: [1, 82]
+      }, o($Vk, [2, 66]), {
+        38: [1, 83],
+        42: [1, 84]
+      }, o($VI, [2, 69]), o($VI, [2, 70], {
         57: $Vg,
         58: $Vh,
         59: $Vi,
         60: $Vj
-      }), o($Vk, [2, 70]), {
-        28: [1, 84],
-        42: [1, 85]
-      }, o($VJ, [2, 73]), o($VJ, [2, 75], {
-        45: [1, 86]
+      }), o($Vk, [2, 71]), {
+        28: [1, 85],
+        42: [1, 86]
+      }, o($VJ, [2, 74]), o($VJ, [2, 76], {
+        45: [1, 87]
       }), {
         8: $V1,
-        10: 87,
+        10: 88,
         23: $V6,
         24: $V7,
         26: $V8,
@@ -1412,7 +1421,7 @@
       }, {
         8: $Vt,
         11: $Vu,
-        12: 88,
+        12: 89,
         19: $Vv,
         20: $Vw,
         22: $Vx,
@@ -1434,7 +1443,7 @@
         78: $Vc,
         79: $Vd
       }, {
-        6: 89,
+        6: 90,
         7: $VK,
         8: $V1,
         10: 9,
@@ -1455,35 +1464,35 @@
         78: $Vc,
         79: $Vd
       }, {
-        15: 93,
-        19: [1, 94],
-        20: [1, 95],
-        21: 96,
-        22: [1, 97],
-        23: [1, 98],
-        24: [1, 99],
-        25: [1, 100],
-        26: [1, 110],
-        29: [1, 101],
-        30: [1, 102],
-        31: 103,
-        32: [1, 104],
-        33: 105,
-        34: [1, 106],
-        35: 107,
-        36: [1, 108],
-        37: [1, 109],
+        15: 94,
+        19: [1, 95],
+        20: [1, 96],
+        21: 97,
+        22: [1, 98],
+        23: [1, 99],
+        24: [1, 100],
+        25: [1, 101],
+        26: [1, 111],
+        29: [1, 102],
+        30: [1, 103],
+        31: 104,
+        32: [1, 105],
+        33: 106,
+        34: [1, 107],
+        35: 108,
+        36: [1, 109],
+        37: [1, 110],
         78: $Vc,
         79: $Vd
       }, o($Vf, [2, 10]), o($Vf, [2, 11], {
         65: $VN
-      }), o($VO, [2, 79]), o($VO, [2, 80], {
-        49: [1, 112]
-      }), o($VP, [2, 82]), o($VP, [2, 83]), o($VP, [2, 84]), o($VP, [2, 85]), o($VP, [2, 86]), o($VP, [2, 87]), o($VP, [2, 88]), o($VP, [2, 89]), o($VP, [2, 90]), o($VP, [2, 91]), o($VP, [2, 92]), o($VP, [2, 93]), o($VP, [2, 94]), o($VP, [2, 95]), {
-        8: [1, 113]
-      }, {
+      }), o($VO, [2, 80]), o($VO, [2, 81], {
+        49: [1, 113]
+      }), o($VP, [2, 83]), o($VP, [2, 84]), o($VP, [2, 85]), o($VP, [2, 86]), o($VP, [2, 87]), o($VP, [2, 88]), o($VP, [2, 89]), o($VP, [2, 90]), o($VP, [2, 91]), o($VP, [2, 92]), o($VP, [2, 93]), o($VP, [2, 94]), o($VP, [2, 95]), o($VP, [2, 96]), {
         8: [1, 114]
-      }, o($VP, [2, 98]), {
+      }, {
+        8: [1, 115]
+      }, o($VP, [2, 99]), {
         8: $Vt,
         11: $Vu,
         19: $Vv,
@@ -1501,39 +1510,39 @@
         35: 64,
         36: $VG,
         37: $VH,
-        38: [1, 115],
+        38: [1, 116],
         50: $VQ,
-        66: 119,
+        66: 120,
         67: 66,
         68: 67,
-        69: 116,
-        70: 117,
-        71: 118,
+        69: 117,
+        70: 118,
+        71: 119,
         78: $Vc,
         79: $Vd
       }, {
         8: $VR,
-        28: [1, 121],
-        75: 122,
-        76: 123,
-        77: 124
-      }, o($VS, [2, 61], {
+        28: [1, 122],
+        75: 123,
+        76: 124,
+        77: 125
+      }, o($VS, [2, 62], {
         59: $Vi,
         60: $Vj
-      }), o($VS, [2, 62], {
+      }), o($VS, [2, 63], {
         59: $Vi,
         60: $Vj
-      }), o($Vk, [2, 63]), o($Vk, [2, 64]), o($Vf, [2, 12], {
+      }), o($Vk, [2, 64]), o($Vk, [2, 65]), o($Vf, [2, 12], {
         65: $VN
-      }), o($Vk, [2, 51]), {
-        42: [1, 127],
-        51: [1, 126]
-      }, o($VT, [2, 77], {
+      }), o($Vf, [2, 13]), o($Vk, [2, 52]), {
+        42: [1, 128],
+        51: [1, 127]
+      }, o($VT, [2, 78], {
         57: $Vg,
         58: $Vh,
         59: $Vi,
         60: $Vj
-      }), o($Vk, [2, 60]), o($Vk, [2, 66]), {
+      }), o($Vk, [2, 61]), o($Vk, [2, 67]), {
         8: $V1,
         10: 41,
         23: $V6,
@@ -1547,15 +1556,15 @@
         53: 12,
         54: 13,
         55: 17,
-        62: 128,
+        62: 129,
         78: $Vc,
         79: $Vd
-      }, o($Vk, [2, 71]), {
+      }, o($Vk, [2, 72]), {
         8: $Vp,
-        64: 129
+        64: 130
       }, {
         8: $V1,
-        10: 130,
+        10: 131,
         23: $V6,
         24: $V7,
         26: $V8,
@@ -1575,17 +1584,17 @@
         59: $Vi,
         60: $Vj
       }), o($Ve, [2, 6]), o($Ve, [2, 7]), {
-        8: [1, 131]
-      }, {
         8: [1, 132]
       }, {
         8: [1, 133]
-      }, o($Ve, [2, 8]), o($Ve, [2, 16]), o($Ve, [2, 17]), o($Ve, [2, 18]), o($Ve, [2, 19]), o($Ve, [2, 20]), o($Ve, [2, 21]), {
-        26: [1, 134]
-      }, o($Ve, [2, 23]), o($Ve, [2, 24]), o($Ve, [2, 25]), o($Ve, [2, 26]), o($Ve, [2, 27]), o($Ve, [2, 28]), o($Ve, [2, 29]), o($Ve, [2, 30]), {
-        6: 138,
+      }, {
+        8: [1, 134]
+      }, o($Ve, [2, 8]), o($Ve, [2, 17]), o($Ve, [2, 18]), o($Ve, [2, 19]), o($Ve, [2, 20]), o($Ve, [2, 21]), o($Ve, [2, 22]), {
+        26: [1, 135]
+      }, o($Ve, [2, 24]), o($Ve, [2, 25]), o($Ve, [2, 26]), o($Ve, [2, 27]), o($Ve, [2, 28]), o($Ve, [2, 29]), o($Ve, [2, 30]), o($Ve, [2, 31]), {
+        6: 139,
         7: $VK,
-        8: [1, 140],
+        8: [1, 141],
         10: 9,
         13: $VL,
         14: $VM,
@@ -1598,26 +1607,26 @@
         35: 16,
         36: $Va,
         37: $Vb,
-        38: [1, 135],
-        39: 136,
-        40: 137,
-        47: 139,
+        38: [1, 136],
+        39: 137,
+        40: 138,
+        47: 140,
         53: 12,
         54: 13,
         55: 17,
         78: $Vc,
         79: $Vd
       }, {
-        8: [1, 145],
-        28: [1, 141],
-        40: 143,
-        43: 142,
-        44: 144,
-        47: 139
+        8: [1, 146],
+        28: [1, 142],
+        40: 144,
+        43: 143,
+        44: 145,
+        47: 140
       }, {
         8: $Vt,
         11: $Vu,
-        12: 146,
+        12: 147,
         19: $Vv,
         20: $Vw,
         22: $Vx,
@@ -1639,14 +1648,14 @@
         78: $Vc,
         79: $Vd
       }, {
-        8: [1, 147]
-      }, o($VP, [2, 96]), o($VP, [2, 97]), o($VP, [2, 99]), {
-        38: [1, 148],
+        8: [1, 148]
+      }, o($VP, [2, 97]), o($VP, [2, 98]), o($VP, [2, 100]), {
+        38: [1, 149],
         42: $VU
-      }, o($VV, [2, 102]), o($VV, [2, 103], {
-        49: [1, 150]
-      }), o($VW, [2, 105], {
-        41: [1, 151]
+      }, o($VV, [2, 103]), o($VV, [2, 104], {
+        49: [1, 151]
+      }), o($VW, [2, 106], {
+        41: [1, 152]
       }), {
         8: $Vt,
         11: $Vu,
@@ -1666,24 +1675,24 @@
         36: $VG,
         37: $VH,
         50: $VQ,
-        66: 119,
+        66: 120,
         67: 66,
         68: 67,
-        69: 152,
-        70: 117,
-        71: 118,
+        69: 153,
+        70: 118,
+        71: 119,
         78: $Vc,
         79: $Vd
-      }, o($VP, [2, 113]), {
-        28: [1, 153],
-        42: [1, 154]
-      }, o($VJ, [2, 116]), o($VJ, [2, 117], {
-        49: [1, 155]
-      }), o($VX, [2, 120], {
-        45: [1, 156]
-      }), o($Vk, [2, 52]), {
+      }, o($VP, [2, 114]), {
+        28: [1, 154],
+        42: [1, 155]
+      }, o($VJ, [2, 117]), o($VJ, [2, 118], {
+        49: [1, 156]
+      }), o($VX, [2, 121], {
+        45: [1, 157]
+      }), o($Vk, [2, 53]), {
         8: $V1,
-        10: 157,
+        10: 158,
         23: $V6,
         24: $V7,
         26: $V8,
@@ -1697,36 +1706,36 @@
         55: 17,
         78: $Vc,
         79: $Vd
-      }, o($VI, [2, 67]), o($VJ, [2, 72]), o($VJ, [2, 74], {
+      }, o($VI, [2, 68]), o($VJ, [2, 73]), o($VJ, [2, 75], {
         57: $Vg,
         58: $Vh,
         59: $Vi,
         60: $Vj
       }), o($Vf, $Vq), o($Vf, $Vr), o($Vf, $Vs), {
         8: $VY,
-        27: 158,
+        27: 159,
         78: $VZ,
-        80: 159
-      }, o($Ve, [2, 31]), {
-        38: [1, 162],
+        80: 160
+      }, o($Ve, [2, 32]), {
+        38: [1, 163],
         42: $V_
       }, {
-        41: [1, 164],
+        41: [1, 165],
         42: $V$
-      }, o($VI, [2, 35]), o($V01, [2, 44]), o([16, 38, 42, 57, 58, 59, 60], $Vl, {
+      }, o($VI, [2, 36]), o($V01, [2, 45]), o([16, 38, 42, 57, 58, 59, 60], $Vl, {
         9: $V11,
         50: $Vm,
         56: $Vn
-      }), o($Ve, [2, 36]), {
-        28: [1, 167],
+      }), o($Ve, [2, 37]), {
+        28: [1, 168],
         42: $V21
       }, {
-        41: [1, 169],
+        41: [1, 170],
         42: $V$
-      }, o($VJ, [2, 40]), o($VJ, $V31, {
+      }, o($VJ, [2, 41]), o($VJ, $V31, {
         9: $V11,
         45: $V41
-      }), o($VO, [2, 78]), o($VO, [2, 81]), o($VP, [2, 100]), {
+      }), o($VO, [2, 79]), o($VO, [2, 82]), o($VP, [2, 101]), {
         8: $Vt,
         11: $Vu,
         19: $Vv,
@@ -1745,29 +1754,29 @@
         36: $VG,
         37: $VH,
         50: $VQ,
-        66: 119,
+        66: 120,
         67: 66,
         68: 67,
-        70: 171,
-        71: 118,
+        70: 172,
+        71: 119,
         78: $Vc,
         79: $Vd
       }, {
-        8: [1, 172]
+        8: [1, 173]
       }, {
-        72: 173,
-        73: 174,
+        72: 174,
+        73: 175,
         74: $V51,
         79: $V61
       }, {
         42: $VU,
-        51: [1, 177]
-      }, o($VP, [2, 114]), {
+        51: [1, 178]
+      }, o($VP, [2, 115]), {
         8: $VR,
-        76: 178,
-        77: 124
+        76: 179,
+        77: 125
       }, {
-        8: [1, 179]
+        8: [1, 180]
       }, {
         8: $Vt,
         11: $Vu,
@@ -1786,21 +1795,21 @@
         35: 64,
         36: $VG,
         37: $VH,
-        66: 180,
+        66: 181,
         67: 66,
         68: 67,
         78: $Vc,
         79: $Vd
-      }, o($VT, [2, 76], {
+      }, o($VT, [2, 77], {
         57: $Vg,
         58: $Vh,
         59: $Vi,
         60: $Vj
       }), {
-        28: [1, 181],
-        42: [1, 182]
-      }, o($VJ, [2, 129]), o($VJ, [2, 126]), o($VJ, [2, 127]), o($Ve, [2, 32]), {
-        6: 183,
+        28: [1, 182],
+        42: [1, 183]
+      }, o($VJ, [2, 130]), o($VJ, [2, 127]), o($VJ, [2, 128]), o($Ve, [2, 33]), {
+        6: 184,
         7: $VK,
         8: $V1,
         10: 9,
@@ -1821,7 +1830,7 @@
         78: $Vc,
         79: $Vd
       }, {
-        6: 138,
+        6: 139,
         7: $VK,
         8: $V1,
         10: 9,
@@ -1836,17 +1845,17 @@
         35: 16,
         36: $Va,
         37: $Vb,
-        39: 184,
+        39: 185,
         53: 12,
         54: 13,
         55: 17,
         78: $Vc,
         79: $Vd
       }, {
-        8: [1, 186],
-        47: 185
+        8: [1, 187],
+        47: 186
       }, {
-        6: 187,
+        6: 188,
         7: $VK,
         8: $V1,
         10: 9,
@@ -1866,15 +1875,15 @@
         55: 17,
         78: $Vc,
         79: $Vd
-      }, o($Ve, [2, 37]), {
+      }, o($Ve, [2, 38]), {
         8: $V71,
-        44: 188
+        44: 189
       }, {
         8: $V71,
-        43: 190,
-        44: 144
+        43: 191,
+        44: 145
       }, {
-        6: 192,
+        6: 193,
         7: $VK,
         8: $V1,
         10: 9,
@@ -1889,45 +1898,45 @@
         35: 16,
         36: $Va,
         37: $Vb,
-        46: 191,
+        46: 192,
         53: 12,
         54: 13,
         55: 17,
         78: $Vc,
         79: $Vd
-      }, o($VV, [2, 101]), o($VV, [2, 104]), o($VW, [2, 106]), o($VW, [2, 112], {
-        74: [1, 193]
+      }, o($VV, [2, 102]), o($VV, [2, 105]), o($VW, [2, 107]), o($VW, [2, 113], {
+        74: [1, 194]
       }), {
-        73: 194,
+        73: 195,
         79: $V61
-      }, o([38, 42, 49, 51, 74], [2, 124]), o($VW, [2, 107], {
-        41: [1, 195]
-      }), o($VJ, [2, 115]), o($VJ, [2, 118]), o($VX, [2, 119]), o($Ve, [2, 22]), {
+      }, o([38, 42, 49, 51, 74], [2, 125]), o($VW, [2, 108], {
+        41: [1, 196]
+      }), o($VJ, [2, 116]), o($VJ, [2, 119]), o($VX, [2, 120]), o($Ve, [2, 23]), {
         8: $VY,
         78: $VZ,
-        80: 196
-      }, o($VI, [2, 34]), {
-        38: [1, 197],
+        80: 197
+      }, o($VI, [2, 35]), {
+        38: [1, 198],
         42: $V_
-      }, o($V01, [2, 43]), {
+      }, o($V01, [2, 44]), {
         9: $V11
-      }, o($V01, [2, 45]), o($VJ, [2, 39]), o($VJ, $V31, {
+      }, o($V01, [2, 46]), o($VJ, [2, 40]), o($VJ, $V31, {
         45: $V41
       }), {
-        28: [1, 198],
+        28: [1, 199],
         42: $V21
-      }, o($VJ, [2, 41], {
-        41: [1, 199]
-      }), o($V81, [2, 47]), o($VW, [2, 111], {
-        73: 200,
+      }, o($VJ, [2, 42], {
+        41: [1, 200]
+      }), o($V81, [2, 48]), o($VW, [2, 112], {
+        73: 201,
         79: $V61
-      }), o($VW, [2, 110]), {
-        72: 201,
-        73: 174,
+      }), o($VW, [2, 111]), {
+        72: 202,
+        73: 175,
         74: $V51,
         79: $V61
-      }, o($VJ, [2, 128]), o($Ve, [2, 33]), o($Ve, [2, 38]), {
-        6: 202,
+      }, o($VJ, [2, 129]), o($Ve, [2, 34]), o($Ve, [2, 39]), {
+        6: 203,
         7: $VK,
         8: $V1,
         10: 9,
@@ -1947,7 +1956,7 @@
         55: 17,
         78: $Vc,
         79: $Vd
-      }, o($VW, [2, 109]), o($VW, [2, 108]), o($V81, [2, 46])],
+      }, o($VW, [2, 110]), o($VW, [2, 109]), o($V81, [2, 47])],
       defaultActions: {},
       parseError: function parseError(str, hash) {
         if (hash.recoverable) {
@@ -2983,7 +2992,7 @@
             this.addError("Unable to match any type patterns");
             return FAILURE_VALUE;
           }
-        } else {
+        } else if (transform.returnValue !== null) {
           // if currentObject is not an object, then it can't be used as a symbol table
           if (isObject(currentObject)) {
             symbolTable = Object.create(Object.assign(symbolTable, currentObject));
@@ -2999,6 +3008,9 @@
           }
 
           currentObject = value;
+        } else {
+          // we have the identity transform. Return the structure untouched
+          currentObject = structure;
         }
 
         return currentObject;
