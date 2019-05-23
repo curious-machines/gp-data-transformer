@@ -13,9 +13,10 @@
     - [Compound Patterns](#compound-patterns)
         - [Array Patterns](#array-patterns)
         - [Object Patterns](#object-patterns)
-    - [Any Pattern](#any-patterns)
-    - [Identity Pattern](#identity-pattern)
+    - [Captures](#captures)
 - [Generators](#generators)
+    - [Array Generators](#array-generators)
+    - [Object Generators](#object-generators)
     - [User-defined Generators](#user-defined-generators)
 - [Types](#types)
     - [Primitive Types](#primitive-types)
@@ -150,7 +151,7 @@ dt -e '_ <= 3.14' '"pi"'
 
 If we want to know if a given piece of data is an object, we can use the `object` pattern. Note that this test will return true when matching against Javascript objects and arrays because they each can have properties. Also note that Javascript will return "object" when using `typeof` on `null`. This pattern will fail against `null`.
 
-```
+```bash
 dt -e '_ <= object' '{"a": true}'
 # returns {}
 
@@ -339,22 +340,129 @@ The last example may be a little surprising. This shows that an object pattern i
 
 > Honestly, I'm a little on the fence about this. Everywhere else in the language, matches are strict, but they're not here. That seems inconsistent. Perhaps there could be a way to indicate strict matching versus the current loose matching. It seems like both could be useful.
 
+## Captures
+
+In the [Array Type Pattern](#array-type-pattern) section, we showed a way to return the input data when using the identity pattern. This used a mechanism referred to as capturing.
+
+When a pattern successfully matches the current object, it returns a dictionary. You most likely noticed that all of our pattern matches returned `{}`. This is the empty dictionary. We use captures to place items into that dictionary, give our generators access to the data that was captured.
+
+```bash
+dt -e 'a <= [number as a, number]' '[1, 2]'
+# returns 1
+
+dt -e 'a <= {first: number as a}' '{"first": 10, "second": 20}'
+# returns 10
+
+dt -e 'a <= [number, number] as a' '[1, 2]'
+# returns [1, 2]
+
+dt -e 'a <= {first: number} as a' '{"first": 10, "second": 20}'
+# returns { first: 10, second: 20 }
+```
+
+Notice that we can extract specific elements of an array, specific property values of an object, or entire structures. Although its not shown here, we can capture as many items as we wish as long as each capture name is unique. You will get warnings if you accidentally capture the same name more than once. Capturing is what make generators work, which we'll talk about next.
+
 # Generators
 
-Generators are used to create new data structures. You can create any of the following types:
+## Primitive Generators
 
-- arrays
-- boolean
-- null
-- floats
-- strings
-- objects
+Primitive generators ignore their input and simply return themselves:
+
+```bash
+dt -e 'true <= _' '{}'
+# returns true
+
+dt -e 'false <= _' '10'
+# returns false
+
+dt -e '6.28 <= _' '{}'
+# returns 6.28
+
+dt -e '"test" <= _' 'undefined'
+# returns "test"
+
+dt -e 'null <= _' 'true'
+# returns null
+
+dt -e 'undefined <= _' '[]'
+# As mentioned earlier dt treats `undefined` as a result as failure. This
+# actually succeeded by returning `undefined`
+
+dt -e '_ <= _' '{"a": 1, "b": true}'
+# returns null
+```
+
+## Array Generators
+
+You can construct array structures using an array generator. Simply surround a comma-delimited list of generator expression in square brackets.
+
+```bash
+dt -e '[] <= _' '10'
+# returns []
+
+dt -e '[1, 2, 3] <= _' '10'
+# returns [1, 2, 3]
+```
+
+You may notice that we are generating new arrays, but all of the content is static. A more interesting transform would use values from the pattern match. This is where captures come into play.
+
+```bash
+dt -e '[first, third] <= [number as first, number, number as third]' '[10, 20, 30]'
+# returns [10, 30]
+
+dt -e '[first, third] <= { a: number as first, b: number, c: number as third }' '{"a": 10, "b": 20, "c": 30}'
+# returns [10, 30]
+```
+
+These are our first full transforms. As you can see, we label matched data in a pattern (capture) and then we can reference the name of that capture in our generator (`first` and `third` in these examples).
+
+## Object Generators
+
+You can construct object structures using an object generator. You wrap a list of comma-delimited properties in curly braces. The properties consist of a name and a value, where the name is the property name you wish to create and the value is another generator.
+
+```bash
+dt -e '{a: 10, b: 20} <= _' '{"a": 10}'
+# returns { a: 10, b: 20 }
+
+dt -e '{a: 10, b: 20} <= _' 'null'
+# returns { a: 10, b: 20 }
+```
+
+Like our array generator examples, things get more interesting when we use patterns with captures.
+
+```bash
+dt -e '{first: first, third: third} <= [number as first, number, number as third]' '[10, 20, 30]'
+# returns { first: 10, third: 30 }
+
+dt -e '{a: first, b: third} <= { a: number as first, b: number, c: number as third }' '{"a": 10, "b": 20, "c": 30}'
+# returns { a: 10, b: 30 }
+```
+
+If your property name and the capture you wish to use are the same, you can list the name by itself without the value.
+
+```bash
+dt -e '{first, third} <= [number as first, number, number as third]' '[10, 20, 30]'
+# returns { first: 10, third: 30 }
+```
 
 ## User-defined Generators
 
-The data-transform language is purposely limited. Due to its limited nature, there will be times when you'll be unable to generate a structure simply because the language doesn't give you constructs to manipulate and massage the data as you need. At other times, you may need to create specfic instances of classes. User-defined generators allow you cover these cases.
+The data-transform language is purposely limited. There will be times when you'll be unable to generate a structure simply because the language doesn't give you constructs to manipulate and massage the data as you need. At other times, you may need to create specfic instances of classes or perform actions outside the pervue of this scripting language. User-defined generators allow you cover these cases.
 
-A user-defined generator is registered with a transformer instance. Whenever that name is encountered in a generator, your registered function will be invoked with any parameters specified in the script. The return value of your function becomes the return value of the generator at that point.
+First, you'll need to define a module that exports functions you wish to have available in your script. We'll use the following and name it MyGen.js.
+
+```javascript
+export function MyGen(x, y) {
+    return { x, y, s: x + y, d: x - y };
+}
+```
+
+Next, we let `dt` know to load this module and now any generators that use `MyGen` will end up calling this code.
+
+```bash
+dt -r MyGen.js -e 'MyGen(x, y) <= { center: { cx: number as x, cy: number as y } }' '{"center": {"cx": 10, "cy": 20}}'
+# returns { x: 10, y: 20, s: 30, d: -10 }
+```
 
 ## Simple Operators
 
@@ -367,10 +475,6 @@ There is a very limited set of operations that can be performed on data inside o
 - a single level of property lookup
 
 This list will be expanded over time.
-
-## Current Object Generator
-
-Sometimes you don't need to re-arrange your captured values. You can use the `_` symbol in a generator position and this will return the dictionary of captures as the generator value.
 
 # Types
 
