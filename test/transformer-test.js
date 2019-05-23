@@ -1,8 +1,7 @@
 import assert from "assert";
 import util from "util";
-import Transformer from "../lib/Transformer.js";
+import {default as Transformer, FAILURE_VALUE} from "../lib/Transformer";
 
-const FAILURE_VALUE = undefined;
 
 function prettify(obj) {
     const options = {depth: Infinity};

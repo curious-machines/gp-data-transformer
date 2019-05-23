@@ -1,7 +1,7 @@
 import util from "util";
 import fs from "fs";
 import path from "path";
-import {default as Transformer, FAILURE} from "../lib/Transformer.js";
+import {default as Transformer, FAILURE_VALUE} from "../lib/Transformer.js";
 import {argv} from "yargs";
 
 function usage() {
@@ -127,7 +127,7 @@ function transform(transformer, structures) {
         const result = transformer.execute(source, structure);
 
         // process result
-        if (result !== FAILURE) {
+        if (result !== FAILURE_VALUE) {
             // always display result
             console.log(prettify(result));
         }
