@@ -1,11 +1,18 @@
 # Guide
 
 - [Transformations](#transformations)
+    - [Identify Transform](#identify-transform)
 - [Pattern Matchers](#pattern-matchers)
     - [Primitive Patterns](#primitive-patterns)
+        - [Array Type Pattern](#array-type-pattern)
+        - [Boolean Patterns](#boolean-patterns)
+        - [Number Patterns](#number-patterns)
+        - [Object Type Pattern](#object-type-pattern)
+        - [String Patterns](#string-patterns)
+        - [Special Values](#special-values)
     - [Compound Patterns](#compound-patterns)
     - [Any Pattern](#any-patterns)
-    - [Current Object Pattern](#current-object-pattern)
+    - [Identity Pattern](#identity-pattern)
 - [Generators](#generators)
     - [User-defined Generators](#user-defined-generators)
 - [Types](#types)
@@ -27,25 +34,168 @@ The heart of a data-transform script is the transform. This construct consists o
 - A list of one or more pattern matchers
 - A generator
 
+The general syntax for a transformation is
+
+```
+generator <= pattern
+```
+
+Data flows from the right to the left. Even though there is no syntax for it, the following would describe the overall flow:
+
+```
+result <= generator <= pattern <= data
+```
+
+- We begin with some data on the right.
+- The data flows into the pattern matcher which extracts key elements from the data. These key elements are named and become the result of the pattern.
+- The generator receives a dictionary of captured items created by the pattern matcher. It constructs a new data structure, using a mixture of static content and captured values.
+- The structure output by the generator becomes the resulting value of the transform
+
+## Identify Transform
+
+The simplest transform is one that does nothing at all to its input. This is referred to as the identity transform and it expressed with the following syntax:
+
+```
+_
+```
+
+The `_` character is a special symbol that represents identity; transform identity in this case. This indicates that we wish do nothing to the incoming data. The data is passed through untouched. This might be useful for debugging purposes as a means of determining what is being input into your transform, but you're unlikely to use construct.
+
+Note that earlier I said that a transform has this form: `generator <= pattern`. It turns out that `_` is syntactic sugar for `_ <= _`. Both of those expressions do that exact same thing; return the input data untouched.
+
+Since data flows from right-to-left in our transform expression, pattern matchers (sometimes referred to as patterns by itself) are a good place to start when understanding what a transform does. We'll cover those next.
+
 # Pattern Matchers
 
-A pattern matcher defines a type that is expected of the current object. If the current object matches the type and pattern described by the matcher, then matcher succeeds; otherwise, it reports failure.
+The purpose of a pattern matcher is to compare its pattern to the data coming into it. If the structure the pattern describes matches the incoming data, then the pattern succeeds. If the pattern does not match, it reports failure. What happens with failure depends on where the pattern is being executed, as will be discussed in later sections of this guide.
 
 ## Primitive Patterns
 
-The simplest patterns are the primitive patterns. This specify classes of primitives or specific primite values. The following primitive patterns are available:
+The simplest patterns are the primitive patterns. These match entire classes of values or specific values of primitives. The next sections step through each of the available primitive patterns.
 
-- array which matches any array value
-- boolean which matches any boolean value
-- true
-- false
-- null
-- number which matches any number value
-- any specific number value
-- object which matches any object value
-- string which matches any string value
-- any specific string value
-- undefined
+### Array Type Pattern
+
+The `array` pattern 
+
+```bash
+dt -e '_ <= array' '[1, 2, 3]'
+# returns {}
+
+dt -e '_ <= array' '{"a": 10}'
+# fails
+```
+
+Now the first result may be a little surprising. It turns out that a pattern returns a dictionary of the content it captured. We haven't discussed captures, but that first expression captures nothing, so the return value is an empty object (which I'm loosely referring to as a dictionary). If we want the actual array, then we need to capture it and refer to that capture in our generator:
+
+```bash
+dt -e 'a <= array' '[1, 2, 3] as a'
+# returns [1, 2, 3]
+```
+
+If you're curious how we might match specific array structures, that will be covered in [Compound Patterns]](#compound-patterns).
+
+### Boolean Patterns
+
+Like the `array` pattern, we can match any boolean value using `boolean`
+
+```bash
+dt -e '_ <= boolean' 'true'
+# returns {}
+
+dt -e '_ <= boolean' 'false'
+# returns {}
+
+dt -e '_ <= boolean' '[true]'
+# fails
+```
+
+In cases where you want to match a specific boolean value, you can use `true` and `false` directly
+
+```bash
+dt -e '_ <= true' 'true'
+# returns {}
+
+dt -e '_ <= true' 'false'
+# fails
+
+dt -e '_ <= true' 'true'
+# returns {}
+
+dt -e '_ <= true' '[true]'
+# fails
+```
+
+### Number Patterns
+
+We can match any number with `number` or specific numbers by using the number itself as the pattern.
+
+```bash
+dt -e '_ <= number' '10'
+# returns {}
+
+dt -e '_ <= number' 'true'
+# fails
+
+dt -e '_ <= 3.14' '3.14'
+# returns {}
+
+dt -e '_ <= 3.14' '"pi"'
+# fails
+```
+
+### Object Type Pattern
+
+If we want to know if a given piece of data is an object, we can use the `object` pattern. Note that this test will return true when matching against Javascript objects and arrays because they each can have properties. Also note that Javascript will return "object" when using `typeof` on `null`. This pattern will fail against `null`.
+
+```
+dt -e '_ <= object' '{"a": true}'
+# returns {}
+
+dt -e '_ <= object' '[true]'
+# returns {}
+
+dt -e '_ <= object' 'null'
+# fails
+
+dt -e '_ <= object' '10'
+# fails
+```
+
+### String Patterns
+
+We can match any string with `string` or a specific string by using the string itself.
+
+```bash
+dt -e '_ <= string' '"test"'
+# returns {}
+
+dt -e '_ <= string' 'true'
+# fails
+
+dt -e '_ <= "name"' '"name"'
+# returns {}
+
+dt -e '_ <= "name"' '"last"'
+# fails
+```
+
+### Special Values
+
+It is possible to match `null` using the `null` pattern and to match `undefined` using the `undefined` pattern.
+
+```bash
+dt -e '_ <= null' 'null'
+# returns {}
+
+dt -e '_ <= null' 'undefined'
+# fails
+
+dt -e '_ <= undefined' 'undefined'
+# returns {}
+
+dt -e '_ <= undefined' 'null'
+# fails
+```
 
 ## Compound Patterns
 
@@ -58,9 +208,9 @@ Compound patterns define:
 
 In some cases, you don't care about specific types. You simply want to know that a value exists, or you wish to use the value regardless of its type. `any` is used for this purpose.
 
-## Current Object Pattern
+## Identity Pattern
 
-Sometimes you won't need to match a structure. You simply want to re-arrange what's there. The `_` symbol can be used in a pattern matcher position. It will return whatever object is the current object at the time. Note that if the current object is an object, then your generator can refer to properties on that object as if they had all been captured.
+In the last section, I was talking about identity transforms and the two ways to express them. In the latter form, we ended up with `_ <= _`. Must like `_` in a transform position is the identity transform, a `_` in a pattern position is the identity pattern. Like the identity transform, the identity pattern passes its input to the next stage of the transform. The difference here is that we still have the opportunity to manipulate the incoming data with a generator, as will be discussed later. Whereas the identity transform may not find much use, it's possible the identity pattern will be a bit more useful as it will allow you to manipulate and re-arrange incoming data without having to worry about specifics of its structure.
 
 # Generators
 
