@@ -56,7 +56,7 @@ function main(module) {
             ? fs.readFileSync(path.resolve(argv.j))
             : argv._[0];
 
-        const data = (dataSource.trim() === "undefined")
+        const data = (dataSource.toString().trim() === "undefined")
             ? undefined
             : JSON.parse(dataSource);
 
