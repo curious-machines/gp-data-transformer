@@ -197,20 +197,52 @@ dt -e '_ <= undefined' 'null'
 # fails
 ```
 
+Sometimes you don't care about the type of the data you are matching. In these cases you can use `any` to match anything.
+
+```bash
+dt -e '_ <= any' 'null'
+# returns {}
+
+dt -e '_ <= any' 'undefined'
+# returns {}
+
+dt -e '_ <= any' 'true'
+# returns {}
+
+dt -e '_ <= any' '[1, 2, 3]'
+# returns {}
+
+dt -e '_ <= any' '{"a": true}'
+# returns {}
+```
+
+We've already touched on the identity transform. In it's slightly longer form, `_ <= _`, we see that there is a `_` pattern. This is the identity pattern.
+
+Unlike other patterns, this will pass through its input untouched. This means on success, we will not see `{}`. We will see the actual input data. This can be useful when you only wish to manipulate and re-arrange the incomging data, which is the roll of the generator.
+
+Note that like `any` this pattern will always succeed.
+
+```bash
+dt -e '_ <= _' '{"a": 10, "b": true}'
+# returns {}
+
+dt -e '_ <= _' 'undefined'
+# reports failure but that's because dt treats undefined as a result as failure.
+# This actually succeeded
+
+dt -e '_ <= _' 'true'
+# returns true
+
+dt -e '_ <= _' '[1, 2, 3]'
+# returns [1, 2, 3]
+```
+
 ## Compound Patterns
 
 Compound patterns define:
 
 - arrays and the patterns of their elements
 - objects and the patterns of their properties
-
-## Any Pattern
-
-In some cases, you don't care about specific types. You simply want to know that a value exists, or you wish to use the value regardless of its type. `any` is used for this purpose.
-
-## Identity Pattern
-
-In the last section, I was talking about identity transforms and the two ways to express them. In the latter form, we ended up with `_ <= _`. Must like `_` in a transform position is the identity transform, a `_` in a pattern position is the identity pattern. Like the identity transform, the identity pattern passes its input to the next stage of the transform. The difference here is that we still have the opportunity to manipulate the incoming data with a generator, as will be discussed later. Whereas the identity transform may not find much use, it's possible the identity pattern will be a bit more useful as it will allow you to manipulate and re-arrange incoming data without having to worry about specifics of its structure.
 
 # Generators
 
