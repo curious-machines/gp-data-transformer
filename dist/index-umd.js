@@ -2798,17 +2798,6 @@
     }, {
       key: "execute",
       value: function execute(source, structure) {
-        var result = this._execute(source, structure);
-
-        return result !== FAILURE_VALUE ? result : undefined;
-      }
-      /*
-       *
-       */
-
-    }, {
-      key: "_execute",
-      value: function _execute(source, structure) {
         var statements = parser.parse(source);
         var result;
         var _iteratorNormalCompletion = true;
@@ -3572,42 +3561,91 @@
             start = _group$range.start,
             stop = _group$range.stop;
         var result = [];
-        var _iteratorNormalCompletion8 = true;
-        var _didIteratorError8 = false;
-        var _iteratorError8 = undefined;
 
-        try {
-          for (var _iterator8 = elements[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-            var element = _step8.value;
+        for (var i = 0; i < stop; i++) {
+          var groupResults = []; // all elements must be successful
 
-            for (var i = 0; i < stop; i++) {
-              var results = this.executeArrayPatternElement(element, index, structure, symbolTable);
+          var _iteratorNormalCompletion8 = true;
+          var _didIteratorError8 = false;
+          var _iteratorError8 = undefined;
+
+          try {
+            for (var _iterator8 = elements[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+              var _element = _step8.value;
+              var elementSymbolTable = Object.create(symbolTable);
+              var results = this.executeArrayPatternElement(_element, index, structure, elementSymbolTable);
 
               if (results === FAILURE_VALUE) {
-                if (i >= start) {
-                  return result;
-                }
+                groupResults = FAILURE_VALUE;
+                break;
+              } // move captures into arrays on main symbol table
 
-                return FAILURE_VALUE;
-              }
+
+              if (_element.assignTo !== null && _element.assignTo !== undefined) {
+                pushAssign(symbolTable, _element.assignTo, elementSymbolTable[_element.assignTo]);
+              } // collect everything that matched and advance to the next item to match
+
 
               result = result.concat(results);
-              index += results.length;
+              index += results.length; // collect what we've matched in this group so far
+
+              groupResults = groupResults.concat(results);
             }
-          }
-        } catch (err) {
-          _didIteratorError8 = true;
-          _iteratorError8 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
-              _iterator8["return"]();
-            }
+          } catch (err) {
+            _didIteratorError8 = true;
+            _iteratorError8 = err;
           } finally {
-            if (_didIteratorError8) {
-              throw _iteratorError8;
+            try {
+              if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
+                _iterator8["return"]();
+              }
+            } finally {
+              if (_didIteratorError8) {
+                throw _iteratorError8;
+              }
             }
           }
+
+          if (groupResults === FAILURE_VALUE) {
+            // make sure we met our lower bounds criteria
+            if (i >= start) {
+              // if we didn't process any elements, then we haven't created arrays in the symbol table for this
+              // group or its elements.
+              if (i === 0) {
+                assign(symbolTable, group.assignTo, []);
+                var _iteratorNormalCompletion9 = true;
+                var _didIteratorError9 = false;
+                var _iteratorError9 = undefined;
+
+                try {
+                  for (var _iterator9 = elements[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
+                    var element = _step9.value;
+                    assign(symbolTable, element.assignTo, []);
+                  }
+                } catch (err) {
+                  _didIteratorError9 = true;
+                  _iteratorError9 = err;
+                } finally {
+                  try {
+                    if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
+                      _iterator9["return"]();
+                    }
+                  } finally {
+                    if (_didIteratorError9) {
+                      throw _iteratorError9;
+                    }
+                  }
+                }
+              }
+
+              return result;
+            }
+
+            return FAILURE_VALUE;
+          } // push what this group matched into the symbol table
+
+
+          pushAssign(symbolTable, group.assignTo, groupResults);
         }
 
         return result;
@@ -3700,26 +3738,26 @@
           case "object":
             {
               var result = {};
-              var _iteratorNormalCompletion9 = true;
-              var _didIteratorError9 = false;
-              var _iteratorError9 = undefined;
+              var _iteratorNormalCompletion10 = true;
+              var _didIteratorError10 = false;
+              var _iteratorError10 = undefined;
 
               try {
-                for (var _iterator9 = expression.value[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-                  var propertyExpression = _step9.value;
+                for (var _iterator10 = expression.value[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
+                  var propertyExpression = _step10.value;
                   result[propertyExpression.name] = this.executeGenerator(propertyExpression.expression, symbolTable);
                 }
               } catch (err) {
-                _didIteratorError9 = true;
-                _iteratorError9 = err;
+                _didIteratorError10 = true;
+                _iteratorError10 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
-                    _iterator9["return"]();
+                  if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
+                    _iterator10["return"]();
                   }
                 } finally {
-                  if (_didIteratorError9) {
-                    throw _iteratorError9;
+                  if (_didIteratorError10) {
+                    throw _iteratorError10;
                   }
                 }
               }
@@ -3782,12 +3820,35 @@
 
   function assign(symbolTable, name, value) {
     if (name !== null && name !== undefined) {
-      if (name in symbolTable) {
-        /* eslint-disable-next-line no-console */
-        console.log("warning: overwriting ".concat(name, " in symbol table"));
+      /* eslint-disable-next-line no-prototype-builtins */
+      if (symbolTable.hasOwnProperty(name)) {
+        this.addWarning("Overwriting ".concat(name, " with value: ").concat(value));
       }
 
       symbolTable[name] = value;
+    }
+  }
+  /**
+   * Push a value onto the array at the name in the symbol table. If the name is not in the table already, an array will
+   * be created and then the value will be pushed to it. This is used for grouped elements.
+   *
+   * @param {Object} symbolTable
+   * @param {string} name
+   * @param {*} value
+   */
+
+
+  function pushAssign(symbolTable, name, value) {
+    if (name !== null && name !== undefined) {
+      /* eslint-disable-next-line no-prototype-builtins */
+      var items = symbolTable.hasOwnProperty(name) ? symbolTable[name] : [];
+
+      if (Array.isArray(items)) {
+        items.push(value);
+        symbolTable[name] = items;
+      } else {
+        this.addWarning("Unable to push to ".concat(name, " because it is not an array: ").concat(items));
+      }
     }
   }
 
