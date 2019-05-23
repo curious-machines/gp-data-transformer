@@ -232,8 +232,7 @@ dt -e '_ <= _' '{"a": 10, "b": true}'
 # returns {}
 
 dt -e '_ <= _' 'undefined'
-# reports failure because dt treats `undefined` as a result as failure, so
-# this actually succeeded!
+# reports undefined
 
 dt -e '_ <= _' 'true'
 # returns true
@@ -386,8 +385,7 @@ dt -e 'null <= _' 'true'
 # returns null
 
 dt -e 'undefined <= _' '[]'
-# As mentioned earlier dt treats `undefined` as a result as failure. This
-# actually succeeded by returning `undefined`
+# returns `undefined`
 
 dt -e '_ <= _' '{"a": 1, "b": true}'
 # returns null
