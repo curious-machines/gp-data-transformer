@@ -3235,7 +3235,7 @@ function () {
         return FAILURE_VALUE;
       }
 
-      assign(symbolTable, assignment.name, value);
+      this.assign(symbolTable, assignment.name, value);
       return value;
     }
     /*
@@ -3253,12 +3253,12 @@ function () {
     value: function executePattern(pattern, structure, symbolTable) {
       switch (pattern.patternType) {
         case "any":
-          assign(symbolTable, pattern.assignTo, structure);
+          this.assign(symbolTable, pattern.assignTo, structure);
           return structure;
 
         case "array":
           if (Array.isArray(structure)) {
-            assign(symbolTable, pattern.assignTo, structure);
+            this.assign(symbolTable, pattern.assignTo, structure);
             return structure;
           }
 
@@ -3270,7 +3270,7 @@ function () {
         case "boolean":
           if (typeof structure === "boolean") {
             if (pattern.value === null || pattern.value === structure) {
-              assign(symbolTable, pattern.assignTo, structure);
+              this.assign(symbolTable, pattern.assignTo, structure);
               return structure;
             }
           }
@@ -3279,7 +3279,7 @@ function () {
 
         case "null":
           if (structure === null) {
-            assign(symbolTable, pattern.assignTo, structure);
+            this.assign(symbolTable, pattern.assignTo, structure);
             return structure;
           }
 
@@ -3288,7 +3288,7 @@ function () {
         case "number":
           if (typeof structure === "number") {
             if (pattern.value === null || pattern.value === structure) {
-              assign(symbolTable, pattern.assignTo, structure);
+              this.assign(symbolTable, pattern.assignTo, structure);
               return structure;
             }
           }
@@ -3297,7 +3297,7 @@ function () {
 
         case "object":
           if (isObject(structure)) {
-            assign(symbolTable, pattern.assignTo, structure);
+            this.assign(symbolTable, pattern.assignTo, structure);
             return structure;
           }
 
@@ -3328,7 +3328,7 @@ function () {
                     return FAILURE_VALUE;
                   }
 
-                  assign(symbolTable, property.assignTo, structure[name]);
+                  this.assign(symbolTable, property.assignTo, structure[name]);
                   result[assignTo] = value;
                 } else {
                   return FAILURE_VALUE;
@@ -3349,7 +3349,7 @@ function () {
               }
             }
 
-            assign(symbolTable, pattern.assignTo, structure);
+            this.assign(symbolTable, pattern.assignTo, structure);
             return result;
           }
 
@@ -3360,7 +3360,7 @@ function () {
             var _result = this.executePattern(referencedPattern, structure, symbolTable);
 
             if (_result !== FAILURE_VALUE) {
-              assign(symbolTable, pattern.assignTo, _result);
+              this.assign(symbolTable, pattern.assignTo, _result);
             }
 
             return _result;
@@ -3371,7 +3371,7 @@ function () {
         case "string":
           if (typeof structure === "string") {
             if (pattern.value === null || pattern.value === structure) {
-              assign(symbolTable, pattern.assignTo, structure);
+              this.assign(symbolTable, pattern.assignTo, structure);
               return structure;
             }
           }
@@ -3383,7 +3383,7 @@ function () {
           // FAILURE_VALUE to be a sigil. I'll just have to be careful to return undefined at the top-most level.
           // I'm leaving this for now as this is probably not going to be used much
           if (structure === undefined) {
-            assign(symbolTable, pattern.assignTo, structure);
+            this.assign(symbolTable, pattern.assignTo, structure);
             return structure;
           }
 
@@ -3443,7 +3443,7 @@ function () {
       }
 
       if (index === structure.length) {
-        assign(symbolTable, pattern.assignTo, structure);
+        this.assign(symbolTable, pattern.assignTo, structure);
         return result;
       }
 
@@ -3531,7 +3531,7 @@ function () {
         } // save result
 
 
-        assign(symbolTable, element.assignTo, value);
+        this.assign(symbolTable, element.assignTo, value);
         result.push(value);
       }
 
@@ -3576,7 +3576,7 @@ function () {
 
 
             if (_element.assignTo !== null && _element.assignTo !== undefined) {
-              pushAssign(symbolTable, _element.assignTo, elementSymbolTable[_element.assignTo]);
+              this.pushAssign(symbolTable, _element.assignTo, elementSymbolTable[_element.assignTo]);
             } // collect everything that matched and advance to the next item to match
 
 
@@ -3606,7 +3606,7 @@ function () {
             // if we didn't process any elements, then we haven't created arrays in the symbol table for this
             // group or its elements.
             if (i === 0) {
-              assign(symbolTable, group.assignTo, []);
+              this.assign(symbolTable, group.assignTo, []);
               var _iteratorNormalCompletion9 = true;
               var _didIteratorError9 = false;
               var _iteratorError9 = undefined;
@@ -3614,7 +3614,7 @@ function () {
               try {
                 for (var _iterator9 = elements[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
                   var element = _step9.value;
-                  assign(symbolTable, element.assignTo, []);
+                  this.assign(symbolTable, element.assignTo, []);
                 }
               } catch (err) {
                 _didIteratorError9 = true;
@@ -3639,7 +3639,7 @@ function () {
         } // push what this group matched into the symbol table
 
 
-        pushAssign(symbolTable, group.assignTo, groupResults);
+        this.pushAssign(symbolTable, group.assignTo, groupResults);
       }
 
       return result;
@@ -3785,6 +3785,50 @@ function () {
 
       return FAILURE_VALUE;
     }
+    /**
+     * Add a symbol/value to the symbol table, warning if an overwrite is occurring
+     *
+     * @param {Object} symbolTable
+     * @param {string} name
+     * @param {*} value
+     */
+
+  }, {
+    key: "assign",
+    value: function assign(symbolTable, name, value) {
+      if (name !== null && name !== undefined) {
+        /* eslint-disable-next-line no-prototype-builtins */
+        if (symbolTable.hasOwnProperty(name)) {
+          this.addWarning("Overwriting ".concat(name, " with value: ").concat(value));
+        }
+
+        symbolTable[name] = value;
+      }
+    }
+    /**
+     * Push a value onto the array at the name in the symbol table. If the name is not in the table already, an array will
+     * be created and then the value will be pushed to it. This is used for grouped elements.
+     *
+     * @param {Object} symbolTable
+     * @param {string} name
+     * @param {*} value
+     */
+
+  }, {
+    key: "pushAssign",
+    value: function pushAssign(symbolTable, name, value) {
+      if (name !== null && name !== undefined) {
+        /* eslint-disable-next-line no-prototype-builtins */
+        var items = symbolTable.hasOwnProperty(name) ? symbolTable[name] : [];
+
+        if (Array.isArray(items)) {
+          items.push(value);
+          symbolTable[name] = items;
+        } else {
+          this.addWarning("Unable to push to ".concat(name, " because it is not an array: ").concat(items));
+        }
+      }
+    }
   }], [{
     key: "fromSource",
     value: function fromSource(source) {
@@ -3811,40 +3855,6 @@ function () {
 
   return Transformer;
 }();
-
-function assign(symbolTable, name, value) {
-  if (name !== null && name !== undefined) {
-    /* eslint-disable-next-line no-prototype-builtins */
-    if (symbolTable.hasOwnProperty(name)) {
-      this.addWarning("Overwriting ".concat(name, " with value: ").concat(value));
-    }
-
-    symbolTable[name] = value;
-  }
-}
-/**
- * Push a value onto the array at the name in the symbol table. If the name is not in the table already, an array will
- * be created and then the value will be pushed to it. This is used for grouped elements.
- *
- * @param {Object} symbolTable
- * @param {string} name
- * @param {*} value
- */
-
-
-function pushAssign(symbolTable, name, value) {
-  if (name !== null && name !== undefined) {
-    /* eslint-disable-next-line no-prototype-builtins */
-    var items = symbolTable.hasOwnProperty(name) ? symbolTable[name] : [];
-
-    if (Array.isArray(items)) {
-      items.push(value);
-      symbolTable[name] = items;
-    } else {
-      this.addWarning("Unable to push to ".concat(name, " because it is not an array: ").concat(items));
-    }
-  }
-}
 
 /**
  * @module kld-data-transformer
