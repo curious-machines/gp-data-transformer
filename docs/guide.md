@@ -24,6 +24,7 @@
     - [Object Types](#object-types)
     - [Enumerations](#enumerations)
     - [Assignments](#assignments)
+- [Naming Patterns, Generators, and Transforms](#naming-patterns-generators-and-transforms)
 - [Repetition Operator](#repetition-operator)
 - [Grammar](#grammar)
 
@@ -478,7 +479,7 @@ This list will be expanded over time.
 
 # Types
 
-Transforms, pattern matchers, and generators can be run by themselves, but this limits you to single transformations. In order define the shape of your data, you need to define a type. Types allow you to perform multiple transformations and collect those results into arrays and objects.
+Transforms, pattern matchers, and generators can be run by themselves, but this limits you to single transformations. In order define the shape of your data, you likely need to define a type. Types allow you to perform multiple transformations and collect those results into arrays and objects. They also extend the semantics of how patterns and transforms are used.
 
 ## Primitive Types
 
@@ -486,17 +487,90 @@ Sometimes it is useful to define aliases of types. For example, your data may be
 
 ## Array Types
 
-An array type consists of zero or more transform elements. Each transform element is a transform whose results become the resulting array's value at that position within the array.
+An array type consists of zero or more transform elements. Each element is a transform whose results become the resulting array's value at that position within the array.
 
 ## Object Types
 
-An object type consists of zero or more transform properties. Each property has a name and its value with be the result of the transform attached to that propery.
+An object type consists of zero or more transform properties. Each property has a name and its value with be the result of the transform attached to that propery. The simplest object type would return an empty object.
+
+```
+type Simple = {}
+```
+
+We can expand on this simple example, by adding a property.
+
+```
+type OneProperty = {
+    range: {a, b} <= [number as a, number as b]
+}
+```
+
+Notice that the property's value is a transform. The result of the transform will be stored in the `range` property.
+
+Sometimes your data can come in many forms. Object type properties allow us to provide a list of patterns. (Actually, we can use this construct anywhere transforms are valid.) Each pattern is tried in turn and the first one that is successful sets passes its captures to the generator.
+
+```
+type OneProperty = {
+    range:
+        {a, b} <=
+                [number as a, number as b]
+            |   {start: number as a, end: number as b}
+}
+```
+
+Each transform is separated by the `|` operator and you may have as many transforms as you need.
+
+Sometimes you need to perform different calculations in your generator based on the data you match.
+
+```
+type OneProperty = {
+    range:
+        {a, b} <=
+                [number as a, number as b]
+            |   {start: number as a, end: number as b};
+        {a, a + len} <=
+                [number as a, number as len]
+            |   {start: number as a, length: number as len};
+}
+```
+
+This shows that we can list transforms separated by ';'. Each transform will be tried in turn. The first one to succeed becomes the value of the property.
+
+> NOTE: Currently there is no analysis of scripts. This means that if you return different types in each of your transforms, the interpreter won't complain.
 
 ## Enumerations
+
+Enumerations are a list of string values. These can be used to test that a string value is within its list.
 
 ## Assignments
 
 Sometimes it makes sense to save the results of a transform to reduce the amount of processing that is occurring or even just to simplify your logic. Although assignments are not types, they can only live within array types and object types. These consist of a name and a transform. You may have zero or more assignments and they must all be defined before the content of the compound type. Array elements and object properties may refer to the return value in their generators.
+
+```
+type Radii =
+    // the generator could also be _, but I like being explicit
+    radii =
+        { rx, ry } <=
+                { radii: { x: number as rx, y: number as ry } }
+            |   { radii: [ number as rx, number as ry ] }
+            |   { rx: number as rx, ry: number as ry }
+            |   { radiusX: number as rx, radiusY: number as ry };
+
+    rx: radii.rx,
+    ry: radii.ry
+```
+
+An assignment is a name followed by '=' followed by a transform. More than one assignment can be defined and each must be separated by commas. Assignments must be defined before elements in an array type and before properties in an object type. The last assignment must be followed by a semicolon to mark the end of assignment definition. Elements and properties values may reference the name of the assignement to extract their values.
+
+# Naming Patterns, Generators, and Transforms
+
+If you find yourself needing to re-use a transform, a generator, or a pattern, you can store these items in the interpreter and access them later by name.
+
+```
+pattern Point = { x: number as x, y: number as y }
+generator Point = Point2D(x, y)
+transform Point = generator Point <= pattern Point
+```
 
 # Repetition Operator
 
