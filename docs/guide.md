@@ -11,6 +11,8 @@
         - [String Patterns](#string-patterns)
         - [Special Values](#special-values)
     - [Compound Patterns](#compound-patterns)
+        - [Array Patterns](#array-patterns)
+        - [Object Patterns](#object-patterns)
     - [Any Pattern](#any-patterns)
     - [Identity Pattern](#identity-pattern)
 - [Generators](#generators)
@@ -21,6 +23,7 @@
     - [Object Types](#object-types)
     - [Enumerations](#enumerations)
     - [Assignments](#assignments)
+- [Repetition Operator](#repetition-operator)
 - [Grammar](#grammar)
 
 ---
@@ -227,8 +230,8 @@ dt -e '_ <= _' '{"a": 10, "b": true}'
 # returns {}
 
 dt -e '_ <= _' 'undefined'
-# reports failure but that's because dt treats undefined as a result as failure.
-# This actually succeeded
+# reports failure because dt treats `undefined` as a result as failure, so
+# this actually succeeded!
 
 dt -e '_ <= _' 'true'
 # returns true
@@ -239,10 +242,102 @@ dt -e '_ <= _' '[1, 2, 3]'
 
 ## Compound Patterns
 
-Compound patterns define:
+### Array Patterns
 
-- arrays and the patterns of their elements
-- objects and the patterns of their properties
+An array pattern is simply a comma-delimited list of other patterns (can be primitive our more compound patterns) surrounded by square brackets.
+
+```bash
+dt -e '_ <= []' '[]'
+# returns {}
+
+dt -e '_ <= []' '[1]'
+# fails
+
+dt -e '_ <= [number]' '[1]'
+# returns {}
+
+dt -e '_ <= [number]' '[1, 2]'
+# fails
+```
+
+One thing you may notice is that the number of patterns and the number of items in the current object need to be the same. You may not always know the exact number, but you may know a range of acceptable values. You can use the repetition operator to indicate these ranges:
+
+```bash
+dt -e '_ <= [number; 1..2]' '[]'
+# fails
+
+dt -e '_ <= [number; 1..2]' '[1]'
+# returns {}
+
+dt -e '_ <= [number; 1..2]' '[1, 2]'
+# returns {}
+
+dt -e '_ <= [number; 1..2]' '[1, 2, 3]'
+# fails
+```
+
+Any element pattern can have it's own repetition
+
+```bash
+dt -e '_ <= [number; 1..2, string; 1..2]' '[10, "hello"]'
+# returns {}
+
+dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, "hello"]'
+# returns {}
+
+dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, "hello", "world"]'
+# returns {}
+
+dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, 30, "hello", "world"]'
+# fails
+
+dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, "hello", "world", "!"]'
+# fails
+```
+
+If you have a repeating sequence of types, you can group elements using parenthese
+
+```bash
+dt -e '_ <= [(number, string); 1..2]' '[]'
+# fails
+
+dt -e '_ <= [(number, string); 1..2]' '[10, "hello"]'
+# returns {}
+
+dt -e '_ <= [(number, string); 1..2]' '[10, "hello", 20, "world"]'
+# returns {}
+
+dt -e '_ <= [(number, string); 1..2]' '[10, "hello", 20, "world", 30, "!"]'
+# fails
+```
+
+### Object Patterns
+
+An object pattern is a comma-delimited list of key/value pairs. The key is a property name and the value is a pattern (can be primitive our more compound patterns) surrounded by curly braces.
+
+```bash
+dt -e '_ <= {}' '{}'
+# returns {}
+
+dt -e '_ <= {}' '{"a": true}'
+# returns {}
+
+dt -e '_ <= {a: boolean}' '{"a": true}'
+# returns {}
+
+dt -e '_ <= {a: number}' '{"a": true}'
+# fails
+
+dt -e '_ <= {a: boolean}' '{"a": 10}'
+# fails
+
+dt -e '_ <= {a: boolean}' '{"a": true, "b": 10}'
+# returns {}
+```
+
+The last example may be a little surprising. This shows that an object pattern is only concerned with what it is looking for, `a` in this case. If the current object has other properties, that won't change the result of the match.
+
+> Honestly, I'm a little on the fence about this. Everywhere else in the language, matches are strict, but they're not here. That seems inconsistent. Perhaps there could be a way to indicate strict matching versus the current loose matching. It seems like both could be useful.
 
 # Generators
 
@@ -298,6 +393,15 @@ An object type consists of zero or more transform properties. Each property has 
 ## Assignments
 
 Sometimes it makes sense to save the results of a transform to reduce the amount of processing that is occurring or even just to simplify your logic. Although assignments are not types, they can only live within array types and object types. These consist of a name and a transform. You may have zero or more assignments and they must all be defined before the content of the compound type. Array elements and object properties may refer to the return value in their generators.
+
+# Repetition Operator
+
+The repetition operator was introduced in the section on [Array Patterns](#array-patterns). We showed only one version of that operator. It turns out there are more options available. Below is a list of all syntactical versions of the reptition operator.
+
+- Exactly n: ```;n```
+- n or more: ```;n..```
+- 0 to m: ```;..m```
+- n to m: ```;n..m```
 
 # Grammar
 
