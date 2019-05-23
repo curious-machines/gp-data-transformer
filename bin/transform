@@ -56,7 +56,11 @@ function main(module) {
             ? fs.readFileSync(path.resolve(argv.j))
             : argv._[0];
 
-        transform(transformer, JSON.parse(dataSource));
+        const data = (dataSource.trim() === "undefined")
+            ? undefined
+            : JSON.parse(dataSource);
+
+        transform(transformer, data);
     }
     else {
         let dataSource = "";
