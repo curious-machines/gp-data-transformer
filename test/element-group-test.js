@@ -133,4 +133,28 @@ describe("Element Group", () => {
             assert.deepStrictEqual(result, expected);
         });
     });
+    describe("Generated Tests", () => {
+        const tests = [
+            { script: '_ <= [ number as n3 ]', data: [10], result: { n3: 10 } },
+            { script: '_ <= [ number ; 2 as n3 ]', data: [10, 20], result: { n3: [ 10, 20 ] } },
+            { script: '_ <= [ (number; 2, number; 2) as n3 ]', data: [10, 20, 30, 40], result: { n3: [ 10, 20, 30, 40 ] } },
+            { script: '_ <= [ (number; 2, number; 2) ; 2 as n3 ]', data: [10, 20, 30, 40, 50, 60, 70, 80], result: { n3: [ [ 10, 20, 30, 40 ], [ 50, 60, 70, 80 ] ] } },
+            { script: '_ <= [ (number as n1, number as n2) ]', data: [10, 20], result: { n1: 10, n2: 20 } },
+            { script: '_ <= [ (number as n1, number as n2) ; 2 ]', data: [10, 20, 30, 40], result: { n1: [ 10, 30 ], n2: [ 20, 40 ] } },
+            { script: '_ <= [ (number as n1, number as n2) as n3 ]', data: [10, 20], result: { n1: 10, n2: 20, n3: [ 10, 20 ] } },
+            { script: '_ <= [ (number as n1, number as n2) ; 2 as n3 ]', data: [10, 20, 30, 40], result: { n1: [ 10, 30 ], n2: [ 20, 40 ], n3: [ [ 10, 20 ], [ 30, 40 ] ] } },
+            { script: '_ <= [ (number; 2 as n1, number; 2 as n2) ]', data: [10, 20, 30, 40], result: { n1: [ 10, 20 ], n2: [ 30, 40 ] } },
+            { script: '_ <= [ (number; 2 as n1, number; 2 as n2) ; 2 ]', data: [10, 20, 30, 40, 50, 60, 70, 80], result: { n1: [ [ 10, 20 ], [ 50, 60 ] ], n2: [ [ 30, 40 ], [ 70, 80 ] ] } },
+            { script: '_ <= [ (number; 2 as n1, number; 2 as n2) as n3 ]', data: [10, 20, 30, 40], result: { n1: [ 10, 20 ], n2: [ 30, 40 ], n3: [ 10, 20, 30, 40 ] } },
+            { script: '_ <= [ (number; 2 as n1, number; 2 as n2) ; 2 as n3 ]', data: [10, 20, 30, 40, 50, 60, 70, 80], result: { n1: [ [ 10, 20 ], [ 50, 60 ] ], n2: [ [ 30, 40 ], [ 70, 80 ] ], n3: [ [ 10, 20, 30, 40 ], [ 50, 60, 70, 80 ] ] } }
+        ];
+
+        for (const t of tests) {
+            it(t.script, () => {
+                const result = evaluate(t.script, t.data);
+
+                assert.deepStrictEqual(JSON.stringify(result), JSON.stringify(t.result));
+            });
+        }
+    });
 });
