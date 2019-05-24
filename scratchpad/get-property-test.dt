@@ -1,4 +1,0 @@
-type Test = {
-    b:
-        { a: b.a, b: b.b } <= _
-}
