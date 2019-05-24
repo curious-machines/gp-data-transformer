@@ -2788,14 +2788,57 @@
     return new Parser();
   }();
 
+  // Array related functions
+
   /**
-   * Predicate to determine if an item is an object
+   * Combine multiple arrays into a single array
    *
-   * @param {*} item
-   * @returns {boolean}
+   * @param {Array<Array>} lists
+   * @param {*} [missing=undefined]
+   * @returns {Array}
    */
-  function isObject(item) {
-    return item !== null && _typeof(item) === "object";
+  function zip(lists) {
+    var missing = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+    var result = [];
+
+    if (Array.isArray(lists) && lists.length > 0 && lists.every(function (l) {
+      return Array.isArray(l);
+    })) {
+      var maxLength = Math.max.apply(Math, _toConsumableArray(lists.map(function (l) {
+        return l.length;
+      })));
+
+      for (var i = 0; i < maxLength; i++) {
+        var part = [];
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = lists[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var list = _step.value;
+            part.push(i < list.length ? list[i] : missing);
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+              _iterator["return"]();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        result.push(part);
+      }
+    }
+
+    return result;
   }
   /**
    * Partition an array into multiple arrays
@@ -2805,7 +2848,6 @@
    * @param {number} advance
    * @param {*} [missing=undefined]
    */
-
 
   function partition(items, count, advance) {
     var missing = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
@@ -2831,6 +2873,17 @@
     }
 
     return result;
+  } // Object related functions
+
+  /**
+   * Predicate to determine if an item is an object
+   *
+   * @param {*} item
+   * @returns {boolean}
+   */
+
+  function isObject(item) {
+    return item !== null && _typeof(item) === "object";
   }
   /**
    * Return a list of keys from an object
@@ -2838,6 +2891,7 @@
    * @param {Object} item
    * @returns {string[]}
    */
+
 
   function keys(item) {
     /* eslint-disable-next-line compat/compat */
@@ -2856,6 +2910,7 @@
   }
 
   var StdLib = /*#__PURE__*/Object.freeze({
+    zip: zip,
     partition: partition,
     keys: keys,
     values: values
