@@ -3680,7 +3680,12 @@
           } // save result
 
 
-          this.assign(symbolTable, element.assignTo, value);
+          if (stop > 1) {
+            this.pushAssign(symbolTable, element.assignTo, value);
+          } else {
+            this.assign(symbolTable, element.assignTo, value);
+          }
+
           result.push(value);
         }
 
@@ -3715,17 +3720,24 @@
           try {
             for (var _iterator8 = elements[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
               var _element = _step8.value;
-              var elementSymbolTable = Object.create(symbolTable);
+              var elementSymbolTable = Object.create(symbolTable); // Is this needed now?
+
               var results = this.executeArrayPatternElement(_element, index, structure, elementSymbolTable);
 
               if (results === FAILURE_VALUE) {
                 groupResults = FAILURE_VALUE;
                 break;
-              } // move captures into arrays on main symbol table
+              } // copy result into main symbol table
 
 
-              if (_element.assignTo !== null && _element.assignTo !== undefined) {
-                this.pushAssign(symbolTable, _element.assignTo, elementSymbolTable[_element.assignTo]);
+              if (_element.assignTo !== null && _element.assignTo !== undefined && _element.assignTo in elementSymbolTable) {
+                if (stop > 1) {
+                  // this.pushAssign(symbolTable, element.assignTo, results);
+                  this.pushAssign(symbolTable, _element.assignTo, elementSymbolTable[_element.assignTo]);
+                } else {
+                  // this.assign(symbolTable, element.assignTo, results);
+                  this.assign(symbolTable, _element.assignTo, elementSymbolTable[_element.assignTo]);
+                }
               } // collect everything that matched and advance to the next item to match
 
 
@@ -3785,10 +3797,13 @@
             }
 
             return FAILURE_VALUE;
-          } // push what this group matched into the symbol table
+          }
 
-
-          this.pushAssign(symbolTable, group.assignTo, groupResults);
+          if (stop > 1) {
+            this.pushAssign(symbolTable, group.assignTo, groupResults);
+          } else {
+            this.assign(symbolTable, group.assignTo, groupResults);
+          }
         }
 
         return result;
