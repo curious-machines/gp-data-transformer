@@ -61,4 +61,12 @@ describe("Map", () => {
 
         assert.deepStrictEqual(result, expected);
     });
+    it("Spread test", () => {
+        const script = "map(n, n * n <= number as n) <= [number; 0..] as n";
+        const data = [1, 2, 3, 4];
+        const expected = [1, 4, 9, 16];
+        const result = evaluate(script, data);
+
+        assert.deepStrictEqual(result, expected);
+    });
 });
