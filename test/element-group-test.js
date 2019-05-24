@@ -34,6 +34,14 @@ describe("Element Group", () => {
 
             assert.deepStrictEqual(result, expected);
         });
+        it("one array from group without repeats", () => {
+            const script = "g <= [(number, string) as g]";
+            const data = [10, "hello"];
+            const expected = [10, "hello"];
+            const result = evaluate(script, data);
+
+            assert.deepStrictEqual(result, expected);
+        });
         it("two arrays from group", () => {
             const script = "g <= [(number, string); 0..3 as g]";
             const data = [10, "hello", 20, "world"];
@@ -104,6 +112,22 @@ describe("Element Group", () => {
             const script = "{x, y} <= [(number as x, string as y); 0..3]";
             const data = [10, "hello", 20, "world", 30, "!", 40, "return"];
             const expected = FAILURE_VALUE;
+            const result = evaluate(script, data);
+
+            assert.deepStrictEqual(result, expected);
+        });
+        it("elements repeat in group element that repeats", () => {
+            const script = "{x, y} <= [(number;3 as x, string; 3 as y); 0..3]";
+            const data = [10, 20, 30, "hello", "world", "!", 40, 50, 60, "a", "b", "c"];
+            const expected = {x: [[10, 20, 30], [40, 50, 60]], y: [["hello", "world", "!"], ["a", "b", "c"]]};
+            const result = evaluate(script, data);
+
+            assert.deepStrictEqual(result, expected);
+        });
+        it("1 - elements repeat in group element", () => {
+            const script = "{x, y} <= [(number;3 as x, string; 3 as y)]";
+            const data = [10, 20, 30, "hello", "world", "!"];
+            const expected = {x: [10, 20, 30], y: ["hello", "world", "!"]};
             const result = evaluate(script, data);
 
             assert.deepStrictEqual(result, expected);
