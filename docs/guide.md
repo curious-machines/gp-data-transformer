@@ -25,7 +25,8 @@
     - [Enumerations](#enumerations)
     - [Assignments](#assignments)
 - [Naming Patterns, Generators, and Transforms](#naming-patterns-generators-and-transforms)
-- [Repetition Operator](#repetition-operator)
+- [Operators and Built-in Functions](#operators-and-built-in-functions)
+    - [Repetition Operator](#repetition-operator)
 - [Grammar](#grammar)
 
 ---
@@ -344,7 +345,7 @@ The last example may be a little surprising. This shows that an object pattern i
 
 In the [Array Type Pattern](#array-type-pattern) section, we showed a way to return the input data when using the identity pattern. This used a mechanism referred to as capturing.
 
-When a pattern successfully matches the current object, it returns a dictionary. You most likely noticed that all of our pattern matches returned `{}`. This is the empty dictionary. We use captures to place items into that dictionary, give our generators access to the data that was captured.
+When a pattern successfully matches the current object, it returns a dictionary. You most likely noticed that all of our pattern matches returned `{}`. This is the empty dictionary. We use captures to place items into that dictionary, to give our generators access to the data that was captured.
 
 ```bash
 dt -e 'a <= [number as a, number]' '[1, 2]'
@@ -361,6 +362,53 @@ dt -e 'a <= {first: number} as a' '{"first": 10, "second": 20}'
 ```
 
 Notice that we can extract specific elements of an array, specific property values of an object, or entire structures. Although its not shown here, we can capture as many items as we wish as long as each capture name is unique. You will get warnings if you accidentally capture the same name more than once. Capturing is what make generators work, which we'll talk about next.
+
+### Captures in Arrays
+
+Arrays give all sorts of options for capturing and building intermediate structures for your generators.
+
+```bash
+dt -e '_ <= [ number as n3 ]' '[10]'
+# returns { n3: 10 }
+
+dt -e '_ <= [ number; 2 as n3 ]' '[10,20]'
+# returns { n3: [ 10, 20 ] }
+
+dt -e '_ <= [ (number; 2, number; 2) as n3 ]' '[10,20,30,40]'
+# returns { n3: [ 10, 20, 30, 40 ] }
+
+dt -e '_ <= [ (number; 2, number; 2); 2 as n3 ]' '[10,20,30,40,50,60,70,80]'
+# returns { n3: [ [ 10, 20, 30, 40 ], [ 50, 60, 70, 80 ] ] }
+
+dt -e '_ <= [ (number as n1, number as n2) ]' '[10,20]'
+# returns { n1: 10, n2: 20 }
+
+dt -e '_ <= [ (number as n1, number as n2); 2 ]' '[10,20,30,40]'
+# returns { n1: [ 10, 30 ], n2: [ 20, 40 ] }
+
+dt -e '_ <= [ (number as n1, number as n2) as n3 ]' '[10,20]'
+# returns { n1: 10, n2: 20, n3: [ 10, 20 ] }
+
+dt -e '_ <= [ (number as n1, number as n2); 2 as n3 ]' '[10,20,30,40]'
+# returns { n1: [ 10, 30 ],
+#   n2: [ 20, 40 ],
+#   n3: [ [ 10, 20 ], [ 30, 40 ] ] }
+
+dt -e '_ <= [ (number; 2 as n1, number; 2 as n2) ]' '[10,20,30,40]'
+# returns { n1: [ 10, 20 ], n2: [ 30, 40 ] }
+
+dt -e '_ <= [ (number; 2 as n1, number; 2 as n2); 2 ]' '[10,20,30,40,50,60,70,80]'
+# returns { n1: [ [ 10, 20 ], [ 50, 60 ] ],
+#   n2: [ [ 30, 40 ], [ 70, 80 ] ] }
+
+dt -e '_ <= [ (number; 2 as n1, number; 2 as n2) as n3 ]' '[10,20,30,40]'
+# returns { n1: [ 10, 20 ], n2: [ 30, 40 ], n3: [ 10, 20, 30, 40 ] }
+
+dt -e '_ <= [ (number; 2 as n1, number; 2 as n2); 2 as n3 ]' '[10,20,30,40,50,60,70,80]'
+# returns { n1: [ [ 10, 20 ], [ 50, 60 ] ],
+#   n2: [ [ 30, 40 ], [ 70, 80 ] ],
+#   n3: [ [ 10, 20, 30, 40 ], [ 50, 60, 70, 80 ] ] }
+```
 
 # Generators
 
@@ -570,7 +618,9 @@ generator Point = Point2D(x, y)
 transform Point = generator Point <= pattern Point
 ```
 
-# Repetition Operator
+# Operators and Built-in Functions
+
+## Repetition Operator
 
 The repetition operator was introduced in the section on [Array Patterns](#array-patterns). We showed only one version of that operator. It turns out there are more options available. Below is a list of all syntactical versions of the reptition operator.
 
@@ -578,6 +628,26 @@ The repetition operator was introduced in the section on [Array Patterns](#array
 - n or more: ```;n..```
 - 0 to m: ```;..m```
 - n to m: ```;n..m```
+
+## Spread operator
+
+```javascript
+function Sum(...nums) {
+    return nums.reduce((accum, num) => {
+        return accum + num;
+    }, 0);
+}
+```
+
+```
+Sum(...values) <= [number; 0..] as values
+```
+
+## Map
+
+```
+map(coords, Point2D(x, y) <= [number as x, number as y]) <= [(number, number); 0.. as coords]
+```
 
 # Grammar
 
