@@ -3720,8 +3720,7 @@
           try {
             for (var _iterator8 = elements[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
               var _element = _step8.value;
-              var elementSymbolTable = Object.create(symbolTable); // Is this needed now?
-
+              var elementSymbolTable = Object.create(symbolTable);
               var results = this.executeArrayPatternElement(_element, index, structure, elementSymbolTable);
 
               if (results === FAILURE_VALUE) {
