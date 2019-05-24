@@ -2788,6 +2788,79 @@
     return new Parser();
   }();
 
+  /**
+   * Predicate to determine if an item is an object
+   *
+   * @param {*} item
+   * @returns {boolean}
+   */
+  function isObject(item) {
+    return item !== null && _typeof(item) === "object";
+  }
+  /**
+   * Partition an array into multiple arrays
+   *
+   * @param {Array} items
+   * @param {number} count
+   * @param {number} advance
+   * @param {*} [missing=undefined]
+   */
+
+
+  function partition(items, count, advance) {
+    var missing = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : undefined;
+
+    /* eslint-disable-next-line no-shadow */
+    var length = items.length;
+    var result = []; // default advance to count, if its not defined
+
+    advance = advance === undefined ? count : advance; // we can't advance backwards and we always need to advance
+
+    count = Math.max(1, count);
+    advance = Math.max(1, advance);
+
+    for (var i = 0; i < length; i += advance) {
+      var part = [];
+      var index = i;
+
+      for (var j = 0; j < count; j++, index++) {
+        part.push(index < length ? items[index] : missing);
+      }
+
+      result.push(part);
+    }
+
+    return result;
+  }
+  /**
+   * Return a list of keys from an object
+   *
+   * @param {Object} item
+   * @returns {string[]}
+   */
+
+  function keys(item) {
+    /* eslint-disable-next-line compat/compat */
+    return isObject(item) ? Object.keys(item) : [];
+  }
+  /**
+   * Return a list of values from an object
+   *
+   * @param {Object} item
+   * @returns {any[]}
+   */
+
+  function values(item) {
+    /* eslint-disable-next-line compat/compat */
+    return isObject(item) ? Object.values(item) : [];
+  }
+
+  var StdLib = /*#__PURE__*/Object.freeze({
+    partition: partition,
+    keys: keys,
+    values: values
+  });
+
   var FAILURE_VALUE = {};
   /**
    * Determine if object is something that can have properties
@@ -2796,7 +2869,7 @@
    * @returns {boolean}
    */
 
-  function isObject(obj) {
+  function isObject$1(obj) {
     return obj !== null && _typeof(obj) === "object";
   }
   /**
@@ -2822,7 +2895,14 @@
 
       this.typeCreators = {};
       this.messages = [];
-      this.verbose = false;
+      this.verbose = false; // add standard library
+
+      /* eslint-disable-next-line guard-for-in */
+
+      for (var name in StdLib) {
+        /* eslint-disable-next-line import/namespace */
+        this.typeCreators[name] = StdLib[name];
+      }
     }
     /**
      * Create a new instance of a Transformer with its type table initially populated from the specified normalizer
@@ -3127,7 +3207,7 @@
           }
         } else if (transform.returnValue !== null) {
           // if currentObject is not an object, then it can't be used as a symbol table
-          if (isObject(currentObject)) {
+          if (isObject$1(currentObject)) {
             symbolTable = Object.create(Object.assign(symbolTable, currentObject));
           } // NOTE: assumes we have to have a generator if we don't have a pattern. This is currently
           // enforced in the parser
@@ -3299,7 +3379,7 @@
       key: "executeObjectType",
       value: function executeObjectType(type, structure) {
         if (type.value === null) {
-          if (isObject(structure)) {
+          if (isObject$1(structure)) {
             return structure;
           }
 
@@ -3322,7 +3402,7 @@
                   var propertyValue = FAILURE_VALUE;
 
                   if (property.value === null) {
-                    if (isObject(structure) && property.name in structure) {
+                    if (isObject$1(structure) && property.name in structure) {
                       propertyValue = structure[property.name];
                     }
                   } else {
@@ -3445,7 +3525,7 @@
             return FAILURE_VALUE;
 
           case "object":
-            if (isObject(structure)) {
+            if (isObject$1(structure)) {
               this.assign(symbolTable, pattern.assignTo, structure);
               return structure;
             }
@@ -3454,7 +3534,7 @@
 
           case "object-pattern":
             {
-              if (isObject(structure) === false) {
+              if (isObject$1(structure) === false) {
                 return FAILURE_VALUE;
               }
 
@@ -3841,7 +3921,7 @@
           case "get-property":
             {
               var object = this.executeGenerator(expression.left, symbolTable);
-              return isObject(object) ? object[expression.right] : FAILURE_VALUE;
+              return isObject$1(object) ? object[expression.right] : FAILURE_VALUE;
             }
 
           case "add":
