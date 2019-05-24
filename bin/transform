@@ -6,13 +6,13 @@ import {argv} from "yargs";
 
 function usage() {
     console.log(`
-normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] [-e <expression> | -s <<source-data>
+normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] (-s <<source-data> | <expression>)
     
-    <source-data> = (-j <json-file> | <json-text> | stdin)
+    <source-data> = (-j <json-file> | stdin)
 
     a - data is an array. Each element will be tested separately
-    e - the expression to execute on each test
-    j - the JSON file to test
+    j - the JSON file to test. If this option is not present and there is no JSON redirected to this script, then the
+        value 'undefined' will be used as the source data
     d - a script file from which to load definitions
     q - turn on quiet mode
     r - load a node module. All exports will be exposed as functions to the script
@@ -45,16 +45,10 @@ function main(module) {
     }
 
     if (process.stdin.isTTY) {
-        // get data
-        if ("j" in argv === false && argv._.length === 0) {
-            console.error("Must specify data with -j, JSON text, or from STDIN");
-            usage();
-            process.exit(1);
-        }
-
+        // grab JSON text from file or use 'undefined'
         const dataSource = ("j" in argv)
             ? fs.readFileSync(path.resolve(argv.j))
-            : argv._[0];
+            : "undefined";
 
         const data = (dataSource.toString().trim() === "undefined")
             ? undefined
@@ -70,18 +64,7 @@ function main(module) {
         });
 
         process.stdin.on("end", () => {
-            // NOTE: experimental option
-            if ("m" in argv) {
-                argv.a = true;
-
-                transform(
-                    transformer,
-                    dataSource.split(/\r\n?|\n/).map(line => JSON.parse(line))
-                );
-            }
-            else {
-                transform(transformer, JSON.parse(dataSource));
-            }
+            transform(transformer, JSON.parse(dataSource));
         });
     }
 }
@@ -108,8 +91,8 @@ function transform(transformer, structures) {
     let source = "";
 
     // execute norm file and/or user-entered source
-    if ("e" in argv === false && "s" in argv === false) {
-        console.error("Must define script to run using the -e or the -s option");
+    if (argv._.length === 0 && "s" in argv === false) {
+        console.error("Must define script to run using the the -s option or as the last argument");
         usage();
         process.exit(1);
     }
@@ -117,8 +100,8 @@ function transform(transformer, structures) {
     if ("s" in argv) {
         source += fs.readFileSync(path.resolve(argv.s), "utf-8");
     }
-    if ("e" in argv) {
-        source += `\n${argv.e}`;
+    if (argv._.length > 0) {
+        source += `\n${argv._[0]}`;
     }
 
     let success = true;
