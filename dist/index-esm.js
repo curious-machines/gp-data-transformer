@@ -2697,103 +2697,103 @@ var parser = function () {
             break;
 
           case 19:
-            return 50;
-            break;
-
-          case 20:
-            return 51;
-            break;
-
-          case 21:
-            return 26;
-            break;
-
-          case 22:
-            return 28;
-            break;
-
-          case 23:
-            return 37;
-            break;
-
-          case 24:
-            return 38;
-            break;
-
-          case 25:
-            return 71;
-            break;
-
-          case 26:
-            return 42;
-            break;
-
-          case 27:
-            return 45;
-            break;
-
-          case 28:
-            return 41;
-            break;
-
-          case 29:
-            return 9;
-            break;
-
-          case 30:
-            return 16;
-            break;
-
-          case 31:
-            return 70;
-            break;
-
-          case 32:
-            return 80;
-            break;
-
-          case 33:
-            return 60;
-            break;
-
-          case 34:
-            return 17;
-            break;
-
-          case 35:
-            return 53;
-            break;
-
-          case 36:
-            return 54;
-            break;
-
-          case 37:
-            return 55;
-            break;
-
-          case 38:
-            return 56;
-            break;
-
-          case 39:
-            return 63;
-            break;
-
-          case 40:
-            return 8;
-            break;
-
-          case 41:
             return 85;
             break;
 
-          case 42:
+          case 20:
             return 84;
+            break;
+
+          case 21:
+            return 50;
+            break;
+
+          case 22:
+            return 51;
+            break;
+
+          case 23:
+            return 26;
+            break;
+
+          case 24:
+            return 28;
+            break;
+
+          case 25:
+            return 37;
+            break;
+
+          case 26:
+            return 38;
+            break;
+
+          case 27:
+            return 71;
+            break;
+
+          case 28:
+            return 42;
+            break;
+
+          case 29:
+            return 45;
+            break;
+
+          case 30:
+            return 41;
+            break;
+
+          case 31:
+            return 9;
+            break;
+
+          case 32:
+            return 16;
+            break;
+
+          case 33:
+            return 70;
+            break;
+
+          case 34:
+            return 80;
+            break;
+
+          case 35:
+            return 60;
+            break;
+
+          case 36:
+            return 17;
+            break;
+
+          case 37:
+            return 53;
+            break;
+
+          case 38:
+            return 54;
+            break;
+
+          case 39:
+            return 55;
+            break;
+
+          case 40:
+            return 56;
+            break;
+
+          case 41:
+            return 63;
+            break;
+
+          case 42:
+            return 8;
             break;
         }
       },
-      rules: [/^(?:\s+)/, /^(?:\/\/.*)/, /^(?:any\b)/, /^(?:array\b)/, /^(?:as\b)/, /^(?:boolean\b)/, /^(?:enum\b)/, /^(?:false\b)/, /^(?:generator\b)/, /^(?:map\b)/, /^(?:null\b)/, /^(?:number\b)/, /^(?:object\b)/, /^(?:pattern\b)/, /^(?:string\b)/, /^(?:transform\b)/, /^(?:true\b)/, /^(?:type\b)/, /^(?:undefined\b)/, /^(?:\()/, /^(?:\))/, /^(?:{)/, /^(?:})/, /^(?:\[)/, /^(?:\])/, /^(?:\|)/, /^(?:,)/, /^(?::)/, /^(?:;)/, /^(?:=)/, /^(?:<=)/, /^(?:\.{3})/, /^(?:\.{2})/, /^(?:\.)/, /^(?:_)/, /^(?:\+)/, /^(?:-)/, /^(?:\*)/, /^(?:\/)/, /^(?:\$)/, /^(?:[a-zA-Z_][a-zA-Z0-9_]*)/, /^(?:[-+]?(0|[1-9]\d*)(\.\d+)?)/, /^(?:"[^"\r\n]*")/],
+      rules: [/^(?:\s+)/, /^(?:\/\/.*)/, /^(?:any\b)/, /^(?:array\b)/, /^(?:as\b)/, /^(?:boolean\b)/, /^(?:enum\b)/, /^(?:false\b)/, /^(?:generator\b)/, /^(?:map\b)/, /^(?:null\b)/, /^(?:number\b)/, /^(?:object\b)/, /^(?:pattern\b)/, /^(?:string\b)/, /^(?:transform\b)/, /^(?:true\b)/, /^(?:type\b)/, /^(?:undefined\b)/, /^(?:[-+]?(0|[1-9]\d*)(\.\d+)?)/, /^(?:"[^"\r\n]*")/, /^(?:\()/, /^(?:\))/, /^(?:{)/, /^(?:})/, /^(?:\[)/, /^(?:\])/, /^(?:\|)/, /^(?:,)/, /^(?::)/, /^(?:;)/, /^(?:=)/, /^(?:<=)/, /^(?:\.{3})/, /^(?:\.{2})/, /^(?:\.)/, /^(?:_)/, /^(?:\+)/, /^(?:-)/, /^(?:\*)/, /^(?:\/)/, /^(?:\$)/, /^(?:[a-zA-Z_][a-zA-Z0-9_]*)/],
       conditions: {
         "INITIAL": {
           "rules": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42],
@@ -2840,6 +2840,17 @@ function typeName(item) {
   }
 } // Array related functions
 
+/**
+ * Return the length of an array
+ *
+ * @param {Array} list
+ * @returns {number}
+ */
+
+function length(list) {
+  /* eslint-disable-line no-shadow */
+  return Array.isArray(list) ? list.length : 0;
+}
 /**
  * Combine multiple arrays into a single array
  *
@@ -2962,6 +2973,7 @@ function values(item) {
 
 var StdLib = /*#__PURE__*/Object.freeze({
   typeName: typeName,
+  length: length,
   zip: zip,
   partition: partition,
   keys: keys,
@@ -3296,7 +3308,7 @@ function () {
             if (result !== FAILURE_VALUE) {
               // pattern matched, so we can stop
               if (transform.returnValue !== null) {
-                currentObject = this.executeGenerator(transform.returnValue, structure, patternSymbolTable);
+                currentObject = this.executeExpression(transform.returnValue, structure, patternSymbolTable);
               } else {
                 // if we're not massaging the result, then return all captured values (the symbol table)s
                 currentObject = patternSymbolTable;
@@ -3332,7 +3344,7 @@ function () {
         // enforced in the parser
 
 
-        var value = this.executeGenerator(transform.returnValue, structure, symbolTable);
+        var value = this.executeExpression(transform.returnValue, structure, symbolTable);
 
         if (value === FAILURE_VALUE) {
           this.addError("Unable to apply generator to current object");
@@ -4015,15 +4027,15 @@ function () {
      */
 
   }, {
-    key: "executeGenerator",
-    value: function executeGenerator(expression, structure, symbolTable) {
+    key: "executeExpression",
+    value: function executeExpression(expression, structure, symbolTable) {
       var _this2 = this;
 
       var getNumbers = function getNumbers(operation) {
-        var left = _this2.executeGenerator(expression.left, structure, symbolTable);
+        var left = _this2.executeExpression(expression.left, structure, symbolTable);
 
         if (left !== FAILURE_VALUE && typeof left === "number") {
-          var right = _this2.executeGenerator(expression.right, structure, symbolTable);
+          var right = _this2.executeExpression(expression.right, structure, symbolTable);
 
           if (right !== FAILURE_VALUE && typeof right === "number") {
             return operation(left, right);
@@ -4039,15 +4051,22 @@ function () {
 
         case "get-property":
           {
-            var object = this.executeGenerator(expression.left, structure, symbolTable);
+            var object = this.executeExpression(expression.left, structure, symbolTable);
             return isObject$1(object) ? object[expression.right] : FAILURE_VALUE;
           }
 
         case "get-index":
           {
-            var _object = this.executeGenerator(expression.left, structure, symbolTable);
+            var left = expression.left,
+                right = expression.right;
+            var array = this.executeExpression(left, structure, symbolTable);
 
-            return isObject$1(_object) ? _object[expression.right] : FAILURE_VALUE;
+            if (Array.isArray(array)) {
+              var index = right < 0 ? array.length + right : right;
+              return 0 <= index && index < array.length ? array[index] : FAILURE_VALUE;
+            }
+
+            return FAILURE_VALUE;
           }
 
         case "get-structure":
@@ -4064,7 +4083,7 @@ function () {
                 valueGenerator = _expression$value[0],
                 transform = _expression$value[1];
 
-            var values = this.executeGenerator(valueGenerator, structure, symbolTable);
+            var values = this.executeExpression(valueGenerator, structure, symbolTable);
 
             if (values !== FAILURE_VALUE) {
               if (Array.isArray(values) === false) {
@@ -4108,7 +4127,7 @@ function () {
                   accum.push(value);
                 }
               } else {
-                accum.push(_this2.executeGenerator(arg, structure, symbolTable));
+                accum.push(_this2.executeExpression(arg, structure, symbolTable));
               }
 
               return accum;
@@ -4118,7 +4137,7 @@ function () {
 
         case "array":
           return expression.value.map(function (elementExpression) {
-            return _this2.executeGenerator(elementExpression, structure, symbolTable);
+            return _this2.executeExpression(elementExpression, structure, symbolTable);
           });
 
         case "boolean":
@@ -4140,7 +4159,7 @@ function () {
                 var propertyExpression = _step10.value;
 
                 if (propertyExpression.type === "property") {
-                  var value = this.executeGenerator(propertyExpression.value, structure, symbolTable);
+                  var value = this.executeExpression(propertyExpression.value, structure, symbolTable);
 
                   if (value === FAILURE_VALUE) {
                     return FAILURE_VALUE;
