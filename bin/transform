@@ -87,13 +87,7 @@ function main(module) {
 
 function transform(transformer, structures) {
     // make sure data is an array
-    if ("a" in argv) {
-        // if we said it was an array, but it isn't, then treat the data as if -a hadn't been specified
-        if (Array.isArray(structures) === false) {
-            structures = [structures];
-        }
-    }
-    else {
+    if ("a" in argv === false || Array.isArray(structures) === false) {
         structures = [structures];
     }
 
