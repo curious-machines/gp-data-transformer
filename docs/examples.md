@@ -4,12 +4,6 @@
 
 # Reverse key/values in object
 
-For this example, we'll assume we have a JSON file named `reverse-key-values.json` with the following content:
-
-```JSON
-{ "one": "un", "two": "deux", "three": "trois" }
-```
-
 Some key features of this example:
 
 - Uses `keys` to extract the keys of an object
@@ -20,6 +14,14 @@ Some key features of this example:
 - Uses `pairs` function to replace the `keys`, `values`, and `zip` steps
 - Uses `reverse` to reverse each element in the array of pairs
 - Uses `fromPairs` to build an object from the list of key/value pairs
+
+## Sample Data
+
+For this example, we'll assume we have a JSON file named `reverse-key-values.json` with the following content:
+
+```JSON
+{ "one": "un", "two": "deux", "three": "trois" }
+```
 
 ## Create an array of keys and values
 
