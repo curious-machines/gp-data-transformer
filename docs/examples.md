@@ -4,6 +4,12 @@
 
 # Reverse key/values in object
 
+For this example, we'll assume we have a JSON file named `reverse-key-values.json` with the following content:
+
+```JSON
+{ "one": "un", "two": "deux", "three": "trois" }
+```
+
 Some key features of this example:
 
 - Uses `keys` to extract the keys of an object
@@ -18,8 +24,7 @@ Some key features of this example:
 ## Create an array of keys and values
 
 ```bash
-echo '{"one": "un", "two": "deux", "three": "trois"}' \
-    | dt '[keys($),values($)]' -i
+cat reverse-key-values.json | dt '[keys($),values($)]' -i
 ```
 
 ```
@@ -31,8 +36,7 @@ echo '{"one": "un", "two": "deux", "three": "trois"}' \
 Each element in the resulting array is a 2-element array where the first element is the key and the second element is the value.
 
 ```bash
-echo '{"one": "un", "two": "deux", "three": "trois"}' \
-    | dt 'zip([keys($),values($)])' -i
+cat reverse-key-values.json | dt 'zip([keys($),values($)])' -i
 ```
 
 ```
@@ -44,14 +48,11 @@ echo '{"one": "un", "two": "deux", "three": "trois"}' \
 Now we convert each element in the zipped array into objects, with key/values reversed
 
 ```bash
-echo '{"one": "un", "two": "deux", "three": "trois"}' \
-    | dt 'map(zip([keys($),values($)]), { $.1, $.0 })' -i
+cat reverse-key-values.json | dt 'map(zip([keys($),values($)]), { $.1 : $.0 })' -i
 ```
 
 ```
-[ { un: undefined, one: 'un' },
-  { deux: undefined, two: 'deux' },
-  { trois: undefined, three: 'trois' } ]
+[ { un: 'one' }, { deux: 'two' }, { trois: 'three' } ]
 ```
 
 ## Merge objects into one
@@ -59,8 +60,7 @@ echo '{"one": "un", "two": "deux", "three": "trois"}' \
 `map` returns an array but `merge` needs each object to be a separate parameter. We can convert the array to parameters using the spread (...) operator.
 
 ```bash
-echo '{"one": "un", "two": "deux", "three": "trois"}' \
-    | dt 'merge(...map(zip([keys($),values($)]), { $[1]: $[0] }))' -i
+cat reverse-key-values.json | dt 'merge(...map(zip([keys($),values($)]), { $.1 : $.0 }))' -i
 ```
 
 ```
@@ -72,8 +72,7 @@ echo '{"one": "un", "two": "deux", "three": "trois"}' \
 Alternately, we can generate the array of key/value pairs using the `pairs` functions.
 
 ```bash
-echo '{"one": "un", "two": "deux", "three": "trois"}' \
-    | dt 'merge(...map(pairs($), { $[1]: $[0] }))' -i
+cat reverse-key-values.json | dt 'merge(...map(pairs($), { $[1]: $[0] }))' -i
 ```
 
 ```
@@ -83,8 +82,7 @@ echo '{"one": "un", "two": "deux", "three": "trois"}' \
 As another alternate, we can use `pairs`, `reverse`, and `fromPairs`.
 
 ```bash
-echo '{"one": "un", "two": "deux", "three": "trois"}' \
-    | dt 'fromPairs(map(pairs($), reverse($)))' -i
+cat reverse-key-values.json | dt 'fromPairs(map(pairs($), reverse($)))' -i
 ```
 
 ```
