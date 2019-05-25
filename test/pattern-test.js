@@ -9,11 +9,10 @@ function prettify(obj) {
     return util.inspect(obj, options);
 }
 
-function assertNormalizations(expression, source, tests, debug = false) {
+function assertTransformations(source, tests, debug = false) {
     const normalizer = new Transformer();
 
-    normalizer.addDefinitionsFromSource(source);
-    normalizer.typeCreators.Point = Point;
+    normalizer.addFunction("Point", Point);
 
     if (debug) {
         console.log(prettify(normalizer.types));
@@ -28,7 +27,7 @@ function assertNormalizations(expression, source, tests, debug = false) {
         }
 
         it(`input: ${prettify(structure)}, expected: ${expectedText}`, () => {
-            const result = normalizer.execute(expression, structure);
+            const result = normalizer.execute(source, structure);
 
             if (debug) {
                 console.log(prettify(normalizer.messages));
@@ -49,9 +48,7 @@ function Point(x, y) {
 describe("Transformer", () => {
     describe("Type Definitions", () => {
         describe("Any Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = any`;
+            const source = `! any`;
             const tests = [
                 {structure: true, expected: true},
                 {structure: false, expected: false},
@@ -63,12 +60,10 @@ describe("Transformer", () => {
                 {structure: {a: 1, b: 2, c: 3}, expected: {a: 1, b: 2, c: 3}}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Array Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = array`;
+            const source = `! array`;
             const tests = [
                 {structure: true, expected: FAILURE_VALUE},
                 {structure: false, expected: FAILURE_VALUE},
@@ -81,12 +76,10 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Boolean Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = boolean`;
+            const source = `! boolean`;
             const tests = [
                 {structure: true, expected: true},
                 {structure: false, expected: false},
@@ -98,12 +91,10 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Boolean 'true' Value", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = true`;
+            const source = `! true`;
             const tests = [
                 {structure: true, expected: true},
                 {structure: false, expected: FAILURE_VALUE},
@@ -115,12 +106,10 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Boolean 'false' Value", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = false`;
+            const source = `! false`;
             const tests = [
                 {structure: true, expected: FAILURE_VALUE},
                 {structure: false, expected: false},
@@ -132,33 +121,31 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
-        describe("Enumeration Values", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = enum { one, two, "and three" }`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: "one", expected: "one"},
-                {structure: "two", expected: "two"},
-                {structure: "and three", expected: "and three"},
-                {structure: "four", expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertNormalizations(expression, source, tests);
-        });
+        // describe("Enumeration Values", () => {
+        //     const typeName = "MyType";
+        //     const expression = `type ${typeName}`;
+        //     const source = `type ${typeName} = enum { one, two, "and three" }`;
+        //     const tests = [
+        //         {structure: true, expected: FAILURE_VALUE},
+        //         {structure: false, expected: FAILURE_VALUE},
+        //         {structure: 10, expected: FAILURE_VALUE},
+        //         {structure: "", expected: FAILURE_VALUE},
+        //         {structure: null, expected: FAILURE_VALUE},
+        //         {structure: undefined, expected: FAILURE_VALUE},
+        //         {structure: "one", expected: "one"},
+        //         {structure: "two", expected: "two"},
+        //         {structure: "and three", expected: "and three"},
+        //         {structure: "four", expected: FAILURE_VALUE},
+        //         {structure: [], expected: FAILURE_VALUE},
+        //         {structure: {}, expected: FAILURE_VALUE}
+        //     ];
+        //
+        //     assertTransformations(source, tests);
+        // });
         describe("Null Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = null`;
+            const source = `! null`;
             const tests = [
                 {structure: true, expected: FAILURE_VALUE},
                 {structure: false, expected: FAILURE_VALUE},
@@ -171,12 +158,10 @@ describe("Transformer", () => {
                 {structure: undefined, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Number Values", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = 10`;
+            const source = `! 10`;
             const tests = [
                 {structure: true, expected: FAILURE_VALUE},
                 {structure: false, expected: FAILURE_VALUE},
@@ -189,7 +174,7 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Number Type", () => {
             const typeName = "MyType";
@@ -207,7 +192,7 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Object Property Existence", () => {
             const typeName = "MyType";
@@ -228,7 +213,7 @@ describe("Transformer", () => {
                 {structure: {cx: 10, cy: 10, radius: 5}, expected: {cx: 10, cy: 10}}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Object Type", () => {
             const typeName = "MyType";
@@ -246,7 +231,7 @@ describe("Transformer", () => {
                 {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("String Values", () => {
             const typeName = "MyType";
@@ -264,7 +249,7 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("String Type", () => {
             const typeName = "MyType";
@@ -282,7 +267,7 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
         describe("Undefined Type", () => {
             const typeName = "MyType";
@@ -300,7 +285,7 @@ describe("Transformer", () => {
                 {structure: {}, expected: FAILURE_VALUE}
             ];
 
-            assertNormalizations(expression, source, tests);
+            assertTransformations(source, tests);
         });
     });
 
