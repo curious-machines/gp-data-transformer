@@ -35,7 +35,7 @@ describe("Expressions", () => {
             });
 
             it("identifier", () => {
-                const result = evaluate('a <= _', { a: "test" });
+                const result = evaluate('a', { a: "test" });
                 const expected = "test";
 
                 assert.deepStrictEqual(result, expected);
@@ -76,31 +76,31 @@ describe("Expressions", () => {
     });
     describe("Member Expression", () => {
         it("get property", () => {
-            const result = evaluate('a.b <= _', { a: { b: 10000 } });
+            const result = evaluate('a.b', { a: { b: 10000 } });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);
         });
         it("get properties", () => {
-            const result = evaluate('a.b.c <= _', { a: { b: { c: 10000 } } });
+            const result = evaluate('a.b.c', { a: { b: { c: 10000 } } });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);
         });
         it("get index", () => {
-            const result = evaluate('a.0 <= _', { a: [ 10000 ] });
+            const result = evaluate('a.0', { a: [ 10000 ] });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);
         });
         it("get property, get index", () => {
-            const result = evaluate('a.b.0 <= _', { a: { b: [ 10000 ] } });
+            const result = evaluate('a.b.0', { a: { b: [ 10000 ] } });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);
         });
         it("get index, get property", () => {
-            const result = evaluate('a.0.b <= _', { a: [{ b: 10000 }] });
+            const result = evaluate('a.0.b', { a: [{ b: 10000 }] });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);

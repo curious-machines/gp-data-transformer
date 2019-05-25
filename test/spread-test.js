@@ -15,8 +15,8 @@ function sum(...nums) {
 function evaluate(source, structure) {
     const transformer = new Transformer();
 
-    transformer.typeCreators.Point2D = Point2D;
-    transformer.typeCreators.sum = sum;
+    transformer.addFunction("Point2D", Point2D);
+    transformer.addFunction("sum", sum);
 
     const result = transformer.execute(source, structure);
 
@@ -29,7 +29,7 @@ function evaluate(source, structure) {
 
 describe("Spread", () => {
     it("Single Spread", () => {
-        const script = "Point2D(...coords) <= [ number; 2 ] as coords";
+        const script = "=~ [ number; 2 as coords] |> Point2D(...coords)";
         const data = [1, 2];
         const expected = Point2D(1, 2);
         const result = evaluate(script, data);
@@ -37,7 +37,7 @@ describe("Spread", () => {
         assert.deepStrictEqual(result, expected);
     });
     it("Multiple Spreads", () => {
-        const script = "Point2D(...x, ...y) <= [ [number] as x, [number] as y ] as coords";
+        const script = "=~ [ [number as x], [number as y] ] |> Point2D(...x, ...y)";
         const data = [[1], [2]];
         const expected = Point2D(1, 2);
         const result = evaluate(script, data);
@@ -45,7 +45,7 @@ describe("Spread", () => {
         assert.deepStrictEqual(result, expected);
     });
     it("Mapped Spreads", () => {
-        const script = "map(coords, Point2D(...coord) <= array as coord) <= [ (number, number); 0.. as coords ]";
+        const script = "=~ [ (number, number); 0.. as coords ] |> map(coords, Point2D(...$))";
         const data = [1, 2, 3, 4, 5, 6];
         const expected = [Point2D(1, 2), Point2D(3, 4), Point2D(5, 6)];
         const result = evaluate(script, data);
@@ -53,7 +53,7 @@ describe("Spread", () => {
         assert.deepStrictEqual(result, expected);
     });
     it("Sum", () => {
-        const script = "sum(...firsts, ...seconds) <= [ number; 1.. as firsts, string, number; 1.. as seconds ]";
+        const script = "=~ [ number; 1.. as firsts, string, number; 1.. as seconds ] |> sum(...firsts, ...seconds)";
         const data = [1, 2, 3, "b", 4, 5, 6];
         const expected = 21;
         const result = evaluate(script, data);

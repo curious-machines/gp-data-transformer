@@ -45,263 +45,246 @@ function Point(x, y) {
     return {x, y};
 }
 
-describe("Transformer", () => {
-    describe("Type Definitions", () => {
-        describe("Any Type", () => {
-            const source = `! any`;
-            const tests = [
-                {structure: true, expected: true},
-                {structure: false, expected: false},
-                {structure: 10, expected: 10},
-                {structure: "", expected: ""},
-                {structure: null, expected: null},
-                {structure: undefined, expected: undefined},
-                {structure: [1, 2, 3], expected: [1, 2, 3]},
-                {structure: {a: 1, b: 2, c: 3}, expected: {a: 1, b: 2, c: 3}}
-            ];
+describe("Patterns", () => {
+    describe("Any Type", () => {
+        const source = `=~ any`;
+        const tests = [
+            {structure: true, expected: true},
+            {structure: false, expected: false},
+            {structure: 10, expected: 10},
+            {structure: "", expected: ""},
+            {structure: null, expected: null},
+            {structure: undefined, expected: undefined},
+            {structure: [1, 2, 3], expected: [1, 2, 3]},
+            {structure: {a: 1, b: 2, c: 3}, expected: {a: 1, b: 2, c: 3}}
+        ];
 
-            assertTransformations(source, tests);
-        });
-        describe("Array Type", () => {
-            const source = `! array`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: []},
-                {structure: [1, 2, 3], expected: [1, 2, 3]},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Boolean Type", () => {
-            const source = `! boolean`;
-            const tests = [
-                {structure: true, expected: true},
-                {structure: false, expected: false},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Boolean 'true' Value", () => {
-            const source = `! true`;
-            const tests = [
-                {structure: true, expected: true},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Boolean 'false' Value", () => {
-            const source = `! false`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: false},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        // describe("Enumeration Values", () => {
-        //     const typeName = "MyType";
-        //     const expression = `type ${typeName}`;
-        //     const source = `type ${typeName} = enum { one, two, "and three" }`;
-        //     const tests = [
-        //         {structure: true, expected: FAILURE_VALUE},
-        //         {structure: false, expected: FAILURE_VALUE},
-        //         {structure: 10, expected: FAILURE_VALUE},
-        //         {structure: "", expected: FAILURE_VALUE},
-        //         {structure: null, expected: FAILURE_VALUE},
-        //         {structure: undefined, expected: FAILURE_VALUE},
-        //         {structure: "one", expected: "one"},
-        //         {structure: "two", expected: "two"},
-        //         {structure: "and three", expected: "and three"},
-        //         {structure: "four", expected: FAILURE_VALUE},
-        //         {structure: [], expected: FAILURE_VALUE},
-        //         {structure: {}, expected: FAILURE_VALUE}
-        //     ];
-        //
-        //     assertTransformations(source, tests);
-        // });
-        describe("Null Type", () => {
-            const source = `! null`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: 11, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE},
-                {structure: null, expected: null},
-                {structure: undefined, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Number Values", () => {
-            const source = `! 10`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: 10},
-                {structure: 11, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Number Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = number`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: 10},
-                {structure: 11, expected: 11},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Object Property Existence", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = { cx, cy }`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE},
-                {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
-                {structure: {cx: 10}, expected: FAILURE_VALUE},
-                {structure: {cy: 10}, expected: FAILURE_VALUE},
-                {structure: {cx: 10, cy: 10, radius: 5}, expected: {cx: 10, cy: 10}}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Object Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = object`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: []},
-                {structure: {}, expected: {}},
-                {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("String Values", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = "TEST"`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: "TEST", expected: "TEST"},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("String Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = string`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: "", expected: ""},
-                {structure: "TEST", expected: "TEST"},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: FAILURE_VALUE},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
-        describe("Undefined Type", () => {
-            const typeName = "MyType";
-            const expression = `type ${typeName}`;
-            const source = `type ${typeName} = undefined`;
-            const tests = [
-                {structure: true, expected: FAILURE_VALUE},
-                {structure: false, expected: FAILURE_VALUE},
-                {structure: 10, expected: FAILURE_VALUE},
-                {structure: 11, expected: FAILURE_VALUE},
-                {structure: "", expected: FAILURE_VALUE},
-                {structure: null, expected: FAILURE_VALUE},
-                {structure: undefined, expected: undefined},
-                {structure: [], expected: FAILURE_VALUE},
-                {structure: {}, expected: FAILURE_VALUE}
-            ];
-
-            assertTransformations(source, tests);
-        });
+        assertTransformations(source, tests);
     });
+    describe("Array Type", () => {
+        const source = `=~ array`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: []},
+            {structure: [1, 2, 3], expected: [1, 2, 3]},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
 
-    // describe("Object Property Type", () => {
+        assertTransformations(source, tests);
+    });
+    describe("Boolean Type", () => {
+        const source = `=~ boolean`;
+        const tests = [
+            {structure: true, expected: true},
+            {structure: false, expected: false},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Boolean 'true' Value", () => {
+        const source = `=~ true`;
+        const tests = [
+            {structure: true, expected: true},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Boolean 'false' Value", () => {
+        const source = `=~ false`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: false},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    // describe("Enumeration Values", () => {
     //     const typeName = "MyType";
     //     const expression = `type ${typeName}`;
-    //     const source = `type ${typeName} = { cx: number, cy: number }`;
+    //     const source = `type ${typeName} = enum { one, two, "and three" }`;
     //     const tests = [
-    //         {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
-    //         {structure: {cx: 10, cy: "20"}, expected: FAILURE_VALUE},
-    //         {structure: {cx: "10", cy: 20}, expected: FAILURE_VALUE},
-    //         {structure: {cx: "10", cy: "20"}, expected: FAILURE_VALUE}
+    //         {structure: true, expected: FAILURE_VALUE},
+    //         {structure: false, expected: FAILURE_VALUE},
+    //         {structure: 10, expected: FAILURE_VALUE},
+    //         {structure: "", expected: FAILURE_VALUE},
+    //         {structure: null, expected: FAILURE_VALUE},
+    //         {structure: undefined, expected: FAILURE_VALUE},
+    //         {structure: "one", expected: "one"},
+    //         {structure: "two", expected: "two"},
+    //         {structure: "and three", expected: "and three"},
+    //         {structure: "four", expected: FAILURE_VALUE},
+    //         {structure: [], expected: FAILURE_VALUE},
+    //         {structure: {}, expected: FAILURE_VALUE}
     //     ];
     //
-    //     assertNormalizations(expression, source, tests);
+    //     assertTransformations(source, tests);
     // });
+    describe("Null Type", () => {
+        const source = `=~ null`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: 11, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE},
+            {structure: null, expected: null},
+            {structure: undefined, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Number Values", () => {
+        const source = `=~ 10`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: 10},
+            {structure: 11, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Number Type", () => {
+        const source = `=~ number`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: 10},
+            {structure: 11, expected: 11},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Object Property Existence", () => {
+        const source = `=~ { cx as cx, cy as cy }`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE},
+            {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
+            {structure: {cx: 10}, expected: FAILURE_VALUE},
+            {structure: {cy: 10}, expected: FAILURE_VALUE},
+            {structure: {cx: 10, cy: 10, radius: 5}, expected: {cx: 10, cy: 10}}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Object Type", () => {
+        const source = `=~ object`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: []},
+            {structure: {}, expected: {}},
+            {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("String Values", () => {
+        const source = `=~ "TEST"`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: "TEST", expected: "TEST"},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("String Type", () => {
+        const source = `=~ string`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: "", expected: ""},
+            {structure: "TEST", expected: "TEST"},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: FAILURE_VALUE},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Undefined Type", () => {
+        const source = `=~ undefined`;
+        const tests = [
+            {structure: true, expected: FAILURE_VALUE},
+            {structure: false, expected: FAILURE_VALUE},
+            {structure: 10, expected: FAILURE_VALUE},
+            {structure: 11, expected: FAILURE_VALUE},
+            {structure: "", expected: FAILURE_VALUE},
+            {structure: null, expected: FAILURE_VALUE},
+            {structure: undefined, expected: undefined},
+            {structure: [], expected: FAILURE_VALUE},
+            {structure: {}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
+    describe("Object Property Type", () => {
+        const source = `=~ { cx: number as cx, cy: number as cy }`;
+        const tests = [
+            {structure: {cx: 10, cy: 20}, expected: {cx: 10, cy: 20}},
+            {structure: {cx: 10, cy: "20"}, expected: FAILURE_VALUE},
+            {structure: {cx: "10", cy: 20}, expected: FAILURE_VALUE},
+            {structure: {cx: "10", cy: "20"}, expected: FAILURE_VALUE}
+        ];
+
+        assertTransformations(source, tests);
+    });
     // describe("Type Patterns", () => {
     //     describe("Array Type Pattern", () => {
     //         const typeName = "MyType";

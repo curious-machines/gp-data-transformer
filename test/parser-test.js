@@ -23,68 +23,64 @@ describe("Parser", () => {
     describe("Patterns", () => {
         describe("Primitive Patterns", () => {
             const tests = [
-                'pattern MyType = boolean',
-                'pattern MyType = true',
-                'pattern MyType = false',
-                'pattern MyType = number',
-                'pattern MyType = 10',
-                'pattern MyType = string',
-                'pattern MyType = "hello"',
-                'pattern MyType = {}',
-                'pattern MyType = []',
-                'pattern MyType = null',
-                'pattern MyType = undefined'
+                '=~ boolean',
+                '=~ true',
+                '=~ false',
+                '=~ number',
+                '=~ 10',
+                '=~ string',
+                '=~ "hello"',
+                '=~ {}',
+                '=~ []',
+                '=~ null',
+                '=~ undefined'
             ];
 
             assertTests(tests);
         });
         describe("Array Patterns", () => {
             const tests = [
-                'pattern MyType = [ ]',
-                'pattern MyType = [ boolean ]',
-                'pattern MyType = [ true ]',
-                'pattern MyType = [ false ]',
-                'pattern MyType = [ number ]',
-                'pattern MyType = [ 10 ]',
-                'pattern MyType = [ string ]',
-                'pattern MyType = [ "test" ]',
-                'pattern MyType = [ null ]',
-                'pattern MyType = [ undefined ]',
-                'pattern MyType = [ {} ]',
-                'pattern MyType = [ [] ]',
-
-                'pattern MyType = [ number, string ]',
-
-                'pattern MyType = [ number;5..10 ]',
-                'pattern MyType = [ number;5.. ]',
-                'pattern MyType = [ number;..10 ]',
-                'pattern MyType = [ number;5 ]',
-
-                'pattern MyType = [ (number, string) ]',
-                'pattern MyType = [ (number, string);5 ]',
-                'pattern MyType = [ (number;5, string;3) ]',
-                'pattern MyType = [ (number;5, string;3);10 ]',
-
-                'pattern MyType = [ number as x ]',
-                'pattern MyType = [ number as x, number as y ]',
-                'pattern MyType = [ number;5 as x ]',
-                'pattern MyType = [ (number;5 as x, string;3 as y);10 as pairs ]'
+                '=~ [ ]',
+                '=~ [ boolean ]',
+                '=~ [ true ]',
+                '=~ [ false ]',
+                '=~ [ number ]',
+                '=~ [ 10 ]',
+                '=~ [ string ]',
+                '=~ [ "test" ]',
+                '=~ [ null ]',
+                '=~ [ undefined ]',
+                '=~ [ {} ]',
+                '=~ [ [] ]',
+                '=~ [ number, string ]',
+                '=~ [ number;5..10 ]',
+                '=~ [ number;5.. ]',
+                '=~ [ number;..10 ]',
+                '=~ [ number;5 ]',
+                '=~ [ (number, string) ]',
+                '=~ [ (number, string);5 ]',
+                '=~ [ (number;5, string;3) ]',
+                '=~ [ (number;5, string;3);10 ]',
+                '=~ [ number as x ]',
+                '=~ [ number as x, number as y ]',
+                '=~ [ number;5 as x ]',
+                '=~ [ (number;5 as x, string;3 as y);10 as pairs ]'
             ];
 
             assertTests(tests);
         });
         describe("Object Patterns", () => {
             const tests = [
-                'pattern MyType = { cx: boolean }',
-                'pattern MyType = { cx: true }',
-                'pattern MyType = { cx: false }',
-                'pattern MyType = { cx: number }',
-                'pattern MyType = { cx: 10 }',
-                'pattern MyType = { cx: string }',
-                'pattern MyType = { cx: "hello" }',
-                'pattern MyType = { cx: [ number ] }',
-                'pattern MyType = { cx: { x: number } }',
-                'pattern MyType = { cx: Point }'
+                '=~ { cx: boolean }',
+                '=~ { cx: true }',
+                '=~ { cx: false }',
+                '=~ { cx: number }',
+                '=~ { cx: 10 }',
+                '=~ { cx: string }',
+                '=~ { cx: "hello" }',
+                '=~ { cx: [ number ] }',
+                '=~ { cx: { x: number } }',
+                '=~ { cx: Point }'
             ];
 
             assertTests(tests);
@@ -93,43 +89,32 @@ describe("Parser", () => {
     describe("Generators", () => {
         describe("Array Generators", () => {
             const tests = [
-                'generator MyType = []',
-                'generator MyType = [ 1 ]',
-                'generator MyType = [ 1, [] ]',
-                'generator MyType = [ 1, true ]',
-                'generator MyType = [ 1, null ]',
-                'generator MyType = [ 1, undefined ]',
-                'generator MyType = [ 1, 2 ]',
-                'generator MyType = [ 1, "" ]'
+                '[]',
+                '[ 1 ]',
+                '[ 1, [] ]',
+                '[ 1, true ]',
+                '[ 1, null ]',
+                '[ 1, undefined ]',
+                '[ 1, 2 ]',
+                '[ 1, "" ]'
             ];
 
             assertTests(tests);
         });
         describe("Object Generators", () => {
             const tests = [
-                'generator MyType = { cx }',
-                'generator MyType = { cx: x, cy }',
-                'generator MyType = { cx, cy }',
-                'generator MyType = { cx: x, cy: y }',
-                'generator MyType = { cx: {} }',
-                'generator MyType = { cx: { a: 1 } }',
-                'generator MyType = { cx: { a: 1, b: [] } }',
-                'generator MyType = { cx: { a: 1, b: true } }',
-                'generator MyType = { cx: { a: 1, b: null } }',
-                'generator MyType = { cx: { a: 1, b: undefined } }',
-                'generator MyType = { cx: { a: 1, b: 2 } }',
-                'generator MyType = { cx: { a: 1, b: "" } }'
-            ];
-
-            assertTests(tests);
-        });
-    });
-    describe("Types", () => {
-        describe("Enumeration Types", () => {
-            const tests = [
-                'type MyType = { }',
-                'type MyType = enum { one, two, three }',
-                'type MyType = enum { "array", "boolean", "multiple words" }'
+                '{ cx }',
+                '{ cx: x, cy }',
+                '{ cx, cy }',
+                '{ cx: x, cy: y }',
+                '{ cx: {} }',
+                '{ cx: { a: 1 } }',
+                '{ cx: { a: 1, b: [] } }',
+                '{ cx: { a: 1, b: true } }',
+                '{ cx: { a: 1, b: null } }',
+                '{ cx: { a: 1, b: undefined } }',
+                '{ cx: { a: 1, b: 2 } }',
+                '{ cx: { a: 1, b: "" } }'
             ];
 
             assertTests(tests);
