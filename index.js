@@ -2,6 +2,6 @@
  * @module kld-data-transformer
  */
 
-export {default as Transformer} from "./lib/Transformer.js";
+export {default as Transformer, FAILURE_VALUE} from "./lib/Transformer.js";
 
 export {default as Parser} from "./lib/GeneratedParser.js";
