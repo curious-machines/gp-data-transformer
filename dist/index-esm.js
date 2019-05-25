@@ -2745,7 +2745,14 @@ function () {
           }
 
         case "get-value":
-          return symbolTable[expression.name];
+          if (expression.name in symbolTable) {
+            return symbolTable[expression.name];
+          } else if (expression.name in this.functions) {
+            return this.invokeFunction(expression.name, [structure]);
+          }
+
+          this.addError("Tried to access unbound symbol: ".concat(expression.name));
+          return FAILURE_VALUE;
 
         case "get-property":
           {
@@ -2870,7 +2877,13 @@ function () {
 
               return accum;
             }, []);
-            return this.invokeFunction(expression.name, args);
+
+            if (expression.name in this.functions) {
+              return this.invokeFunction(expression.name, args);
+            }
+
+            this.addError("Tried to access unbound symbol: ".concat(expression.name));
+            return FAILURE_VALUE;
           }
 
         case "array":
