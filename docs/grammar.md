@@ -96,8 +96,8 @@ expressionProperties
   ;
 
 expressionProperty
-  : IDENTIFIER : expression
-  | IDENTIFIER
+  : expression : expression
+  | expression
   | assignment
   ;
 

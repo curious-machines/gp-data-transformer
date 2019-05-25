@@ -66,7 +66,7 @@ describe("Expressions", () => {
                 assert.deepStrictEqual(result, expected);
             });
             it("One Property", () => {
-                const source = '{a: 10}';
+                const source = '{"a": 10}';
                 const expected = {a: 10};
                 const result = evaluate(source);
 
@@ -112,7 +112,7 @@ describe("Expressions", () => {
             assert.deepStrictEqual(result, expected);
         });
         it("invoke with arguments", () => {
-            const result = evaluate('keys({a: 10, b: "twenty"})');
+            const result = evaluate('keys({"a": 10, "b": "twenty"})');
             const expected = ["a", "b"];
 
             assert.deepStrictEqual(result, expected);
