@@ -139,7 +139,8 @@ function transform(transformer, structures) {
 }
 
 if ("r" in argv) {
-    import(path.resolve(argv.r)).then(main)
+    //import(path.resolve(argv.r)).then(main)
+    main(require(path.resolve(argv.r)));
 }
 else {
     main(null);

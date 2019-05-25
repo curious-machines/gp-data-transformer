@@ -1,12 +1,12 @@
-export function Point2D(x, y) {
+function Point2D(x, y) {
     return {x, y};
 }
 
-export function Vector2D(x, y) {
+function Vector2D(x, y) {
     return {x, y};
 }
 
-export function ListOfCoords(ps) {
+function ListOfCoords(ps) {
     const result = [];
 
     for (let i = 0; i < ps.length; i += 2) {
@@ -19,6 +19,13 @@ export function ListOfCoords(ps) {
     return result;
 }
 
-export function ListOfPoints(ps) {
+function ListOfPoints(ps) {
     return ps.map(p => new Point2D(p.x, p.y));
+}
+
+module.exports = {
+    Point2D: Point2D,
+    Vector2D: Vector2D,
+    ListOfCoords: ListOfCoords,
+    ListOfPoints: ListOfPoints
 }
