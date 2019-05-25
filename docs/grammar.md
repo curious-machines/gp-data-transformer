@@ -4,108 +4,70 @@ program
   ;
 
 statements
-  : statements statement
+  : statements ; statement
   | statement
   ;
 
 statement
-  : transform
-  | GENERATOR IDENTIFIER = generator
-  | PATTERN IDENTIFIER = namedTypePattern
-  | TRANSFORM IDENTIFIER = transform
-  | TYPE IDENTIFIER = typeDefinition
-  ;
-
-transform
-  : generator
-  | generator <= _
-  | generator <= typePatterns
-  | _ <= typePatterns
-  | GENERATOR IDENTIFIER
-  | TRANSFORM IDENTIFIER
-  | TYPE IDENTIFIER
-  ;
-
-typeDefinition
-  : ANY_TYPE
-  | ARRAY_TYPE
-  | arrayTypeDefinition
-  | BOOLEAN_TYPE
-  | TRUE
-  | FALSE
-  | ENUMERATION { identifiers }
-  | NULL_TYPE
-  | NUMBER_TYPE
-  | float
-  | OBJECT_TYPE
-  | objectTypeDefinition
-  | STRING_TYPE
-  | string
-  | UNDEFINED_TYPE
-  ;
-
-arrayTypeDefinition
-  : [ ]
-  | [ transformElements ]
-  | [ assignments ; transformElements ]
-  ;
-
-transformElements
-  : transformElements , transform
-  | transform
-  ;
-
-objectTypeDefinition
-  : { }
-  | { transformProperties }
-  | { assignments ; transformProperties }
-  ;
-
-transformProperties
-  : transformProperties , transformProperty
-  | transformProperty
-  ;
-
-transformProperty
-  : IDENTIFIER : transforms
-  | IDENTIFIER
-  ;
-
-assignments
-  : assignments , assignment
-  | assignment
+  : assignment
+  | transformSequence
   ;
 
 assignment
-  : IDENTIFIER = transform
+  : LET IDENTIFIER = transformSequence
   ;
 
-transforms
-  : transforms ; transform
-  | transform
+transformSequence
+  : steps
   ;
 
-namedGenerator
-  : generator
-  | generator AS IDENTIFIER
+steps
+  : steps |> step
+  | step
   ;
 
-generator
-  : IDENTIFIER
-  | IDENTIFIER ( )
-  | IDENTIFIER ( parameterList )
-  | arrayExpression
-  | boolean
+step
+  : =~ pattern
+  | expression
+  ;
+
+expression
+  : mathExpression
+  | MAP ( expression , transformSequence )
+  ;
+
+mathExpression
+  : callExpression
+  | mathExpression + callExpression
+  | mathExpression - callExpression
+  | mathExpression * callExpression
+  | mathExpression / callExpression
+  ;
+
+callExpression
+  : IDENTIFIER ( )
+  | IDENTIFIER ( argumentList )
+  | memberExpression
+  ;
+
+memberExpression
+  : primaryExpression
+  | memberExpression . IDENTIFIER
+  | memberExpression . integer
+  | memberExpression [ integer ]
+  ;
+
+primaryExpression
+  : boolean
   | NULL_TYPE
   | float
   | string
-  | objectExpression
   | UNDEFINED_TYPE
-  | IDENTIFIER . IDENTIFIER
-  | generator + generator
-  | generator - generator
-  | generator * generator
-  | generator / generator
+  | IDENTIFIER
+  | $
+  | arrayExpression
+  | objectExpression
+  | ( expression )
   ;
 
 arrayExpression
@@ -119,7 +81,8 @@ expressionElements
   ;
 
 expressionElement
-  : generator
+  : expression
+  | assignment
   ;
 
 objectExpression
@@ -133,26 +96,33 @@ expressionProperties
   ;
 
 expressionProperty
-  : IDENTIFIER : generator
+  : IDENTIFIER : expression
   | IDENTIFIER
+  | assignment
   ;
 
-parameterList
-  : parameterList , generator
-  | generator
+argumentList
+  : argumentList , argument
+  | argument
   ;
 
-typePatterns
-  : typePatterns | namedTypePattern
-  | namedTypePattern
+argument
+  : expression
+  | ... IDENTIFIER
+  | ... $
   ;
 
-namedTypePattern
-  : typePattern
-  | typePattern AS IDENTIFIER
+patterns
+  : patterns | namedPattern
+  | namedPattern
   ;
 
-typePattern
+namedPattern
+  : pattern
+  | pattern AS IDENTIFIER
+  ;
+
+pattern
   : ANY_TYPE
   | ARRAY_TYPE
   | BOOLEAN_TYPE
@@ -188,8 +158,8 @@ namedPatternElement
   ;
 
 patternElement
-  : typePattern
-  | typePattern ; range
+  : pattern
+  | pattern ; range
   | ( patternElements )
   | ( patternElements ) ; range
   ;
@@ -217,7 +187,7 @@ namedPatternProperty
   ;
 
 namedProperty
-  : IDENTIFIER : typePattern
+  : IDENTIFIER : pattern
   | IDENTIFIER
   ;
 
