@@ -40,7 +40,7 @@ function main(module) {
     // load type creators from module
     if (module !== null) {
         for (const name in module) {
-            transformer.typeCreators[name] = module[name];
+            transformer.addFunction(name, module[name]);
         }
     }
 
