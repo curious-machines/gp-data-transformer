@@ -18,18 +18,16 @@ const useInspect = "i" in argv;
 
 function usage() {
     console.log(`
-normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] (-s <<source-data> | <expression>)
+normalizer [-i] [-q] [-a] [-r <module>] [-s <script-file>] <source-data> <dt-script>
     
     <source-data> = (-j <json-file> | stdin)
 
-    a - data is an array. Each element will be tested separately
-    j - the JSON file to test. If this option is not present and there is no JSON redirected to this script, then the
-        value 'undefined' will be used as the source data
-    d - a script file from which to load definitions
-    i - use util.inspect for output. It will try to output using color
+    a - treat data as an array and transform each element separately
+    j - grab data from specified JSON file. When not present and no redirected data, transform against 'undefined'
+    i - use util.inspect for output. Will use color unless output is being redirected
     q - turn on quiet mode
-    r - load a node module. All exports will be exposed as functions to the script
-    s - a script file to execute on each test
+    r - load a node module and expose it exports as functions to the script
+    s - a script file to execute on each transform
 
 `);
 }
