@@ -60,8 +60,9 @@ function main(module) {
         }
     }
 
+    // get source data
     if (process.stdin.isTTY) {
-        // grab JSON text from file or use 'undefined'
+        // grab from file or use 'undefined'
         const dataSource = ("j" in argv)
             ? fs.readFileSync(path.resolve(argv.j))
             : "undefined";
@@ -73,6 +74,7 @@ function main(module) {
         transform(transformer, data);
     }
     else {
+        // grab data from stdin
         let dataSource = "";
 
         process.stdin.on("data", chunk => {
@@ -93,9 +95,9 @@ function transform(transformer, structures) {
 
     let source = "";
 
-    // execute norm file and/or user-entered source
+    // execute script file and/or user-entered source
     if (argv._.length === 0 && "s" in argv === false) {
-        console.error("Must define script to run using the the -s option or as the last argument");
+        console.error("Must define script to run using the -s option or as last argument");
         usage();
         process.exit(1);
     }
