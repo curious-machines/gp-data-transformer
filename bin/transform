@@ -17,16 +17,16 @@ const ttyOut = process.stdout.isTTY;
 const useInspect = "i" in argv;
 
 function usage() {
-    console.log(`
-normalizer [-i] [-q] [-a] [-r <module>] [-s <script-file>] <source-data> <dt-script>
+    console.log(`normalizer [-h] [-i] [-q] [-a] [-r <module>] [-s <script-file>] <source-data> <dt-script>
     
     <source-data> = (-j <json-file> | stdin)
 
     a - treat data as an array and transform each element separately
+    h - show this info
     j - grab data from specified JSON file. When not present and no redirected data, transform against 'undefined'
     i - use util.inspect for output. Will use color unless output is being redirected
     q - turn on quiet mode
-    r - load a node module and expose it exports as functions to the script
+    r - load a node module and expose its exports as functions to the script
     s - a script file to execute on each transform
 
 `);
@@ -136,6 +136,11 @@ function transform(transformer, structures) {
     }
 
     process.exit(success ? 0 : 1);
+}
+
+if ("h" in argv) {
+    usage();
+    process.exit(0);
 }
 
 if ("r" in argv) {
