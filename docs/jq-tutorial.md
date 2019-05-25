@@ -23,13 +23,13 @@ cat temp.json | dt '$'
 # Extract first commit
 
 ```bash
-cat temp.json | dt '$.0'
+cat temp.json | dt '$[0]'
 ```
 
 # Extract message and name from first element
 
 ```bash
-cat temp.json | dt '{ message: $.0.commit.message, name: $.0.commit.committer.name }'
+cat temp.json | dt '{ message: $[0].commit.message, name: $[0].commit.committer.name }'
 ```
 
 # Extract message and name from all elements

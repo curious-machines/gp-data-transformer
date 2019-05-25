@@ -88,19 +88,19 @@ describe("Expressions", () => {
             assert.deepStrictEqual(result, expected);
         });
         it("get index", () => {
-            const result = evaluate('a.0', { a: [ 10000 ] });
+            const result = evaluate('a[0]', { a: [ 10000 ] });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);
         });
         it("get property, get index", () => {
-            const result = evaluate('a.b.0', { a: { b: [ 10000 ] } });
+            const result = evaluate('a.b[0]', { a: { b: [ 10000 ] } });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);
         });
         it("get index, get property", () => {
-            const result = evaluate('a.0.b', { a: [{ b: 10000 }] });
+            const result = evaluate('a[0].b', { a: [{ b: 10000 }] });
             const expected = 10000;
 
             assert.deepStrictEqual(result, expected);
