@@ -15,6 +15,7 @@ const {argv} = require("yargs");
 const quiet = "q" in argv;
 const ttyOut = process.stdout.isTTY;
 const useInspect = "i" in argv;
+const argCount = Object.keys(argv).length + argv._.length - 2; // exclude '_' and '$0'
 
 function usage() {
     console.log(`normalizer [-h] [-i] [-q] [-a] [-r <module>] [-s <script-file>] <source-data> <dt-script>
@@ -138,7 +139,7 @@ function transform(transformer, structures) {
     process.exit(success ? 0 : 1);
 }
 
-if ("h" in argv) {
+if ("h" in argv || argCount === 0) {
     usage();
     process.exit(0);
 }
