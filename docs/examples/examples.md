@@ -1,4 +1,5 @@
 - [Reverse key/values in object](#reverse-keyvalues-in-object)
+- [List Property Types](#list-property-types)
 
 ---
 
@@ -89,4 +90,49 @@ cat reverse-key-values.json | dt 'fromPairs(map(pairs, reverse))' -i
 
 ```
 { un: 'one', deux: 'two', trois: 'three' }
+```
+
+# List Property Types
+
+## Sample Data
+
+For this example, we'll assume we have a JSON file named `property-types.json` with the following content:
+
+```JSON
+{
+  "name": "Test",
+  "processed": true,
+  "results": [1, 2, 3, 4, 5],
+  "count": 5
+  "nested" : {
+    "a": 10
+  },
+  "more": null
+}
+```
+
+## List keys and property types
+
+```bash
+cat "property-types.json" | dt '[keys, map(values, typeName)]' -i
+```
+
+```
+[ [ 'name', 'processed', 'results', 'count', 'nested', 'more' ],
+  [ 'string', 'boolean', 'array', 'number', 'object', 'null' ] ]
+```
+
+## Combine keys and property types into object
+
+```bash
+cat "property-types.json" | dt 'fromPairs(zip([keys, map(values, typeName)]))' -i
+``` 
+
+```
+{ name: 'string',
+  processed: 'boolean',
+  results: 'array',
+  count: 'number',
+  nested: 'object',
+  more: 'null' }
 ```
