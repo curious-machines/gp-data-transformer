@@ -91,13 +91,6 @@ function transform(transformer, structures) {
         structures = [structures];
     }
 
-    // load in any definitions
-    if ("d" in argv) {
-        const source = fs.readFileSync(path.resolve(argv.d), "utf-8");
-
-        transformer.addDefinitionsFromSource(source);
-    }
-
     let source = "";
 
     // execute norm file and/or user-entered source
