@@ -4,6 +4,10 @@ import path from "path";
 import {default as Transformer, FAILURE_VALUE} from "../lib/Transformer.js";
 import {argv} from "yargs";
 
+const quiet = "q" in argv;
+const ttyOut = process.stdout.isTTY;
+const useInspect = "i" in argv;
+
 function usage() {
     console.log(`
 normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] (-s <<source-data> | <expression>)
@@ -22,9 +26,14 @@ normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] (-s <<sourc
 }
 
 function prettify(object) {
-    const options = {depth: Infinity, colors: true};
+    if (useInspect) {
+        const options = {depth: Infinity, colors: ttyOut};
 
-    return util.inspect(object, options);
+        return util.inspect(object, options);
+    }
+    else {
+        return JSON.stringify(object, null, 2);
+    }
 }
 
 function say(message="") {
@@ -132,9 +141,6 @@ function transform(transformer, structures) {
 
     process.exit(success ? 0 : 1);
 }
-
-
-const quiet = "q" in argv;
 
 if ("r" in argv) {
     import(path.resolve(argv.r)).then(main)
