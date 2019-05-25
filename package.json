@@ -24,10 +24,10 @@
   },
   "scripts": {
     "eslint": "eslint .",
-    "rollup": "rollup -c",
+    "rollup": "npm run build-parser && rollup -c",
     "build-grammar": "node -r esm bin/make_grammar_docs.js",
     "build-parser": "node -r esm bin/make_parser.js",
-    "test": "npm run eslint && npm run build-parser && npm run rollup && mocha --require @babel/register",
+    "test": "npm run eslint && npm run rollup && mocha --require @babel/register",
     "start": "static -p 8055",
     "build-docs": "rm -rf docs/jsdoc/* && npm run build-grammar && jsdoc --pedantic -c docs/jsdoc-config.js .",
     "open-docs": "opn http://localhost:8055/docs/jsdoc/ && npm start"
