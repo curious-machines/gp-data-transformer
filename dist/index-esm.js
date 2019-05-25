@@ -173,78 +173,53 @@ var parser = function () {
 
     return _o;
   },
-      $V0 = [1, 5],
+      $V0 = [1, 6],
       $V1 = [1, 14],
-      $V2 = [1, 6],
-      $V3 = [1, 7],
-      $V4 = [1, 8],
-      $V5 = [1, 10],
-      $V6 = [1, 25],
-      $V7 = [1, 26],
+      $V2 = [1, 9],
+      $V3 = [1, 12],
+      $V4 = [1, 18],
+      $V5 = [1, 21],
+      $V6 = [1, 22],
+      $V7 = [1, 29],
       $V8 = [1, 30],
-      $V9 = [1, 18],
-      $Va = [1, 21],
-      $Vb = [1, 29],
-      $Vc = [1, 12],
-      $Vd = [1, 22],
-      $Ve = [1, 28],
-      $Vf = [1, 27],
-      $Vg = [1, 7, 8, 11, 13, 14, 17, 23, 24, 26, 29, 36, 37, 49, 63, 84, 85],
-      $Vh = [1, 7, 8, 11, 13, 14, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 63, 84, 85],
-      $Vi = [1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 63, 84, 85],
-      $Vj = [1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 53, 54, 55, 56, 63, 84, 85],
-      $Vk = [1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 53, 54, 55, 56, 60, 63, 84, 85],
-      $Vl = [2, 68],
-      $Vm = [1, 43],
-      $Vn = [1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 53, 54, 55, 56, 60, 63, 71, 73, 84, 85],
-      $Vo = [1, 51],
-      $Vp = [2, 15],
-      $Vq = [2, 16],
-      $Vr = [2, 17],
-      $Vs = [1, 76],
-      $Vt = [1, 74],
-      $Vu = [1, 60],
-      $Vv = [1, 61],
-      $Vw = [1, 62],
-      $Vx = [1, 63],
-      $Vy = [1, 64],
-      $Vz = [1, 75],
-      $VA = [1, 78],
-      $VB = [1, 65],
-      $VC = [1, 66],
-      $VD = [1, 68],
-      $VE = [1, 69],
-      $VF = [1, 71],
-      $VG = [1, 77],
-      $VH = [1, 90],
-      $VI = [1, 93],
-      $VJ = [38, 42],
-      $VK = [28, 42],
-      $VL = [1, 102],
-      $VM = [1, 103],
-      $VN = [1, 104],
-      $VO = [1, 123],
-      $VP = [1, 7, 8, 11, 13, 14, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 63, 71, 84, 85],
-      $VQ = [1, 7, 8, 11, 13, 14, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 63, 71, 73, 84, 85],
-      $VR = [1, 132],
-      $VS = [1, 137],
-      $VT = [42, 51],
-      $VU = [1, 163],
-      $VV = [38, 42, 51],
-      $VW = [38, 42, 51, 73],
-      $VX = [28, 42, 73],
-      $VY = [1, 175],
-      $VZ = [1, 176],
-      $V_ = [1, 178],
-      $V$ = [1, 180],
-      $V01 = [41, 42],
-      $V11 = [1, 181],
-      $V21 = [1, 183],
-      $V31 = [2, 44],
-      $V41 = [1, 185],
-      $V51 = [1, 190],
-      $V61 = [1, 204],
-      $V71 = [28, 41, 42];
+      $V9 = [1, 25],
+      $Va = [1, 26],
+      $Vb = [1, 28],
+      $Vc = [1, 27],
+      $Vd = [1, 5],
+      $Ve = [1, 5, 13, 21, 22, 42, 46],
+      $Vf = [1, 51],
+      $Vg = [1, 40],
+      $Vh = [1, 46],
+      $Vi = [1, 52],
+      $Vj = [1, 53],
+      $Vk = [1, 35],
+      $Vl = [1, 36],
+      $Vm = [1, 37],
+      $Vn = [1, 38],
+      $Vo = [1, 39],
+      $Vp = [1, 41],
+      $Vq = [1, 43],
+      $Vr = [1, 44],
+      $Vs = [1, 49],
+      $Vt = [1, 50],
+      $Vu = [1, 5, 13, 21, 22, 24, 25, 26, 27, 42, 46],
+      $Vv = [1, 5, 13, 21, 22, 24, 25, 26, 27, 31, 42, 46],
+      $Vw = [1, 5, 13, 21, 22, 24, 25, 26, 27, 31, 42, 46, 55],
+      $Vx = [1, 69],
+      $Vy = [1, 5, 13, 21, 22, 42, 46, 55],
+      $Vz = [1, 81],
+      $VA = [1, 86],
+      $VB = [1, 96],
+      $VC = [1, 99],
+      $VD = [21, 42],
+      $VE = [21, 46],
+      $VF = [1, 107],
+      $VG = [21, 22, 42],
+      $VH = [21, 22, 42, 55],
+      $VI = [21, 46, 55],
+      $VJ = [21, 22],
+      $VK = [1, 127];
 
   var parser = {
     trace: function trace() {},
@@ -253,136 +228,127 @@ var parser = function () {
       "error": 2,
       "program": 3,
       "statements": 4,
-      "statement": 5,
-      "transform": 6,
-      "GENERATOR": 7,
-      "IDENTIFIER": 8,
-      "=": 9,
-      "expression": 10,
-      "PATTERN": 11,
-      "namedTypePattern": 12,
-      "TRANSFORM": 13,
-      "TYPE": 14,
-      "typeDefinition": 15,
-      "<=": 16,
-      "_": 17,
-      "typePatterns": 18,
-      "ANY_TYPE": 19,
-      "ARRAY_TYPE": 20,
-      "arrayTypeDefinition": 21,
-      "BOOLEAN_TYPE": 22,
-      "TRUE": 23,
-      "FALSE": 24,
-      "ENUMERATION": 25,
-      "{": 26,
-      "identifiers": 27,
-      "}": 28,
-      "NULL_TYPE": 29,
-      "NUMBER_TYPE": 30,
-      "float": 31,
-      "OBJECT_TYPE": 32,
-      "objectTypeDefinition": 33,
-      "STRING_TYPE": 34,
-      "string": 35,
-      "UNDEFINED_TYPE": 36,
-      "[": 37,
-      "]": 38,
-      "transformElements": 39,
-      "assignments": 40,
-      ";": 41,
-      ",": 42,
-      "transformProperties": 43,
-      "transformProperty": 44,
-      ":": 45,
-      "transforms": 46,
-      "assignment": 47,
-      "mathExpression": 48,
-      "MAP": 49,
-      "(": 50,
-      ")": 51,
-      "callExpression": 52,
-      "+": 53,
-      "-": 54,
-      "*": 55,
-      "/": 56,
-      "argumentList": 57,
-      "memberExpression": 58,
-      "primaryExpression": 59,
-      ".": 60,
-      "integer": 61,
-      "boolean": 62,
-      "$": 63,
-      "arrayExpression": 64,
-      "objectExpression": 65,
-      "expressionElements": 66,
-      "expressionProperties": 67,
-      "expressionProperty": 68,
-      "argument": 69,
-      "...": 70,
-      "|": 71,
-      "typePattern": 72,
-      "AS": 73,
-      "arrayPattern": 74,
-      "objectPattern": 75,
-      "patternElements": 76,
-      "namedPatternElement": 77,
-      "patternElement": 78,
-      "range": 79,
-      "..": 80,
-      "patternProperties": 81,
-      "namedPatternProperty": 82,
-      "namedProperty": 83,
-      "STRING": 84,
-      "NUMBER": 85,
-      "stringOrIdentifier": 86,
+      ";": 5,
+      "statement": 6,
+      "assignment": 7,
+      "transformSequence": 8,
+      "LET": 9,
+      "IDENTIFIER": 10,
+      "=": 11,
+      "steps": 12,
+      "|>": 13,
+      "step": 14,
+      "=~": 15,
+      "pattern": 16,
+      "expression": 17,
+      "mathExpression": 18,
+      "MAP": 19,
+      "(": 20,
+      ",": 21,
+      ")": 22,
+      "callExpression": 23,
+      "+": 24,
+      "-": 25,
+      "*": 26,
+      "/": 27,
+      "argumentList": 28,
+      "memberExpression": 29,
+      "primaryExpression": 30,
+      ".": 31,
+      "integer": 32,
+      "boolean": 33,
+      "NULL_TYPE": 34,
+      "float": 35,
+      "string": 36,
+      "UNDEFINED_TYPE": 37,
+      "$": 38,
+      "arrayExpression": 39,
+      "objectExpression": 40,
+      "[": 41,
+      "]": 42,
+      "expressionElements": 43,
+      "expressionElement": 44,
+      "{": 45,
+      "}": 46,
+      "expressionProperties": 47,
+      "expressionProperty": 48,
+      ":": 49,
+      "argument": 50,
+      "...": 51,
+      "patterns": 52,
+      "|": 53,
+      "namedPattern": 54,
+      "AS": 55,
+      "ANY_TYPE": 56,
+      "ARRAY_TYPE": 57,
+      "BOOLEAN_TYPE": 58,
+      "TRUE": 59,
+      "FALSE": 60,
+      "NUMBER_TYPE": 61,
+      "OBJECT_TYPE": 62,
+      "STRING_TYPE": 63,
+      "arrayPattern": 64,
+      "objectPattern": 65,
+      "PATTERN": 66,
+      "ENUMERATION": 67,
+      "patternElements": 68,
+      "namedPatternElement": 69,
+      "patternElement": 70,
+      "range": 71,
+      "..": 72,
+      "patternProperties": 73,
+      "namedPatternProperty": 74,
+      "namedProperty": 75,
+      "STRING": 76,
+      "NUMBER": 77,
+      "stringOrIdentifier": 78,
+      "identifiers": 79,
       "$accept": 0,
       "$end": 1
     },
     terminals_: {
       2: "error",
-      7: "GENERATOR",
-      8: "IDENTIFIER",
-      9: "=",
-      11: "PATTERN",
-      13: "TRANSFORM",
-      14: "TYPE",
-      16: "<=",
-      17: "_",
-      19: "ANY_TYPE",
-      20: "ARRAY_TYPE",
-      22: "BOOLEAN_TYPE",
-      23: "TRUE",
-      24: "FALSE",
-      25: "ENUMERATION",
-      26: "{",
-      28: "}",
-      29: "NULL_TYPE",
-      30: "NUMBER_TYPE",
-      32: "OBJECT_TYPE",
-      34: "STRING_TYPE",
-      36: "UNDEFINED_TYPE",
-      37: "[",
-      38: "]",
-      41: ";",
-      42: ",",
-      45: ":",
-      49: "MAP",
-      50: "(",
-      51: ")",
-      53: "+",
-      54: "-",
-      55: "*",
-      56: "/",
-      60: ".",
-      63: "$",
-      70: "...",
-      71: "|",
-      73: "AS",
-      80: "..",
-      84: "STRING",
-      85: "NUMBER"
+      5: ";",
+      9: "LET",
+      10: "IDENTIFIER",
+      11: "=",
+      13: "|>",
+      15: "=~",
+      19: "MAP",
+      20: "(",
+      21: ",",
+      22: ")",
+      24: "+",
+      25: "-",
+      26: "*",
+      27: "/",
+      31: ".",
+      34: "NULL_TYPE",
+      37: "UNDEFINED_TYPE",
+      38: "$",
+      41: "[",
+      42: "]",
+      45: "{",
+      46: "}",
+      49: ":",
+      51: "...",
+      53: "|",
+      55: "AS",
+      56: "ANY_TYPE",
+      57: "ARRAY_TYPE",
+      58: "BOOLEAN_TYPE",
+      59: "TRUE",
+      60: "FALSE",
+      61: "NUMBER_TYPE",
+      62: "OBJECT_TYPE",
+      63: "STRING_TYPE",
+      66: "PATTERN",
+      67: "ENUMERATION",
+      72: "..",
+      76: "STRING",
+      77: "NUMBER"
     },
-    productions_: [0, [3, 1], [4, 2], [4, 1], [5, 1], [5, 4], [5, 4], [5, 4], [5, 4], [6, 1], [6, 3], [6, 3], [6, 3], [6, 3], [6, 1], [6, 2], [6, 2], [6, 2], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 4], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [15, 1], [21, 2], [21, 3], [21, 5], [39, 3], [39, 1], [33, 2], [33, 3], [33, 5], [43, 3], [43, 1], [44, 3], [44, 1], [40, 3], [40, 1], [47, 3], [46, 3], [46, 1], [10, 1], [10, 6], [48, 1], [48, 3], [48, 3], [48, 3], [48, 3], [52, 3], [52, 4], [52, 1], [58, 1], [58, 3], [58, 3], [59, 1], [59, 1], [59, 1], [59, 1], [59, 1], [59, 1], [59, 1], [59, 1], [59, 1], [64, 2], [64, 3], [66, 3], [66, 1], [65, 2], [65, 3], [67, 3], [67, 1], [68, 3], [68, 1], [57, 3], [57, 1], [69, 1], [69, 2], [18, 3], [18, 1], [12, 1], [12, 3], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 1], [72, 2], [72, 2], [72, 1], [74, 2], [74, 3], [76, 3], [76, 1], [77, 1], [77, 3], [78, 1], [78, 3], [78, 3], [78, 5], [79, 3], [79, 2], [79, 2], [79, 1], [75, 2], [75, 3], [81, 3], [81, 1], [82, 1], [82, 3], [83, 3], [83, 1], [62, 1], [62, 1], [35, 1], [61, 1], [31, 1], [86, 1], [86, 1], [27, 3], [27, 1]],
+    productions_: [0, [3, 1], [4, 3], [4, 1], [6, 1], [6, 1], [7, 4], [8, 1], [12, 3], [12, 1], [14, 2], [14, 1], [17, 1], [17, 6], [18, 1], [18, 3], [18, 3], [18, 3], [18, 3], [23, 3], [23, 4], [23, 1], [29, 1], [29, 3], [29, 3], [30, 1], [30, 1], [30, 1], [30, 1], [30, 1], [30, 1], [30, 1], [30, 1], [30, 1], [39, 2], [39, 3], [43, 3], [43, 1], [44, 1], [44, 1], [40, 2], [40, 3], [47, 3], [47, 1], [48, 3], [48, 1], [48, 1], [28, 3], [28, 1], [50, 1], [50, 2], [50, 2], [52, 3], [52, 1], [54, 1], [54, 3], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 1], [16, 2], [16, 2], [16, 1], [64, 2], [64, 3], [68, 3], [68, 1], [69, 1], [69, 3], [70, 1], [70, 3], [70, 3], [70, 5], [71, 3], [71, 2], [71, 2], [71, 1], [65, 2], [65, 3], [73, 3], [73, 1], [74, 1], [74, 3], [75, 3], [75, 1], [33, 1], [33, 1], [36, 1], [32, 1], [35, 1], [78, 1], [78, 1], [79, 3], [79, 1]],
     performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate
     /* action[1] */
     , $$
@@ -399,315 +365,50 @@ var parser = function () {
           break;
 
         case 2:
-          $$[$0 - 1].push($$[$0]);
-          this.$ = $$[$0 - 1];
-          break;
-
-        case 3:
-        case 37:
-        case 42:
-        case 46:
-        case 49:
-        case 75:
-        case 79:
-        case 83:
-        case 87:
-        case 110:
-        case 124:
-        case 137:
-          this.$ = [$$[$0]];
-          break;
-
-        case 4:
-        case 20:
-        case 29:
-        case 102:
-        case 103:
-          this.$ = $$[$0];
-          break;
-
-        case 5:
-          this.$ = {
-            type: 'generator-assignment',
-            name: $$[$0 - 2],
-            value: $$[$0]
-          };
-          break;
-
-        case 6:
-          this.$ = {
-            type: 'pattern-assignment',
-            name: $$[$0 - 2],
-            value: $$[$0]
-          };
-          break;
-
-        case 7:
-          this.$ = {
-            type: 'transform-assignment',
-            name: $$[$0 - 2],
-            value: $$[$0]
-          };
-          break;
-
         case 8:
-          this.$ = {
-            type: 'type-assignment',
-            name: $$[$0 - 2],
-            value: $$[$0]
-          };
-          break;
-
-        case 9:
-          this.$ = {
-            type: 'transform',
-            patterns: [{
-              type: 'pattern',
-              patternType: 'any',
-              value: null
-            }],
-            returnValue: $$[$0]
-          };
-          break;
-
-        case 10:
-          this.$ = {
-            type: 'transform',
-            patterns: null,
-            returnValue: $$[$0 - 2]
-          };
-          break;
-
-        case 11:
-          this.$ = {
-            type: 'transform',
-            patterns: $$[$0],
-            returnValue: $$[$0 - 2]
-          };
-          break;
-
-        case 12:
-          this.$ = {
-            type: 'transform',
-            patterns: $$[$0],
-            returnValue: null
-          };
-          break;
-
-        case 13:
-        case 14:
-          this.$ = {
-            type: 'transform',
-            patterns: null,
-            returnValue: null
-          };
-          break;
-
-        case 15:
-          this.$ = {
-            type: 'generator-reference',
-            name: $$[$0]
-          };
-          break;
-
-        case 16:
-          this.$ = {
-            type: 'transform-reference',
-            name: $$[$0]
-          };
-          break;
-
-        case 17:
-          this.$ = {
-            type: 'type-reference',
-            name: $$[$0]
-          };
-          break;
-
-        case 18:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'any',
-            value: null
-          };
-          break;
-
-        case 19:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'array',
-            value: null
-          };
-          break;
-
-        case 21:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'boolean',
-            value: null
-          };
-          break;
-
-        case 22:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'boolean',
-            value: true
-          };
-          break;
-
-        case 23:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'boolean',
-            value: false
-          };
-          break;
-
-        case 24:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'enumeration',
-            value: $$[$0 - 1]
-          };
-          break;
-
-        case 25:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'null',
-            value: null
-          };
-          break;
-
-        case 26:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'number',
-            value: null
-          };
-          break;
-
-        case 27:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'number',
-            value: $$[$0]
-          };
-          break;
-
-        case 28:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'object',
-            value: null
-          };
-          break;
-
-        case 30:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'string',
-            value: null
-          };
-          break;
-
-        case 31:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'string',
-            value: $$[$0]
-          };
-          break;
-
-        case 32:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'undefined',
-            value: null
-          };
-          break;
-
-        case 33:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'array',
-            value: []
-          };
-          break;
-
-        case 34:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'array',
-            value: $$[$0 - 1]
-          };
-          break;
-
-        case 35:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'array',
-            value: $$[$0 - 3].concat($$[$0 - 1])
-          };
-          break;
-
         case 36:
-        case 41:
-        case 45:
-        case 48:
-        case 74:
-        case 78:
-        case 82:
-        case 86:
-        case 109:
-        case 123:
-        case 136:
+        case 42:
+        case 47:
+        case 52:
+        case 75:
+        case 89:
+        case 102:
           $$[$0 - 2].push($$[$0]);
           this.$ = $$[$0 - 2];
           break;
 
-        case 38:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'object',
-            value: []
-          };
-          break;
-
-        case 39:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'object',
-            value: $$[$0 - 1]
-          };
-          break;
-
-        case 40:
-          this.$ = {
-            type: 'type-definition',
-            definition: 'object',
-            value: $$[$0 - 3].concat($$[$0 - 1])
-          };
-          break;
-
+        case 3:
+        case 9:
+        case 37:
         case 43:
-          this.$ = {
-            type: 'type-property',
-            name: $$[$0 - 2],
-            value: $$[$0]
-          };
+        case 48:
+        case 53:
+        case 76:
+        case 90:
+        case 103:
+          this.$ = [$$[$0]];
           break;
 
-        case 44:
-          this.$ = {
-            type: 'type-property',
-            name: $$[$0],
-            value: null
-          };
+        case 4:
+        case 5:
+        case 10:
+        case 11:
+        case 12:
+        case 14:
+        case 21:
+        case 22:
+        case 32:
+        case 33:
+        case 38:
+        case 39:
+        case 46:
+        case 49:
+        case 91:
+        case 100:
+          this.$ = $$[$0];
           break;
 
-        case 47:
+        case 6:
           this.$ = {
             type: 'assignment',
             name: $$[$0 - 2],
@@ -715,26 +416,21 @@ var parser = function () {
           };
           break;
 
-        case 50:
-        case 52:
-        case 59:
-        case 60:
-        case 70:
-        case 71:
-        case 84:
-        case 125:
-        case 134:
-          this.$ = $$[$0];
+        case 7:
+          this.$ = {
+            type: 'sequence',
+            steps: $$[$0]
+          };
           break;
 
-        case 51:
+        case 13:
           this.$ = {
             type: 'map',
             value: [$$[$0 - 3], $$[$0 - 1]]
           };
           break;
 
-        case 53:
+        case 15:
           this.$ = {
             type: 'add',
             left: $$[$0 - 2],
@@ -742,7 +438,7 @@ var parser = function () {
           };
           break;
 
-        case 54:
+        case 16:
           this.$ = {
             type: 'subtract',
             left: $$[$0 - 2],
@@ -750,7 +446,7 @@ var parser = function () {
           };
           break;
 
-        case 55:
+        case 17:
           this.$ = {
             type: 'multiply',
             left: $$[$0 - 2],
@@ -758,7 +454,7 @@ var parser = function () {
           };
           break;
 
-        case 56:
+        case 18:
           this.$ = {
             type: 'divide',
             left: $$[$0 - 2],
@@ -766,7 +462,7 @@ var parser = function () {
           };
           break;
 
-        case 57:
+        case 19:
           this.$ = {
             type: 'invoke',
             name: $$[$0 - 2],
@@ -774,7 +470,7 @@ var parser = function () {
           };
           break;
 
-        case 58:
+        case 20:
           this.$ = {
             type: 'invoke',
             name: $$[$0 - 3],
@@ -782,7 +478,7 @@ var parser = function () {
           };
           break;
 
-        case 61:
+        case 23:
           this.$ = {
             type: 'get-property',
             left: $$[$0 - 2],
@@ -790,7 +486,7 @@ var parser = function () {
           };
           break;
 
-        case 62:
+        case 24:
           this.$ = {
             type: 'get-index',
             left: $$[$0 - 2],
@@ -798,83 +494,83 @@ var parser = function () {
           };
           break;
 
-        case 63:
+        case 25:
           this.$ = {
             type: 'boolean',
             value: $$[$0]
           };
           break;
 
-        case 64:
+        case 26:
           this.$ = {
             type: 'boolean',
             value: null
           };
           break;
 
-        case 65:
+        case 27:
           this.$ = {
             type: 'number',
             value: $$[$0]
           };
           break;
 
-        case 66:
+        case 28:
           this.$ = {
             type: 'string',
             value: $$[$0]
           };
           break;
 
-        case 67:
+        case 29:
           this.$ = {
             type: 'undefined',
             value: undefined
           };
           break;
 
-        case 68:
+        case 30:
           this.$ = {
             type: 'get-value',
             name: $$[$0]
           };
           break;
 
-        case 69:
+        case 31:
           this.$ = {
             type: 'get-structure'
           };
           break;
 
-        case 72:
+        case 34:
           this.$ = {
             type: 'array',
             value: []
           };
           break;
 
-        case 73:
+        case 35:
           this.$ = {
             type: 'array',
             value: $$[$0 - 1]
           };
           break;
 
-        case 76:
+        case 40:
           this.$ = {
             type: 'object',
             value: []
           };
           break;
 
-        case 77:
+        case 41:
           this.$ = {
             type: 'object',
             value: $$[$0 - 1]
           };
           break;
 
-        case 80:
+        case 44:
           this.$ = {
             type: 'property',
             name: $$[$0 - 2],
@@ -882,7 +578,7 @@ var parser = function () {
           };
           break;
 
-        case 81:
+        case 45:
           this.$ = {
             type: 'property',
             name: $$[$0],
@@ -893,27 +589,34 @@ var parser = function () {
           };
           break;
 
-        case 85:
+        case 50:
           this.$ = {
             type: 'spread',
             name: $$[$0]
           };
           break;
 
-        case 88:
-        case 111:
+        case 51:
+          this.$ = {
+            type: 'spread',
+            name: null
+          };
+          break;
+
+        case 54:
+        case 77:
           $$[$0].assignTo = null;
           this.$ = $$[$0];
           break;
 
-        case 89:
-        case 112:
-        case 126:
+        case 55:
+        case 78:
+        case 92:
           $$[$0 - 2].assignTo = $$[$0];
           this.$ = $$[$0 - 2];
           break;
 
-        case 90:
+        case 56:
           this.$ = {
             type: 'pattern',
             patternType: 'any',
@@ -921,7 +624,7 @@ var parser = function () {
           };
           break;
 
-        case 91:
+        case 57:
           this.$ = {
             type: 'pattern',
             patternType: 'array',
@@ -929,7 +632,7 @@ var parser = function () {
           };
           break;
 
-        case 92:
+        case 58:
           this.$ = {
             type: 'pattern',
             patternType: 'boolean',
@@ -937,7 +640,7 @@ var parser = function () {
           };
           break;
 
-        case 93:
+        case 59:
           this.$ = {
             type: 'pattern',
             patternType: 'boolean',
@@ -945,7 +648,7 @@ var parser = function () {
           };
           break;
 
-        case 94:
+        case 60:
           this.$ = {
             type: 'pattern',
             patternType: 'boolean',
@@ -953,7 +656,7 @@ var parser = function () {
           };
           break;
 
-        case 95:
+        case 61:
           this.$ = {
             type: 'pattern',
             patternType: 'null',
@@ -961,7 +664,7 @@ var parser = function () {
           };
           break;
 
-        case 96:
+        case 62:
           this.$ = {
             type: 'pattern',
             patternType: 'number',
@@ -969,7 +672,7 @@ var parser = function () {
           };
           break;
 
-        case 97:
+        case 63:
           this.$ = {
             type: 'pattern',
             patternType: 'number',
@@ -977,7 +680,7 @@ var parser = function () {
           };
           break;
 
-        case 98:
+        case 64:
           this.$ = {
             type: 'pattern',
             patternType: 'object',
@@ -985,7 +688,7 @@ var parser = function () {
           };
           break;
 
-        case 99:
+        case 65:
           this.$ = {
             type: 'pattern',
             patternType: 'string',
@@ -993,7 +696,7 @@ var parser = function () {
           };
           break;
 
-        case 100:
+        case 66:
           this.$ = {
             type: 'pattern',
             patternType: 'string',
@@ -1001,7 +704,7 @@ var parser = function () {
           };
           break;
 
-        case 101:
+        case 67:
           this.$ = {
             type: 'pattern',
             patternType: 'undefined',
@@ -1009,21 +712,26 @@ var parser = function () {
           };
           break;
 
-        case 104:
+        case 68:
+        case 69:
+          this.$ = $$[$0];
+          break;
+
+        case 70:
           this.$ = {
             type: 'pattern-reference',
             name: $$[$0]
           };
           break;
 
-        case 105:
+        case 71:
           this.$ = {
             type: 'enumeration-reference',
             name: $$[$0]
           };
           break;
 
-        case 106:
+        case 72:
           this.$ = {
             type: 'pattern',
             patternType: 'reference',
@@ -1031,7 +739,7 @@ var parser = function () {
           };
           break;
 
-        case 107:
+        case 73:
           this.$ = {
             type: 'pattern',
             patternType: 'array-pattern',
@@ -1039,7 +747,7 @@ var parser = function () {
           };
           break;
 
-        case 108:
+        case 74:
           this.$ = {
             type: 'pattern',
             patternType: 'array-pattern',
@@ -1047,7 +755,7 @@ var parser = function () {
           };
           break;
 
-        case 113:
+        case 79:
           this.$ = {
             type: 'element',
             pattern: $$[$0],
@@ -1059,7 +767,7 @@ var parser = function () {
           };
           break;
 
-        case 114:
+        case 80:
           this.$ = {
             type: 'element',
             pattern: $$[$0 - 2],
@@ -1067,7 +775,7 @@ var parser = function () {
           };
           break;
 
-        case 115:
+        case 81:
           this.$ = {
             type: 'element-group',
             elements: $$[$0 - 1],
@@ -1079,7 +787,7 @@ var parser = function () {
           };
           break;
 
-        case 116:
+        case 82:
           this.$ = {
             type: 'element-group',
             elements: $$[$0 - 3],
@@ -1087,7 +795,7 @@ var parser = function () {
           };
           break;
 
-        case 117:
+        case 83:
           this.$ = {
             type: 'range',
             start: $$[$0 - 2],
@@ -1095,7 +803,7 @@ var parser = function () {
           };
           break;
 
-        case 118:
+        case 84:
           this.$ = {
             type: 'range',
             start: 0,
@@ -1103,7 +811,7 @@ var parser = function () {
           };
           break;
 
-        case 119:
+        case 85:
           this.$ = {
             type: 'range',
             start: $$[$0 - 1],
@@ -1111,7 +819,7 @@ var parser = function () {
           };
           break;
 
-        case 120:
+        case 86:
           this.$ = {
             type: 'range',
             start: $$[$0],
@@ -1119,7 +827,7 @@ var parser = function () {
           };
           break;
 
-        case 121:
+        case 87:
           this.$ = {
             type: 'pattern',
             patternType: 'object',
@@ -1127,7 +835,7 @@ var parser = function () {
           };
           break;
 
-        case 122:
+        case 88:
           this.$ = {
             type: 'pattern',
             patternType: 'object-pattern',
@@ -1135,7 +843,7 @@ var parser = function () {
           };
           break;
 
-        case 127:
+        case 93:
           this.$ = {
             type: 'property',
             name: $$[$0 - 2],
@@ -1143,7 +851,7 @@ var parser = function () {
           };
           break;
 
-        case 128:
+        case 94:
           this.$ = {
             type: 'property',
             name: $$[$0],
@@ -1155,24 +863,24 @@ var parser = function () {
           };
           break;
 
-        case 129:
+        case 95:
           this.$ = true;
           break;
 
-        case 130:
+        case 96:
           this.$ = false;
           break;
 
-        case 131:
-        case 135:
+        case 97:
+        case 101:
           this.$ = $$[$0].substring(1, $$[$0].length - 1);
           break;
 
-        case 132:
+        case 98:
           this.$ = parseInt($$[$0]);
           break;
 
-        case 133:
+        case 99:
           this.$ = parseFloat($$[$0]);
           break;
       }
@@ -1180,942 +888,600 @@ var parser = function () {
     table: [{
       3: 1,
       4: 2,
-      5: 3,
-      6: 4,
-      7: $V0,
-      8: $V1,
-      10: 9,
-      11: $V2,
-      13: $V3,
-      14: $V4,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
+      6: 3,
+      7: 4,
+      8: 5,
+      9: $V0,
+      10: $V1,
+      12: 7,
+      14: 8,
+      15: $V2,
+      17: 10,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
     }, {
       1: [3]
     }, {
       1: [2, 1],
-      5: 31,
-      6: 4,
-      7: $V0,
-      8: $V1,
-      10: 9,
-      11: $V2,
-      13: $V3,
-      14: $V4,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, o($Vg, [2, 3]), o($Vg, [2, 4]), {
-      8: [1, 32]
-    }, {
-      8: [1, 33]
-    }, {
-      8: [1, 34]
-    }, {
-      8: [1, 35]
-    }, o($Vh, [2, 9], {
-      16: [1, 36]
-    }), o($Vh, [2, 14], {
-      16: [1, 37]
-    }), o($Vi, [2, 50], {
-      53: [1, 38],
-      54: [1, 39],
-      55: [1, 40],
-      56: [1, 41]
+      5: [1, 31]
+    }, o($Vd, [2, 3]), o($Vd, [2, 4]), o($Vd, [2, 5]), {
+      10: [1, 32]
+    }, o([1, 5, 21, 22, 42, 46], [2, 7], {
+      13: [1, 33]
+    }), o($Ve, [2, 9]), {
+      10: $Vf,
+      16: 34,
+      34: $Vg,
+      35: 42,
+      36: 45,
+      37: $Vh,
+      41: $Vi,
+      45: $Vj,
+      56: $Vk,
+      57: $Vl,
+      58: $Vm,
+      59: $Vn,
+      60: $Vo,
+      61: $Vp,
+      62: $Vq,
+      63: $Vr,
+      64: 47,
+      65: 48,
+      66: $Vs,
+      67: $Vt,
+      76: $Vb,
+      77: $Vc
+    }, o($Ve, [2, 11]), o($Ve, [2, 12], {
+      24: [1, 54],
+      25: [1, 55],
+      26: [1, 56],
+      27: [1, 57]
     }), {
-      50: [1, 42]
-    }, o($Vj, [2, 52]), o($Vk, $Vl, {
-      50: $Vm
-    }), o($Vj, [2, 59], {
-      60: [1, 44]
-    }), o($Vk, [2, 60]), o($Vk, [2, 63]), o($Vk, [2, 64]), o($Vk, [2, 65]), o($Vk, [2, 66]), o($Vk, [2, 67]), o($Vk, [2, 69]), o($Vk, [2, 70]), o($Vk, [2, 71]), o($Vk, [2, 129]), o($Vk, [2, 130]), o($Vn, [2, 133]), o($Vn, [2, 131]), {
-      8: $V1,
-      10: 47,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      38: [1, 45],
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      66: 46,
-      84: $Ve,
-      85: $Vf
+      20: [1, 58]
+    }, o($Vu, [2, 14]), o($Vv, [2, 30], {
+      20: [1, 59]
+    }), o($Vu, [2, 21], {
+      31: [1, 60]
+    }), o($Vv, [2, 22]), o($Vv, [2, 25]), o($Vv, [2, 26]), o($Vv, [2, 27]), o($Vv, [2, 28]), o($Vv, [2, 29]), o($Vv, [2, 31]), o($Vv, [2, 32]), o($Vv, [2, 33]), o($Vv, [2, 95]), o($Vv, [2, 96]), o($Vw, [2, 99]), o($Vw, [2, 97]), {
+      7: 65,
+      9: $V0,
+      10: $V1,
+      17: 64,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      42: [1, 61],
+      43: 62,
+      44: 63,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
     }, {
-      8: $Vo,
-      28: [1, 48],
-      67: 49,
-      68: 50
-    }, o($Vg, [2, 2]), o($Vg, $Vp, {
-      9: [1, 52]
+      7: 70,
+      9: $V0,
+      10: $Vx,
+      46: [1, 66],
+      47: 67,
+      48: 68
+    }, {
+      6: 71,
+      7: 4,
+      8: 5,
+      9: $V0,
+      10: $V1,
+      12: 7,
+      14: 8,
+      15: $V2,
+      17: 10,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, {
+      11: [1, 72]
+    }, {
+      10: $V1,
+      14: 73,
+      15: $V2,
+      17: 10,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, o($Ve, [2, 10]), o($Vy, [2, 56]), o($Vy, [2, 57]), o($Vy, [2, 58]), o($Vy, [2, 59]), o($Vy, [2, 60]), o($Vy, [2, 61]), o($Vy, [2, 62]), o($Vy, [2, 63]), o($Vy, [2, 64]), o($Vy, [2, 65]), o($Vy, [2, 66]), o($Vy, [2, 67]), o($Vy, [2, 68]), o($Vy, [2, 69]), {
+      10: [1, 74]
+    }, {
+      10: [1, 75]
+    }, o($Vy, [2, 72]), {
+      10: $Vf,
+      16: 80,
+      20: $Vz,
+      34: $Vg,
+      35: 42,
+      36: 45,
+      37: $Vh,
+      41: $Vi,
+      42: [1, 76],
+      45: $Vj,
+      56: $Vk,
+      57: $Vl,
+      58: $Vm,
+      59: $Vn,
+      60: $Vo,
+      61: $Vp,
+      62: $Vq,
+      63: $Vr,
+      64: 47,
+      65: 48,
+      66: $Vs,
+      67: $Vt,
+      68: 77,
+      69: 78,
+      70: 79,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: $VA,
+      46: [1, 82],
+      73: 83,
+      74: 84,
+      75: 85
+    }, {
+      10: $V1,
+      23: 87,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: $V1,
+      23: 88,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: $V1,
+      23: 89,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: $V1,
+      23: 90,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: $V1,
+      17: 91,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: $V1,
+      17: 95,
+      18: 11,
+      19: $V3,
+      22: [1, 92],
+      23: 13,
+      28: 93,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      50: 94,
+      51: $VB,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: [1, 97],
+      32: 98,
+      77: $VC
+    }, o($Vv, [2, 34]), {
+      21: [1, 101],
+      42: [1, 100]
+    }, o($VD, [2, 37]), o($VD, [2, 38]), o($VD, [2, 39]), o($Vv, [2, 40]), {
+      21: [1, 103],
+      46: [1, 102]
+    }, o($VE, [2, 43]), o($VE, [2, 45], {
+      49: [1, 104]
+    }), o($VE, [2, 46]), o($Vd, [2, 2]), {
+      8: 105,
+      10: $V1,
+      12: 7,
+      14: 8,
+      15: $V2,
+      17: 10,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, o($Ve, [2, 8]), o($Vy, [2, 70]), o($Vy, [2, 71]), o($Vy, [2, 73]), {
+      21: $VF,
+      42: [1, 106]
+    }, o($VG, [2, 76]), o($VG, [2, 77], {
+      55: [1, 108]
+    }), o($VH, [2, 79], {
+      5: [1, 109]
     }), {
-      9: [1, 53]
-    }, o($Vg, $Vq, {
-      9: [1, 54]
-    }), o($Vg, $Vr, {
-      9: [1, 55]
+      10: $Vf,
+      16: 80,
+      20: $Vz,
+      34: $Vg,
+      35: 42,
+      36: 45,
+      37: $Vh,
+      41: $Vi,
+      45: $Vj,
+      56: $Vk,
+      57: $Vl,
+      58: $Vm,
+      59: $Vn,
+      60: $Vo,
+      61: $Vp,
+      62: $Vq,
+      63: $Vr,
+      64: 47,
+      65: 48,
+      66: $Vs,
+      67: $Vt,
+      68: 110,
+      69: 78,
+      70: 79,
+      76: $Vb,
+      77: $Vc
+    }, o($Vy, [2, 87]), {
+      21: [1, 112],
+      46: [1, 111]
+    }, o($VE, [2, 90]), o($VE, [2, 91], {
+      55: [1, 113]
+    }), o($VI, [2, 94], {
+      49: [1, 114]
+    }), o($Vu, [2, 15]), o($Vu, [2, 16]), o($Vu, [2, 17]), o($Vu, [2, 18]), {
+      21: [1, 115]
+    }, o($Vu, [2, 19]), {
+      21: [1, 117],
+      22: [1, 116]
+    }, o($VJ, [2, 48]), o($VJ, [2, 49]), {
+      10: [1, 118],
+      38: [1, 119]
+    }, o($Vv, [2, 23]), o($Vv, [2, 24]), o([1, 5, 13, 21, 22, 24, 25, 26, 27, 31, 42, 46, 55, 72], [2, 98]), o($Vv, [2, 35]), {
+      7: 65,
+      9: $V0,
+      10: $V1,
+      17: 64,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      44: 120,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, o($Vv, [2, 41]), {
+      7: 70,
+      9: $V0,
+      10: $Vx,
+      48: 121
+    }, {
+      10: $V1,
+      17: 122,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, o([1, 5, 21, 42, 46], [2, 6]), o($Vy, [2, 74]), {
+      10: $Vf,
+      16: 80,
+      20: $Vz,
+      34: $Vg,
+      35: 42,
+      36: 45,
+      37: $Vh,
+      41: $Vi,
+      45: $Vj,
+      56: $Vk,
+      57: $Vl,
+      58: $Vm,
+      59: $Vn,
+      60: $Vo,
+      61: $Vp,
+      62: $Vq,
+      63: $Vr,
+      64: 47,
+      65: 48,
+      66: $Vs,
+      67: $Vt,
+      69: 123,
+      70: 79,
+      76: $Vb,
+      77: $Vc
+    }, {
+      10: [1, 124]
+    }, {
+      32: 126,
+      71: 125,
+      72: $VK,
+      77: $VC
+    }, {
+      21: $VF,
+      22: [1, 128]
+    }, o($Vy, [2, 88]), {
+      10: $VA,
+      74: 129,
+      75: 85
+    }, {
+      10: [1, 130]
+    }, {
+      10: $Vf,
+      16: 131,
+      34: $Vg,
+      35: 42,
+      36: 45,
+      37: $Vh,
+      41: $Vi,
+      45: $Vj,
+      56: $Vk,
+      57: $Vl,
+      58: $Vm,
+      59: $Vn,
+      60: $Vo,
+      61: $Vp,
+      62: $Vq,
+      63: $Vr,
+      64: 47,
+      65: 48,
+      66: $Vs,
+      67: $Vt,
+      76: $Vb,
+      77: $Vc
+    }, {
+      8: 132,
+      10: $V1,
+      12: 7,
+      14: 8,
+      15: $V2,
+      17: 10,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, o($Vu, [2, 20]), {
+      10: $V1,
+      17: 95,
+      18: 11,
+      19: $V3,
+      23: 13,
+      29: 15,
+      30: 16,
+      33: 17,
+      34: $V4,
+      35: 19,
+      36: 20,
+      37: $V5,
+      38: $V6,
+      39: 23,
+      40: 24,
+      41: $V7,
+      45: $V8,
+      50: 133,
+      51: $VB,
+      59: $V9,
+      60: $Va,
+      76: $Vb,
+      77: $Vc
+    }, o($VJ, [2, 50]), o($VJ, [2, 51]), o($VD, [2, 36]), o($VE, [2, 42]), o($VE, [2, 44]), o($VG, [2, 75]), o($VG, [2, 78]), o($VH, [2, 80]), o($VH, [2, 86], {
+      72: [1, 134]
     }), {
-      8: $Vs,
-      11: $Vt,
-      12: 58,
-      17: [1, 56],
-      18: 57,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      72: 59,
-      74: 72,
-      75: 73,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $Vs,
-      11: $Vt,
-      12: 58,
-      17: [1, 80],
-      18: 79,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      72: 59,
-      74: 72,
-      75: 73,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $V1,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      52: 81,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $V1,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      52: 82,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $V1,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      52: 83,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $V1,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      52: 84,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $V1,
-      10: 85,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $V1,
-      10: 89,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      51: [1, 86],
-      52: 13,
-      57: 87,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      69: 88,
-      70: $VH,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: [1, 91],
-      61: 92,
-      85: $VI
-    }, o($Vk, [2, 72]), {
-      38: [1, 94],
-      42: [1, 95]
-    }, o($VJ, [2, 75]), o($Vk, [2, 76]), {
-      28: [1, 96],
-      42: [1, 97]
-    }, o($VK, [2, 79]), o($VK, [2, 81], {
-      45: [1, 98]
-    }), {
-      8: $V1,
-      10: 99,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $Vs,
-      11: $Vt,
-      12: 100,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      72: 59,
-      74: 72,
-      75: 73,
-      84: $Ve,
-      85: $Vf
-    }, {
-      6: 101,
-      7: $VL,
-      8: $V1,
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      15: 105,
-      19: [1, 106],
-      20: [1, 107],
-      21: 108,
-      22: [1, 109],
-      23: [1, 110],
-      24: [1, 111],
-      25: [1, 112],
-      26: [1, 122],
-      29: [1, 113],
-      30: [1, 114],
-      31: 115,
-      32: [1, 116],
-      33: 117,
-      34: [1, 118],
-      35: 119,
-      36: [1, 120],
-      37: [1, 121],
-      84: $Ve,
-      85: $Vf
-    }, o($Vh, [2, 10]), o($Vh, [2, 11], {
-      71: $VO
-    }), o($VP, [2, 87]), o($VP, [2, 88], {
-      73: [1, 124]
-    }), o($VQ, [2, 90]), o($VQ, [2, 91]), o($VQ, [2, 92]), o($VQ, [2, 93]), o($VQ, [2, 94]), o($VQ, [2, 95]), o($VQ, [2, 96]), o($VQ, [2, 97]), o($VQ, [2, 98]), o($VQ, [2, 99]), o($VQ, [2, 100]), o($VQ, [2, 101]), o($VQ, [2, 102]), o($VQ, [2, 103]), {
-      8: [1, 125]
-    }, {
-      8: [1, 126]
-    }, o($VQ, [2, 106]), {
-      8: $Vs,
-      11: $Vt,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      38: [1, 127],
-      50: $VR,
-      72: 131,
-      74: 72,
-      75: 73,
-      76: 128,
-      77: 129,
-      78: 130,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: $VS,
-      28: [1, 133],
-      81: 134,
-      82: 135,
-      83: 136
-    }, o($Vh, [2, 12], {
-      71: $VO
-    }), o($Vh, [2, 13]), o($Vj, [2, 53]), o($Vj, [2, 54]), o($Vj, [2, 55]), o($Vj, [2, 56]), {
-      42: [1, 138]
-    }, o($Vj, [2, 57]), {
-      42: [1, 140],
-      51: [1, 139]
-    }, o($VT, [2, 83]), o($VT, [2, 84]), {
-      8: [1, 141]
-    }, o($Vk, [2, 61]), o($Vk, [2, 62]), o([1, 7, 8, 11, 13, 14, 16, 17, 23, 24, 26, 28, 29, 36, 37, 38, 41, 42, 49, 51, 53, 54, 55, 56, 60, 63, 73, 80, 84, 85], [2, 132]), o($Vk, [2, 73]), {
-      8: $V1,
-      10: 142,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, o($Vk, [2, 77]), {
-      8: $Vo,
-      68: 143
-    }, {
-      8: $V1,
-      10: 144,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, o($Vg, [2, 5]), o($Vg, [2, 6]), o($Vg, [2, 7]), {
-      8: [1, 145]
-    }, {
-      8: [1, 146]
-    }, {
-      8: [1, 147]
-    }, o($Vg, [2, 8]), o($Vg, [2, 18]), o($Vg, [2, 19]), o($Vg, [2, 20]), o($Vg, [2, 21]), o($Vg, [2, 22]), o($Vg, [2, 23]), {
-      26: [1, 148]
-    }, o($Vg, [2, 25]), o($Vg, [2, 26]), o($Vg, [2, 27]), o($Vg, [2, 28]), o($Vg, [2, 29]), o($Vg, [2, 30]), o($Vg, [2, 31]), o($Vg, [2, 32]), {
-      6: 152,
-      7: $VL,
-      8: [1, 154],
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      38: [1, 149],
-      39: 150,
-      40: 151,
-      47: 153,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: [1, 159],
-      28: [1, 155],
-      40: 157,
-      43: 156,
-      44: 158,
-      47: 153
-    }, {
-      8: $Vs,
-      11: $Vt,
-      12: 160,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      72: 59,
-      74: 72,
-      75: 73,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: [1, 161]
-    }, o($VQ, [2, 104]), o($VQ, [2, 105]), o($VQ, [2, 107]), {
-      38: [1, 162],
-      42: $VU
-    }, o($VV, [2, 110]), o($VV, [2, 111], {
-      73: [1, 164]
-    }), o($VW, [2, 113], {
-      41: [1, 165]
-    }), {
-      8: $Vs,
-      11: $Vt,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      50: $VR,
-      72: 131,
-      74: 72,
-      75: 73,
-      76: 166,
-      77: 129,
-      78: 130,
-      84: $Ve,
-      85: $Vf
-    }, o($VQ, [2, 121]), {
-      28: [1, 167],
-      42: [1, 168]
-    }, o($VK, [2, 124]), o($VK, [2, 125], {
-      73: [1, 169]
-    }), o($VX, [2, 128], {
-      45: [1, 170]
-    }), {
-      6: 171,
-      7: $VL,
-      8: $V1,
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, o($Vj, [2, 58]), {
-      8: $V1,
-      10: 89,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      69: 172,
-      70: $VH,
-      84: $Ve,
-      85: $Vf
-    }, o($VT, [2, 85]), o($VJ, [2, 74]), o($VK, [2, 78]), o($VK, [2, 80]), o($Vh, $Vp), o($Vh, $Vq), o($Vh, $Vr), {
-      8: $VY,
-      27: 173,
-      84: $VZ,
-      86: 174
-    }, o($Vg, [2, 33]), {
-      38: [1, 177],
-      42: $V_
-    }, {
-      41: [1, 179],
-      42: $V$
-    }, o($VJ, [2, 37]), o($V01, [2, 46]), o([16, 38, 42, 53, 54, 55, 56, 60], $Vl, {
-      9: $V11,
-      50: $Vm
-    }), o($Vg, [2, 38]), {
-      28: [1, 182],
-      42: $V21
-    }, {
-      41: [1, 184],
-      42: $V$
-    }, o($VK, [2, 42]), o($VK, $V31, {
-      9: $V11,
-      45: $V41
-    }), o($VP, [2, 86]), o($VP, [2, 89]), o($VQ, [2, 108]), {
-      8: $Vs,
-      11: $Vt,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      50: $VR,
-      72: 131,
-      74: 72,
-      75: 73,
-      77: 186,
-      78: 130,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: [1, 187]
-    }, {
-      61: 189,
-      79: 188,
-      80: $V51,
-      85: $VI
-    }, {
-      42: $VU,
-      51: [1, 191]
-    }, o($VQ, [2, 122]), {
-      8: $VS,
-      82: 192,
-      83: 136
-    }, {
-      8: [1, 193]
-    }, {
-      8: $Vs,
-      11: $Vt,
-      19: $Vu,
-      20: $Vv,
-      22: $Vw,
-      23: $Vx,
-      24: $Vy,
-      25: $Vz,
-      26: $VA,
-      29: $VB,
-      30: $VC,
-      31: 67,
-      32: $VD,
-      34: $VE,
-      35: 70,
-      36: $VF,
-      37: $VG,
-      72: 194,
-      74: 72,
-      75: 73,
-      84: $Ve,
-      85: $Vf
-    }, {
-      51: [1, 195]
-    }, o($VT, [2, 82]), {
-      28: [1, 196],
-      42: [1, 197]
-    }, o($VK, [2, 137]), o($VK, [2, 134]), o($VK, [2, 135]), o($Vg, [2, 34]), {
-      6: 198,
-      7: $VL,
-      8: $V1,
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      6: 152,
-      7: $VL,
-      8: $V1,
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      39: 199,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, {
-      8: [1, 201],
-      47: 200
-    }, {
-      6: 202,
-      7: $VL,
-      8: $V1,
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, o($Vg, [2, 39]), {
-      8: $V61,
-      44: 203
-    }, {
-      8: $V61,
-      43: 205,
-      44: 158
-    }, {
-      6: 207,
-      7: $VL,
-      8: $V1,
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      46: 206,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, o($VV, [2, 109]), o($VV, [2, 112]), o($VW, [2, 114]), o($VW, [2, 120], {
-      80: [1, 208]
-    }), {
-      61: 209,
-      85: $VI
-    }, o($VW, [2, 115], {
-      41: [1, 210]
-    }), o($VK, [2, 123]), o($VK, [2, 126]), o($VX, [2, 127]), o($Vi, [2, 51]), o($Vg, [2, 24]), {
-      8: $VY,
-      84: $VZ,
-      86: 211
-    }, o($VJ, [2, 36]), {
-      38: [1, 212],
-      42: $V_
-    }, o($V01, [2, 45]), {
-      9: $V11
-    }, o($V01, [2, 47]), o($VK, [2, 41]), o($VK, $V31, {
-      45: $V41
-    }), {
-      28: [1, 213],
-      42: $V21
-    }, o($VK, [2, 43], {
-      41: [1, 214]
-    }), o($V71, [2, 49]), o($VW, [2, 119], {
-      61: 215,
-      85: $VI
-    }), o($VW, [2, 118]), {
-      61: 189,
-      79: 216,
-      80: $V51,
-      85: $VI
-    }, o($VK, [2, 136]), o($Vg, [2, 35]), o($Vg, [2, 40]), {
-      6: 217,
-      7: $VL,
-      8: $V1,
-      10: 9,
-      13: $VM,
-      14: $VN,
-      17: $V5,
-      23: $V6,
-      24: $V7,
-      26: $V8,
-      29: $V9,
-      31: 19,
-      35: 20,
-      36: $Va,
-      37: $Vb,
-      48: 11,
-      49: $Vc,
-      52: 13,
-      58: 15,
-      59: 16,
-      62: 17,
-      63: $Vd,
-      64: 23,
-      65: 24,
-      84: $Ve,
-      85: $Vf
-    }, o($VW, [2, 117]), o($VW, [2, 116]), o($V71, [2, 48])],
+      32: 135,
+      77: $VC
+    }, o($VH, [2, 81], {
+      5: [1, 136]
+    }), o($VE, [2, 89]), o($VE, [2, 92]), o($VI, [2, 93]), {
+      22: [1, 137]
+    }, o($VJ, [2, 47]), o($VH, [2, 85], {
+      32: 138,
+      77: $VC
+    }), o($VH, [2, 84]), {
+      32: 126,
+      71: 139,
+      72: $VK,
+      77: $VC
+    }, o($Ve, [2, 13]), o($VH, [2, 83]), o($VH, [2, 82])],
     defaultActions: {},
     parseError: function parseError(str, hash) {
       if (hash.recoverable) {
@@ -2629,174 +1995,170 @@ var parser = function () {
             break;
 
           case 2:
-            return 19;
-            break;
-
-          case 3:
-            return 20;
-            break;
-
-          case 4:
-            return 73;
-            break;
-
-          case 5:
-            return 22;
-            break;
-
-          case 6:
-            return 25;
-            break;
-
-          case 7:
-            return 24;
-            break;
-
-          case 8:
-            return 7;
-            break;
-
-          case 9:
-            return 49;
-            break;
-
-          case 10:
-            return 29;
-            break;
-
-          case 11:
-            return 30;
-            break;
-
-          case 12:
-            return 32;
-            break;
-
-          case 13:
-            return 11;
-            break;
-
-          case 14:
-            return 34;
-            break;
-
-          case 15:
-            return 13;
-            break;
-
-          case 16:
-            return 23;
-            break;
-
-          case 17:
-            return 14;
-            break;
-
-          case 18:
-            return 36;
-            break;
-
-          case 19:
-            return 85;
-            break;
-
-          case 20:
-            return 84;
-            break;
-
-          case 21:
-            return 50;
-            break;
-
-          case 22:
-            return 51;
-            break;
-
-          case 23:
-            return 26;
-            break;
-
-          case 24:
-            return 28;
-            break;
-
-          case 25:
-            return 37;
-            break;
-
-          case 26:
-            return 38;
-            break;
-
-          case 27:
-            return 71;
-            break;
-
-          case 28:
-            return 42;
-            break;
-
-          case 29:
-            return 45;
-            break;
-
-          case 30:
-            return 41;
-            break;
-
-          case 31:
-            return 9;
-            break;
-
-          case 32:
-            return 16;
-            break;
-
-          case 33:
-            return 70;
-            break;
-
-          case 34:
-            return 80;
-            break;
-
-          case 35:
-            return 60;
-            break;
-
-          case 36:
-            return 17;
-            break;
-
-          case 37:
-            return 53;
-            break;
-
-          case 38:
-            return 54;
-            break;
-
-          case 39:
-            return 55;
-            break;
-
-          case 40:
             return 56;
             break;
 
-          case 41:
+          case 3:
+            return 57;
+            break;
+
+          case 4:
+            return 55;
+            break;
+
+          case 5:
+            return 58;
+            break;
+
+          case 6:
+            return 67;
+            break;
+
+          case 7:
+            return 60;
+            break;
+
+          case 8:
+            return 9;
+            break;
+
+          case 9:
+            return 19;
+            break;
+
+          case 10:
+            return 34;
+            break;
+
+          case 11:
+            return 61;
+            break;
+
+          case 12:
+            return 62;
+            break;
+
+          case 13:
             return 63;
             break;
 
-          case 42:
-            return 8;
+          case 14:
+            return 59;
+            break;
+
+          case 15:
+            return 37;
+            break;
+
+          case 16:
+            return 77;
+            break;
+
+          case 17:
+            return 76;
+            break;
+
+          case 18:
+            return 20;
+            break;
+
+          case 19:
+            return 22;
+            break;
+
+          case 20:
+            return 45;
+            break;
+
+          case 21:
+            return 46;
+            break;
+
+          case 22:
+            return 41;
+            break;
+
+          case 23:
+            return 42;
+            break;
+
+          case 24:
+            return 13;
+            break;
+
+          case 25:
+            return 53;
+            break;
+
+          case 26:
+            return 21;
+            break;
+
+          case 27:
+            return 49;
+            break;
+
+          case 28:
+            return 5;
+            break;
+
+          case 29:
+            return 15;
+            break;
+
+          case 30:
+            return 11;
+            break;
+
+          case 31:
+            return '<=';
+            break;
+
+          case 32:
+            return 51;
+            break;
+
+          case 33:
+            return 72;
+            break;
+
+          case 34:
+            return 31;
+            break;
+
+          case 35:
+            return '_';
+            break;
+
+          case 36:
+            return 24;
+            break;
+
+          case 37:
+            return 25;
+            break;
+
+          case 38:
+            return 26;
+            break;
+
+          case 39:
+            return 27;
+            break;
+
+          case 40:
+            return 38;
+            break;
+
+          case 41:
+            return 10;
             break;
         }
       },
-      rules: [/^(?:\s+)/, /^(?:\/\/.*)/, /^(?:any\b)/, /^(?:array\b)/, /^(?:as\b)/, /^(?:boolean\b)/, /^(?:enum\b)/, /^(?:false\b)/, /^(?:generator\b)/, /^(?:map\b)/, /^(?:null\b)/, /^(?:number\b)/, /^(?:object\b)/, /^(?:pattern\b)/, /^(?:string\b)/, /^(?:transform\b)/, /^(?:true\b)/, /^(?:type\b)/, /^(?:undefined\b)/, /^(?:[-+]?(0|[1-9]\d*)(\.\d+)?)/, /^(?:"[^"\r\n]*")/, /^(?:\()/, /^(?:\))/, /^(?:{)/, /^(?:})/, /^(?:\[)/, /^(?:\])/, /^(?:\|)/, /^(?:,)/, /^(?::)/, /^(?:;)/, /^(?:=)/, /^(?:<=)/, /^(?:\.{3})/, /^(?:\.{2})/, /^(?:\.)/, /^(?:_)/, /^(?:\+)/, /^(?:-)/, /^(?:\*)/, /^(?:\/)/, /^(?:\$)/, /^(?:[a-zA-Z_][a-zA-Z0-9_]*)/],
+      rules: [/^(?:\s+)/, /^(?:\/\/.*)/, /^(?:any\b)/, /^(?:array\b)/, /^(?:as\b)/, /^(?:boolean\b)/, /^(?:enum\b)/, /^(?:false\b)/, /^(?:let\b)/, /^(?:map\b)/, /^(?:null\b)/, /^(?:number\b)/, /^(?:object\b)/, /^(?:string\b)/, /^(?:true\b)/, /^(?:undefined\b)/, /^(?:[-+]?(0|[1-9]\d*)(\.\d+)?)/, /^(?:"[^"\r\n]*")/, /^(?:\()/, /^(?:\))/, /^(?:{)/, /^(?:})/, /^(?:\[)/, /^(?:\])/, /^(?:\|>)/, /^(?:\|)/, /^(?:,)/, /^(?::)/, /^(?:;)/, /^(?:=~)/, /^(?:=)/, /^(?:<=)/, /^(?:\.{3})/, /^(?:\.{2})/, /^(?:\.)/, /^(?:_)/, /^(?:\+)/, /^(?:-)/, /^(?:\*)/, /^(?:\/)/, /^(?:\$)/, /^(?:[a-zA-Z_][a-zA-Z0-9_]*)/],
       conditions: {
         "INITIAL": {
-          "rules": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42],
+          "rules": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41],
           "inclusive": true
         }
       }
@@ -3007,11 +2369,7 @@ function () {
   function Transformer() {
     _classCallCheck(this, Transformer);
 
-    this.types = {};
-    this.transforms = {};
-    this.patterns = {};
-    this.generators = {};
-    this.typeCreators = {};
+    this.functions = {};
     this.messages = [];
     this.verbose = false; // add standard library
 
@@ -3019,80 +2377,22 @@ function () {
 
     for (var name in StdLib) {
       /* eslint-disable-next-line import/namespace */
-      this.typeCreators[name] = StdLib[name];
+      this.functions[name] = StdLib[name];
     }
   }
   /**
-   * Create a new instance of a Transformer with its type table initially populated from the specified normalizer
-   * source code.
+   * Add function
    *
-   * @param {string} source
-   * @returns {Transformer}
+   * @param {string} name
+   * @param {Function} reference
    */
 
 
   _createClass(Transformer, [{
-    key: "addDefinitionsFromSource",
-
-    /**
-     * Add all type definitions from the specified normalization source code to this Transformer instance. This will
-     * amend the current types with those specified in the code. Note that any type that has been redefined in the
-     * source code will replace any pre-existing version of that type.
-     *
-     * @param {string} source
-     */
-    value: function addDefinitionsFromSource(source) {
-      var table = parser.parse(source);
-      this.addDefinitionsFromTable(table);
-    }
-    /**
-     * Add all type definitions from the specified serialization table to this Transformer instance. This will amend the
-     * current types with those specified in the table. Note that any type that has been redefined in the table will
-     * replace any pre-existing version of that type.
-     *
-     * @param {Array} table
-     */
-
-  }, {
-    key: "addDefinitionsFromTable",
-    value: function addDefinitionsFromTable(table) {
-      var _this = this;
-
-      table.forEach(function (description) {
-        switch (description.type) {
-          case "type-assignment":
-            _this.types[description.name] = description.value;
-            break;
-
-          case "transform-assignment":
-            _this.transforms[description.name] = description.value;
-            break;
-
-          case "generator-assignment":
-            _this.generators[description.name] = description.value;
-            break;
-
-          case "pattern-assignment":
-            _this.patterns[description.name] = description.value;
-            break;
-
-          default: // ignore all other top-level statements
-
-        }
-      });
-    }
-    /**
-     * Add function
-     *
-     * @param {string} name
-     * @param {Function} reference
-     */
-
-  }, {
     key: "addFunction",
     value: function addFunction(name, reference) {
       // TODO: type check
-      this.typeCreators[name] = reference;
+      this.functions[name] = reference;
     }
     /**
      * Add information
@@ -3153,6 +2453,7 @@ function () {
     key: "execute",
     value: function execute(source, structure) {
       var statements = parser.parse(source);
+      var symbolTable = Array.isArray(structure) || isObject$1(structure) === false ? {} : Object.create(structure);
       var result;
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -3163,46 +2464,12 @@ function () {
           var statement = _step.value;
 
           switch (statement.type) {
-            case "transform":
-              result = this.executeTransform(statement, structure);
-
-              if (result === FAILURE_VALUE) {
+            case "assignment":
+            case "sequence":
+              {
+                result = this.executeExpression(statement, structure, symbolTable);
                 break;
               }
-
-              break;
-
-            case "type-reference":
-              if (statement.name in this.types) {
-                var type = this.types[statement.name];
-                var value = this.executeType(type, structure);
-
-                if (value === FAILURE_VALUE) {
-                  this.addError("type ".concat(statement.name, " was unable to transform successfully"));
-                  return FAILURE_VALUE;
-                }
-
-                return value;
-              }
-
-              this.addError("type is not defined: ".concat(statement.name));
-              return FAILURE_VALUE;
-
-            case "generator-assignment":
-              this.generators[statement.name] = statement.value;
-              break;
-
-            case "pattern-assignment":
-              this.patterns[statement.name] = statement.value;
-              break;
-
-            case "transform-assignment":
-              this.transforms[statement.name] = statement.value;
-              break;
-
-            case "type-assignment":
-              this.types[statement.name] = statement.value;
-              break;
 
             default:
               this.addError("unknown statement type: ".concat(statement.type));
@@ -3227,257 +2494,270 @@ function () {
       return result;
     }
     /*
-     * Execute a list of transforms, until the first one succeeds
+     * Execute a method and return its value
      *
-     * @param {Array} transforms
-     * @param {*} structure
-     * @param {Object} symbolTable
+     * @param {object} expression
+     * @param {object} symbolTable
      * @returns {*}
      */
 
   }, {
-    key: "executeTransforms",
-    value: function executeTransforms(transforms, structure, symbolTable) {
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
+    key: "executeExpression",
+    value: function executeExpression(expression, structure, symbolTable) {
+      var _this = this;
 
-      try {
-        for (var _iterator2 = transforms[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var transform = _step2.value;
-          var result = this.executeTransform(transform, structure, symbolTable);
+      var getNumbers = function getNumbers(operation) {
+        var left = _this.executeExpression(expression.left, structure, symbolTable);
 
-          if (result !== FAILURE_VALUE) {
-            return result;
+        if (left !== FAILURE_VALUE && typeof left === "number") {
+          var right = _this.executeExpression(expression.right, structure, symbolTable);
+
+          if (right !== FAILURE_VALUE && typeof right === "number") {
+            return operation(left, right);
           }
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-            _iterator2["return"]();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      return FAILURE_VALUE;
-    }
-    /*
-     * Execute a single transform
-     *
-     * @param {Object} transform
-     * @param {*} structure
-     * @param {Object} symbolTable
-     * @returns {*}
-     */
-
-  }, {
-    key: "executeTransform",
-    value: function executeTransform(transform, structure) {
-      var symbolTable = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-      var currentObject = structure;
-
-      if (transform.type === "transform-reference") {
-        if (transform.name in this.transforms) {
-          transform = this.transforms[transform.name];
-        } else {
-          this.addError("undefined transform reference: '".concat(transform.name, "'"));
-          return FAILURE_VALUE;
-        }
-      }
-
-      if (transform.patterns !== null) {
-        // try all patterns until one succeeds, else report as failure
-        var result = FAILURE_VALUE;
-        var _iteratorNormalCompletion3 = true;
-        var _didIteratorError3 = false;
-        var _iteratorError3 = undefined;
-
-        try {
-          for (var _iterator3 = transform.patterns[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-            var pattern = _step3.value;
-            var patternSymbolTable = Object.create(symbolTable);
-            result = this.executePattern(pattern, currentObject, patternSymbolTable);
-
-            if (result !== FAILURE_VALUE) {
-              // pattern matched, so we can stop
-              if (transform.returnValue !== null) {
-                currentObject = this.executeExpression(transform.returnValue, structure, patternSymbolTable);
-              } else {
-                // if we're not massaging the result, then return all captured values (the symbol table)s
-                currentObject = patternSymbolTable;
-              }
-
-              break;
-            }
-          }
-        } catch (err) {
-          _didIteratorError3 = true;
-          _iteratorError3 = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-              _iterator3["return"]();
-            }
-          } finally {
-            if (_didIteratorError3) {
-              throw _iteratorError3;
-            }
-          }
-        }
-
-        if (result === FAILURE_VALUE) {
-          this.addError("Unable to match any type patterns");
-          return FAILURE_VALUE;
-        }
-      } else if (transform.returnValue !== null) {
-        // if currentObject is not an object, then it can't be used as a symbol table
-        if (isObject$1(currentObject)) {
-          symbolTable = Object.create(Object.assign(symbolTable, currentObject));
-        } // NOTE: assumes we have to have a generator if we don't have a pattern. This is currently
-        // enforced in the parser
-
-
-        var value = this.executeExpression(transform.returnValue, structure, symbolTable);
-
-        if (value === FAILURE_VALUE) {
-          this.addError("Unable to apply generator to current object");
-          return FAILURE_VALUE;
-        }
-
-        currentObject = value;
-      } else {
-        // we have the identity transform. Return the structure untouched
-        currentObject = structure;
-      }
-
-      return currentObject;
-    }
-  }, {
-    key: "executeType",
-    value: function executeType(type, structure) {
-      switch (type.definition) {
-        case "any":
-          return structure;
-
-        case "array":
-          return this.executeArrayType(type, structure);
-
-        case "boolean":
-          if (typeof structure === "boolean") {
-            if (type.value === null || type.value === structure) {
-              return structure;
-            }
-          }
-
-          return FAILURE_VALUE;
-
-        case "enumeration":
-          if (typeof structure === "string") {
-            if (type.value.includes(structure)) {
-              return structure;
-            }
-          }
-
-          return FAILURE_VALUE;
-
-        case "null":
-          if (structure === null) {
-            return structure;
-          }
-
-          return FAILURE_VALUE;
-
-        case "number":
-          if (typeof structure === "number") {
-            if (type.value === null || type.value === structure) {
-              return structure;
-            }
-          }
-
-          return FAILURE_VALUE;
-
-        case "object":
-          return this.executeObjectType(type, structure);
-
-        case "string":
-          if (typeof structure === "string") {
-            if (type.value === null || type.value === structure) {
-              return structure;
-            }
-          }
-
-          return FAILURE_VALUE;
-
-        case "undefined":
-          if (structure === undefined) {
-            return structure;
-          }
-
-          return FAILURE_VALUE;
-
-        default:
-          this.addError("Unrecognized type definition value: '".concat(type.definition, "'"));
-          return FAILURE_VALUE;
-      }
-    }
-    /*
-     * Execute an array type definition
-     *
-     * @param {object} type
-     * @param {*} structure
-     * @returns {*}
-     */
-
-  }, {
-    key: "executeArrayType",
-    value: function executeArrayType(type, structure) {
-      if (type.value === null) {
-        if (Array.isArray(structure)) {
-          return structure;
         }
 
         return FAILURE_VALUE;
-      }
+      };
 
-      var result = [];
-      var symbolTable = {};
+      switch (expression.type) {
+        case "assignment":
+          {
+            var value = this.executeExpression(expression.value, structure, symbolTable);
+
+            if (value === FAILURE_VALUE) {
+              return FAILURE_VALUE;
+            }
+
+            symbolTable[expression.name] = value;
+            return value;
+          }
+
+        case "get-value":
+          return symbolTable[expression.name];
+
+        case "get-property":
+          {
+            var object = this.executeExpression(expression.left, structure, symbolTable);
+            return isObject$1(object) ? object[expression.right] : FAILURE_VALUE;
+          }
+
+        case "get-index":
+          {
+            var left = expression.left,
+                right = expression.right;
+            var array = this.executeExpression(left, structure, symbolTable);
+
+            if (Array.isArray(array)) {
+              var index = right < 0 ? array.length + right : right;
+              return 0 <= index && index < array.length ? array[index] : FAILURE_VALUE;
+            }
+
+            return FAILURE_VALUE;
+          }
+
+        case "get-structure":
+          return structure;
+
+        case "sequence":
+          {
+            var currentObject = structure;
+            var _iteratorNormalCompletion2 = true;
+            var _didIteratorError2 = false;
+            var _iteratorError2 = undefined;
+
+            try {
+              for (var _iterator2 = expression.steps[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+                var step = _step2.value;
+
+                if (step.type === "pattern") {
+                  currentObject = this.executePattern(step, currentObject, symbolTable);
+                } else {
+                  currentObject = this.executeExpression(step, currentObject, symbolTable);
+                }
+
+                if (currentObject === FAILURE_VALUE) {
+                  return FAILURE_VALUE;
+                }
+              }
+            } catch (err) {
+              _didIteratorError2 = true;
+              _iteratorError2 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+                  _iterator2["return"]();
+                }
+              } finally {
+                if (_didIteratorError2) {
+                  throw _iteratorError2;
+                }
+              }
+            }
+
+            return currentObject;
+          }
+
+        case "add":
+          return getNumbers(function (a, b) {
+            return a + b;
+          });
+
+        case "map":
+          {
+            var _expression$value = _slicedToArray(expression.value, 2),
+                valueGenerator = _expression$value[0],
+                transform = _expression$value[1];
+
+            var values = this.executeExpression(valueGenerator, structure, symbolTable);
+
+            if (values !== FAILURE_VALUE) {
+              if (Array.isArray(values) === false) {
+                this.addError("First argument of map must evaluate to an array");
+                return FAILURE_VALUE;
+              }
+
+              var mapSymbolTable = Object.create(symbolTable);
+              return values.map(function (value) {
+                return _this.executeExpression(transform, value, mapSymbolTable);
+              });
+            }
+
+            return FAILURE_VALUE;
+          }
+
+        case "subtract":
+          return getNumbers(function (a, b) {
+            return a - b;
+          });
+
+        case "multiply":
+          return getNumbers(function (a, b) {
+            return a * b;
+          });
+
+        case "divide":
+          return getNumbers(function (a, b) {
+            return a / b;
+          });
+
+        case "invoke":
+          {
+            var args = expression.args.reduce(function (accum, arg) {
+              if (arg.type === "spread") {
+                var _value = arg.name !== null ? symbolTable[arg.name] : structure;
+
+                if (Array.isArray(_value)) {
+                  accum = accum.concat(_value);
+                } else {
+                  accum.push(_value);
+                }
+              } else {
+                accum.push(_this.executeExpression(arg, structure, symbolTable));
+              }
+
+              return accum;
+            }, []);
+            return this.invokeFunction(expression.name, args);
+          }
+
+        case "array":
+          {
+            var results = [];
+            var _iteratorNormalCompletion3 = true;
+            var _didIteratorError3 = false;
+            var _iteratorError3 = undefined;
+
+            try {
+              for (var _iterator3 = expression.value[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+                var element = _step3.value;
+
+                if (element.type === "assignment") {
+                  this.executeExpression(element, structure, symbolTable);
+                } else {
+                  var _value2 = this.executeExpression(element, structure, symbolTable);
+
+                  if (_value2 === FAILURE_VALUE) {
+                    return FAILURE_VALUE;
+                  }
+
+                  results.push(_value2);
+                }
+              }
+            } catch (err) {
+              _didIteratorError3 = true;
+              _iteratorError3 = err;
+            } finally {
+              try {
+                if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+                  _iterator3["return"]();
+                }
+              } finally {
+                if (_didIteratorError3) {
+                  throw _iteratorError3;
+                }
+              }
+            }
+
+            return results;
+          }
+
+        case "boolean":
+        case "null":
+        case "number":
+        case "string":
+        case "undefined":
+          return expression.value;
+
+        case "object":
+          return this.executeObjectExpression(expression, structure, symbolTable);
+
+        default:
+          this.addError("Unrecognized expression type: '".concat(expression.type, "'"));
+          return FAILURE_VALUE;
+      }
+    }
+    /**
+     * Execute an object pattern
+     *
+     * @param {Object} pattern
+     * @param {*} structure
+     * @param {Object} symbolTable
+     * @returns {*}
+     */
+
+  }, {
+    key: "executeObjectExpression",
+    value: function executeObjectExpression(pattern, structure, symbolTable) {
+      var objectSymbolTable = Object.create(symbolTable);
+      var result = {};
       var _iteratorNormalCompletion4 = true;
       var _didIteratorError4 = false;
       var _iteratorError4 = undefined;
 
       try {
-        for (var _iterator4 = type.value[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+        for (var _iterator4 = pattern.value[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
           var element = _step4.value;
 
           switch (element.type) {
-            case "transform":
+            case "property":
               {
-                var elementValue = this.executeTransform(element, structure, symbolTable);
+                var value = this.executeExpression(element.value, structure, objectSymbolTable);
 
-                if (elementValue === FAILURE_VALUE) {
+                if (value === FAILURE_VALUE) {
                   return FAILURE_VALUE;
                 }
 
-                result.push(elementValue);
+                result[element.name] = value;
                 break;
               }
 
             case "assignment":
-              if (this.executeAssignment(element, structure, symbolTable) === FAILURE_VALUE) {
-                return FAILURE_VALUE;
-              }
-
+              this.executeExpression(element, structure, objectSymbolTable);
               break;
 
             default:
-              this.addError("Unknown element of array type: '".concat(element.type, "'"));
+              this.addError("Unrecognized object expression element type: ".concat(element.type));
               return FAILURE_VALUE;
           }
         }
@@ -3497,106 +2777,6 @@ function () {
       }
 
       return result;
-    }
-    /*
-     * Execute an object type definition
-     *
-     * @param {object} type
-     * @param {*} structure
-     * @returns {*}
-     */
-
-  }, {
-    key: "executeObjectType",
-    value: function executeObjectType(type, structure) {
-      if (type.value === null) {
-        if (isObject$1(structure)) {
-          return structure;
-        }
-
-        return FAILURE_VALUE;
-      }
-
-      var result = {};
-      var symbolTable = {};
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
-
-      try {
-        for (var _iterator5 = type.value[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var property = _step5.value;
-
-          switch (property.type) {
-            case "type-property":
-              {
-                var propertyValue = FAILURE_VALUE;
-
-                if (property.value === null) {
-                  if (isObject$1(structure) && property.name in structure) {
-                    propertyValue = structure[property.name];
-                  }
-                } else {
-                  propertyValue = this.executeTransforms(property.value, structure, symbolTable);
-                }
-
-                if (propertyValue === FAILURE_VALUE) {
-                  return FAILURE_VALUE;
-                }
-
-                result[property.name] = propertyValue;
-                break;
-              }
-
-            case "assignment":
-              if (this.executeAssignment(property, structure, symbolTable) === FAILURE_VALUE) {
-                return FAILURE_VALUE;
-              }
-
-              break;
-
-            default:
-              this.addError("Unknown element of object type: '".concat(property.type, "'"));
-              return FAILURE_VALUE;
-          }
-        }
-      } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-            _iterator5["return"]();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
-          }
-        }
-      }
-
-      return result;
-    }
-    /*
-     * execute an assignment
-     *
-     * @param {object} assignment
-     * @param {*} structure
-     * @param {object} symbolTable
-     * @returns {*}
-     */
-
-  }, {
-    key: "executeAssignment",
-    value: function executeAssignment(assignment, structure, symbolTable) {
-      var value = this.executeTransform(assignment.value, structure, symbolTable);
-
-      if (value === FAILURE_VALUE) {
-        return FAILURE_VALUE;
-      }
-
-      this.assign(symbolTable, assignment.name, value);
-      return value;
     }
     /*
      * Acquire the value of a type pattern from the specified structure. Any named entities will be populated in the
@@ -3625,7 +2805,10 @@ function () {
           return FAILURE_VALUE;
 
         case "array-pattern":
-          return this.executeArrayPattern(pattern, structure, symbolTable);
+          {
+            var result = this.executeArrayPattern(pattern, structure, symbolTable);
+            return result === FAILURE_VALUE ? FAILURE_VALUE : symbolTable;
+          }
 
         case "boolean":
           if (typeof structure === "boolean") {
@@ -3669,14 +2852,14 @@ function () {
               return FAILURE_VALUE;
             }
 
-            var result = {};
-            var _iteratorNormalCompletion6 = true;
-            var _didIteratorError6 = false;
-            var _iteratorError6 = undefined;
+            var _result = {};
+            var _iteratorNormalCompletion5 = true;
+            var _didIteratorError5 = false;
+            var _iteratorError5 = undefined;
 
             try {
-              for (var _iterator6 = pattern.value[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
-                var property = _step6.value;
+              for (var _iterator5 = pattern.value[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+                var property = _step5.value;
                 var name = property.name,
                     propertyPattern = property.pattern,
                     assignTo = property.assignTo;
@@ -3688,42 +2871,42 @@ function () {
                     return FAILURE_VALUE;
                   }
 
-                  this.assign(symbolTable, property.assignTo, structure[name]);
-                  result[assignTo] = value;
+                  this.assign(symbolTable, assignTo, structure[name]);
+                  this.assign(_result, assignTo, value);
                 } else {
                   return FAILURE_VALUE;
                 }
               }
             } catch (err) {
-              _didIteratorError6 = true;
-              _iteratorError6 = err;
+              _didIteratorError5 = true;
+              _iteratorError5 = err;
             } finally {
               try {
-                if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
-                  _iterator6["return"]();
+                if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+                  _iterator5["return"]();
                 }
               } finally {
-                if (_didIteratorError6) {
-                  throw _iteratorError6;
+                if (_didIteratorError5) {
+                  throw _iteratorError5;
                 }
               }
             }
 
             this.assign(symbolTable, pattern.assignTo, structure);
-            return result;
+            return _result;
           }
 
         case "reference":
           if (pattern.value in this.patterns) {
             var referencedPattern = this.patterns[pattern.value];
 
-            var _result = this.executePattern(referencedPattern, structure, symbolTable);
+            var _result2 = this.executePattern(referencedPattern, structure, symbolTable);
 
-            if (_result !== FAILURE_VALUE) {
-              this.assign(symbolTable, pattern.assignTo, _result);
+            if (_result2 !== FAILURE_VALUE) {
+              this.assign(symbolTable, pattern.assignTo, _result2);
             }
 
-            return _result;
+            return _result2;
           }
 
           return FAILURE_VALUE;
@@ -3771,13 +2954,13 @@ function () {
 
       var result = [];
       var index = 0;
-      var _iteratorNormalCompletion7 = true;
-      var _didIteratorError7 = false;
-      var _iteratorError7 = undefined;
+      var _iteratorNormalCompletion6 = true;
+      var _didIteratorError6 = false;
+      var _iteratorError6 = undefined;
 
       try {
-        for (var _iterator7 = pattern.value[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
-          var element = _step7.value;
+        for (var _iterator6 = pattern.value[Symbol.iterator](), _step6; !(_iteratorNormalCompletion6 = (_step6 = _iterator6.next()).done); _iteratorNormalCompletion6 = true) {
+          var element = _step6.value;
           var results = this.executeArrayPatternElement(element, index, structure, symbolTable);
 
           if (results === FAILURE_VALUE) {
@@ -3788,16 +2971,16 @@ function () {
           index += results.length;
         }
       } catch (err) {
-        _didIteratorError7 = true;
-        _iteratorError7 = err;
+        _didIteratorError6 = true;
+        _iteratorError6 = err;
       } finally {
         try {
-          if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
-            _iterator7["return"]();
+          if (!_iteratorNormalCompletion6 && _iterator6["return"] != null) {
+            _iterator6["return"]();
           }
         } finally {
-          if (_didIteratorError7) {
-            throw _iteratorError7;
+          if (_didIteratorError6) {
+            throw _iteratorError6;
           }
         }
       }
@@ -3924,13 +3107,13 @@ function () {
       for (var i = 0; i < stop; i++) {
         var groupResults = []; // all elements must be successful
 
-        var _iteratorNormalCompletion8 = true;
-        var _didIteratorError8 = false;
-        var _iteratorError8 = undefined;
+        var _iteratorNormalCompletion7 = true;
+        var _didIteratorError7 = false;
+        var _iteratorError7 = undefined;
 
         try {
-          for (var _iterator8 = elements[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
-            var _element = _step8.value;
+          for (var _iterator7 = elements[Symbol.iterator](), _step7; !(_iteratorNormalCompletion7 = (_step7 = _iterator7.next()).done); _iteratorNormalCompletion7 = true) {
+            var _element = _step7.value;
             var elementSymbolTable = Object.create(symbolTable);
             var results = this.executeArrayPatternElement(_element, index, structure, elementSymbolTable);
 
@@ -3957,16 +3140,16 @@ function () {
             groupResults = groupResults.concat(results);
           }
         } catch (err) {
-          _didIteratorError8 = true;
-          _iteratorError8 = err;
+          _didIteratorError7 = true;
+          _iteratorError7 = err;
         } finally {
           try {
-            if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
-              _iterator8["return"]();
+            if (!_iteratorNormalCompletion7 && _iterator7["return"] != null) {
+              _iterator7["return"]();
             }
           } finally {
-            if (_didIteratorError8) {
-              throw _iteratorError8;
+            if (_didIteratorError7) {
+              throw _iteratorError7;
             }
           }
         }
@@ -3978,26 +3161,26 @@ function () {
             // group or its elements.
             if (i === 0) {
               this.assign(symbolTable, group.assignTo, []);
-              var _iteratorNormalCompletion9 = true;
-              var _didIteratorError9 = false;
-              var _iteratorError9 = undefined;
+              var _iteratorNormalCompletion8 = true;
+              var _didIteratorError8 = false;
+              var _iteratorError8 = undefined;
 
               try {
-                for (var _iterator9 = elements[Symbol.iterator](), _step9; !(_iteratorNormalCompletion9 = (_step9 = _iterator9.next()).done); _iteratorNormalCompletion9 = true) {
-                  var element = _step9.value;
+                for (var _iterator8 = elements[Symbol.iterator](), _step8; !(_iteratorNormalCompletion8 = (_step8 = _iterator8.next()).done); _iteratorNormalCompletion8 = true) {
+                  var element = _step8.value;
                   this.assign(symbolTable, element.assignTo, []);
                 }
               } catch (err) {
-                _didIteratorError9 = true;
-                _iteratorError9 = err;
+                _didIteratorError8 = true;
+                _iteratorError8 = err;
               } finally {
                 try {
-                  if (!_iteratorNormalCompletion9 && _iterator9["return"] != null) {
-                    _iterator9["return"]();
+                  if (!_iteratorNormalCompletion8 && _iterator8["return"] != null) {
+                    _iterator8["return"]();
                   }
                 } finally {
-                  if (_didIteratorError9) {
-                    throw _iteratorError9;
+                  if (_didIteratorError8) {
+                    throw _iteratorError8;
                   }
                 }
               }
@@ -4019,181 +3202,6 @@ function () {
       return result;
     }
     /*
-     * Execute a method and return its value
-     *
-     * @param {object} expression
-     * @param {object} symbolTable
-     * @returns {*}
-     */
-
-  }, {
-    key: "executeExpression",
-    value: function executeExpression(expression, structure, symbolTable) {
-      var _this2 = this;
-
-      var getNumbers = function getNumbers(operation) {
-        var left = _this2.executeExpression(expression.left, structure, symbolTable);
-
-        if (left !== FAILURE_VALUE && typeof left === "number") {
-          var right = _this2.executeExpression(expression.right, structure, symbolTable);
-
-          if (right !== FAILURE_VALUE && typeof right === "number") {
-            return operation(left, right);
-          }
-        }
-
-        return FAILURE_VALUE;
-      };
-
-      switch (expression.type) {
-        case "get-value":
-          return symbolTable[expression.name];
-
-        case "get-property":
-          {
-            var object = this.executeExpression(expression.left, structure, symbolTable);
-            return isObject$1(object) ? object[expression.right] : FAILURE_VALUE;
-          }
-
-        case "get-index":
-          {
-            var left = expression.left,
-                right = expression.right;
-            var array = this.executeExpression(left, structure, symbolTable);
-
-            if (Array.isArray(array)) {
-              var index = right < 0 ? array.length + right : right;
-              return 0 <= index && index < array.length ? array[index] : FAILURE_VALUE;
-            }
-
-            return FAILURE_VALUE;
-          }
-
-        case "get-structure":
-          return structure;
-
-        case "add":
-          return getNumbers(function (a, b) {
-            return a + b;
-          });
-
-        case "map":
-          {
-            var _expression$value = _slicedToArray(expression.value, 2),
-                valueGenerator = _expression$value[0],
-                transform = _expression$value[1];
-
-            var values = this.executeExpression(valueGenerator, structure, symbolTable);
-
-            if (values !== FAILURE_VALUE) {
-              if (Array.isArray(values) === false) {
-                this.addError("First argument of map must evaluate to an array");
-                return FAILURE_VALUE;
-              }
-
-              var mapSymbolTable = Object.create(symbolTable);
-              return values.map(function (value) {
-                return _this2.executeTransform(transform, value, mapSymbolTable);
-              });
-            }
-
-            return FAILURE_VALUE;
-          }
-
-        case "subtract":
-          return getNumbers(function (a, b) {
-            return a - b;
-          });
-
-        case "multiply":
-          return getNumbers(function (a, b) {
-            return a * b;
-          });
-
-        case "divide":
-          return getNumbers(function (a, b) {
-            return a / b;
-          });
-
-        case "invoke":
-          {
-            var args = expression.args.reduce(function (accum, arg) {
-              if (arg.type === "spread") {
-                var value = symbolTable[arg.name];
-
-                if (Array.isArray(value)) {
-                  accum = accum.concat(value);
-                } else {
-                  accum.push(value);
-                }
-              } else {
-                accum.push(_this2.executeExpression(arg, structure, symbolTable));
-              }
-
-              return accum;
-            }, []);
-            return this.createType(expression.name, args);
-          }
-
-        case "array":
-          return expression.value.map(function (elementExpression) {
-            return _this2.executeExpression(elementExpression, structure, symbolTable);
-          });
-
-        case "boolean":
-        case "null":
-        case "number":
-        case "string":
-        case "undefined":
-          return expression.value;
-
-        case "object":
-          {
-            var result = {};
-            var _iteratorNormalCompletion10 = true;
-            var _didIteratorError10 = false;
-            var _iteratorError10 = undefined;
-
-            try {
-              for (var _iterator10 = expression.value[Symbol.iterator](), _step10; !(_iteratorNormalCompletion10 = (_step10 = _iterator10.next()).done); _iteratorNormalCompletion10 = true) {
-                var propertyExpression = _step10.value;
-
-                if (propertyExpression.type === "property") {
-                  var value = this.executeExpression(propertyExpression.value, structure, symbolTable);
-
-                  if (value === FAILURE_VALUE) {
-                    return FAILURE_VALUE;
-                  }
-
-                  result[propertyExpression.name] = value;
-                } else {
-                  this.addError("Unrecognized property expression type: ".concat(propertyExpression.type));
-                }
-              }
-            } catch (err) {
-              _didIteratorError10 = true;
-              _iteratorError10 = err;
-            } finally {
-              try {
-                if (!_iteratorNormalCompletion10 && _iterator10["return"] != null) {
-                  _iterator10["return"]();
-                }
-              } finally {
-                if (_didIteratorError10) {
-                  throw _iteratorError10;
-                }
-              }
-            }
-
-            return result;
-          }
-
-        default:
-          this.addError("Unrecognized generator expression type: '".concat(expression.type, "'"));
-          return FAILURE_VALUE;
-      }
-    }
-    /*
      * Invoke a user-defined method and return its value
      *
      * @param {string} type
@@ -4202,14 +3210,12 @@ function () {
      */
 
   }, {
-    key: "createType",
-    value: function createType(type, args) {
-      if (type in this.typeCreators) {
-        var _this$typeCreators;
+    key: "invokeFunction",
+    value: function invokeFunction(type, args) {
+      if (type in this.functions) {
+        var _this$functions;
 
-        return (_this$typeCreators = this.typeCreators)[type].apply(_this$typeCreators, _toConsumableArray(args));
-      } else if ("*" in this.typeCreators) {
-        return this.typeCreators["*"](type, args);
+        return (_this$functions = this.functions)[type].apply(_this$functions, _toConsumableArray(args));
       }
 
       return FAILURE_VALUE;
@@ -4257,28 +3263,6 @@ function () {
           this.addWarning("Unable to push to ".concat(name, " because it is not an array: ").concat(items));
         }
       }
-    }
-  }], [{
-    key: "fromSource",
-    value: function fromSource(source) {
-      var result = new Transformer();
-      result.addDefinitionsFromSource(source);
-      return result;
-    }
-    /**
-     * Create a new instance of a Transformer with its type table initially populated from the specified serialization
-     * table. This table can be used to cache a parse normalized file and is the output of Parser.parse()
-     *
-     * @param {Array} table
-     * @returns {Transformer}
-     */
-
-  }, {
-    key: "fromTable",
-    value: function fromTable(table) {
-      var result = new Transformer();
-      result.addDefinitionsFromTable(table);
-      return result;
     }
   }]);
 
