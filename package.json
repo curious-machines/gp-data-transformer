@@ -19,7 +19,7 @@
     "cover 100%"
   ],
   "bin": {
-    "dt": "./bin/dt.sh",
+    "dt": "./bin/transform",
     "transform": "./bin/transform"
   },
   "scripts": {

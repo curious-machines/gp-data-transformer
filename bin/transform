@@ -1,8 +1,16 @@
-import util from "util";
-import fs from "fs";
-import path from "path";
-import {default as Transformer, FAILURE_VALUE} from "../lib/Transformer.js";
-import {argv} from "yargs";
+#!/usr/bin/env node
+
+// import util from "util";
+// import fs from "fs";
+// import path from "path";
+// import {default as Transformer, FAILURE_VALUE} from "../lib/Transformer.js";
+// import {argv} from "yargs";
+
+const util = require("util");
+const fs = require("fs");
+const path = require("path");
+const {Transformer, FAILURE_VALUE} = require("../dist/index-umd.js");
+const {argv} = require("yargs");
 
 const quiet = "q" in argv;
 const ttyOut = process.stdout.isTTY;
@@ -18,6 +26,7 @@ normalizer [-q] [-m] [-a] [-n <norm--definition-file>] [-r <module>] (-s <<sourc
     j - the JSON file to test. If this option is not present and there is no JSON redirected to this script, then the
         value 'undefined' will be used as the source data
     d - a script file from which to load definitions
+    i - use util.inspect for output. It will try to output using color
     q - turn on quiet mode
     r - load a node module. All exports will be exposed as functions to the script
     s - a script file to execute on each test
