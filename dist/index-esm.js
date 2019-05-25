@@ -480,9 +480,16 @@ var parser = function () {
           break;
 
         case 23:
-        case 24:
           this.$ = {
             type: 'get-property',
+            left: $$[$0 - 2],
+            right: $$[$0]
+          };
+          break;
+
+        case 24:
+          this.$ = {
+            type: 'get-index',
             left: $$[$0 - 2],
             right: $$[$0]
           };
@@ -3325,4 +3332,4 @@ function () {
  * @module kld-data-transformer
  */
 
-export { parser as Parser, Transformer };
+export { FAILURE_VALUE, parser as Parser, Transformer };

@@ -486,9 +486,16 @@
             break;
 
           case 23:
-          case 24:
             this.$ = {
               type: 'get-property',
+              left: $$[$0 - 2],
+              right: $$[$0]
+            };
+            break;
+
+          case 24:
+            this.$ = {
+              type: 'get-index',
               left: $$[$0 - 2],
               right: $$[$0]
             };
@@ -3331,6 +3338,7 @@
    * @module kld-data-transformer
    */
 
+  exports.FAILURE_VALUE = FAILURE_VALUE;
   exports.Parser = parser;
   exports.Transformer = Transformer;
 
