@@ -2436,6 +2436,16 @@ function partition(items, count, advance) {
   }
 
   return result;
+}
+/**
+ * Return a new array with the original array's content reversed
+ *
+ * @param {Array} items
+ * @returns {Array|undefined}
+ */
+
+function reverse(items) {
+  return Array.isArray(items) ? items.slice().reverse() : undefined;
 } // Object related functions
 
 /**
@@ -2471,6 +2481,64 @@ function values(item) {
   /* eslint-disable-next-line compat/compat */
   return isObject(item) ? Object.values(item) : [];
 }
+/**
+ * Return a list of key/value pairs from an object. Each element in the result is a 2-element array
+ * where the first element is the key and the second element is the value
+ *
+ * @param {Object} item
+ * @returns {Array<Array>}
+ */
+
+function pairs(item) {
+  /* eslint-disable-next-line compat/compat */
+  return isObject(item) ? Object.entries(item) : [];
+}
+/**
+ * Convert a list of key/value pairs into an object. This is the reverse of pairs
+ *
+ * @param {Array<Array>} pairs
+ * @returns {Object}
+ */
+
+function fromPairs(pairs) {
+  /* eslint-disable-line no-shadow */
+  var result = {};
+
+  if (Array.isArray(pairs)) {
+    var _iteratorNormalCompletion2 = true;
+    var _didIteratorError2 = false;
+    var _iteratorError2 = undefined;
+
+    try {
+      for (var _iterator2 = pairs[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+        var pair = _step2.value;
+
+        if (pair.length >= 2) {
+          var _pair = _slicedToArray(pair, 2),
+              key = _pair[0],
+              value = _pair[1];
+
+          result[key] = value;
+        }
+      }
+    } catch (err) {
+      _didIteratorError2 = true;
+      _iteratorError2 = err;
+    } finally {
+      try {
+        if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+          _iterator2["return"]();
+        }
+      } finally {
+        if (_didIteratorError2) {
+          throw _iteratorError2;
+        }
+      }
+    }
+  }
+
+  return result;
+}
 
 var StdLib = /*#__PURE__*/Object.freeze({
   typeName: typeName,
@@ -2478,8 +2546,11 @@ var StdLib = /*#__PURE__*/Object.freeze({
   length: length,
   zip: zip,
   partition: partition,
+  reverse: reverse,
   keys: keys,
-  values: values
+  values: values,
+  pairs: pairs,
+  fromPairs: fromPairs
 });
 
 var FAILURE_VALUE = {};
