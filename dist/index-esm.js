@@ -2311,34 +2311,6 @@ function typeName(item) {
 
       return _typeof(item);
   }
-}
-/**
- * If all items are objects, a new object with all the properties of all objects will be merged. If the same property
- * exists on multiple objects, the last object with that property wins.
- *
- * If the first item is an array, a new array will be created by appending all non-array items and concatenating all
- * array items.
- *
- * @param {Object|Array} items
- * @returns {Object|Array|undefined}
- */
-
-function merge() {
-  for (var _len = arguments.length, items = new Array(_len), _key = 0; _key < _len; _key++) {
-    items[_key] = arguments[_key];
-  }
-
-  if (items.length > 0 && Array.isArray(items[0])) {
-    var _items$;
-
-    return (_items$ = items[0]).concat.apply(_items$, _toConsumableArray(items.slice(1)));
-  } else if (items.every(function (item) {
-    return isObject(item);
-  })) {
-    return Object.assign.apply(Object, [{}].concat(items));
-  }
-
-  return undefined;
 } // Array related functions
 
 /**
@@ -2446,6 +2418,9 @@ function partition(items, count, advance) {
 
 function reverse(items) {
   return Array.isArray(items) ? items.slice().reverse() : undefined;
+}
+function sort(items, comparator) {
+  return Array.isArray(items) ? items.slice().sort(comparator) : undefined;
 } // Object related functions
 
 /**
@@ -2538,19 +2513,49 @@ function fromPairs(pairs) {
   }
 
   return result;
+} // Array and Object related
+
+/**
+ * If all items are objects, a new object with all the properties of all objects will be merged. If the same property
+ * exists on multiple objects, the last object with that property wins.
+ *
+ * If the first item is an array, a new array will be created by appending all non-array items and concatenating all
+ * array items.
+ *
+ * @param {Object|Array} items
+ * @returns {Object|Array|undefined}
+ */
+
+function merge() {
+  for (var _len = arguments.length, items = new Array(_len), _key = 0; _key < _len; _key++) {
+    items[_key] = arguments[_key];
+  }
+
+  if (items.length > 0 && Array.isArray(items[0])) {
+    var _items$;
+
+    return (_items$ = items[0]).concat.apply(_items$, _toConsumableArray(items.slice(1)));
+  } else if (items.every(function (item) {
+    return isObject(item);
+  })) {
+    return Object.assign.apply(Object, [{}].concat(items));
+  }
+
+  return undefined;
 }
 
 var StdLib = /*#__PURE__*/Object.freeze({
   typeName: typeName,
-  merge: merge,
   length: length,
   zip: zip,
   partition: partition,
   reverse: reverse,
+  sort: sort,
   keys: keys,
   values: values,
   pairs: pairs,
-  fromPairs: fromPairs
+  fromPairs: fromPairs,
+  merge: merge
 });
 
 var FAILURE_VALUE = {};
