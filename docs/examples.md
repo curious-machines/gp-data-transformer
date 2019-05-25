@@ -26,7 +26,7 @@ For this example, we'll assume we have a JSON file named `reverse-key-values.jso
 ## Create an array of keys and values
 
 ```bash
-cat reverse-key-values.json | dt '[keys($),values($)]' -i
+cat reverse-key-values.json | dt '[keys,values]' -i
 ```
 
 ```
@@ -38,7 +38,7 @@ cat reverse-key-values.json | dt '[keys($),values($)]' -i
 Each element in the resulting array is a 2-element array where the first element is the key and the second element is the value.
 
 ```bash
-cat reverse-key-values.json | dt 'zip([keys($),values($)])' -i
+cat reverse-key-values.json | dt 'zip([keys,values])' -i
 ```
 
 ```
@@ -50,7 +50,7 @@ cat reverse-key-values.json | dt 'zip([keys($),values($)])' -i
 Now we convert each element in the zipped array into objects, with key/values reversed
 
 ```bash
-cat reverse-key-values.json | dt 'map(zip([keys($),values($)]), { $.1 : $.0 })' -i
+cat reverse-key-values.json | dt 'map(zip([keys,values]), { $.1 : $.0 })' -i
 ```
 
 ```
@@ -62,7 +62,7 @@ cat reverse-key-values.json | dt 'map(zip([keys($),values($)]), { $.1 : $.0 })' 
 `map` returns an array but `merge` needs each object to be a separate parameter. We can convert the array to parameters using the spread (...) operator.
 
 ```bash
-cat reverse-key-values.json | dt 'merge(...map(zip([keys($),values($)]), { $.1 : $.0 }))' -i
+cat reverse-key-values.json | dt 'merge(...map(zip([keys,values]), { $.1 : $.0 }))' -i
 ```
 
 ```
@@ -74,7 +74,7 @@ cat reverse-key-values.json | dt 'merge(...map(zip([keys($),values($)]), { $.1 :
 Alternately, we can generate the array of key/value pairs using the `pairs` functions.
 
 ```bash
-cat reverse-key-values.json | dt 'merge(...map(pairs($), { $[1]: $[0] }))' -i
+cat reverse-key-values.json | dt 'merge(...map(pairs, { $[1]: $[0] }))' -i
 ```
 
 ```
@@ -84,7 +84,7 @@ cat reverse-key-values.json | dt 'merge(...map(pairs($), { $[1]: $[0] }))' -i
 As another alternate, we can use `pairs`, `reverse`, and `fromPairs`.
 
 ```bash
-cat reverse-key-values.json | dt 'fromPairs(map(pairs($), reverse($)))' -i
+cat reverse-key-values.json | dt 'fromPairs(map(pairs, reverse))' -i
 ```
 
 ```
