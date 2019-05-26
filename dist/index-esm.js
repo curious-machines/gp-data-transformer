@@ -2981,7 +2981,6 @@ function () {
                 }
 
                 if (currentObject === FAILURE_VALUE) {
-                  // this.addError("Sequence failed");
                   return FAILURE_VALUE;
                 }
               }
@@ -3236,6 +3235,7 @@ function () {
                 var _value4 = this.executeExpression(element, structure, objectSymbolTable);
 
                 if (_value4 === FAILURE_VALUE) {
+                  this.addError("Unable to evaluate assignment value for ".concat(element.name));
                   return FAILURE_VALUE;
                 }
 
