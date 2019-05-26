@@ -1,5 +1,10 @@
-type Polyline = {
-    points:
-        ListOfCoords(coords) <= { points: [ (number, number); 0..] as coords };
-        ListOfPoints(points) <= { points: [ { x: number, y: number }; 0.. ] as points }
-}
+def Polyline = {
+    "points":
+        sequences {
+            =~ { points: [ (number, number); 0.. as coords ] }
+            |> map(coords, Point2D(...$)),
+
+            =~ { points: [ { x: number, y: number }; 0.. ] as points }
+            |> map(points, Point2D($.x, $.y))
+        }
+};

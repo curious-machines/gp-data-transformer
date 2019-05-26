@@ -10,15 +10,20 @@ statements
 
 statement
   : assignment
-  | transformSequence
+  | sequence
   ;
 
 assignment
-  : LET IDENTIFIER = transformSequence
-  | DEF IDENTIFIER = transformSequence
+  : LET IDENTIFIER = sequence
+  | DEF IDENTIFIER = sequence
   ;
 
-transformSequence
+sequences
+  : sequences , sequence
+  | sequence
+  ;
+
+sequence
   : steps
   ;
 
@@ -30,13 +35,13 @@ steps
 step
   : =~ pattern
   | expression
-  | SEQ IDENTIFIER
   ;
 
 expression
   : mathExpression
-  | MAP ( expression , transformSequence )
-  | MATCH ( patterns )
+  | MAP ( expression , sequence )
+  | PATTERNS { patterns }
+  | SEQUENCES { sequences }
   ;
 
 mathExpression
@@ -99,7 +104,7 @@ expressionProperties
   ;
 
 expressionProperty
-  : expression : transformSequence
+  : expression : sequence
   | expression
   | assignment
   ;

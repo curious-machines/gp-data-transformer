@@ -1,58 +1,37 @@
-// # Rectangle
-//
-// A rectangle has:
-//
-// - a top-left point
-// - a bottom-right point
-//
-// The top-left point is defined by:
-//
-// - an object named `topLeft` with 'x' and 'y' number properties
-// - or a 2-element array of numbers named topLeft
-// - or a number named x
-//      - and a number named y
-// - or a number named `top`
-//      - and a number named `left`
-//
-// The bottom-right point is defined by:
-//
-// - an object named `bottomRight` with `x` and `y` number properties
-// - or a 2-element array of numbers name `bottomRight`
-// - or a number property named `w` that is added to `topLeft.x`
-//      - and a number property named `h` that is added to `topLeft.y`
-// - or a number property named `width` that is added to `topLeft.x`
-//      - and a number property named `height` that is added to `topLeft.y`
-// - or an object named size with `x` and `y` properties added to `topLeft`
-// - or a 2-element array of numbers added to `topLeft`
-
-type Rectangle = {
-    // collect top-left point in case we need to do math with it for
-    // bottom-right
+def Rectangle = {
     topLeft =
-        // could also be _
-        { x, y } <=
-                { topLeft: { x: number as x, y: number as y } }
-            |   { topLeft: [ number as x, number as y ] }
-            |   { x: number as x, y: number as y }
-            |   { top: number as x, left: number as y };
+        patterns {
+            { topLeft: { x: number as x, y: number as y } },
+            { topLeft: [ number as x, number as y ] },
+            { x: number as x, y: number as y },
+            { top: number as x, left: number as y }
+        } |> { "x", "y" },
 
     topLeft:
         Point2D(topLeft.x, topLeft.y),
 
     bottomRight:
-        Point2D(x, y) <=
-                { bottomRight: { x: number as x, y: number as y } }
-            |   { bottomRight: [ number as x, number as y ] };
-        Point2D(topLeft.x + w, topLeft.y + h) <=
-                { w: number as w, h: number as h }
-            |   { width: number as w, height: number as h }
-            |   { size: { x: number as w, y: number as h } }
-            |   { size: [ number as w, number as h ] },
+        sequences {
+            patterns {
+                { bottomRight: { x: number as x, y: number as y } },
+                { bottomRight: [ number as x, number as y ] }
+            } |> Point2D(x, y),
+            patterns {
+                { w: number as w, h: number as h },
+                { width: number as w, height: number as h },
+                { size: { x: number as w, y: number as h } },
+                { size: [ number as w, number as h ] },
+            } |> Point2D(topLeft.x + w, topLeft.y + h)
+        },
 
     rx:
-        rx <= { rx: number as rx };
-        0 <= any,
+        sequences {
+            { rx: number as rx } |> rx,
+            any |> 0
+        },
     ry:
-        ry <= { ry: number as ry };
-        0 <= any
-}
+        sequences {
+            { ry: number as ry } |> ry,
+            any |> 0
+        }
+};
