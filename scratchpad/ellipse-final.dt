@@ -15,9 +15,9 @@ def Radii =
     ) |> { "rx", "ry" };
 
 def Ellipse = {
-    let radii = seq Radii,
+    let radii = Radii,
 
-    "center": seq Center,
+    "center": Center,
     "radiusX": radii.rx,
     "radiusY": radii.ry
 };
