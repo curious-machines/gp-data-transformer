@@ -1,5 +1,5 @@
 def Rectangle = {
-    topLeft =
+    let topLeft =
         patterns {
             { topLeft: { x: number as x, y: number as y } },
             { topLeft: [ number as x, number as y ] },
@@ -7,10 +7,10 @@ def Rectangle = {
             { top: number as x, left: number as y }
         } |> { "x", "y" },
 
-    topLeft:
+    "topLeft":
         Point2D(topLeft.x, topLeft.y),
 
-    bottomRight:
+    "bottomRight":
         sequences {
             patterns {
                 { bottomRight: { x: number as x, y: number as y } },
@@ -20,18 +20,18 @@ def Rectangle = {
                 { w: number as w, h: number as h },
                 { width: number as w, height: number as h },
                 { size: { x: number as w, y: number as h } },
-                { size: [ number as w, number as h ] },
+                { size: [ number as w, number as h ] }
             } |> Point2D(topLeft.x + w, topLeft.y + h)
         },
 
-    rx:
+    "rx":
         sequences {
-            { rx: number as rx } |> rx,
-            any |> 0
+            =~ { rx: number as rx } |> rx,
+            =~ any |> 0
         },
-    ry:
+    "ry":
         sequences {
-            { ry: number as ry } |> ry,
-            any |> 0
+            =~ { ry: number as ry } |> ry,
+            =~ any |> 0
         }
 };

@@ -1,15 +1,15 @@
-type RectangleArgs = {
-    elements =
-        // could also be _
-        { x, y, width, height, rx, ry } <=
-                [ number as x, number as y, number as width, number as height ]
-            |   [ number as x, number as y, number as width, number as height, number as rx, number as ry ]
-            |   [ { x: number as x, y: number as y }, { x: number as width, y: number as height } ]
-            |   [ { x: number as x, y: number as y }, { x: number as width, y: number as height }, { rx: number as rx, ry: number as ry } ]
-            |   [ { x: number as x, y: number as y }, { x: number as width, y: number as height }, { radiusX: number as rx, radiusY: number as ry } ];
+def RectangleArgs = {
+    let elements =
+        patterns {
+            [ number as x, number as y, number as width, number as height ],
+            [ number as x, number as y, number as width, number as height, number as rx, number as ry ],
+            [ { x: number as x, y: number as y }, { x: number as width, y: number as height } ],
+            [ { x: number as x, y: number as y }, { x: number as width, y: number as height }, { rx: number as rx, ry: number as ry } ],
+            [ { x: number as x, y: number as y }, { x: number as width, y: number as height }, { radiusX: number as rx, radiusY: number as ry } ]
+        } |> { "x", "y", "width", "height", "rx", "ry" },
 
-    topLeft: Point2D(elements.x, elements.y),
-    bottomRight: Point2D(elements.x + elements.width, elements.y + elements.height),
-    rx: elements.rx,
-    ry: elements.ry
-}
+    "topLeft": Point2D(elements.x, elements.y),
+    "bottomRight": Point2D(elements.x + elements.width, elements.y + elements.height),
+    "rx": elements.rx,
+    "ry": elements.ry
+};
