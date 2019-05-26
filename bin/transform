@@ -115,15 +115,6 @@ function transform(transformer, structures) {
     for (const structure of structures) {
         const result = transformer.execute(source, structure);
 
-        // show errors and warnings
-        if (transformer.messages.length > 0) {
-            for (const message of transformer.messages) {
-                say(`  ${message.level}: ${message.message}`);
-            }
-
-            say();
-        }
-
         // process result
         if (result !== FAILURE_VALUE) {
             // always display result
@@ -133,6 +124,15 @@ function transform(transformer, structures) {
             success = false;
 
             say(`Failed to match: ${prettify(structure)}`);
+        }
+
+        // show errors and warnings
+        if (transformer.messages.length > 0) {
+            for (const message of transformer.messages) {
+                say(`  ${message.level}: ${message.message}`);
+            }
+
+            say();
         }
     }
 
