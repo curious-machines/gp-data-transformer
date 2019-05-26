@@ -15,6 +15,7 @@ statement
 
 assignment
   : LET IDENTIFIER = transformSequence
+  | DEF IDENTIFIER = transformSequence
   ;
 
 transformSequence
@@ -29,11 +30,13 @@ steps
 step
   : =~ pattern
   | expression
+  | SEQ IDENTIFIER
   ;
 
 expression
   : mathExpression
   | MAP ( expression , transformSequence )
+  | MATCH ( patterns )
   ;
 
 mathExpression
@@ -96,7 +99,7 @@ expressionProperties
   ;
 
 expressionProperty
-  : expression : expression
+  : expression : transformSequence
   | expression
   | assignment
   ;
@@ -108,12 +111,11 @@ argumentList
 
 argument
   : expression
-  | ... IDENTIFIER
-  | ... $
+  | ... expression
   ;
 
 patterns
-  : patterns | namedPattern
+  : patterns , namedPattern
   | namedPattern
   ;
 
