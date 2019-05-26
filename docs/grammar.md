@@ -33,7 +33,7 @@ steps
   ;
 
 step
-  : =~ pattern
+  : =~ namedPattern
   | expression
   ;
 
