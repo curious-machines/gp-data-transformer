@@ -1,18 +1,18 @@
 def Center =
-    match(
+    patterns {
         { center: { x: number as x, y: number as y } },
         { center: [ number as x, number as y ] },
         { cx: number as x, cy: number as y },
         { centerX: number as x, centerY: number as y }
-    ) |> Point2D(x, y);
+    } |> Point2D(x, y);
 
 def Radii =
-    match(
+    patterns {
         { radii: { x: number as rx, y: number as ry } },
         { radii: [ number as rx, number as ry ] },
         { rx: number as rx, ry: number as ry },
         { radiusX: number as rx, radiusY: number as ry }
-    ) |> { "rx", "ry" };
+    } |> { "rx", "ry" };
 
 def Ellipse = {
     let radii = Radii,
