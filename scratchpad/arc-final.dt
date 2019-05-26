@@ -1,0 +1,39 @@
+def Center =
+    patterns {
+        { center: { x: number as x, y: number as y } },
+        { center: [ number as x, number as y ] },
+        { cx: number as x, cy: number as y },
+        { centerX: number as x, centerY: number as y }
+    } |> Point2D(x, y);
+
+def Radii =
+    patterns {
+        { radii: { x: number as rx, y: number as ry } },
+        { radii: [ number as rx, number as ry ] },
+        { rx: number as rx, ry: number as ry },
+        { radiusX: number as rx, radiusY: number as ry }
+    } |> { "rx", "ry" };
+
+def Arc = {
+    let radii = Radii,
+
+    "center": Center,
+    "radiusX": radii.rx,
+    "radiusY": radii.ry,
+    "startRadians": =~ number,
+    "endRadians": =~ number
+};
+
+def ArcArgs = {
+    let elements =
+        patterns {
+            [ number as centerX, number as centerY, number as radiusX, number as radiusY, number as startRadians, number as endRadians ],
+            [ { x: number as centerX, y: number as centerY }, number as radiusX, number as radiusY, number as startRadians, number as endRadians ]
+        } |> { "centerX", "centerY", "radiusX", "radiusY", "startRadians", "endRadians" },
+
+    "center": Point2D(elements.centerX, elements.centerY),
+    "radiusX": elements.radiusX,
+    "radiusY": elements.radiusY,
+    "startRadians": elements.startRadians,
+    "endRadians": elements.endRadians
+};

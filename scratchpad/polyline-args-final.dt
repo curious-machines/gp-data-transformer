@@ -1,0 +1,10 @@
+def PolylineArgs = {
+    "points":
+        sequences {
+            =~ [ (number, number); 0.. as coords ]
+            |> map(coords, Point2D(...$)),
+
+            =~ [ { x: number, y: number }; 0.. ] as points
+            |> map(points, Point2D($.x, $.y))
+        }
+};

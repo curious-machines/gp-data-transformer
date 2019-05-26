@@ -1,0 +1,9 @@
+def Path = {
+    "segments":
+        =~ { d: string as data } |> data
+};
+
+def PathArgs = {
+    "segments":
+        =~ { d: string as data } |> data
+};
