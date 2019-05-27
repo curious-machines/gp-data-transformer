@@ -1,5 +1,5 @@
 /**
- * @module kld-data-transformer
+ * @module gp-data-transformer
  */
 
 export {default as Transformer, FAILURE_VALUE} from "./lib/Transformer.js";

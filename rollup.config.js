@@ -21,7 +21,7 @@ function getRollupObject({minifying, format = "umd"} = {}) {
             format,
             sourcemap: minifying,
             file: `dist/index-${format}${minifying ? ".min" : ""}.js`,
-            name: "KldDataTransformer"
+            name: "GpDataTransformer"
         },
         plugins: [
             babel({
