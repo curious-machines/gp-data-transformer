@@ -84,6 +84,9 @@ const transformer = new Transformer();
 transformer.addFunction("Point2D", (x, y) => { return {x, y} });
 transformer.addFunction("Vector2D", (u, v) => { return {u, v} });
 
+// load our transformation script
+transformer.execute(fs.readFileSync("./ellipse.dt", "utf-8"));
+
 // build a list of test data
 const samples = [
     {cx: 10, cy: 20, rx: 30, ry: 40},
@@ -95,9 +98,6 @@ const samples = [
     {center: [10, 20], rx: 30, ry: 40},
     {center: [10, 20], radii: [30, 40]}
 ];
-
-// load our transformation script
-transformer.execute(fs.readFileSync("./ellipse.dt", "utf-8"));
 
 // process each sample
 samples.forEach(sample => {
