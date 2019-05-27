@@ -1,4 +1,4 @@
-# kld-data-transformer
+# gp-data-transformer
 
 - [Installation](#installation)
 - [Importing](#importing)
@@ -8,13 +8,13 @@
 
 ---
 
-kld-data-transformer defines a DSL (Domain Specific Language) used to transform acyclic Javascript data into other formats. Incoming data can be pattern matched, capturing key elements in the data, and then transformed into new structures, using the captured data or more. This is currently being used in [kld-intersections](https://github.com/thelonious/kld-intersections) to allow users to describe geometric shapes in a wide variety of formats.
+gp-data-transformer defines a DSL (Domain Specific Language) used to transform acyclic Javascript data into other formats. Incoming data can be pattern matched, capturing key elements in the data, and then transformed into new structures, using the captured data or more. This is currently being used in [kld-intersections](https://github.com/thelonious/kld-intersections) to allow users to describe geometric shapes in a wide variety of formats.
 
 Note that I'm using Jison as the DSL's parser. It does not give friendly errors and I apologize for that. Future versions of this library are likely to use another parsing infrastructure.
 
 # Installation
 
-```npm install kld-data-transformer```
+```npm install gp-data-transformer```
 
 # Importing
 
@@ -23,13 +23,13 @@ The following sections indicate how you can import the code for use in various e
 ## Node
 
 ```javascript
-const {Transformer} = require("kld-data-transformer");
+const {Transformer} = require("gp-data-transformer");
 ```
 
 ## Browsers
 
 ```html
-<script src="./node_modules/kld-data-transformer/dist/index-umd.js"></script>
+<script src="./node_modules/gp-data-transformer/dist/index-umd.js"></script>
 <script>
   var Transformer = KldDataTransformer.Transformer;
 </script>
@@ -38,13 +38,13 @@ const {Transformer} = require("kld-data-transformer");
 ## Modern Browsers (ESM)
 
 ```javascript
-import {Transformer} from './node_modules/kld-data-transformer/dist/index-esm.js';
+import {Transformer} from './node_modules/gp-data-transformer/dist/index-esm.js';
 ```
 
 ## Bundlers
 
 ```javascript
-import {Transformer} from "kld-data-transformer";
+import {Transformer} from "gp-data-transformer";
 ```
 
 # Usage
