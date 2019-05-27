@@ -7,7 +7,7 @@
     - [Primitive Patterns](#primitive-patterns)
         - [Array Type Pattern](#array-type-pattern)
         - [Boolean and Boolean Type Patterns](#boolean-and-boolean-type-patterns)
-        - [Number and Number Type Patterns](#number-and-number-patterns)
+        - [Number and Number Type Patterns](#number-and-number-type-patterns)
         - [Object Type Pattern](#object-type-pattern)
         - [String and String Type Patterns](#string-and-string-type-patterns)
         - [Special Values](#special-values)
@@ -113,7 +113,7 @@ echo '[true]' | dt '=~ true'
 # fails
 ```
 
-### Number and Number Patterns
+### Number and Number Type Patterns
 
 We can match any number with `number` or specific numbers by using the number itself as the pattern.
 
@@ -452,7 +452,7 @@ echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third] |> {"fir
 
 ## Simple Operators
 
-There is a very limited set of operations that can be performed on data inside of a generator:
+There is a limited set of operations that can be performed on data inside of an expression:
 
 - addition with numbers only
 - subtraction with numbers only
