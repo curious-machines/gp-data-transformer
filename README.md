@@ -131,22 +131,28 @@ For a more in-depth description of the data-transform format, be sure to have a 
 You can transform data from the command-line as well:
 
 ```bash
-dt -d my-definitions-script.dt -j my-data-file.json 'type MyType'
+echo '{"a": 10}' | dt '$.a'
 ```
 
-If your normalization file needs to load type creators into the normalizer, you can use the following:
+If your script needs to load functions into the environment, you can use the following:
 
 ```bash
-dt -d my-definitions-script.dt -r my-normalization-module.js -j my-data-file.json 'type MyType'
+echo '{"x": 10, "y": 20}' | dt -r affine.js 'Point2D($.x, $.y)'
 ```
 
-If your data is an array of objects to test, you can add the `-a` option to test each element separately:
+All exported names in the affine.hs module will be added as functions, using their exported names as the function names.
+
+If your data is an array of test objects, you can add the `-a` option to test each element separately:
 
 ```bash
-dt -d my-definitions-script.dt -r my-normalization-module.js -a -j my-data-file.json 'type MyType'
+echo '[{"x": 10, "y": 20}, {"x": 30, "y": 40}]' | dt -a -r affine.js 'Point2D($.x, $.y)'
 ```
 
-All exported names in the module will be added as functions, using their exported names.
+For comparison, if you wish to process the entire array in your script, you can use `map` to traverse the items of the array.
+
+```bash
+echo '[{"x": 10, "y": 20}, {"x": 30, "y": 40}]' | dt -r affine.js 'map($, Point2D($.x, $.y))'
+```
 
 # Links and Related Projects
 
