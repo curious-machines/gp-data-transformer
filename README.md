@@ -124,7 +124,7 @@ The above code creates a new transform and adds user-defined functions for Point
 { "center": { "x": 10, "y": 20 }, "radii": { "u": 30, "v": 40 } }
 ```
 
-For a more in-depth description of the data-transform format, be sure to have a look at a ![the Guide](docs/guide.md).
+For a more in-depth description of the data-transform format, be sure to have a look at a [the Guide](docs/guide.md).
 
 # Command Line
 
@@ -150,5 +150,7 @@ All exported names in the module will be added as functions, using their exporte
 
 # Links and Related Projects
 
-- WIP: [Guide](https://github.com/thelonious/kld-data-normalizer/blob/master/docs/guide.md)
+- [Guide](docs/guide.md)
+- [Examples](docs/examples/examples.md)
+- [JQ Tutorial](docs/jq-tutorial.md)
 - [kld-intersections](https://github.com/thelonious/kld-intersections)
