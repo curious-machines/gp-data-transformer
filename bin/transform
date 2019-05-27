@@ -84,7 +84,11 @@ function main(module) {
         });
 
         process.stdin.on("end", () => {
-            transform(transformer, JSON.parse(dataSource));
+            const data = (dataSource.toString().trim() === "undefined")
+                ? undefined
+                : JSON.parse(dataSource);
+
+            transform(transformer, data);
         });
     }
 }
