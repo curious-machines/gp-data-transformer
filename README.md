@@ -157,6 +157,7 @@ echo '[{"x": 10, "y": 20}, {"x": 30, "y": 40}]' | dt -r affine.js 'map($, Point2
 # Links and Related Projects
 
 - [Guide](docs/guide.md)
+- [WIP]: [Standard Library](docs/standard-library.md)
 - [Examples](docs/examples/examples.md)
 - [JQ Tutorial](docs/jq-tutorial.md)
 - [kld-intersections](https://github.com/thelonious/kld-intersections)
