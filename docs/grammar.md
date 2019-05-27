@@ -1,6 +1,7 @@
 ```bnf
 program
   : statements
+  | statements ;
   ;
 
 statements
