@@ -18,11 +18,12 @@ const useInspect = "i" in argv;
 const argCount = Object.keys(argv).length + argv._.length - 2; // exclude '_' and '$0'
 
 function usage() {
-    console.log(`normalizer [-h] [-i] [-q] [-a] [-r <module>] [-s <script-file>] <source-data> <dt-script>
+    console.log(`normalizer [-h] [-i] [-q] [-a] [-r <module>] [-d <script-file> ] [-s <script-file>] <source-data> <dt-script>
     
     <source-data> = (-j <json-file> | stdin)
 
     a - treat data as an array and transform each element separately
+    d - run a script file once before processing data. This is usually used to load the environment with definitions
     h - show this info
     j - grab data from specified JSON file. When not present and no redirected data, transform against 'undefined'
     i - use util.inspect for output. Will use color unless output is being redirected
@@ -89,6 +90,17 @@ function main(module) {
 }
 
 function transform(transformer, structures) {
+    if ("d" in argv) {
+        const result = transformer.execute(fs.readFileSync(path.resolve(argv.d), "utf-8"));
+
+        if (result === FAILURE_VALUE) {
+            console.log("An error occurred while processing the definitions file");
+
+            showMessages(transformer);
+            process.exit(1);
+        }
+    }
+
     // make sure data is an array
     if ("a" in argv === false || Array.isArray(structures) === false) {
         structures = [structures];
@@ -127,16 +139,20 @@ function transform(transformer, structures) {
         }
 
         // show errors and warnings
-        if (transformer.messages.length > 0) {
-            for (const message of transformer.messages) {
-                say(`  ${message.level}: ${message.message}`);
-            }
-
-            say();
-        }
+        showMessages(transformer);
     }
 
     process.exit(success ? 0 : 1);
+}
+
+function showMessages(transformer) {
+    if (transformer.messages.length > 0) {
+        for (const message of transformer.messages) {
+            say(`  ${message.level}: ${message.message}`);
+        }
+
+        say();
+    }
 }
 
 if ("h" in argv || argCount === 0) {
