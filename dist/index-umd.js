@@ -1,7 +1,7 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.KldDataTransformer = {}));
+  (global = global || self, factory(global.GpDataTransformer = {}));
 }(this, function (exports) { 'use strict';
 
   function _typeof(obj) {
@@ -2681,6 +2681,17 @@
 
   function sort(items, comparator) {
     return Array.isArray(items) ? items.slice().sort(comparator) : undefined;
+  }
+  /**
+   * Return a string by concatenating a list of strings, delimiting each with another string
+   *
+   * @param {Array<string>} items
+   * @param {string} delimiter
+   * @returns {string}
+   */
+
+  function join(items, delimiter) {
+    return items.join(delimiter);
   } // Object related functions
 
   /**
@@ -2811,6 +2822,7 @@
     partition: partition,
     reverse: reverse,
     sort: sort,
+    join: join,
     keys: keys,
     values: values,
     pairs: pairs,
@@ -3873,7 +3885,7 @@
   }();
 
   /**
-   * @module kld-data-transformer
+   * @module gp-data-transformer
    */
 
   exports.FAILURE_VALUE = FAILURE_VALUE;

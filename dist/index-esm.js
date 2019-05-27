@@ -2675,6 +2675,17 @@ function reverse(items) {
 
 function sort(items, comparator) {
   return Array.isArray(items) ? items.slice().sort(comparator) : undefined;
+}
+/**
+ * Return a string by concatenating a list of strings, delimiting each with another string
+ *
+ * @param {Array<string>} items
+ * @param {string} delimiter
+ * @returns {string}
+ */
+
+function join(items, delimiter) {
+  return items.join(delimiter);
 } // Object related functions
 
 /**
@@ -2805,6 +2816,7 @@ var StdLib = /*#__PURE__*/Object.freeze({
   partition: partition,
   reverse: reverse,
   sort: sort,
+  join: join,
   keys: keys,
   values: values,
   pairs: pairs,
@@ -3867,7 +3879,7 @@ function () {
 }();
 
 /**
- * @module kld-data-transformer
+ * @module gp-data-transformer
  */
 
 export { FAILURE_VALUE, parser as Parser, Transformer };
