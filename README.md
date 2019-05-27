@@ -140,7 +140,7 @@ If your script needs to load functions into the environment, you can use the fol
 echo '{"x": 10, "y": 20}' | dt -r affine.js 'Point2D($.x, $.y)'
 ```
 
-All exported names in the affine.hs module will be added as functions, using their exported names as the function names.
+All exported names in the affine.js module will be added as functions, using their exported names as the function names.
 
 If your data is an array of test objects, you can add the `-a` option to test each element separately:
 
