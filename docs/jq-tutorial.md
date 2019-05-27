@@ -10,7 +10,7 @@ curl 'https://api.github.com/repos/stedolan/jq/commits?per_page=5' > temp.json
 
 # Show Data
 
-We can use cat to view what we downloaded using `cat`. We'll continue to use `cat` as a way to feed data to `dt`.
+We can view what we downloaded using `cat`. We'll start each command the same way to feed that data to `dt`.
 
 ```bash
 cat temp.json
@@ -26,7 +26,7 @@ cat temp.json | dt '$'
 
 # Extract first commit
 
-We know that the structure we are receiving is an array. We can extract the first element of that array using `$[0]`. Note that dot notation may also be used: `$.0`.
+We know that the structure we are receiving is an array. We can extract the first element of that array using `$[0]`. You may also use dot notation: `$.0`.
 
 ```bash
 cat temp.json | dt '$[0]'
@@ -37,7 +37,7 @@ cat temp.json | dt '$[0]'
 We would like to extract the committer's name and the commit message. Since we are returning more than one value, we need some kind of composite data structure. We could return each value as an element of an array, but we return an object since its properties serve as a form of documentation for our return value.
 
 ```bash
-cat temp.json | dt '{ message: $[0].commit.message, name: $[0].commit.committer.name }'
+cat temp.json | dt '{ "message": $[0].commit.message, "name": $[0].commit.committer.name }'
 ```
 
 Each property uses dot notation, something that should be familiar to anyone coming from Javascript.
@@ -47,7 +47,7 @@ Each property uses dot notation, something that should be familiar to anyone com
 We'd like to extract the committer and commit message for all items in the array. `map` allows us to process each element of an array. The result will be a new array where each element is the processed result of the origin element.
 
 ```bash
-cat temp.json | dt 'map($, { message: $.commit.message, name: $.commit.committer.name })'
+cat temp.json | dt 'map($, { "message": $.commit.message, "name": $.commit.committer.name })'
 ```
 
 Notice how the first argument to `map` is `$`. This refers the structure being passed into `dt`. The `$` in map's second argument refers to each element as it is being processed. That expression's current structure is the element being processed. 
@@ -57,5 +57,5 @@ Notice how the first argument to `map` is `$`. This refers the structure being p
 Expressions can be nested. In this last example, we process an element's `parents` array, mapping the elements of that array to their `html_url` property.
 
 ```bash
-cat temp.json | dt 'map($, { message: $.commit.message, name: $.commit.committer.name, parents: map($.parents, $.html_url) })'
+cat temp.json | dt 'map($, { "message": $.commit.message, "name": $.commit.committer.name, "parents": map($.parents, $.html_url) })'
 ```
