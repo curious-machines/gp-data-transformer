@@ -1,7 +1,8 @@
 # Guide
 
-- [Transformations](#transformations)
-    - [Identify Transform](#identify-transform)
+- [Sequences](#sequences)
+    - [Data Flow](data-flow)
+    - [Identify Step](#identify-step)
 - [Pattern Matchers](#pattern-matchers)
     - [Primitive Patterns](#primitive-patterns)
         - [Array Type Pattern](#array-type-pattern)
@@ -14,66 +15,56 @@
         - [Array Patterns](#array-patterns)
         - [Object Patterns](#object-patterns)
     - [Captures](#captures)
-- [Generators](#generators)
-    - [Array Generators](#array-generators)
-    - [Object Generators](#object-generators)
-    - [User-defined Generators](#user-defined-generators)
-- [Types](#types)
-    - [Primitive Types](#primitive-types)
-    - [Array Types](#array-types)
-    - [Object Types](#object-types)
-    - [Enumerations](#enumerations)
-    - [Assignments](#assignments)
-- [Naming Patterns, Generators, and Transforms](#naming-patterns-generators-and-transforms)
+- [Expressions](#expressions)
+    - [Array Expressions](#array-expressions)
+    - [Object Expressions](#object-expressions)
+- [Naming Sequences](#naming-sequences)
 - [Operators and Built-in Functions](#operators-and-built-in-functions)
     - [Repetition Operator](#repetition-operator)
+    - [User-defined Functions](#user-defined-functions)
 - [Grammar](#grammar)
 
 ---
 
-This guide will give a quick overview of the structure and purpose of the data-transform scripting language.
+This guide will gives a quick overview of the structure of the data transform scripting language. Note that the `dt` command-line tool will be used to demonstrate concepts, but all of these examples could be performed in code using this module directly.
 
-# Transformations
+# Sequences
 
-The heart of a data-transform script is the transform. This construct consists of two parts:
+The heart of a data transform script is the transform sequence. Sequences allow you to process data in stages. Each stage may be one of the following:
 
-- A list of one or more pattern matchers
-- A generator
+- A pattern match
+- An expression
+- A variable assignment
+- A patterns block
+- A sequences block
 
-The general syntax for a transformation is
-
-```
-generator <= pattern
-```
-
-Data flows from the right to the left. Even though there is no syntax for it, the following would describe the overall flow:
+A sequence may consist of a single step from the above list. However, if more than step is used, each step must be delimited by the `|>` operator. 
 
 ```
-result <= generator <= pattern <= data
+step |> step
 ```
+
+## Data Flow
+
+Data flows from the left to the right, or from step to step. Each step's data is referred to as the current structure. The first step's current structure is the data passed into script. Each step may process its incoming structure or generate a new structure, or some combination of the two.
 
 - We begin with some data on the right.
 - The data flows into the pattern matcher which extracts key elements from the data. These key elements are named and become the result of the pattern.
 - The generator receives a dictionary of captured items created by the pattern matcher. It constructs a new data structure, using a mixture of static content and captured values.
 - The structure output by the generator becomes the resulting value of the transform
 
-## Identify Transform
+## Identify Step
 
-The simplest transform is one that does nothing at all to its input. This is referred to as the identity transform and it expressed with the following syntax:
+The simplest step is one that does nothing to its current structure. The special symbol '$' refers to the current structure and can be used as the return value for that step. This can be referred to as an identity step.
 
 ```
-_
+echo '{"a": 10}' | dt '$'
+# results: {"a": 10}
 ```
-
-The `_` character is a special symbol that represents identity; transform identity in this case. This indicates that we wish do nothing to the incoming data. The data is passed through untouched. This might be useful for debugging purposes as a means of determining what is being input into your transform, but you're unlikely to use construct.
-
-Note that earlier I said that a transform has this form: `generator <= pattern`. It turns out that `_` is syntactic sugar for `_ <= _`. Both of those expressions do that exact same thing; return the input data untouched.
-
-Since data flows from right-to-left in our transform expression, pattern matchers (sometimes referred to as patterns by itself) are a good place to start when understanding what a transform does. We'll cover those next.
 
 # Pattern Matchers
 
-The purpose of a pattern matcher is to compare its pattern to the data coming into it. If the structure the pattern describes matches the incoming data, then the pattern succeeds. If the pattern does not match, it reports failure. What happens with failure depends on where the pattern is being executed, as will be discussed in later sections of this guide.
+The purpose of a pattern matcher is to compare its pattern against its current structure. If the pattern matches the current structure, then the pattern succeeds. If the pattern does not match, it reports failure. Each pattern begins with the `=~` symbol.
 
 ## Primitive Patterns
 
@@ -84,50 +75,40 @@ The simplest patterns are the primitive patterns. These match entire classes of 
 The `array` pattern 
 
 ```bash
-dt -e '_ <= array' '[1, 2, 3]'
-# returns {}
+echo '[1, 2, 3]' | dt '=~ array'
+# returns [1, 2, 3]
 
-dt -e '_ <= array' '{"a": 10}'
+echo '{"a": 10}' | dt '=~ array'
 # fails
 ```
 
-Now the first result may be a little surprising. It turns out that a pattern returns a dictionary of the content it captured. We haven't discussed captures, but that first expression captures nothing, so the return value is an empty object (which I'm loosely referring to as a dictionary). If we want the actual array, then we need to capture it and refer to that capture in our generator:
-
-```bash
-dt -e 'a <= array' '[1, 2, 3] as a'
-# returns [1, 2, 3]
-```
-
-If you're curious how we might match specific array structures, that will be covered in [Compound Patterns]](#compound-patterns).
+We can match specific array structures, which will be covered in [Compound Patterns]](#compound-patterns).
 
 ### Boolean Patterns
 
 Like the `array` pattern, we can match any boolean value using `boolean`
 
 ```bash
-dt -e '_ <= boolean' 'true'
-# returns {}
+echo 'true' | dt '=~ boolean'
+# returns true
 
-dt -e '_ <= boolean' 'false'
-# returns {}
+echo 'false' | dt '=~ boolean'
+# returns false
 
-dt -e '_ <= boolean' '[true]'
+echo '[true]' | dt '=~ boolean'
 # fails
 ```
 
 In cases where you want to match a specific boolean value, you can use `true` and `false` directly
 
 ```bash
-dt -e '_ <= true' 'true'
-# returns {}
+echo 'true' | dt '=~ true'
+# returns true
 
-dt -e '_ <= true' 'false'
+echo 'false' | dt '=~ true'
 # fails
 
-dt -e '_ <= true' 'true'
-# returns {}
-
-dt -e '_ <= true' '[true]'
+echo '[true]' | dt '=~ true'
 # fails
 ```
 
@@ -136,16 +117,16 @@ dt -e '_ <= true' '[true]'
 We can match any number with `number` or specific numbers by using the number itself as the pattern.
 
 ```bash
-dt -e '_ <= number' '10'
-# returns {}
+echo '10' | dt '=~ number'
+# returns 10
 
-dt -e '_ <= number' 'true'
+echo 'true' | dt '=~ number'
 # fails
 
-dt -e '_ <= 3.14' '3.14'
-# returns {}
+echo '3.14' | dt '=~ 3.14'
+# returns 3.14
 
-dt -e '_ <= 3.14' '"pi"'
+echo '"pi"' | dt '=~ 3.14'
 # fails
 ```
 
@@ -154,16 +135,16 @@ dt -e '_ <= 3.14' '"pi"'
 If we want to know if a given piece of data is an object, we can use the `object` pattern. Note that this test will return true when matching against Javascript objects and arrays because they each can have properties. Also note that Javascript will return "object" when using `typeof` on `null`. This pattern will fail against `null`.
 
 ```bash
-dt -e '_ <= object' '{"a": true}'
-# returns {}
+echo '{"a": true}' | dt '=~ object'
+# returns {"a": true}
 
-dt -e '_ <= object' '[true]'
-# returns {}
+echo '[true]' | dt '=~ object'
+# returns [true]
 
-dt -e '_ <= object' 'null'
+echo 'null' | dt '=~ object'
 # fails
 
-dt -e '_ <= object' '10'
+echo '10' | dt '=~ object'
 # fails
 ```
 
@@ -172,16 +153,16 @@ dt -e '_ <= object' '10'
 We can match any string with `string` or a specific string by using the string itself.
 
 ```bash
-dt -e '_ <= string' '"test"'
-# returns {}
+echo '"test"' | dt '=~ string'
+# returns "test"
 
-dt -e '_ <= string' 'true'
+echo 'true' | dt '=~ string'
 # fails
 
-dt -e '_ <= "name"' '"name"'
-# returns {}
+echo '"name"' | dt '=~ "name"'
+# returns "name"
 
-dt -e '_ <= "name"' '"last"'
+echo '"last"' | dt '=~ "name"'
 # fails
 ```
 
@@ -190,56 +171,36 @@ dt -e '_ <= "name"' '"last"'
 It is possible to match `null` using the `null` pattern and to match `undefined` using the `undefined` pattern.
 
 ```bash
-dt -e '_ <= null' 'null'
-# returns {}
+echo 'null' | dt '=~ null'
+# returns null
 
-dt -e '_ <= null' 'undefined'
+echo 'undefined' | dt '=~ null'
 # fails
 
-dt -e '_ <= undefined' 'undefined'
-# returns {}
+echo 'undefined' | dt '=~ undefined'
+# returns undefined
 
-dt -e '_ <= undefined' 'null'
+echo 'null' | dt '=~ undefined'
 # fails
 ```
 
 Sometimes you don't care about the type of the data you are matching. In these cases you can use `any` to match anything.
 
 ```bash
-dt -e '_ <= any' 'null'
-# returns {}
+echo 'null' | dt '=~ any'
+# returns null
 
-dt -e '_ <= any' 'undefined'
-# returns {}
+echo 'undefined' | dt '=~ any'
+# returns undefined
 
-dt -e '_ <= any' 'true'
-# returns {}
-
-dt -e '_ <= any' '[1, 2, 3]'
-# returns {}
-
-dt -e '_ <= any' '{"a": true}'
-# returns {}
-```
-
-We've already touched on the identity transform. In it's slightly longer form, `_ <= _`, we see that there is a `_` pattern. This is the identity pattern.
-
-Unlike other patterns, this will pass through its input untouched. This means on success, we will not see `{}`. We will see the actual input data. This can be useful when you only wish to manipulate and re-arrange the incomging data, which is the roll of the generator.
-
-Note that like `any` this pattern will always succeed.
-
-```bash
-dt -e '_ <= _' '{"a": 10, "b": true}'
-# returns {}
-
-dt -e '_ <= _' 'undefined'
-# reports undefined
-
-dt -e '_ <= _' 'true'
+echo 'true' | dt '=~ any'
 # returns true
 
-dt -e '_ <= _' '[1, 2, 3]'
-# returns [1, 2, 3]
+echo '[1, 2, 3]' | dt '=~ any'
+# returns [1, 2, 3[
+
+echo '{"a": true}' | dt '=~ any'
+# returns {"a": true}
 ```
 
 ## Compound Patterns
@@ -249,67 +210,67 @@ dt -e '_ <= _' '[1, 2, 3]'
 An array pattern is simply a comma-delimited list of other patterns (can be primitive our more compound patterns) surrounded by square brackets.
 
 ```bash
-dt -e '_ <= []' '[]'
+echo '[]' | dt '=~ []'
 # returns {}
 
-dt -e '_ <= []' '[1]'
+echo '[1]' | dt '=~ []'
 # fails
 
-dt -e '_ <= [number]' '[1]'
+echo '[1]' | dt '=~ [number]'
 # returns {}
 
-dt -e '_ <= [number]' '[1, 2]'
+echo '[1, 2]' | dt '=~ [number]'
 # fails
 ```
 
 One thing you may notice is that the number of patterns and the number of items in the current object need to be the same. You may not always know the exact number, but you may know a range of acceptable values. You can use the repetition operator to indicate these ranges:
 
 ```bash
-dt -e '_ <= [number; 1..2]' '[]'
+echo '[]' | dt '=~ [number; 1..2]'
 # fails
 
-dt -e '_ <= [number; 1..2]' '[1]'
+echo '[1]' | dt '=~ [number; 1..2]'
 # returns {}
 
-dt -e '_ <= [number; 1..2]' '[1, 2]'
+echo '[1, 2]' | dt '=~ [number; 1..2]'
 # returns {}
 
-dt -e '_ <= [number; 1..2]' '[1, 2, 3]'
+echo '[1, 2, 3]' | dt '=~ [number; 1..2]'
 # fails
 ```
 
 Any element pattern can have it's own repetition
 
 ```bash
-dt -e '_ <= [number; 1..2, string; 1..2]' '[10, "hello"]'
+echo '[10, "hello"]' | dt '=~ [number; 1..2, string; 1..2]'
 # returns {}
 
-dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, "hello"]'
+echo '[10, 20, "hello"]' | dt '=~ [number; 1..2, string; 1..2]'
 # returns {}
 
-dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, "hello", "world"]'
+echo '[10, 20, "hello", "world"]' | dt '=~ [number; 1..2, string; 1..2]'
 # returns {}
 
-dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, 30, "hello", "world"]'
+echo '[10, 20, 30, "hello", "world"]' | dt '=~ [number; 1..2, string; 1..2]'
 # fails
 
-dt -e '_ <= [number; 1..2, string; 1..2]' '[10, 20, "hello", "world", "!"]'
+echo '[10, 20, "hello", "world", "!"]' | dt '=~ [number; 1..2, string; 1..2]'
 # fails
 ```
 
-If you have a repeating sequence of types, you can group elements using parenthese
+If you have a repeating sequence of types, you can group elements using parentheses
 
 ```bash
-dt -e '_ <= [(number, string); 1..2]' '[]'
+echo '[]' | dt '=~ [(number, string); 1..2]'
 # fails
 
-dt -e '_ <= [(number, string); 1..2]' '[10, "hello"]'
+echo '[10, "hello"]' | dt '=~ [(number, string); 1..2]'
 # returns {}
 
-dt -e '_ <= [(number, string); 1..2]' '[10, "hello", 20, "world"]'
+echo '[10, "hello", 20, "world"]' | dt '=~ [(number, string); 1..2]'
 # returns {}
 
-dt -e '_ <= [(number, string); 1..2]' '[10, "hello", 20, "world", 30, "!"]'
+echo '[10, "hello", 20, "world", 30, "!"]' | dt '=~ [(number, string); 1..2]'
 # fails
 ```
 
@@ -318,22 +279,22 @@ dt -e '_ <= [(number, string); 1..2]' '[10, "hello", 20, "world", 30, "!"]'
 An object pattern is a comma-delimited list of key/value pairs. The key is a property name and the value is a pattern (can be primitive our more compound patterns) surrounded by curly braces.
 
 ```bash
-dt -e '_ <= {}' '{}'
+echo '{}' | dt '=~ {}'
 # returns {}
 
-dt -e '_ <= {}' '{"a": true}'
+echo '{"a": true}' | dt '=~ {}'
+# returns {"a": true}
+
+echo '{"a": true}' | dt '=~ {a: boolean}'
 # returns {}
 
-dt -e '_ <= {a: boolean}' '{"a": true}'
-# returns {}
-
-dt -e '_ <= {a: number}' '{"a": true}'
+echo '{"a": true}' | dt '=~ {a: number}'
 # fails
 
-dt -e '_ <= {a: boolean}' '{"a": 10}'
+echo '{"a": 10}' | dt '=~ {a: boolean}'
 # fails
 
-dt -e '_ <= {a: boolean}' '{"a": true, "b": 10}'
+echo '{"a": true, "b": 10}' | dt '=~ {a: boolean}'
 # returns {}
 ```
 
@@ -348,16 +309,16 @@ In the [Array Type Pattern](#array-type-pattern) section, we showed a way to ret
 When a pattern successfully matches the current object, it returns a dictionary. You most likely noticed that all of our pattern matches returned `{}`. This is the empty dictionary. We use captures to place items into that dictionary, to give our generators access to the data that was captured.
 
 ```bash
-dt -e 'a <= [number as a, number]' '[1, 2]'
+echo '[1, 2]' | dt '=~ [number as a, number] |> a'
 # returns 1
 
-dt -e 'a <= {first: number as a}' '{"first": 10, "second": 20}'
+echo '{"first": 10, "second": 20}' | dt '=~ {first: number as a} |> a'
 # returns 10
 
-dt -e 'a <= [number, number] as a' '[1, 2]'
+echo '[1, 2]' | dt '=~ [number, number] as a |> a'
 # returns [1, 2]
 
-dt -e 'a <= {first: number} as a' '{"first": 10, "second": 20}'
+echo '{"first": 10, "second": 20}' | dt '=~ {first: number} as a |> a'
 # returns { first: 10, second: 20 }
 ```
 
@@ -365,150 +326,128 @@ Notice that we can extract specific elements of an array, specific property valu
 
 ### Captures in Arrays
 
-Arrays give all sorts of options for capturing and building intermediate structures for your generators.
+Arrays give all sorts of options for capturing and building intermediate structures for your generators. Below is a wide array of examples.
 
 ```bash
-dt -e '_ <= [ number as n3 ]' '[10]'
+echo '[10]' | dt '=~ [ number as n3 ]'
 # returns { n3: 10 }
 
-dt -e '_ <= [ number; 2 as n3 ]' '[10,20]'
+echo '[10,20]' | dt '=~ [ number; 2 as n3 ]'
 # returns { n3: [ 10, 20 ] }
 
-dt -e '_ <= [ (number; 2, number; 2) as n3 ]' '[10,20,30,40]'
+echo '[10,20,30,40]' | dt '=~ [ (number; 2, number; 2) as n3 ]'
 # returns { n3: [ 10, 20, 30, 40 ] }
 
-dt -e '_ <= [ (number; 2, number; 2); 2 as n3 ]' '[10,20,30,40,50,60,70,80]'
+echo '[10,20,30,40,50,60,70,80]' | dt '=~ [ (number; 2, number; 2); 2 as n3 ]'
 # returns { n3: [ [ 10, 20, 30, 40 ], [ 50, 60, 70, 80 ] ] }
 
-dt -e '_ <= [ (number as n1, number as n2) ]' '[10,20]'
+echo '[10,20]' | dt '=~ [ (number as n1, number as n2) ]'
 # returns { n1: 10, n2: 20 }
 
-dt -e '_ <= [ (number as n1, number as n2); 2 ]' '[10,20,30,40]'
+echo '[10,20,30,40]' | dt '=~ [ (number as n1, number as n2); 2 ]'
 # returns { n1: [ 10, 30 ], n2: [ 20, 40 ] }
 
-dt -e '_ <= [ (number as n1, number as n2) as n3 ]' '[10,20]'
+echo '[10,20]' | dt '=~ [ (number as n1, number as n2) as n3 ]'
 # returns { n1: 10, n2: 20, n3: [ 10, 20 ] }
 
-dt -e '_ <= [ (number as n1, number as n2); 2 as n3 ]' '[10,20,30,40]'
+echo '[10,20,30,40]' | dt '=~ [ (number as n1, number as n2); 2 as n3 ]'
 # returns { n1: [ 10, 30 ],
 #   n2: [ 20, 40 ],
 #   n3: [ [ 10, 20 ], [ 30, 40 ] ] }
 
-dt -e '_ <= [ (number; 2 as n1, number; 2 as n2) ]' '[10,20,30,40]'
+echo '[10,20,30,40]' | dt '=~ [ (number; 2 as n1, number; 2 as n2) ]'
 # returns { n1: [ 10, 20 ], n2: [ 30, 40 ] }
 
-dt -e '_ <= [ (number; 2 as n1, number; 2 as n2); 2 ]' '[10,20,30,40,50,60,70,80]'
+echo '[10,20,30,40,50,60,70,80]' | dt '=~ [ (number; 2 as n1, number; 2 as n2); 2 ]'
 # returns { n1: [ [ 10, 20 ], [ 50, 60 ] ],
 #   n2: [ [ 30, 40 ], [ 70, 80 ] ] }
 
-dt -e '_ <= [ (number; 2 as n1, number; 2 as n2) as n3 ]' '[10,20,30,40]'
+echo '[10,20,30,40]' | dt '=~ [ (number; 2 as n1, number; 2 as n2) as n3 ]'
 # returns { n1: [ 10, 20 ], n2: [ 30, 40 ], n3: [ 10, 20, 30, 40 ] }
 
-dt -e '_ <= [ (number; 2 as n1, number; 2 as n2); 2 as n3 ]' '[10,20,30,40,50,60,70,80]'
+echo '[10,20,30,40,50,60,70,80]' | dt '=~ [ (number; 2 as n1, number; 2 as n2); 2 as n3 ]'
 # returns { n1: [ [ 10, 20 ], [ 50, 60 ] ],
 #   n2: [ [ 30, 40 ], [ 70, 80 ] ],
 #   n3: [ [ 10, 20, 30, 40 ], [ 50, 60, 70, 80 ] ] }
 ```
 
-# Generators
+# Expressions
 
-## Primitive Generators
+## Primitive Expressions
 
 Primitive generators ignore their input and simply return themselves:
 
 ```bash
-dt -e 'true <= _' '{}'
+echo '{}' | dt 'true <= _'
 # returns true
 
-dt -e 'false <= _' '10'
+echo '10' | dt 'false <= _'
 # returns false
 
-dt -e '6.28 <= _' '{}'
+echo '{}' | dt '6.28 <= _'
 # returns 6.28
 
-dt -e '"test" <= _' 'undefined'
+echo 'undefined' | dt '"test" <= _'
 # returns "test"
 
-dt -e 'null <= _' 'true'
+echo 'true' | dt 'null <= _'
 # returns null
 
-dt -e 'undefined <= _' '[]'
+echo '[]' | dt 'undefined <= _'
 # returns `undefined`
 
-dt -e '_ <= _' '{"a": 1, "b": true}'
+echo '{"a": 1, "b": true}' | dt '=~ _'
 # returns null
 ```
 
-## Array Generators
+## Array Expressions
 
 You can construct array structures using an array generator. Simply surround a comma-delimited list of generator expression in square brackets.
 
 ```bash
-dt -e '[] <= _' '10'
+echo 'null' | dt '[]'
 # returns []
 
-dt -e '[1, 2, 3] <= _' '10'
+echo 'null' | dt '[1, 2, 3]'
 # returns [1, 2, 3]
 ```
 
 You may notice that we are generating new arrays, but all of the content is static. A more interesting transform would use values from the pattern match. This is where captures come into play.
 
 ```bash
-dt -e '[first, third] <= [number as first, number, number as third]' '[10, 20, 30]'
+echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third] |> [first, third]'
 # returns [10, 30]
 
-dt -e '[first, third] <= { a: number as first, b: number, c: number as third }' '{"a": 10, "b": 20, "c": 30}'
+echo '{"a": 10, "b": 20, "c": 30}' | dt '=~ { a: number as first, b: number, c: number as third } |> [first, third]'
 # returns [10, 30]
 ```
 
-These are our first full transforms. As you can see, we label matched data in a pattern (capture) and then we can reference the name of that capture in our generator (`first` and `third` in these examples).
+As you can see, we label matched data in a pattern (capture) and then we can reference the name of that capture in our generator (`first` and `third` in these examples).
 
-## Object Generators
+## Object Expressions
 
 You can construct object structures using an object generator. You wrap a list of comma-delimited properties in curly braces. The properties consist of a name and a value, where the name is the property name you wish to create and the value is another generator.
 
 ```bash
-dt -e '{a: 10, b: 20} <= _' '{"a": 10}'
-# returns { a: 10, b: 20 }
-
-dt -e '{a: 10, b: 20} <= _' 'null'
+echo 'null' | dt '{"a": 10, "b": 20}'
 # returns { a: 10, b: 20 }
 ```
 
 Like our array generator examples, things get more interesting when we use patterns with captures.
 
 ```bash
-dt -e '{first: first, third: third} <= [number as first, number, number as third]' '[10, 20, 30]'
+echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third] |> {"first": first, "third": third}'
 # returns { first: 10, third: 30 }
 
-dt -e '{a: first, b: third} <= { a: number as first, b: number, c: number as third }' '{"a": 10, "b": 20, "c": 30}'
+echo '{"a": 10, "b": 20, "c": 30}' | dt '=~ { a: number as first, b: number, c: number as third } |> {"a": first, "b": third}'
 # returns { a: 10, b: 30 }
 ```
 
 If your property name and the capture you wish to use are the same, you can list the name by itself without the value.
 
 ```bash
-dt -e '{first, third} <= [number as first, number, number as third]' '[10, 20, 30]'
+echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third] |> {"first", "third"}'
 # returns { first: 10, third: 30 }
-```
-
-## User-defined Generators
-
-The data-transform language is purposely limited. There will be times when you'll be unable to generate a structure simply because the language doesn't give you constructs to manipulate and massage the data as you need. At other times, you may need to create specfic instances of classes or perform actions outside the pervue of this scripting language. User-defined generators allow you cover these cases.
-
-First, you'll need to define a module that exports functions you wish to have available in your script. We'll use the following and name it MyGen.js.
-
-```javascript
-export function MyGen(x, y) {
-    return { x, y, s: x + y, d: x - y };
-}
-```
-
-Next, we let `dt` know to load this module and now any generators that use `MyGen` will end up calling this code.
-
-```bash
-dt -r MyGen.js -e 'MyGen(x, y) <= { center: { cx: number as x, cy: number as y } }' '{"center": {"cx": 10, "cy": 20}}'
-# returns { x: 10, y: 20, s: 30, d: -10 }
 ```
 
 ## Simple Operators
@@ -518,104 +457,20 @@ There is a very limited set of operations that can be performed on data inside o
 - addition with numbers only
 - subtraction with numbers only
 - multiplication with numbers only
-- division with nuumbers only
-- a single level of property lookup
+- division with numbers only
+- grouping calculations using parentheses
+- property lookup
+- array index lookup
+    - can use negative values to access elements from the end of the array
 
 This list will be expanded over time.
 
-# Types
+# Naming Sequences
 
-Transforms, pattern matchers, and generators can be run by themselves, but this limits you to single transformations. In order define the shape of your data, you likely need to define a type. Types allow you to perform multiple transformations and collect those results into arrays and objects. They also extend the semantics of how patterns and transforms are used.
-
-## Primitive Types
-
-Sometimes it is useful to define aliases of types. For example, your data may be more meaningful referring to `true` and `false` as `yes` and `no`. Alternately, you have my specific string constants that you wish to define or even magic numbers. Primitive type definitions allow for these. The list of primitive types is the same as the list of primitive pattern matchers because they are one and the same.
-
-## Array Types
-
-An array type consists of zero or more transform elements. Each element is a transform whose results become the resulting array's value at that position within the array.
-
-## Object Types
-
-An object type consists of zero or more transform properties. Each property has a name and its value with be the result of the transform attached to that propery. The simplest object type would return an empty object.
+If you find yourself needing to re-use a sequence you can store these items in the environment and access them later by name.
 
 ```
-type Simple = {}
-```
-
-We can expand on this simple example, by adding a property.
-
-```
-type OneProperty = {
-    range: {a, b} <= [number as a, number as b]
-}
-```
-
-Notice that the property's value is a transform. The result of the transform will be stored in the `range` property.
-
-Sometimes your data can come in many forms. Object type properties allow us to provide a list of patterns. (Actually, we can use this construct anywhere transforms are valid.) Each pattern is tried in turn and the first one that is successful sets passes its captures to the generator.
-
-```
-type OneProperty = {
-    range:
-        {a, b} <=
-                [number as a, number as b]
-            |   {start: number as a, end: number as b}
-}
-```
-
-Each transform is separated by the `|` operator and you may have as many transforms as you need.
-
-Sometimes you need to perform different calculations in your generator based on the data you match.
-
-```
-type OneProperty = {
-    range:
-        {a, b} <=
-                [number as a, number as b]
-            |   {start: number as a, end: number as b};
-        {a, a + len} <=
-                [number as a, number as len]
-            |   {start: number as a, length: number as len};
-}
-```
-
-This shows that we can list transforms separated by ';'. Each transform will be tried in turn. The first one to succeed becomes the value of the property.
-
-> NOTE: Currently there is no analysis of scripts. This means that if you return different types in each of your transforms, the interpreter won't complain.
-
-## Enumerations
-
-Enumerations are a list of string values. These can be used to test that a string value is within its list.
-
-## Assignments
-
-Sometimes it makes sense to save the results of a transform to reduce the amount of processing that is occurring or even just to simplify your logic. Although assignments are not types, they can only live within array types and object types. These consist of a name and a transform. You may have zero or more assignments and they must all be defined before the content of the compound type. Array elements and object properties may refer to the return value in their generators.
-
-```
-type Radii =
-    // the generator could also be _, but I like being explicit
-    radii =
-        { rx, ry } <=
-                { radii: { x: number as rx, y: number as ry } }
-            |   { radii: [ number as rx, number as ry ] }
-            |   { rx: number as rx, ry: number as ry }
-            |   { radiusX: number as rx, radiusY: number as ry };
-
-    rx: radii.rx,
-    ry: radii.ry
-```
-
-An assignment is a name followed by '=' followed by a transform. More than one assignment can be defined and each must be separated by commas. Assignments must be defined before elements in an array type and before properties in an object type. The last assignment must be followed by a semicolon to mark the end of assignment definition. Elements and properties values may reference the name of the assignement to extract their values.
-
-# Naming Patterns, Generators, and Transforms
-
-If you find yourself needing to re-use a transform, a generator, or a pattern, you can store these items in the interpreter and access them later by name.
-
-```
-pattern Point = { x: number as x, y: number as y }
-generator Point = Point2D(x, y)
-transform Point = generator Point <= pattern Point
+def Number = =~ number as n |> n 
 ```
 
 # Operators and Built-in Functions
@@ -629,24 +484,23 @@ The repetition operator was introduced in the section on [Array Patterns](#array
 - 0 to m: ```;..m```
 - n to m: ```;n..m```
 
-## Spread operator
+## User-defined Functions
+
+The data-transform language is purposely limited. There will be times when you'll be unable to generate a structure simply because the language does not give you constructs to manipulate and massage the data as you need. At other times, you may need to create specific instances of classes or perform actions outside the functionality of this scripting language. User-defined functions allow you cover these cases.
+
+First, you'll need to define a module that exports functions you wish to have available in your script. We'll use the following and name it MyGen.js.
 
 ```javascript
-function Sum(...nums) {
-    return nums.reduce((accum, num) => {
-        return accum + num;
-    }, 0);
+export function MyGen(x, y) {
+    return { x, y, s: x + y, d: x - y };
 }
 ```
 
-```
-Sum(...values) <= [number; 0..] as values
-```
+Next, we let `dt` know to load this module and now any generators that use `MyGen` will end up calling this code.
 
-## Map
-
-```
-map(coords, Point2D(x, y) <= [number as x, number as y]) <= [(number, number); 0.. as coords]
+```bash
+echo '{"center": {"cx": 10, "cy": 20}}' | dt -r MyGen.js '=~ { center: { cx: number as x, cy: number as y } } |> MyGen(x, y)'
+# returns { x: 10, y: 20, s: 30, d: -10 }
 ```
 
 # Grammar
