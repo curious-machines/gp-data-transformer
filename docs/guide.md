@@ -2,14 +2,14 @@
 
 - [Sequences](#sequences)
     - [Data Flow](data-flow)
-    - [Identify Step](#identify-step)
+    - [Identity Step](#identity-step)
 - [Pattern Matchers](#pattern-matchers)
     - [Primitive Patterns](#primitive-patterns)
         - [Array Type Pattern](#array-type-pattern)
-        - [Boolean Patterns](#boolean-patterns)
-        - [Number Patterns](#number-patterns)
+        - [Boolean and Boolean Type Patterns](#boolean-and-boolean-type-patterns)
+        - [Number and Number Type Patterns](#number-and-number-patterns)
         - [Object Type Pattern](#object-type-pattern)
-        - [String Patterns](#string-patterns)
+        - [String and String Type Patterns](#string-and-string-type-patterns)
         - [Special Values](#special-values)
     - [Compound Patterns](#compound-patterns)
         - [Array Patterns](#array-patterns)
@@ -19,8 +19,9 @@
     - [Array Expressions](#array-expressions)
     - [Object Expressions](#object-expressions)
 - [Naming Sequences](#naming-sequences)
-- [Operators and Built-in Functions](#operators-and-built-in-functions)
+- [Operators and Functions](#operators-and-functions)
     - [Repetition Operator](#repetition-operator)
+    - [Standard Library](#standard-library)
     - [User-defined Functions](#user-defined-functions)
 - [Grammar](#grammar)
 
@@ -53,9 +54,9 @@ Data flows from the left to the right, or from step to step. Each step's data is
 - The generator receives a dictionary of captured items created by the pattern matcher. It constructs a new data structure, using a mixture of static content and captured values.
 - The structure output by the generator becomes the resulting value of the transform
 
-## Identify Step
+## Identity Step
 
-The simplest step is one that does nothing to its current structure. The special symbol '$' refers to the current structure and can be used as the return value for that step. This can be referred to as an identity step.
+The simplest sequence has a single step that does nothing to its current structure. The special symbol '$' refers to the current structure and can be used as the return value for that step. This can be referred to as an identity step.
 
 ```
 echo '{"a": 10}' | dt '$'
@@ -84,7 +85,7 @@ echo '{"a": 10}' | dt '=~ array'
 
 We can match specific array structures, which will be covered in [Compound Patterns]](#compound-patterns).
 
-### Boolean Patterns
+### Boolean and Boolean Type Patterns
 
 Like the `array` pattern, we can match any boolean value using `boolean`
 
@@ -112,7 +113,7 @@ echo '[true]' | dt '=~ true'
 # fails
 ```
 
-### Number Patterns
+### Number and Number Patterns
 
 We can match any number with `number` or specific numbers by using the number itself as the pattern.
 
@@ -148,7 +149,7 @@ echo '10' | dt '=~ object'
 # fails
 ```
 
-### String Patterns
+### String and String Type Patterns
 
 We can match any string with `string` or a specific string by using the string itself.
 
@@ -378,26 +379,23 @@ echo '[10,20,30,40,50,60,70,80]' | dt '=~ [ (number; 2 as n1, number; 2 as n2); 
 Primitive generators ignore their input and simply return themselves:
 
 ```bash
-echo '{}' | dt 'true <= _'
+echo '{}' | dt 'true'
 # returns true
 
-echo '10' | dt 'false <= _'
+echo '10' | dt 'false'
 # returns false
 
-echo '{}' | dt '6.28 <= _'
+echo '{}' | dt '6.28'
 # returns 6.28
 
-echo 'undefined' | dt '"test" <= _'
+echo 'undefined' | dt '"test"'
 # returns "test"
 
-echo 'true' | dt 'null <= _'
+echo 'true' | dt 'null'
 # returns null
 
-echo '[]' | dt 'undefined <= _'
+echo '[]' | dt 'undefined'
 # returns `undefined`
-
-echo '{"a": 1, "b": true}' | dt '=~ _'
-# returns null
 ```
 
 ## Array Expressions
@@ -436,10 +434,12 @@ echo 'null' | dt '{"a": 10, "b": 20}'
 Like our array generator examples, things get more interesting when we use patterns with captures.
 
 ```bash
-echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third] |> {"first": first, "third": third}'
+echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third]
+    |> {"first": first, "third": third}'
 # returns { first: 10, third: 30 }
 
-echo '{"a": 10, "b": 20, "c": 30}' | dt '=~ { a: number as first, b: number, c: number as third } |> {"a": first, "b": third}'
+echo '{"a": 10, "b": 20, "c": 30}' | dt '=~ { a: number as first, b: number, c: number as third }
+    |> {"a": first, "b": third}'
 # returns { a: 10, b: 30 }
 ```
 
@@ -460,6 +460,7 @@ There is a very limited set of operations that can be performed on data inside o
 - division with numbers only
 - grouping calculations using parentheses
 - property lookup
+    - property "names" can be numbers too which acts like array indexing
 - array index lookup
     - can use negative values to access elements from the end of the array
 
@@ -473,7 +474,13 @@ If you find yourself needing to re-use a sequence you can store these items in t
 def Number = =~ number as n |> n 
 ```
 
-# Operators and Built-in Functions
+This sequence can be used in any location where a sequence is valid simply by using its name
+
+```
+dt '10 |> Number'
+```
+
+# Operators and Functions
 
 ## Repetition Operator
 
@@ -483,6 +490,10 @@ The repetition operator was introduced in the section on [Array Patterns](#array
 - n or more: ```;n..```
 - 0 to m: ```;..m```
 - n to m: ```;n..m```
+
+## Standard Library
+
+Each transform is pre-populated with a list of functions from the standard library. To learn more about these functions, see the [Standard Library](#standard-library.md) document.
 
 ## User-defined Functions
 
