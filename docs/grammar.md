@@ -39,10 +39,26 @@ step
   ;
 
 expression
-  : mathExpression
+  : booleanExpression
   | MAP ( expression , sequence )
   | PATTERNS { patterns }
   | SEQUENCES { sequences }
+  ;
+
+booleanExpression
+  : relationalExpression
+  | relationalExpression AND relationalExpression
+  | relationalExpression OR relationalExpression
+  ;
+
+relationalExpression
+  : mathExpression
+  | relationalExpression < mathExpression
+  | relationalExpression <= mathExpression
+  | relationalExpression == mathExpression
+  | relationalExpression != mathExpression
+  | relationalExpression >= mathExpression
+  | relationalExpression > mathExpression
   ;
 
 mathExpression
@@ -51,17 +67,24 @@ mathExpression
   | mathExpression - callExpression
   | mathExpression * callExpression
   | mathExpression / callExpression
+  | mathExpression MOD callExpression
+  | mathExpression POW callExpression
   ;
 
 callExpression
   : IDENTIFIER ( )
   | IDENTIFIER ( argumentList )
-  | memberExpression
+  | unaryExpression
+  ;
+
+unaryExpression
+  : memberExpression
+  | NOT unaryExpression
   ;
 
 memberExpression
   : primaryExpression
-  | memberExpression . IDENTIFIER
+  | memberExpression . name
   | memberExpression . integer
   | memberExpression [ integer ]
   ;
@@ -216,14 +239,31 @@ float
   : NUMBER
   ;
 
-stringOrIdentifier
+name
   : IDENTIFIER
-  | STRING
-  ;
-
-identifiers
-  : identifiers , stringOrIdentifier
-  | stringOrIdentifier
+  | string
+  | AND
+  | ANY_TYPE
+  | ARRAY_TYPE
+  | AS
+  | BOOLEAN_TYPE
+  | DEF
+  | ENUMERATION
+  | FALSE
+  | LET
+  | MAP
+  | MOD
+  | NOT
+  | OR
+  | NULL_TYPE
+  | NUMBER_TYPE
+  | OBJECT_TYPE
+  | PATTERNS
+  | POW
+  | SEQUENCES
+  | STRING_TYPE
+  | TRUE
+  | UNDEFINED_TYPE
   ;
 
 ```
