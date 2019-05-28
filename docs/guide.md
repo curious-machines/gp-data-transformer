@@ -454,28 +454,68 @@ echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third] |> {"fir
 
 There is a limited set of operations that can be performed on data inside of an expression:
 
-- addition with numbers only
-- subtraction with numbers only
-- multiplication with numbers only
-- division with numbers only
-- less than with numbers only
-- less than equal with numbers only
-- equal with numbers only
-    - will expand to other types
-- not equal with numbers only
-    - will expand to other types
-- greater than equal with numbers only
-- greater than with numbers only
-- boolean and with booleans only
-- boolean or with booleans only
-- boolean not with booleans only
-- grouping calculations using parentheses
+### Numbers
+
+The following operators take numbers and return a number
+
+- addition
+    - `1 + 2`
+- subtraction
+    - `3 - 2`
+- multiplication
+    - `4 * 5`
+- division
+    - `6 / 2`
+- modulus
+    - `7 mod 2`
+- power
+    - `2 pow 6`
+
+The following operators take numbers and return a boolean
+
+- less than
+    - `5 < 6`
+- less than equal
+    - `5 <= 6`
+- equal
+    - `7 == 8`
+- not equal
+    - `7 != 8`
+- greater than equal
+    - `7 >= 8`
+- greater than
+    - `9 > 8`
+
+### Booleans
+
+The following operators take booleans and return a boolean
+
+- and
+    - `5 < 3 and 3 < 2`
+- or
+    - `5 > 3 or 3 > 2`
+- not
+    - not(5 < 3)
+
+### Arrays
+
+- index lookup
+    - can use negative values to access elements from the end of the array
+    - `a[1]`
+    - `a[-1]`
+
+### Objects
+
 - property lookup
     - property "names" can be numbers too which acts like array indexing
-- array index lookup
-    - can use negative values to access elements from the end of the array
+    - `a.b`
+    - `a.5`
 
-This list will be expanded over time.
+### General
+
+Expressions may be grouped to change evaluation order
+
+- (2 + 3) * 5
 
 # Naming Sequences
 
