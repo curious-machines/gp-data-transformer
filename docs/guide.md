@@ -505,7 +505,7 @@ The following operators take booleans and return a boolean
 - or
     - `5 > 3 or 3 > 2`
 - not
-    - not(5 < 3)
+    - `not(5 < 3)`
 
 ### Arrays
 
@@ -525,7 +525,7 @@ The following operators take booleans and return a boolean
 
 Expressions may be grouped to change evaluation order
 
-- (2 + 3) * 5
+- `(2 + 3) * 5`
 
 # Naming Sequences
 
