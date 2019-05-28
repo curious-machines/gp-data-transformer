@@ -458,6 +458,17 @@ There is a limited set of operations that can be performed on data inside of an 
 - subtraction with numbers only
 - multiplication with numbers only
 - division with numbers only
+- less than with numbers only
+- less than equal with numbers only
+- equal with numbers only
+    - will expand to other types
+- not equal with numbers only
+    - will expand to other types
+- greater than equal with numbers only
+- greater than with numbers only
+- boolean and with booleans only
+- boolean or with booleans only
+- boolean not with booleans only
 - grouping calculations using parentheses
 - property lookup
     - property "names" can be numbers too which acts like array indexing
