@@ -104,7 +104,7 @@ For this example, we'll assume we have a JSON file named `property-types.json` w
   "processed": true,
   "results": [1, 2, 3, 4, 5],
   "count": 5
-  "nested" : {
+  "nested": {
     "a": 10
   },
   "more": null
