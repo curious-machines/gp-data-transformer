@@ -1,11 +1,11 @@
-This language was inspired and most likely influenced by [jq](https://stedolan.github.io/jq/). Out of curiosity, I was wondering if I could recreate the [jq Tutorial](https://stedolan.github.io/jq/tutorial/) in `dt`. Below is a `dt` version of that tutorial.
+This language was inspired by and most likely influenced by [jq](https://stedolan.github.io/jq/). Out of curiosity, I was wondering if I could recreate the [jq Tutorial](https://stedolan.github.io/jq/tutorial/) in `dt`. Below is a `dt` version of that tutorial.
 
 # Get Some Data
 
 The `jq` tutorial redirects `curl` output to `jq`. `dt` works the same, but I'm going to redirect the `curl` output to a temporary file and use that file instead.
 
 ```bash
-curl 'https://api.github.com/repos/stedolan/jq/commits?per_page=5' > temp.json
+curl 'https://api.github.com/repos/gentleman-programmer/gp-data-transformer/commits?per_page=5' > temp.json
 ```
 
 # Show Data
