@@ -3574,6 +3574,11 @@
               case "sequence":
                 {
                   result = this.executeExpression(statement, structure, this.symbolTable);
+
+                  if (result === FAILURE_VALUE) {
+                    return FAILURE_VALUE;
+                  }
+
                   break;
                 }
 
@@ -3637,6 +3642,13 @@
 
               if (value === FAILURE_VALUE) {
                 this.addError("Unable to evaluate assignment value for ".concat(expression.name));
+                return FAILURE_VALUE;
+              }
+              /* eslint-disable-next-line no-prototype-builtins */
+
+
+              if (symbolTable.hasOwnProperty(expression.name)) {
+                this.addError("A symbol in current scope was assigned more than once: ".concat(expression.name));
                 return FAILURE_VALUE;
               }
 
