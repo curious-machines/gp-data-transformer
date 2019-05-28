@@ -545,7 +545,7 @@ dt '10 |> Number'
 
 ## Standard Library
 
-Each transform is pre-populated with a list of functions from the standard library. To learn more about these functions, see the [Standard Library](#standard-library.md) document.
+Each transform is pre-populated with a list of functions from the standard library. To learn more about these functions, see the [Standard Library](standard-library.md) document.
 
 ## User-defined Functions
 
