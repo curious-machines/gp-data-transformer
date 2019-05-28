@@ -23,6 +23,7 @@
     "transform": "./bin/transform"
   },
   "scripts": {
+    "dt": "node -r esm bin/transform $@",
     "eslint": "eslint .",
     "rollup": "npm run build-parser && rollup -c",
     "build-grammar": "node -r esm bin/make_grammar_docs.js",
