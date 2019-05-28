@@ -15,12 +15,13 @@
         - [Array Patterns](#array-patterns)
         - [Object Patterns](#object-patterns)
     - [Captures](#captures)
+    - [Repetition Operator](#repetition-operator)
 - [Expressions](#expressions)
     - [Array Expressions](#array-expressions)
     - [Object Expressions](#object-expressions)
+    - [Operators](#operators)
 - [Naming Sequences](#naming-sequences)
 - [Operators and Functions](#operators-and-functions)
-    - [Repetition Operator](#repetition-operator)
     - [Standard Library](#standard-library)
     - [User-defined Functions](#user-defined-functions)
 - [Grammar](#grammar)
@@ -372,6 +373,15 @@ echo '[10,20,30,40,50,60,70,80]' | dt '=~ [ (number; 2 as n1, number; 2 as n2); 
 #   n3: [ [ 10, 20, 30, 40 ], [ 50, 60, 70, 80 ] ] }
 ```
 
+### Repetition Operator
+
+The repetition operator was introduced in the section on [Array Patterns](#array-patterns). We showed only one version of that operator. It turns out there are more options available. Below is a list of all syntactical versions of the reptition operator.
+
+- Exactly n: ```;n```
+- n or more: ```;n..```
+- 0 to m: ```;..m```
+- n to m: ```;n..m```
+
 # Expressions
 
 ## Primitive Expressions
@@ -450,7 +460,7 @@ echo '[10, 20, 30]' | dt '=~ [number as first, number, number as third] |> {"fir
 # returns { first: 10, third: 30 }
 ```
 
-## Simple Operators
+## Operators
 
 There is a limited set of operations that can be performed on data inside of an expression:
 
@@ -531,16 +541,7 @@ This sequence can be used in any location where a sequence is valid simply by us
 dt '10 |> Number'
 ```
 
-# Operators and Functions
-
-## Repetition Operator
-
-The repetition operator was introduced in the section on [Array Patterns](#array-patterns). We showed only one version of that operator. It turns out there are more options available. Below is a list of all syntactical versions of the reptition operator.
-
-- Exactly n: ```;n```
-- n or more: ```;n..```
-- 0 to m: ```;..m```
-- n to m: ```;n..m```
+# Functions
 
 ## Standard Library
 
