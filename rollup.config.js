@@ -1,6 +1,7 @@
 import resolve from "rollup-plugin-node-resolve";
 import babel from "rollup-plugin-babel";
 import {terser} from "rollup-plugin-terser";
+import commonJS from "rollup-plugin-commonjs";
 
 /**
  * @external RollupConfig
@@ -30,7 +31,8 @@ function getRollupObject({minifying, format = "umd"} = {}) {
                     ["@babel/env", {modules: false}]
                 ]
             }),
-            resolve()
+            resolve(),
+            commonJS()
         ]
     };
     if (minifying) {
