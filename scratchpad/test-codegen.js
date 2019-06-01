@@ -26,7 +26,7 @@ for (const node of dtAst) {
 // console.log(generator.source);
 
 const jsAst = acorn.parse(generator.source);
-// console.log(prettify(jsAst));
+console.log(prettify(jsAst));
 
 console.log("---");
 console.log(generate(jsAst));
