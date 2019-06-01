@@ -12,27 +12,40 @@ function prettify(obj) {
 	return util.inspect(obj, options);
 }
 
-// const dtSource = "=~ boolean";
-const dtSource = "let a = 10; =~ boolean";
-console.log(dtSource);
+const tests = [
+	"let a = 10; =~ any",
+	"let a = 10; =~ boolean",
+	"let a = 10; =~ true",
+	"let a = 10; =~ false",
+	"let a = 10; =~ number",
+	"let a = 10; =~ 10.5",
+	"let a = 10; =~ string",
+	"let a = 10; =~ \"hello\""
+];
 
-const dtAst = Parser.parse(dtSource);
-console.log("---");
-console.log(prettify(dtAst));
+tests.forEach(source => {
+	console.log("===");
+	console.log(source);
 
-generator.generate({ type: 'program', statements: dtAst });
+	const dtAst = Parser.parse(source);
+	// console.log("---");
+	// console.log(prettify(dtAst));
 
-const dtJsAst = {type: "Program", body: generator.body};
-console.log("---");
-console.log(prettify(dtJsAst));
+	generator.reset();
+	generator.generate({ type: 'program', statements: dtAst });
 
-const dtJs = generate(dtJsAst);
-console.log("---");
-console.log(dtJs);
+	const dtJsAst = {type: "Program", body: generator.body};
+	// console.log("---");
+	// console.log(prettify(dtJsAst));
 
-const jsAst = acorn.parse("let a = 10; function main($) { return FAILURE_VALUE }");
-console.log("---");
-console.log(prettify(jsAst));
+	const dtJs = generate(dtJsAst);
+	console.log("---");
+	console.log(dtJs);
 
-console.log("---");
-console.log(generate(jsAst));
+	// const jsAst = acorn.parse("let a = 10; function main($) { return FAILURE_VALUE }");
+	// console.log("---");
+	// console.log(prettify(jsAst));
+	//
+	// console.log("---");
+	// console.log(generate(jsAst));
+});
