@@ -13,14 +13,17 @@ function prettify(obj) {
 }
 
 const tests = [
-	"let a = 10; =~ any",
-	"let a = 10; =~ boolean",
-	"let a = 10; =~ true",
-	"let a = 10; =~ false",
-	"let a = 10; =~ number",
-	"let a = 10; =~ 10.5",
-	"let a = 10; =~ string",
-	"let a = 10; =~ \"hello\""
+	"let a = 10",
+	"=~ any",
+	"=~ array",
+	"=~ boolean",
+	"=~ true",
+	"=~ false",
+	"=~ number",
+	"=~ object",
+	"=~ 10.5",
+	"=~ string",
+	"=~ \"hello\""
 ];
 
 tests.forEach(source => {
