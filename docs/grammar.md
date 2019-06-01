@@ -213,13 +213,13 @@ patternProperties
   ;
 
 namedPatternProperty
-  : namedProperty
-  | namedProperty AS IDENTIFIER
+  : patternProperty
+  | patternProperty AS IDENTIFIER
   ;
 
-namedProperty
-  : IDENTIFIER : pattern
-  | IDENTIFIER
+patternProperty
+  : name : pattern
+  | name
   ;
 
 boolean
