@@ -721,7 +721,7 @@ var parser = function () {
 
         case 47:
           this.$ = {
-            type: 'boolean',
+            type: 'null',
             value: null
           };
           break;
@@ -4639,8 +4639,265 @@ function () {
   return Transformer;
 }();
 
+// import e from "estree-builder";
+var e = require("estree-builder");
+
+var $ = e.identifier("$");
+var FAILURE_VALUE$1 = e.identifier("FAILURE_VALUE");
+var emptyObject = e.object({});
+/**
+ * Create a function that returns an empty object if a test is true
+ *
+ * @param {Object} testNode
+ * @returns {Object}
+ */
+
+function testFunction(testNode) {
+  var returnNode = e["return"](e.ternary(testNode, FAILURE_VALUE$1, emptyObject));
+  return e["function"](["$"], [returnNode], "main");
+}
+/**
+ * Create a function that tests equality of two items
+ *
+ * @param {Object} left
+ * @param {Object} right
+ * @returns {Object}
+ */
+
+
+function testInequalityFunction(left, right) {
+  return testFunction(e("!==", left, right));
+}
+/**
+ * Create a function that tests its input value's type
+ *
+ * @param {string} typeName
+ * @returns {Object}
+ */
+
+
+function testType(typeName) {
+  return testInequalityFunction(e["typeof"]($), e.string(typeName));
+}
+/**
+ * Create a function that tests that its input is a specific value
+ *
+ * @param {Object} valueNode
+ * @returns {*}
+ */
+
+
+function testValue(valueNode) {
+  return testInequalityFunction($, valueNode);
+}
+/**
+ * CodeGenerator class
+ */
+
+
+var CodeGenerator =
+/*#__PURE__*/
+function () {
+  function CodeGenerator() {
+    _classCallCheck(this, CodeGenerator);
+
+    this.body = [];
+  }
+
+  _createClass(CodeGenerator, [{
+    key: "append",
+    value: function append(node) {
+      this.body.push(node);
+    }
+  }, {
+    key: "generateProgram",
+    value: function generateProgram(program) {
+      if (program.type !== "program") {
+        throw new TypeError("Top-level node must be a program: ".concat(program.type));
+      }
+
+      this.body = [];
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = program.statements[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var statement = _step.value;
+          this.generate(statement);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      return {
+        type: "Program",
+        body: this.body
+      };
+    }
+  }, {
+    key: "generate",
+    value: function generate(node) {
+      switch (node.type) {
+        case "assignment":
+          this.generateAssignment(node);
+          break;
+
+        case "sequence":
+          this.generateSequence(node);
+          break;
+
+        case "pattern":
+          this.generatePattern(node);
+          break;
+
+        default:
+          throw new TypeError("unknown node type: ".concat(node.type));
+      }
+    }
+  }, {
+    key: "generateAssignment",
+    value: function generateAssignment(assign) {
+      var sequence = assign.value;
+
+      if (sequence.type === "sequence") {
+        if (sequence.steps.length === 1) {
+          var step = sequence.steps[0];
+
+          switch (step.type) {
+            case "boolean":
+              this.append(e["let"](assign.name, step.value ? e["true"]() : e["false"]()));
+              break;
+
+            case "null":
+              this.append(e["let"](assign.name, e["null"]()));
+              break;
+
+            case "number":
+              this.append(e["let"](assign.name, e.number(step.value)));
+              break;
+
+            case "string":
+              this.append(e["let"](assign.name, e.string(step.value)));
+              break;
+
+            case "undefined":
+              this.append(e["let"](assign.name, e.undefined()));
+              break;
+
+            default:
+              throw new TypeError("unsupported assignment value type: ".concat(step.type));
+          }
+        }
+      } else {
+        throw new TypeError("Expected sequence as assignment value: ".concat(sequence.type));
+      }
+    }
+  }, {
+    key: "generateSequence",
+    value: function generateSequence(seq) {
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = seq.steps[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var step = _step2.value;
+          this.generate(step);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+    }
+  }, {
+    key: "generatePattern",
+    value: function generatePattern(pat) {
+      switch (pat.patternType) {
+        case "any":
+          {
+            var returnNode = e["return"](e.object({}));
+            this.append(e["function"](["$"], [returnNode], "main"));
+            break;
+          }
+
+        case "array":
+          this.append(testInequalityFunction(e.call(e(".", e.identifier("Array"), e.identifier("isArray")), [$]), e["true"]()));
+          break;
+
+        case "boolean":
+          if (pat.value === null) {
+            this.append(testType(pat.patternType));
+          } else if (pat.value === true) {
+            this.append(testValue(e["true"]()));
+          } else {
+            this.append(testValue(e["false"]()));
+          }
+
+          break;
+
+        case "number":
+          if (pat.value === null) {
+            this.append(testType(pat.patternType));
+          } else {
+            this.append(testValue(e.number(pat.value)));
+          }
+
+          break;
+
+        case "null":
+          this.append(testValue(e["null"]()));
+          break;
+
+        case "object":
+          this.append(testInequalityFunction(e.call(e.identifier("isObject"), [$]), e["true"]()));
+          break;
+
+        case "string":
+          if (pat.value === null) {
+            this.append(testType(pat.patternType));
+          } else {
+            this.append(testValue(e.string(pat.value)));
+          }
+
+          break;
+
+        case "undefined":
+          this.append(testValue(e.undefined()));
+          break;
+
+        default:
+          throw new TypeError("unknown pattern type: ".concat(pat.patternType));
+      }
+    }
+  }]);
+
+  return CodeGenerator;
+}();
+
 /**
  * @module gp-data-transformer
  */
 
-export { FAILURE_VALUE, parser as Parser, Transformer };
+export { CodeGenerator, FAILURE_VALUE, parser as Parser, Transformer };
