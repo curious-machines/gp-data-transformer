@@ -12,7 +12,7 @@ returns "array"
 ## length
 
 ```
-dt 'length(1, 2, 3)'
+dt 'length([1, 2, 3])'
 returns 3
 ```
 
