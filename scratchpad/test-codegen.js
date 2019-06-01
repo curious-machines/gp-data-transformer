@@ -13,17 +13,23 @@ function prettify(obj) {
 }
 
 const tests = [
-	"let a = 10",
-	"=~ any",
-	"=~ array",
-	"=~ boolean",
-	"=~ true",
-	"=~ false",
-	"=~ number",
-	"=~ object",
-	"=~ 10.5",
-	"=~ string",
-	"=~ \"hello\""
+	// "let a = true",
+	// "let a = false",
+	// "let a = 10",
+	// "let a = \"hello\"",
+	// "let a = null",
+	// "let a = undefined",
+	// "=~ any",
+	// "=~ any as a",
+	// "=~ array as a",
+	// "=~ boolean as b",
+	"=~ true as t",
+	"=~ false as f",
+	// "=~ number as n",
+	// "=~ object as o",
+	"=~ 10.5 as n",
+	// "=~ string as s",
+	"=~ \"hello\" as s"
 ];
 
 tests.forEach(source => {
@@ -31,13 +37,10 @@ tests.forEach(source => {
 	console.log(source);
 
 	const dtAst = Parser.parse(source);
-	// console.log("---");
-	// console.log(prettify(dtAst));
+	console.log("---");
+	console.log(prettify(dtAst));
 
-	generator.reset();
-	generator.generate({ type: 'program', statements: dtAst });
-
-	const dtJsAst = {type: "Program", body: generator.body};
+	const dtJsAst = generator.generateProgram({ type: 'program', statements: dtAst });
 	// console.log("---");
 	// console.log(prettify(dtJsAst));
 
