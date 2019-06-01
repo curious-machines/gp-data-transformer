@@ -3,5 +3,6 @@
  */
 
 export {default as Transformer, FAILURE_VALUE} from "./lib/Transformer.js";
+export {default as CodeGenerator} from "./lib/CodeGenerator.js";
 
 export {default as Parser} from "./lib/GeneratedParser.js";

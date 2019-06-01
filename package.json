@@ -43,6 +43,8 @@
     "data"
   ],
   "dependencies": {
+    "acorn": "^6.1.1",
+    "astring": "^1.4.0",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
