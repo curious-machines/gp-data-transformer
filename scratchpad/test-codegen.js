@@ -23,13 +23,23 @@ const tests = [
 	// "=~ any as a",
 	// "=~ array as a",
 	// "=~ boolean as b",
-	"=~ true as t",
-	"=~ false as f",
+	// "=~ true as t",
+	// "=~ false as f",
 	// "=~ number as n",
 	// "=~ object as o",
-	"=~ 10.5 as n",
+	// "=~ 10.5 as n",
 	// "=~ string as s",
-	"=~ \"hello\" as s"
+	// "=~ \"hello\" as s",
+	// "true",
+	// "false",
+	// "null",
+	// "10",
+	// "\"hello\"",
+	// "undefined",
+	// "[]",
+	// "[1, 2, 3]",
+	// "{}",
+	'{"a": 10, "b": true, "c": false, "d": null, "e": "hello", "f": undefined, "g": [], "h": {}}'
 ];
 
 tests.forEach(source => {
@@ -37,8 +47,8 @@ tests.forEach(source => {
 	console.log(source);
 
 	const dtAst = Parser.parse(source);
-	console.log("---");
-	console.log(prettify(dtAst));
+	// console.log("---");
+	// console.log(prettify(dtAst));
 
 	const dtJsAst = generator.generateProgram({ type: 'program', statements: dtAst });
 	// console.log("---");
