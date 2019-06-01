@@ -20,12 +20,18 @@ const dtAst = Parser.parse(dtSource);
 console.log("---");
 console.log(prettify(dtAst));
 
-for (const node of dtAst) {
-	generator.generate(node);
-}
-// console.log(generator.source);
+generator.generate({ type: 'program', statements: dtAst });
 
-const jsAst = acorn.parse(generator.source);
+const dtJsAst = {type: "Program", body: generator.body};
+console.log("---");
+console.log(prettify(dtJsAst));
+
+const dtJs = generate(dtJsAst);
+console.log("---");
+console.log(dtJs);
+
+const jsAst = acorn.parse("let a = 10; function main($) { return FAILURE_VALUE }");
+console.log("---");
 console.log(prettify(jsAst));
 
 console.log("---");
