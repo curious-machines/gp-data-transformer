@@ -56,12 +56,13 @@ const tests = [
 	// "9 mod 2",
 	// "2 pow 8",
 	// "(2 + 3) * 5",
-	"3 < 5",
-	"3 <= 5",
-	"3 == 5",
-	"3 != 5",
-	"3 >= 5",
-	"3 > 5",
+	// "3 < 5",
+	// "3 <= 5",
+	// "3 == 5",
+	// "3 != 5",
+	// "3 >= 5",
+	// "3 > 5",
+	'{"a": $.a } |> $.a'
 ];
 
 tests.forEach(source => {
@@ -69,8 +70,8 @@ tests.forEach(source => {
 	console.log(source);
 
 	const dtAst = Parser.parse(source);
-	// console.log("---");
-	// console.log(prettify(dtAst));
+	console.log("---");
+	console.log(prettify(dtAst));
 
 	const dtJsAst = generator.generateProgram({ type: 'program', statements: dtAst });
 	// console.log("---");
