@@ -3,6 +3,7 @@ import Generator from "../lib/CodeGenerator.js";
 import Parser from "../lib/Parser.js";
 const acorn = require("acorn");
 import { generate } from "astring";
+// import { generate } from "escodegen";
 
 const generator = new Generator();
 
@@ -11,6 +12,14 @@ function prettify(obj) {
 
 	return util.inspect(obj, options);
 }
+
+const runner = `const args = process.argv.slice(2);
+const source = args[0];
+const data = JSON.parse(source);
+const result = main(data);
+
+console.log(result);
+`;
 
 const tests = [
 	// "let a = true",
@@ -66,20 +75,21 @@ const tests = [
 ];
 
 tests.forEach(source => {
-	console.log("===");
-	console.log(source);
+	// console.log("===");
+	// console.log(source);
 
 	const dtAst = Parser.parse(source);
-	console.log("---");
-	console.log(prettify(dtAst));
+	// console.log("---");
+	// console.log(prettify(dtAst));
 
 	const dtJsAst = generator.generateProgram({ type: 'program', statements: dtAst });
 	// console.log("---");
-	// console.log(prettify(dtJsAst));
+	console.log(prettify(dtJsAst));
 
-	const dtJs = generate(dtJsAst);
-	console.log("---");
+	const dtJs = generate(dtJsAst, {indent: "    "});
+	// console.log("---");
 	console.log(dtJs);
+	console.log(runner);
 
 	// const jsAst = acorn.parse("let a = 10; function main($) { return FAILURE_VALUE }");
 	// console.log("---");

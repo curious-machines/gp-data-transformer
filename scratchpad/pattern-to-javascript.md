@@ -123,3 +123,25 @@ function a($) {
 
 	return false;
 }
+
+---
+
+```
+10 |> 2
+```
+
+```
+function main($) {
+    function a1($) {
+        return 10;
+    }
+    function a2($) {
+        return 2;
+    }
+    
+    $ = a1($);
+    $ = a2($);
+    
+    return $;
+}
+```
