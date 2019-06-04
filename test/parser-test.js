@@ -23,64 +23,64 @@ describe("Parser", () => {
     describe("Patterns", () => {
         describe("Primitive Patterns", () => {
             const tests = [
-                '=~ boolean',
-                '=~ true',
-                '=~ false',
-                '=~ number',
-                '=~ 10',
-                '=~ string',
-                '=~ "hello"',
-                '=~ {}',
-                '=~ []',
-                '=~ null',
-                '=~ undefined'
+                '~boolean',
+                '~true',
+                '~false',
+                '~number',
+                '~10',
+                '~string',
+                '~"hello"',
+                '~{}',
+                '~[]',
+                '~null',
+                '~undefined'
             ];
 
             assertTests(tests);
         });
         describe("Array Patterns", () => {
             const tests = [
-                '=~ [ ]',
-                '=~ [ boolean ]',
-                '=~ [ true ]',
-                '=~ [ false ]',
-                '=~ [ number ]',
-                '=~ [ 10 ]',
-                '=~ [ string ]',
-                '=~ [ "test" ]',
-                '=~ [ null ]',
-                '=~ [ undefined ]',
-                '=~ [ {} ]',
-                '=~ [ [] ]',
-                '=~ [ number, string ]',
-                '=~ [ number;5..10 ]',
-                '=~ [ number;5.. ]',
-                '=~ [ number;..10 ]',
-                '=~ [ number;5 ]',
-                '=~ [ (number, string) ]',
-                '=~ [ (number, string);5 ]',
-                '=~ [ (number;5, string;3) ]',
-                '=~ [ (number;5, string;3);10 ]',
-                '=~ [ number as x ]',
-                '=~ [ number as x, number as y ]',
-                '=~ [ number;5 as x ]',
-                '=~ [ (number;5 as x, string;3 as y);10 as pairs ]'
+                '~[ ]',
+                '~[ boolean ]',
+                '~[ true ]',
+                '~[ false ]',
+                '~[ number ]',
+                '~[ 10 ]',
+                '~[ string ]',
+                '~[ "test" ]',
+                '~[ null ]',
+                '~[ undefined ]',
+                '~[ {} ]',
+                '~[ [] ]',
+                '~[ number, string ]',
+                '~[ number;5..10 ]',
+                '~[ number;5.. ]',
+                '~[ number;..10 ]',
+                '~[ number;5 ]',
+                '~[ (number, string) ]',
+                '~[ (number, string);5 ]',
+                '~[ (number;5, string;3) ]',
+                '~[ (number;5, string;3);10 ]',
+                '~[ number as x ]',
+                '~[ number as x, number as y ]',
+                '~[ number;5 as x ]',
+                '~[ (number;5 as x, string;3 as y);10 as pairs ]'
             ];
 
             assertTests(tests);
         });
         describe("Object Patterns", () => {
             const tests = [
-                '=~ { cx: boolean }',
-                '=~ { cx: true }',
-                '=~ { cx: false }',
-                '=~ { cx: number }',
-                '=~ { cx: 10 }',
-                '=~ { cx: string }',
-                '=~ { cx: "hello" }',
-                '=~ { cx: [ number ] }',
-                '=~ { cx: { x: number } }',
-                '=~ { cx: Point }'
+                '~{ cx: boolean }',
+                '~{ cx: true }',
+                '~{ cx: false }',
+                '~{ cx: number }',
+                '~{ cx: 10 }',
+                '~{ cx: string }',
+                '~{ cx: "hello" }',
+                '~{ cx: [ number ] }',
+                '~{ cx: { x: number } }',
+                '~{ cx: Point }'
             ];
 
             assertTests(tests);

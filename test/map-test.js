@@ -46,7 +46,7 @@ describe("Map", () => {
         assert.deepStrictEqual(result, expected);
     });
     it("Custom Generator 2", () => {
-        const script = "=~ [(number; 2); 0.. as d] |> map(d, Point2D($[0], $[1]))";
+        const script = "~[(number; 2); 0.. as d] |> map(d, Point2D($[0], $[1]))";
         const data = [1, 2, 2, 4, 3, 6];
         const expected = [Point2D(1, 2), Point2D(2, 4), Point2D(3, 6)];
         const result = evaluate(script, data);
@@ -54,7 +54,7 @@ describe("Map", () => {
         assert.deepStrictEqual(result, expected);
     });
     it("Scope test", () => {
-        const script = "=~ [number; 0.. as d] |> map(d, $ * $)";
+        const script = "~[number; 0.. as d] |> map(d, $ * $)";
         const data = [1, 2, 3, 4];
         const expected = [1, 4, 9, 16];
         const result = evaluate(script, data);

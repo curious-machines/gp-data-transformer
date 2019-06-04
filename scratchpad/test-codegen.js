@@ -82,9 +82,9 @@ tests.forEach(source => {
 	// console.log("---");
 	// console.log(prettify(dtAst));
 
-	const dtJsAst = generator.generateProgram({ type: 'program', statements: dtAst });
+	const dtJsAst = generator.generateProgram(dtAst);
 	// console.log("---");
-	console.log(prettify(dtJsAst));
+	// console.log(prettify(dtJsAst));
 
 	const dtJs = generate(dtJsAst, {indent: "    "});
 	// console.log("---");
