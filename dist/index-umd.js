@@ -2,7 +2,7 @@
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
   (global = global || self, factory(global.GpDataTransformer = {}));
-}(this, function (exports) { 'use strict';
+}(this, (function (exports) { 'use strict';
 
   function _typeof(obj) {
     if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
@@ -65,6 +65,10 @@
   }
 
   function _iterableToArrayLimit(arr, i) {
+    if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
+      return;
+    }
+
     var _arr = [];
     var _n = true;
     var _d = false;
@@ -448,14 +452,12 @@
               type: 'program',
               statements: $$[$0]
             };
-            break;
 
           case 2:
             return {
               type: 'program',
               statements: $$[$0 - 1]
             };
-            break;
 
           case 3:
           case 9:
@@ -2566,7 +2568,7 @@
           this.parseError = Object.getPrototypeOf(this).parseError;
         }
 
-        _token_stack: var lex = function lex() {
+         var lex = function lex() {
           var token;
           token = lexer.lex() || EOF;
 
@@ -3029,215 +3031,162 @@
 
             case 2:
               return 31;
-              break;
 
             case 3:
               return 74;
-              break;
 
             case 4:
               return 75;
-              break;
 
             case 5:
               return 73;
-              break;
 
             case 6:
               return 76;
-              break;
 
             case 7:
               return 12;
-              break;
 
             case 8:
               return 85;
-              break;
 
             case 9:
               return 78;
-              break;
 
             case 10:
               return 9;
-              break;
 
             case 11:
               return 22;
-              break;
 
             case 12:
               return 45;
-              break;
 
             case 13:
               return 50;
-              break;
 
             case 14:
               return 32;
-              break;
 
             case 15:
               return 58;
-              break;
 
             case 16:
               return 79;
-              break;
 
             case 17:
               return 80;
-              break;
 
             case 18:
               return 25;
-              break;
 
             case 19:
               return 46;
-              break;
 
             case 20:
               return 29;
-              break;
 
             case 21:
               return 81;
-              break;
 
             case 22:
               return 77;
-              break;
 
             case 23:
               return 61;
-              break;
 
             case 24:
               return 96;
-              break;
 
             case 25:
               return 95;
-              break;
 
             case 26:
               return 23;
-              break;
 
             case 27:
               return 24;
-              break;
 
             case 28:
               return 26;
-              break;
 
             case 29:
               return 28;
-              break;
 
             case 30:
               return 55;
-              break;
 
             case 31:
               return 56;
-              break;
 
             case 32:
               return 16;
-              break;
 
             case 33:
               return '|';
-              break;
 
             case 34:
               return 14;
-              break;
 
             case 35:
               return 69;
-              break;
 
             case 36:
               return 5;
-              break;
 
             case 37:
               return 35;
-              break;
 
             case 38:
               return 38;
-              break;
 
             case 39:
               return 18;
-              break;
 
             case 40:
               return 36;
-              break;
 
             case 41:
               return 37;
-              break;
 
             case 42:
               return 34;
-              break;
 
             case 43:
               return 39;
-              break;
 
             case 44:
               return 11;
-              break;
 
             case 45:
               return 71;
-              break;
 
             case 46:
               return 90;
-              break;
 
             case 47:
               return 52;
-              break;
 
             case 48:
               return '_';
-              break;
 
             case 49:
               return 41;
-              break;
 
             case 50:
               return 42;
-              break;
 
             case 51:
               return 43;
-              break;
 
             case 52:
               return 44;
-              break;
 
             case 53:
               return 62;
-              break;
 
             case 54:
               return 10;
-              break;
           }
         },
         rules: [/^(?:\s+)/, /^(?:\/\/.*)/, /^(?:and\b)/, /^(?:any\b)/, /^(?:array\b)/, /^(?:as\b)/, /^(?:boolean\b)/, /^(?:def\b)/, /^(?:enum\b)/, /^(?:false\b)/, /^(?:let\b)/, /^(?:map\b)/, /^(?:mod\b)/, /^(?:not\b)/, /^(?:or\b)/, /^(?:null\b)/, /^(?:number\b)/, /^(?:object\b)/, /^(?:patterns\b)/, /^(?:pow\b)/, /^(?:sequences\b)/, /^(?:string\b)/, /^(?:true\b)/, /^(?:undefined\b)/, /^(?:[-+]?(0|[1-9]\d*)(\.\d+)?)/, /^(?:"[^"\r\n]*")/, /^(?:\()/, /^(?:\))/, /^(?:{)/, /^(?:})/, /^(?:\[)/, /^(?:\])/, /^(?:\|>)/, /^(?:\|)/, /^(?:,)/, /^(?::)/, /^(?:;)/, /^(?:<=)/, /^(?:>=)/, /^(?:~)/, /^(?:==)/, /^(?:!=)/, /^(?:<)/, /^(?:>)/, /^(?:=)/, /^(?:\.{3})/, /^(?:\.{2})/, /^(?:\.)/, /^(?:_)/, /^(?:\+)/, /^(?:-)/, /^(?:\*)/, /^(?:\/)/, /^(?:\$)/, /^(?:[a-zA-Z_][a-zA-Z0-9_]*)/],
@@ -3538,6 +3487,7 @@
   }
 
   var StdLib = /*#__PURE__*/Object.freeze({
+    __proto__: null,
     typeName: typeName,
     length: length,
     zip: zip,
@@ -4857,7 +4807,6 @@
         try {
           for (var _iterator2 = seq.steps[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
             var step = _step2.value;
-            console.log(step);
 
             if (step.type === "pattern") {
               this.generatePattern(step);
@@ -5069,10 +5018,6 @@
     return CodeGenerator;
   }();
 
-  /**
-   * @module gp-data-transformer
-   */
-
   exports.CodeGenerator = CodeGenerator;
   exports.FAILURE_VALUE = FAILURE_VALUE;
   exports.Parser = parser;
@@ -5080,4 +5025,4 @@
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-}));
+})));
